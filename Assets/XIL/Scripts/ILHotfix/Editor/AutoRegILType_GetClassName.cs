@@ -1,5 +1,4 @@
-﻿#if !USE_HOT
-namespace xys
+﻿namespace wxb
 {
     using System.Reflection;
     using System.Collections.Generic;
@@ -307,4 +306,3 @@ namespace AutoIL
         }
     }
 }
-#endif

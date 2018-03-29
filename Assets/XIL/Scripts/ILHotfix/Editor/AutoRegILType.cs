@@ -1,5 +1,4 @@
-﻿#if !USE_HOT
-namespace xys
+﻿namespace wxb
 {
     using System.Reflection;
     using System.Collections.Generic;
@@ -120,6 +119,8 @@ namespace xys
                 fullName.StartsWith("ParamList.") ||
                 fullName.StartsWith("ParamList+") ||
                 fullName.StartsWith("XLua.") ||
+                fullName.StartsWith("ILRuntime.") ||
+                fullName.StartsWith("Mono.") ||
                 fullName.Contains("SharpNav.") ||
                 fullName.Contains("FMOD") ||
                 fullName.Contains("ParticlePlayground.") ||
@@ -246,6 +247,8 @@ namespace xys
             return false;
         }
 
+        const string file_path = "Assets/XIL/Auto/ILRegType.cs";
+
         [UnityEditor.MenuItem("XIL/委托自动生成")]
         static void Build()
         {
@@ -260,6 +263,16 @@ namespace xys
             }
 
             Export(types);
+        }
+
+        [UnityEditor.MenuItem("XIL/清除委托自动生成脚本")]
+        static void Clear()
+        {
+            if (System.IO.File.Exists(file_path))
+            {
+                System.IO.File.Delete(file_path);
+                System.IO.File.Delete(file_path + ".meta");
+            }
         }
 
         static void Export(HashSet<System.Type> types)
@@ -764,9 +777,8 @@ namespace xys
             System.Text.StringBuilder tsb = new System.Text.StringBuilder();
             BuildDHot(hotTDic, tsb);
 
-            string filePath = "Assets/XIL/Auto/ILRegType.cs";
-            System.IO.Directory.CreateDirectory(filePath.Substring(0, filePath.LastIndexOf('/')));
-            System.IO.File.WriteAllText(filePath, string.Format(RegTextFile, 
+            System.IO.Directory.CreateDirectory(file_path.Substring(0, file_path.LastIndexOf('/')));
+            System.IO.File.WriteAllText(file_path, string.Format(RegTextFile, 
                 sb.RegisterFunctionDelegate, 
                 sb.RegisterDelegateConvertor, 
                 sb.RegisterMethodDelegate, tsb.ToString()), System.Text.Encoding.UTF8);
@@ -805,4 +817,3 @@ namespace xys
         }
     }
 }
-#endif

@@ -9,15 +9,15 @@
 
 目录以及文件说明:
 Project-
-        ----Assets/XIL            --- 所有XIL所用到的文件
-	    ----Assets/XIL/ILSource   --- ilRuntime插件源文件，这里的源文件可在git上获取，地址为:https://github.com/Ourpalm/ILRuntime.git
-	    ----Assets/XIL/Scripts    --- 注入以及初始化代码
-		----Assets/XIL/Auto       --- 自动生成注入的代码以及自动生成的委托和函数的注册
-		----Hot                   --- 补丁源文件存放目录
-		----Hot.sln               --- 补丁源文件VS解决方案
-		----DyncDll.csproj        --- 补丁项目工程文件
-		----Data/DyncDll.dll      --- 补丁dll文件
-		----Data/DyncDll.pdb      --- 补丁dll的调试文件
+      ----Assets/XIL            --- 所有XIL所用到的文件
+      ----Assets/XIL/ILSource   --- ilRuntime插件源文件，这里的源文件可在git上获取，地址为:https://github.com/Ourpalm/ILRuntime.git
+      ----Assets/XIL/Scripts    --- 注入以及初始化代码
+      ----Assets/XIL/Auto       --- 自动生成注入的代码以及自动生成的委托和函数的注册(如有此目录下的脚本报错，则可以直接删除此目录，然后重新生成委托，CLR绑定以及重新注册注入类型)
+      ----Hot                   --- 补丁源文件存放目录
+      ----Hot.sln               --- 补丁源文件VS解决方案
+      ----DyncDll.csproj        --- 补丁项目工程文件
+      ----Data/DyncDll.dll      --- 补丁dll文件
+      ----Data/DyncDll.pdb      --- 补丁dll的调试文件
 
 
 使用步骤以及菜单项说明:
@@ -29,19 +29,21 @@ XIL/插件/取消    --- 关闭热补丁宏
 XIL/插件/PDB开启 --- 加载PDB调试文件
 XIL/插件/PDB取消 --- 不加载PDB调试文件
 
-XIL/注册需要热更的类 -- 生成注入所需要的成员接口
-XIL/取消需要热更的类 -- 清除注入所需要的成员接口
-XIL/委托自动生成     -- 热更当中操作C#层的委托，需要注册委托相关的类型以及转换代码
-                        这里可自动分析项目当中所有用到的委托，自动注册
+XIL/注册需要热更的类        -- 生成注入所需要的成员接口
+XIL/取消需要热更的类        -- 清除注入所需要的成员接口
+XIL/委托自动生成            -- 热更当中操作C#层的委托，需要注册委托相关的类型以及转换代码
+                               这里可自动分析项目当中所有用到的委托，自动注册
+XIL/清除委托自动生成的脚本  -- 清除委托自动生成的脚本，删除一些C#脚本，或修改，有可能引起报错，这时可以清除掉自动生成的注册脚本
 
-XIL/CLR绑定          -- 作用非反射的方式调用C#层的接口,可大幅度提高运行效率,一些常用的接口可考虑在GenerateCLRBinding
-                        文件当中添加需要CLR绑定的类型。
+XIL/CLR绑定                 -- 非反射的方式调用C#层的接口,可大幅度提高运行效率,一些常用的接口可考虑在GenerateCLRBinding
+                               文件当中添加需要CLR绑定的类型。
 
 XIL/Hotfix Inject In Editor -- 编辑器下注入接口
 
-只需要两步即可
+只需要三步即可
 1 先开启补丁宏
-2 注册需要热更的类
+2 委托自动生成
+3 注册需要热更的类
 
 初始化以及资源接口
 1 需要在项目启动或适当位置调用初始化接口:wxb.hotMgr.Init();
