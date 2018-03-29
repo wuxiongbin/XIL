@@ -24,6 +24,14 @@ public class HelloWorld : MonoBehaviour
         outValue = 200;
     }
 
+    public int GetValue
+    {
+        get
+        {
+            return 0;
+        }
+    }
+
     void Start()
     {
         onTexts.Add("HelloWorld Start()");

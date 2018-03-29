@@ -16,6 +16,13 @@ namespace IL
             p1 = ((RefOutParam<System.Int32>)param[1]).value;
             p2 = ((RefOutParam<System.Int32>)param[2]).value;
         }
+        public int __Gen_Delegate_Imp3(object p0)
+        {
+            object[] param = new object[]{ p0 };
+            int result = default(int);
+            result = (int)methodInfo.Invoke(null, param);
+            return result;
+        }
 
     }
 }

@@ -501,6 +501,22 @@ namespace AutoIL
                 });
             });
 
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<ILRuntime.CLR.Method.IMethod>>((act) =>
+            {
+                return new System.Predicate<ILRuntime.CLR.Method.IMethod>((obj) =>
+                {
+                    return ((System.Func<ILRuntime.CLR.Method.IMethod, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<ILRuntime.CLR.Method.IMethod>>((act) =>
+            {
+                return new System.Comparison<ILRuntime.CLR.Method.IMethod>((x, y) =>
+                {
+                    return ((System.Func<ILRuntime.CLR.Method.IMethod, ILRuntime.CLR.Method.IMethod, System.Int32>)act)(x, y);
+                });
+            });
+
 
         }
 

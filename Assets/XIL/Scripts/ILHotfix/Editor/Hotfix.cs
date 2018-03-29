@@ -206,10 +206,10 @@ namespace wxb
 
             foreach (var method in type.Methods)
             {
-                if (method.IsSpecialName && (method.Name.StartsWith("get_") || method.Name.StartsWith("set_")))
-                {
-                    continue;
-                }
+                //if (method.IsSpecialName && (method.Name.StartsWith("get_") || method.Name.StartsWith("set_")))
+                //{
+                //    continue;
+                //}
 
                 if (method.Name != ".cctor" && !method.IsAbstract && !method.IsPInvokeImpl && method.Body != null && !method.Name.Contains("<"))
                 {
