@@ -45,10 +45,13 @@ copy $(TargetDir)$(TargetName).pdb $(ProjectDir)Data</PostBuildEvent>
     </Reference>
     <Reference Include="System" />
     <Reference Include="UnityEngine">
-      <HintPath>C:\Program Files\Unity 2018.1.0b12\Editor\Data\Managed/UnityEngine.dll</HintPath>
+      <HintPath>C:\Program Files\Unity\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>C:\Program Files\Unity 2018.1.0b12\Editor\Data\UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>C:\Program Files\Unity\Editor\Data\Managed\UnityEngine\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>C:\Program Files\Unity\Editor\Data\Managed\UnityEngine\UnityEngine.IMGUIModule.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

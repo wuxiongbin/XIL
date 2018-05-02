@@ -10,6 +10,12 @@ namespace hot
             hotMgr.ReplaceFunction(typeof(HelloWorld), "Start", typeof(HotHelloWorld).GetMethod("Start", hotMgr.bindingFlags));
             hotMgr.ReplaceFunction(typeof(HelloWorld), "OnGUI", typeof(HotHelloWorld).GetMethod("OnGUI", hotMgr.bindingFlags));
             hotMgr.ReplaceFunction(typeof(HelloWorld), "Test", typeof(HotHelloWorld).GetMethod("Test", hotMgr.bindingFlags));
+            hotMgr.ReplaceFunction(typeof(HelloWorld), "get_GetValue", typeof(HotHelloWorld).GetMethod("get_GetValue", hotMgr.bindingFlags));
+        }
+
+        static int get_GetValue(HelloWorld world)
+        {
+            return 100001;
         }
 
         static void Start(HelloWorld world)

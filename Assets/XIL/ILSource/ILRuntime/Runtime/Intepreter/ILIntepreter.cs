@@ -266,19 +266,40 @@ namespace ILRuntime.Runtime.Intepreter
                                     bool isObj = a->ObjectType >= ObjectTypes.Object;
                                     if (val->ObjectType >= ObjectTypes.Object)
                                     {
-                                        a->ObjectType = val->ObjectType;
-                                        mStack[a->Value] = mStack[val->Value];
-                                        a->ValueLow = val->ValueLow;
+                                        if (a->ObjectType == ObjectTypes.ValueTypeObjectReference)
+                                        {
+                                            var dst = *((StackObject**)&a->Value);
+                                            CopyValueTypeToStack(dst, mStack[val->Value], mStack);
+                                        }
+                                        else
+                                        {
+                                            a->ObjectType = val->ObjectType;
+                                            mStack[a->Value] = mStack[val->Value];
+                                            a->ValueLow = val->ValueLow;
+                                        }
                                     }
                                     else
                                     {
-                                        *a = *val;
-                                        if (isObj)
+                                        if (a->ObjectType == ObjectTypes.ValueTypeObjectReference)
                                         {
-                                            a->Value = idx;
-                                            if (val->ObjectType == ObjectTypes.Null)
+                                            if (val->ObjectType == ObjectTypes.ValueTypeObjectReference)
                                             {
-                                                mStack[a->Value] = null;
+                                                CopyStackValueType(val, a, mStack);
+                                                FreeStackValueType(val);
+                                            }
+                                            else
+                                                throw new NotSupportedException();
+                                        }
+                                        else
+                                        {
+                                            *a = *val;
+                                            if (isObj)
+                                            {
+                                                a->Value = idx;
+                                                if (val->ObjectType == ObjectTypes.Null)
+                                                {
+                                                    mStack[a->Value] = null;
+                                                }
                                             }
                                         }
                                     }
@@ -3028,6 +3049,27 @@ namespace ILRuntime.Runtime.Intepreter
                                                         }
                                                     }
                                                     break;
+                                                case ObjectTypes.FieldReference:
+                                                    {
+                                                        var obj = mStack[objRef->Value];
+                                                        if (obj != null)
+                                                        {
+                                                            if (obj is ILTypeInstance)
+                                                            {
+                                                                ILTypeInstance instance = obj as ILTypeInstance;
+                                                                var tar = instance[objRef->ValueLow] as ILTypeInstance;
+                                                                if (tar != null)
+                                                                    tar.Clear();
+                                                                else
+                                                                    throw new NotSupportedException();
+                                                            }
+                                                            else
+                                                                throw new NotSupportedException();
+                                                        }
+                                                        else
+                                                            throw new NullReferenceException();
+                                                    }
+                                                    break;
                                                 default:
                                                     throw new NotImplementedException();
                                             }
@@ -3341,10 +3383,10 @@ namespace ILRuntime.Runtime.Intepreter
                                             esp = idx;
                                         }
                                         else
-                                            esp = PushObject(esp - 1 - 1, mStack, val);
+                                            esp = PushObject(esp - 1 - 1, mStack, val, true);
                                     }
                                     else
-                                        esp = PushObject(esp - 1 - 1, mStack, val);
+                                        esp = PushObject(esp - 1 - 1, mStack, val, true);
                                 }
                                 break;
                             case OpCodeEnum.Stelem_I1:
