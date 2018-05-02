@@ -12,6 +12,8 @@ public class HelloWorld : MonoBehaviour
         wxb.hotMgr.Init();
 #endif
 
+        Debug.LogFormat("GetValue:{0}", GetValue);
+
         int refValue = 0;
         int outValue = 0;
         Test(ref refValue, out outValue);
