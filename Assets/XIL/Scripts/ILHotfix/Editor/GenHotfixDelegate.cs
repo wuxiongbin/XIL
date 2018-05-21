@@ -167,8 +167,15 @@ namespace wxb
 
                 if (type == ParamType.Normal)
                 {
-                    if (!realType.IsValueType && !realType.IsByRef)
-                        this.realType = typeof(System.Object);
+                    if (realType.IsArray)
+                    {
+
+                    }
+                    else
+                    {
+                        if (!realType.IsValueType && !realType.IsByRef)
+                            this.realType = typeof(System.Object);
+                    }
                 }
             }
 
@@ -330,6 +337,14 @@ namespace IL
     }}
 }}
 ";
+        [MenuItem("XIL/测试")]
+        static void GenX()
+        {
+            var flag = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static | BindingFlags.IgnoreCase | BindingFlags.DeclaredOnly;
+            var type = typeof(HelloWorld);
+            var methods = type.GetConstructors(flag);
+            Debug.LogFormat(methods.Length.ToString());
+        }
 
         [MenuItem("XIL/注册需要热更的类")]
         static void Gen()

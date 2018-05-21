@@ -23,6 +23,16 @@ namespace IL
             result = (int)methodInfo.Invoke(null, param);
             return result;
         }
+        public void __Gen_Delegate_Imp4(object p0, int p1, int p2, int p3)
+        {
+            object[] param = new object[]{ p0, p1, p2, p3 };
+            methodInfo.Invoke(null, param);
+        }
+        public void __Gen_Delegate_Imp5(object p0, int p1, int p2, int p3, int p4, System.Object[] p5)
+        {
+            object[] param = new object[]{ p0, p1, p2, p3, p4, p5 };
+            methodInfo.Invoke(null, param);
+        }
 
     }
 }
