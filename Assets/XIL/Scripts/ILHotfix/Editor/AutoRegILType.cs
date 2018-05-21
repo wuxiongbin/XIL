@@ -782,6 +782,8 @@
                 sb.RegisterFunctionDelegate, 
                 sb.RegisterDelegateConvertor, 
                 sb.RegisterMethodDelegate, tsb.ToString()), System.Text.Encoding.UTF8);
+
+            UnityEditor.AssetDatabase.Refresh();
         }
 
         static string GetTypeByHot(System.Type type)
