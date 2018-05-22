@@ -176,6 +176,9 @@ namespace wxb
         [UnityEditor.MenuItem("XIL/Hotfix Inject In Editor", false, 3)]
         public static void Inject()
         {
+            if (UnityEngine.Application.isPlaying)
+                return;
+
             try
             {
                 HotfixInject("./Library/ScriptAssemblies/Assembly-CSharp.dll", ()=> { return new HashSet<string>(GenAutoExport.FixMarkIL()); });
@@ -383,7 +386,7 @@ namespace wxb
                             break;
                         }
                         bool isparam = param_left.CustomAttributes.FirstOrDefault(ca => ca.AttributeType.Name == "ParamArrayAttribute") != null;
-                        var type_left = isparam || param_left.ParameterType.IsByReference || param_left.ParameterType.IsValueType ? param_left.ParameterType : objType;
+                        var type_left = isparam || param_left.ParameterType.IsByReference || param_left.ParameterType.IsValueType || param_left.ParameterType.IsArray ? param_left.ParameterType : objType;
                         if (!isSameType(type_left, param_right.ParameterType))
                         {
                             paramMatch = false;

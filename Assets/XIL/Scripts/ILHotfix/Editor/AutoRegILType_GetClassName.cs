@@ -27,9 +27,9 @@
         static void GetClassName(System.Type type, out string clsName, out string realClsName, out bool isByRef, bool simpleClassName = false)
         {
             isByRef = type.IsByRef;
-            bool isArray = type.IsArray;
             if (isByRef)
                 type = type.GetElementType();
+            bool isArray = type.IsArray;
             if (isArray)
                 type = type.GetElementType();
             string realNamespace = null;
@@ -241,11 +241,6 @@ namespace AutoIL
         static public void RegisterMethodDelegate(AppDomain appdomain)
         {{
 {2}
-        }}
-
-        static public void Fame()
-        {{
-{3}
         }}
     }}
 }}

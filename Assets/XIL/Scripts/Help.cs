@@ -257,7 +257,7 @@
             return instance;
         }
 
-        static Help()
+        public static void Init()
         {
 #if USE_HOT
 #if UNITY_EDITOR
@@ -340,6 +340,13 @@
             AllTypesByFullName.Add("string", typeof(string));
             AllTypesByFullName.Add("float", typeof(float));
             AllTypesByFullName.Add("double", typeof(double));
+        }
+
+        public static void ReleaseAll()
+        {
+            AllTypesByFullName.Clear();
+            BaseTypes.Clear();
+            Caches.Clear();
         }
 
         static HashSet<System.Type> BaseTypes = new HashSet<System.Type>();

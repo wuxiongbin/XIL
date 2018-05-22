@@ -61,9 +61,9 @@ namespace wxb
         static void GetClassName(System.Type type, out string clsName, out string realClsName, out bool isByRef, bool simpleClassName = false)
         {
             isByRef = type.IsByRef;
-            bool isArray = type.IsArray;
             if (isByRef)
                 type = type.GetElementType();
+            bool isArray = type.IsArray;
             if (isArray)
                 type = type.GetElementType();
             string realNamespace = null;
@@ -211,6 +211,8 @@ namespace wxb
             // 参数列表
             public List<Param> Params { get; private set; }
             public Param Return { get; private set; }
+            // 引用到的方法
+            public HashSet<MethodBase> methods = new HashSet<MethodBase>();
 
             public Funs(MethodInfo info, bool isAdd)
             {
@@ -231,6 +233,8 @@ namespace wxb
                         Params.Add(new Param(ator.ParameterType, ator.IsOut ? ParamType.Out : ParamType.Normal));
                     }
                 }
+
+                methods.Add(info);
             }
 
             static bool isPublic(System.Type type)
@@ -273,6 +277,7 @@ namespace wxb
                 {
                     Params.Add(new Param(ator.ParameterType, ator.IsOut ? ParamType.Out : ParamType.Normal));
                 }
+                methods.Add(info);
             }
 
             public Funs(System.Type delegat) : this(delegat.GetMethod("Invoke"), false)
@@ -290,6 +295,61 @@ namespace wxb
                     for (int i = 0; i < Params.Count; ++i)
                         sb.Append(Params[i].oid);
                     return sb.ToString();
+                }
+            }
+
+            void GenInfo(MethodBase method, System.Text.StringBuilder sb)
+            {
+                if (method.IsConstructor || !(method is MethodInfo))
+                {
+                    sb.Append("void");
+                    sb.Append(" ");
+                    sb.Append(GetTypeName(method.ReflectedType));
+                }
+                else
+                {
+                    MethodInfo info = (MethodInfo)method;
+                    sb.Append(GetTypeName(info.ReturnType));
+                    sb.Append(" ");
+
+                    sb.Append(GetTypeName(info.ReflectedType));
+                    sb.Append(".");
+                    sb.Append(method.Name);
+                }
+
+                sb.Append("(");
+                var parameters = method.GetParameters();
+                for (int i = 0; i < parameters.Length; ++i)
+                {
+                    var type = parameters[i].ParameterType;
+                    string name = GetTypeName(type);
+                    string suffix = "";
+                    if (parameters[i].IsOut)
+                    {
+                        if (type.IsByRef)
+                            suffix = "ref ";
+                        else
+                            suffix = "out ";
+                    }
+
+                    sb.Append(suffix + name);
+                    if (i != parameters.Length - 1)
+                        sb.Append(", ");
+                }
+                sb.Append(");");
+            }
+
+            public void toInfo(string suffix, System.Text.StringBuilder sb)
+            {
+                return;
+                if (methods.Count > 30)
+                    sb.AppendLine(string.Format("{0}//{1}", suffix, methods.Count));
+                foreach (var ator in methods)
+                {
+                    sb.Append(suffix);
+                    sb.Append("//");
+                    GenInfo(ator, sb);
+                    sb.AppendLine();
                 }
             }
 
@@ -346,6 +406,13 @@ namespace IL
         //    Debug.LogFormat(methods.Length.ToString());
         //}
 
+        [MenuItem("XIL/一键生成")]
+        static void GenOne()
+        {
+            Gen();
+            AutoRegILType.Build();
+        }
+
         [MenuItem("XIL/注册需要热更的类")]
         static void Gen()
         {
@@ -387,8 +454,12 @@ namespace IL
                                 continue;
 
                             string key = fun.oid;
-                            if (allfuns.ContainsKey(key))
+                            Funs rs;
+                            if (allfuns.TryGetValue(key, out rs))
+                            {
+                                rs.methods.Add(method);
                                 continue;
+                            }
 
                             allfuns.Add(key, fun);
                         }
@@ -403,8 +474,12 @@ namespace IL
                                 continue;
 
                             string key = fun.oid;
-                            if (allfuns.ContainsKey(key))
+                            Funs rs;
+                            if (allfuns.TryGetValue(key, out rs))
+                            {
+                                rs.methods.Add(ctor);
                                 continue;
+                            }
 
                             allfuns.Add(key, fun);
                         }
@@ -420,6 +495,7 @@ namespace IL
             int index = 0;
             foreach (var ator in allfuns)
             {
+                ator.Value.toInfo("        ", sb);
                 sb.AppendFormat("        {0}", ator.Value.toString(name + (++index)));
                 sb.AppendLine();
             }

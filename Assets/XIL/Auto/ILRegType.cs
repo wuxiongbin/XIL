@@ -560,12 +560,6 @@ namespace AutoIL
             appdomain.DelegateManager.RegisterMethodDelegate<System.Type>();
 
         }
-
-        static public void Fame()
-        {
-            System.Type v = null;
-
-        }
     }
 }
 #endif

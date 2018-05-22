@@ -29,14 +29,13 @@ namespace wxb
         {
             var assembly = Assembly.Load("Assembly-CSharp");
             var types = assembly.GetExportedTypes();
-
             List<string> classes = new List<string>();
             HashSet<Type> delegateTypes = new HashSet<Type>();
 
             foreach (var t in types)
             {
                 //已手动标记
-                if (t.IsAbstract || t.IsClass == false || t.IsInterface || t.IsNotPublic || t.IsNested || typeof(Delegate).IsAssignableFrom(t))
+                if (t.IsAbstract || t.IsClass == false || t.IsInterface || typeof(Delegate).IsAssignableFrom(t))
                     continue;
 
                 bool isBlack = false;
@@ -64,12 +63,12 @@ namespace wxb
                     string FullName = t.FullName;
                     if (FullName.StartsWith("IL.") ||
                         FullName.StartsWith("ILRuntime.") ||
-                        FullName.StartsWith("wxb.") || 
+                        FullName.StartsWith("wxb.") ||
                         FullName.StartsWith("Mono."))
                         continue;
                 }
 
-                classes.Add(t.FullName.Replace('+', '.'));
+                classes.Add(t.FullName.Replace('+', '/'));
             }
 
             HashSet<string> allDelegateNames = new HashSet<string>();

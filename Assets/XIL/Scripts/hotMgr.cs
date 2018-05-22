@@ -95,6 +95,8 @@ namespace wxb
                 clrType.GetMethod("RegisterDelegateConvertor").Invoke(null, new object[] { appdomain });
                 clrType.GetMethod("RegisterMethodDelegate").Invoke(null, new object[] { appdomain });
             }
+
+            IL.Help.Init();
         }
 
         // 替换哪个接口的哪个函数

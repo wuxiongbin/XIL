@@ -2,17 +2,17 @@
 {
     using System.Reflection;
     using System.Collections.Generic;
-#if UNITY_EDITOR
-    public class EditorClass : System.Attribute
-    {
+//#if UNITY_EDITOR
+//    public class EditorClass : System.Attribute
+//    {
 
-    }
-    public class EditorField : System.Attribute
-    {
+//    }
+//    public class EditorField : System.Attribute
+//    {
 
-    }
+//    }
 
-#endif
+//#endif
     static partial class AutoRegILType
     {
         // 是否热更当中的类型
@@ -34,12 +34,34 @@
             return false;
         }
 
+        static Dictionary<System.Type, bool> EditorChecks = new Dictionary<System.Type, bool>();
+
         static bool IsEditorType(System.Type type)
+        {
+            bool v = false;
+            if (EditorChecks.TryGetValue(type, out v))
+                return v;
+
+            v = IsEditorTypeImp(type);
+            EditorChecks.Add(type, v);
+            return v;
+        }
+
+        static bool IsEditorTypeImp(System.Type type)
         {
             if (type.IsNested)
             {
                 if (IsEditorType(type.ReflectedType))
                     return true;
+            }
+
+            if (type.IsGenericType)
+            {
+                foreach (var ator in type.GetGenericArguments())
+                {
+                    if (IsEditorType(ator))
+                        return true;
+                }
             }
 
             string ns = type.Namespace;
@@ -250,7 +272,7 @@
         const string file_path = "Assets/XIL/Auto/ILRegType.cs";
 
         [UnityEditor.MenuItem("XIL/委托自动生成")]
-        static void Build()
+        public static void Build()
         {
             HashSet<System.Type> types = new HashSet<System.Type>(); 
             var assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
@@ -774,14 +796,14 @@
                 //sb.AppendLine();
             }
 
-            System.Text.StringBuilder tsb = new System.Text.StringBuilder();
-            BuildDHot(hotTDic, tsb);
+            //System.Text.StringBuilder tsb = new System.Text.StringBuilder();
+            //BuildDHot(hotTDic, tsb);
 
             System.IO.Directory.CreateDirectory(file_path.Substring(0, file_path.LastIndexOf('/')));
             System.IO.File.WriteAllText(file_path, string.Format(RegTextFile, 
                 sb.RegisterFunctionDelegate, 
                 sb.RegisterDelegateConvertor, 
-                sb.RegisterMethodDelegate, tsb.ToString()), System.Text.Encoding.UTF8);
+                sb.RegisterMethodDelegate/*, tsb.ToString()*/), System.Text.Encoding.UTF8);
 
             UnityEditor.AssetDatabase.Refresh();
         }
