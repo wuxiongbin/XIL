@@ -406,8 +406,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 4);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
-            System.Single @result = *(float*)&ptr_of_this_method->Value;
+            System.Single @result = __intp.RetriveFloat(ptr_of_this_method, __mStack);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             System.IFormatProvider @provider = (System.IFormatProvider)typeof(System.IFormatProvider).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
@@ -481,8 +480,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 2);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
-            System.Single @result = *(float*)&ptr_of_this_method->Value;
+            System.Single @result = __intp.RetriveFloat(ptr_of_this_method, __mStack);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             System.String @s = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));

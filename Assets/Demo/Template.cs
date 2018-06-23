@@ -2,6 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public abstract class TestABS
+{
+    public abstract void Test();
+
+    public void TestXX()
+    {
+
+    }
+}
+public class TestABST : TestABS
+{
+    public override void Test()
+    {
+
+    }
+}
+
+
 public class Template : MonoBehaviour
 {
     private void Awake()

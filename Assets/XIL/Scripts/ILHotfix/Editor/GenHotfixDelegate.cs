@@ -425,6 +425,16 @@ namespace IL
             AutoCode(new List<string>());
         }
 
+        static bool IsMonoBehaviourType(System.Type type)
+        {
+            if (type == typeof(MonoBehaviour))
+                return true;
+            if (type.BaseType == null)
+                return false;
+
+            return IsMonoBehaviourType(type.BaseType);
+        }
+
         public static void AutoCode(List<string> classes)
         {
             // 自动生成所有需要委托
@@ -463,6 +473,10 @@ namespace IL
 
                             allfuns.Add(key, fun);
                         }
+
+                        // MonoBehaviour类型不重载构造函数
+                        if (IsMonoBehaviourType(type))
+                            continue;
 
                         foreach (var ctor in type.GetConstructors(flag))
                         {

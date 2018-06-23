@@ -769,16 +769,13 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 4);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
-            System.Single @V = *(float*)&ptr_of_this_method->Value;
+            System.Single @V = __intp.RetriveFloat(ptr_of_this_method, __mStack);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
-            System.Single @S = *(float*)&ptr_of_this_method->Value;
+            System.Single @S = __intp.RetriveFloat(ptr_of_this_method, __mStack);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
-            System.Single @H = *(float*)&ptr_of_this_method->Value;
+            System.Single @H = __intp.RetriveFloat(ptr_of_this_method, __mStack);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 4);
             UnityEngine.Color @rgbColor = (UnityEngine.Color)typeof(UnityEngine.Color).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));

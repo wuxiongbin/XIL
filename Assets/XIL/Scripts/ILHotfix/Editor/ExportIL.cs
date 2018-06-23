@@ -11,7 +11,7 @@ namespace wxb
     {
         static string[] BlackList =
         {
-            "`",
+            //"`",
         };
 
         static bool isAttribute(System.Type type)
@@ -35,7 +35,7 @@ namespace wxb
             foreach (var t in types)
             {
                 //已手动标记
-                if (t.IsAbstract || t.IsClass == false || t.IsInterface || typeof(Delegate).IsAssignableFrom(t))
+                if (t.IsClass == false || t.IsInterface || typeof(Delegate).IsAssignableFrom(t))
                     continue;
 
                 bool isBlack = false;

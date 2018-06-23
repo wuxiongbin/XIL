@@ -423,8 +423,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 3);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
-            System.Int32 @result = ptr_of_this_method->Value;
+            System.Int32 @result = __intp.RetriveInt32(ptr_of_this_method, __mStack);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             System.Int32 @b = ptr_of_this_method->Value;
@@ -492,8 +491,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 3);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
-            System.Int64 @result = *(long*)&ptr_of_this_method->Value;
+            System.Int64 @result = __intp.RetriveInt64(ptr_of_this_method, __mStack);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             System.Int64 @b = *(long*)&ptr_of_this_method->Value;
