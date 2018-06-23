@@ -182,8 +182,10 @@ namespace ILRuntime.Runtime.Generated
                 if (!info.Value.NeedGenerate)
                     continue;
                 Type i = info.Value.Type;
-                if (i.BaseType == typeof(MulticastDelegate))
-                    continue;
+
+                //CLR binding for delegate is important for cross domain invocation,so it should be generated
+                //if (i.BaseType == typeof(MulticastDelegate))
+                //    continue;
 
                 string clsName, realClsName;
                 bool isByRef;
@@ -370,7 +372,8 @@ namespace ILRuntime.Runtime.Generated
                     var methods = type.GetMethods().ToList();
                     foreach (var i in ((CLR.TypeSystem.ILType)type).GetConstructors())
                         methods.Add(i);
-
+                    if (((CLR.TypeSystem.ILType)type).GetStaticConstroctor() != null)
+                        methods.Add(((CLR.TypeSystem.ILType)type).GetStaticConstroctor());
                     foreach (var j in methods)
                     {
                         CLR.Method.ILMethod method = j as CLR.Method.ILMethod;
