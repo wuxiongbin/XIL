@@ -425,14 +425,14 @@ namespace IL
             AutoCode(new List<string>());
         }
 
-        static bool IsMonoBehaviourType(System.Type type)
+        static bool IsUnityObjectType(System.Type type)
         {
-            if (type == typeof(MonoBehaviour))
+            if (type == typeof(UnityEngine.Object))
                 return true;
             if (type.BaseType == null)
                 return false;
 
-            return IsMonoBehaviourType(type.BaseType);
+            return IsUnityObjectType(type.BaseType);
         }
 
         public static void AutoCode(List<string> classes)
@@ -475,7 +475,7 @@ namespace IL
                         }
 
                         // MonoBehaviour类型不重载构造函数
-                        if (IsMonoBehaviourType(type))
+                        if (IsUnityObjectType(type))
                             continue;
 
                         foreach (var ctor in type.GetConstructors(flag))

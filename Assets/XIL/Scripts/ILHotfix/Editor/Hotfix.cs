@@ -207,7 +207,7 @@ namespace wxb
             if (hotfixAttr == null && !exports.Contains(type.FullName))
                 return true;
 
-            bool isMonoBehaviour = IsMonoBehaviourType(type);
+            bool isUnityObject = IsUnityObjectType(type);
             foreach (var method in type.Methods)
             {
                 //if (method.IsSpecialName && (method.Name.StartsWith("get_") || method.Name.StartsWith("set_")))
@@ -217,7 +217,7 @@ namespace wxb
 
                 if (method.Name != ".cctor" && !method.IsAbstract && !method.IsPInvokeImpl && method.Body != null && !method.Name.Contains("<"))
                 {
-                    if (isMonoBehaviour && method.IsConstructor)
+                    if (isUnityObject && method.IsConstructor)
                         continue;
 
                     if ((method.HasGenericParameters || genericInOut(assembly, method)))
@@ -242,15 +242,15 @@ namespace wxb
             return true;
         }
 
-        static bool IsMonoBehaviourType(TypeReference type)
+        static bool IsUnityObjectType(TypeReference type)
         {
-            if (type.FullName == "UnityEngine.MonoBehaviour")
+            if (type.FullName == "UnityEngine.Object")
                 return true;
 
             if (type.Resolve().BaseType == null)
                 return false;
 
-            return IsMonoBehaviourType(type.Resolve().BaseType);
+            return IsUnityObjectType(type.Resolve().BaseType);
         }
 
         public static void HotfixInject(string inject_assembly_path, Func<HashSet<string>> fun)
