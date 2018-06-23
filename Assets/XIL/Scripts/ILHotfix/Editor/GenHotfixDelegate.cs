@@ -438,7 +438,7 @@ namespace IL
             {
                 foreach (var type in ator)
                 {
-                    if (exports.Contains(type.FullName) || type.GetCustomAttributes(typeof(HotfixAttribute), false).Length != 0)
+                    if (exports.Contains(type.FullName.Replace('+', '/')) || type.GetCustomAttributes(typeof(HotfixAttribute), false).Length != 0)
                     {
                         //Debug.LogFormat("type:{0}", type.FullName);
                         if (type.IsGenericType)
