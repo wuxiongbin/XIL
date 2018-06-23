@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class HelloWorld : MonoBehaviour
 {
+    public HelloWorld()
+    {
+
+    }
+
     public HelloWorld(int x, int y, int z)
     {
 
