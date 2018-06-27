@@ -429,18 +429,12 @@ namespace ILRuntime.Runtime.Enviorment
 
         public void RegisterCLRMethodRedirection(MethodBase mi, CLRRedirectionDelegate func)
         {
-            if (mi == null)
-                return;
-
             if (!redirectMap.ContainsKey(mi))
                 redirectMap[mi] = func;
         }
 
         public void RegisterCLRFieldGetter(FieldInfo f, CLRFieldGetterDelegate getter)
         {
-            if (f == null)
-                return;
-
             if (!fieldGetterMap.ContainsKey(f))
                 fieldGetterMap[f] = getter;
         }
@@ -783,7 +777,7 @@ namespace ILRuntime.Runtime.Enviorment
                         }
                         else
                             val = GetType(gType.GenericArguments[i], contextType, contextMethod);
-                        if (val != null && val.HasGenericParameter)
+                        if (val != null && gType.GenericArguments[i].ContainsGenericParameter)
                             dummyGenericInstance = true;
                         if (val != null)
                             genericArguments[i] = new KeyValuePair<string, IType>(key, val);
@@ -894,7 +888,6 @@ namespace ILRuntime.Runtime.Enviorment
         /// <returns></returns>
         public T Instantiate<T>(string type, object[] args = null)
         {
-            Console.WriteLine("**Calling: Instantiate<T>");
             ILTypeInstance ins = Instantiate(type, args);
             return (T)ins.CLRInstance;
         }
