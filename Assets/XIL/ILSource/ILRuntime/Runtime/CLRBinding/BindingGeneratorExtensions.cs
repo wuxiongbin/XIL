@@ -70,8 +70,25 @@ namespace ILRuntime.Runtime.CLRBinding
                 return true;
             foreach (var j in param)
             {
-                if (j.ParameterType.IsPointer)
+                if (j.ParameterType.IsPointer || j.ParameterType == typeof(IntPtr))
                     return true;
+            }
+
+            if (i is MethodInfo)
+            {
+                var returnType = ((MethodInfo)i).ReturnType;
+                if (returnType.IsPointer || returnType == typeof(IntPtr))
+                    return true;
+            }
+
+            if (type == typeof(UnityEngine.Texture2D))
+            {
+                switch (i.Name)
+                {
+                case "get_alphaIsTransparency":
+                case "set_alphaIsTransparency":
+                    return true;
+                }
             }
 
             switch (i.Name)

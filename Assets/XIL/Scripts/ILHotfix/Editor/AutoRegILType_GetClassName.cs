@@ -119,6 +119,14 @@
 
         public static void ConvertToDelegate(System.Type type, System.Text.StringBuilder sb, string suffix)
         {
+            var mi = type.GetMethod("Invoke");
+            var ps = mi.GetParameters();
+            for (int i = 0; i < ps.Length; ++i)
+            {
+                if (ps[i].IsOut || ps[i].ParameterType.IsByRef)
+                    return;
+            }
+
             string clsName, rName;
             bool isByRef;
             GetClassName(type, out clsName, out rName, out isByRef);
@@ -134,9 +142,8 @@
             sb.Append("    return new ");
             sb.Append(rName);
             sb.Append("((");
-            var mi = type.GetMethod("Invoke");
             bool first = true;
-            foreach (var i in mi.GetParameters())
+            foreach (var i in ps)
             {
                 if (first)
                 {

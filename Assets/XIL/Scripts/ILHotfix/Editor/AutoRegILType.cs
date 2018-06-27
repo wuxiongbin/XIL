@@ -118,7 +118,7 @@
 
         static HashSet<System.Type> NoExports = new HashSet<System.Type>(new System.Type[] 
         {
-
+            typeof(UnityEngine.CanvasRenderer.OnRequestRebuild),
         });
 
         // 热更是否可能用到的类型
@@ -153,8 +153,8 @@
                 fullName.Contains("UnityEngine.WSA.") ||
                 fullName.Contains("UnityEngineInternal.") ||
                 fullName.Contains("UnityEngine.Material") ||
-                fullName.Contains("UnityEngine.Texture") ||
-                fullName.Contains("UnityEngine.Texture2D") ||
+                //fullName.Contains("UnityEngine.Texture") ||
+                //fullName.Contains("UnityEngine.Texture2D") ||
                 fullName.Contains("UnityEngine.Shader") ||
                 fullName.Contains("PackTool.SceneLoad") ||
                 fullName.Contains("System.AsyncCallback") ||
@@ -165,37 +165,37 @@
                 fullName.Contains("UnityEngine.Audio") ||
                 fullName.Contains("UnityEngine.SceneManagement") ||
                 //fullName.Contains("UnityEngine.Video.") ||
-                fullName.Contains("UnityEngine.ParticleSystem") ||
+                //fullName.Contains("UnityEngine.ParticleSystem") ||
                 fullName.Contains("UnityEngine.Windows.") ||
                 fullName.Contains("UnityEngine.Android") ||
                 fullName.Contains("UnityEngine.Networking") ||
                 fullName.Contains("Eyesblack") ||
                 fullName.Contains("TinyXML") ||
-                fullName.Contains("UnityEngine.Gradient") ||
-                fullName.Contains("UnityEngine.AnimationCurve") ||
+                //fullName.Contains("UnityEngine.Gradient") ||
+                //fullName.Contains("UnityEngine.AnimationCurve") ||
                 fullName.Contains("Xft.") ||
                 fullName.Contains("UI.Point") ||
                 fullName.Contains("MeshSimplify") ||
                 fullName.Contains("AutomaticLOD") ||
                 fullName.Contains("EditorExtensions") ||
-                fullName.Contains("UnityEngine.CanvasRenderer") ||
+                //fullName.Contains("UnityEngine.CanvasRenderer") ||
                 fullName.Contains("AnimateTiledTexture") ||
-                fullName.Contains("UnityEngine.Canvas") ||
-                fullName.Contains("UnityEngine.Font") ||
+                //fullName.Contains("UnityEngine.Canvas") ||
+                //fullName.Contains("UnityEngine.Font") ||
                 fullName.Contains("UnityEngine.AI") ||
-                fullName.Contains("UnityEngine.RectTransform") ||
+                //fullName.Contains("UnityEngine.RectTransform") ||
                 fullName.Contains("UnityEngine.Apple.") ||
                 fullName.Contains("UnityEngine.Display") ||
                 fullName.Contains("PackTool.DTATask") ||
                 fullName.Contains("behaviac") ||
                 fullName.Contains("PackTool.DTATask.") ||
-                fullName.Contains("UnityEngine.Application") ||
+                //fullName.Contains("UnityEngine.Application") ||
                 fullName.Contains("GUITextShow") ||
                 fullName.Contains("Pathfinding") ||
                 fullName.Contains("WellFired.") ||
-                fullName.Contains("UnityEngine.Camera") ||
+                //fullName.Contains("UnityEngine.Camera") ||
                 fullName.Contains("UltimateGameTools") ||
-                fullName.Contains("XTools.Utility") ||
+                //fullName.Contains("XTools.Utility") ||
                 fullName.Contains("UnityEngine.CullingGroup") ||
                 fullName.Contains("UltimateGameTools.") ||
                 fullName.Contains("UnityEngine.GUI") ||
@@ -203,17 +203,17 @@
                 //fullName.Contains("System.Type") ||
                 fullName.Contains("UnityEngine.iOS") ||
                 fullName.Contains("UnityEngine.SocialPlatforms") ||
-                fullName.Contains("WXB.Draw") ||
-                fullName.Contains("WXB.RenderCache") ||
-                fullName.Contains("WXB.Line") ||
-                fullName.Contains("UnityEngine.AnimationClip") ||
-                fullName.Contains("UnityEngine.Animator") ||
-                fullName.Contains("UnityEngine.UICharInfo") ||
-                fullName.Contains("UnityEngine.UILineInfo") ||
-                fullName.Contains("UnityEngine.UIVertex") ||
-                fullName.Contains("UnityEngine.UI.RectMask2D") ||
-                fullName.Contains("UnityEngine.BoneWeight") ||
-                fullName.Contains("UnityEngine.Rendering") ||
+                //fullName.Contains("WXB.Draw") ||
+                //fullName.Contains("WXB.RenderCache") ||
+                //fullName.Contains("WXB.Line") ||
+                //fullName.Contains("UnityEngine.AnimationClip") ||
+                //fullName.Contains("UnityEngine.Animator") ||
+                //fullName.Contains("UnityEngine.UICharInfo") ||
+                //fullName.Contains("UnityEngine.UILineInfo") ||
+                //fullName.Contains("UnityEngine.UIVertex") ||
+                //fullName.Contains("UnityEngine.UI.RectMask2D") ||
+                //fullName.Contains("UnityEngine.BoneWeight") ||
+                //fullName.Contains("UnityEngine.Rendering") ||
                 //fullName.Contains("EffectDelayPlayItem") ||
                 //fullName.Contains("RoleSkinUnitData") ||
                 //fullName.Contains("RoleFaceBaseSet") ||
@@ -234,10 +234,10 @@
                 //fullName.Contains("xys.RideItem") ||
                 fullName.Contains("Tentacle3D") ||
                 fullName.Contains("RoleDisguiseCareer") ||
-                fullName.Contains("UnityEngine.Rect") ||
-                fullName.Contains("UnityEngine.Renderer") ||
+                //fullName.Contains("UnityEngine.Rect") ||
+                //fullName.Contains("UnityEngine.Renderer") ||
                 fullName.Contains("Combine") ||
-                fullName.Contains("UnityEngine.LineRenderer") ||
+                //fullName.Contains("UnityEngine.LineRenderer") ||
                 fullName.Contains("BendingSegment") ||
                 fullName.Contains("PackTool.MagicThreadParamUpdate") ||
                 fullName.Contains("UIWidgetsSamples."))
@@ -333,7 +333,7 @@
                 //IL.Help.GetTypeByFullName("xys.ClothConfig"),                
                 //IL.Help.GetTypeByFullName("hot.UI.HotObtainItemShowMgr"),
                 //IL.Help.GetTypeByFullName("hot.UI.HotObtainItemShowMgr"),
-                //typeof(NetProto.Hot.ServerInfoMap.Server[]),
+                //typeof(AssetRequest),
             });
 
             Export(tests);
@@ -358,8 +358,14 @@
                     if (info is MethodInfo)
                     {
                         var m = (MethodInfo)info;
-                        sb.Append(string.Format("{0} {1}.{2}(", GetClassRealClsName(m.ReturnType), GetClassRealClsName(m.ReflectedType), m.Name));
                         var ps = m.GetParameters();
+                        for (int i = 0; i < ps.Length; ++i)
+                        {
+                            if (ps[i].IsOut || ps[i].ParameterType.IsByRef)
+                                continue;
+                        }
+
+                        sb.Append(string.Format("{0} {1}.{2}(", GetClassRealClsName(m.ReturnType), GetClassRealClsName(m.ReflectedType), m.Name));
                         if (ps.Length == 0)
                             sb.Append(");");
                         else
@@ -386,8 +392,14 @@
                     else if (info is ConstructorInfo)
                     {
                         var ctor = info as ConstructorInfo;
-                        sb.Append(string.Format("{0}.{0}(", GetClassRealClsName(ctor.ReflectedType)));
                         var ps = ctor.GetParameters();
+                        for (int i = 0; i < ps.Length; ++i)
+                        {
+                            if (ps[i].IsOut || ps[i].ParameterType.IsByRef)
+                                continue;
+                        }
+
+                        sb.Append(string.Format("{0}.{0}(", GetClassRealClsName(ctor.ReflectedType)));
                         if (ps.Length == 0)
                             sb.Append(");");
                         else
@@ -418,6 +430,7 @@
         {
             if (IsEditorType(type) || !IsHotUsed(type))
                 return false; // 不需要导出的类型
+
             return true;
         }
 
@@ -580,6 +593,7 @@
                 }
             }
 
+            HashSet<System.Type> types = new HashSet<System.Type>();
             foreach (var method in type.GetMethods(/*flags*/))
             {
                 if (method.ContainsGenericParameters)
@@ -605,7 +619,8 @@
                 {
                     if (!Add(csharpDelegate, method.ReturnType, method))
                     {
-                        BuildType(method.ReturnType, hotTypes, csharpDelegate, Checks);
+                        types.Add(method.ReturnType);
+                        //BuildType(method.ReturnType, hotTypes, csharpDelegate, Checks);
                     }
                 }
 
@@ -613,19 +628,27 @@
                 {
                     if (!Add(csharpDelegate, p.ParameterType, method))
                     {
-                        BuildType(p.ParameterType, hotTypes, csharpDelegate, Checks);
+                        types.Add(p.ParameterType);
+                        //BuildType(p.ParameterType, hotTypes, csharpDelegate, Checks);
                     }
                 }
             }
 
             foreach (var field in type.GetFields(/*flags*/))
             {
-                BuildType(field.FieldType, hotTypes, csharpDelegate, Checks);
+                types.Add(field.FieldType);
+                //BuildType(field.FieldType, hotTypes, csharpDelegate, Checks);
             }
 
             foreach (var p in type.GetProperties(/*flags*/))
             {
-                BuildType(p.PropertyType, hotTypes, csharpDelegate, Checks);
+                types.Add(p.PropertyType);
+                //BuildType(p.PropertyType, hotTypes, csharpDelegate, Checks);
+            }
+
+            foreach (var ator in types)
+            {
+                BuildType(ator, hotTypes, csharpDelegate, Checks);
             }
         }
 
@@ -688,6 +711,9 @@
                     return false;
                 foreach (var t in parameters)
                 {
+                    if (t.IsByRef)
+                        return false;
+
                     if (!IsHotUsed(t))
                         return false;
                 }
