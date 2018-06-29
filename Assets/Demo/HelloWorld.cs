@@ -9,18 +9,7 @@ public class HelloWorld : MonoBehaviour
 
     }
 
-    public HelloWorld(int x, int y, int z)
-    {
-
-    }
-
-    public HelloWorld(int x, int y, int z, int w, params object[] param)
-    {
-        Debug.LogFormat("x:{0} y:{1} z:{2} w:{3}", x, y, z, w);
-    }
-
     List<string> onTexts = new List<string>();
-
     private void Awake()
     {
 #if USE_HOT

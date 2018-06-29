@@ -208,7 +208,8 @@ namespace wxb
                 return true;
 
             bool isUnityObject = IsUnityObjectType(type);
-            foreach (var method in type.Methods)
+            List<MethodDefinition> methods = new List<MethodDefinition>(type.Methods);
+            foreach (var method in methods)
             {
                 //if (method.IsSpecialName && (method.Name.StartsWith("get_") || method.Name.StartsWith("set_")))
                 //{
@@ -322,6 +323,64 @@ namespace wxb
 
         static readonly int MAX_OVERLOAD = 100;
 
+        class StrMethod
+        {
+            public StrMethod(string name)
+            {
+                this.name = name;
+                methods = new List<MethodDefinition>();
+            }
+
+            public string name;
+            public List<MethodDefinition> methods;
+
+            public void Sorted()
+            {
+                methods.Sort((x, y) => 
+                {
+                    if (x == y)
+                        return 0;
+
+                    var xc = x.Parameters;
+                    var yc = y.Parameters;
+                    if (xc.Count != yc.Count)
+                        return xc.Count.CompareTo(yc.Count);
+
+                    int count = xc.Count;
+
+                    // 参数一样，那么以类型来排序
+                    string kx = x.ToString();
+                    string ky = y.ToString();
+                    if (kx == ky)
+                        UnityEngine.Debug.LogError("key same! + " + x.Name);
+
+                    return kx.CompareTo(ky);
+                });
+            }
+
+            public int Count { get { return methods.Count; } }
+
+            // 所有函数的参数都是不一样
+            public bool isNotSameParam
+            {
+                get
+                {
+                    bool value = true; // 先假设所有参数个数都不一样
+                    HashSet<int> hss = new HashSet<int>();
+                    foreach (var ator in methods)
+                    {
+                        if (!hss.Add(ator.Parameters.Count))
+                        {
+                            value = false;
+                            break;
+                        }
+                    }
+
+                    return value;
+                }
+            }
+        }
+
         static string getDelegateName(MethodDefinition method)
         {
             string fieldName = method.Name;
@@ -330,18 +389,41 @@ namespace wxb
                 fieldName = fieldName.Substring(1);
             }
             string ccFlag = method.IsConstructor ? "_c" : "";
-            string luaDelegateName = null;
             var type = method.DeclaringType;
-            for (int i = 0; i < MAX_OVERLOAD; i++)
+            Dictionary<string, StrMethod> nameToCount = new Dictionary<string, StrMethod>();
+            StrMethod strMethod = null;
             {
-                string tmp = ccFlag + "__Hotfix" + i + "_" + fieldName;
-                if (!type.Fields.Any(f => f.Name == tmp)) // injected
+                foreach (var ator in type.Methods)
                 {
-                    luaDelegateName = tmp;
-                    break;
+                    if (!nameToCount.TryGetValue(ator.Name, out strMethod))
+                    {
+                        strMethod = new StrMethod(ator.Name);
+                        nameToCount.Add(ator.Name, strMethod);
+                    }
+
+                    strMethod.methods.Add(ator);
                 }
+
+                strMethod = nameToCount[method.Name];
             }
-            return luaDelegateName;
+
+            string name = ccFlag + "__Hotfix_" + fieldName;
+            if (strMethod.Count == 1)
+                return name;
+
+            // 是否所有函数的参数个数都不一样
+            if (strMethod.isNotSameParam)
+                return name + "_" + method.Parameters.Count;
+
+            strMethod.Sorted();
+            for (int i = 0; i <strMethod.methods.Count; ++i)
+            {
+                if (strMethod.methods[i] == method)
+                    return name + "_" + i;
+            }
+
+            UnityEngine.Debug.LogErrorFormat("method:{0} not field name!", method.Name);
+            return "";
         }
 
         static Instruction findNextRet(MonoIL.Collections.Generic.Collection<Instruction> instructions, Instruction pos)
@@ -433,7 +515,7 @@ namespace wxb
 
             if (!findHotfixDelegate(assembly, method, out invoke))
             {
-                Error("can not find delegate for " + method.DeclaringType + "." + method.Name + "! try re-genertate code.");
+                Error("can not find delegate for " + method.DeclaringType + "." + method.ToString() + "! try re-genertate code.");
                 return false;
             }
 

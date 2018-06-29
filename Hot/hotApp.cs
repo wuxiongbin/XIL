@@ -21,8 +21,7 @@
 
         void Init()
         {
-            HotHelloWorld.Reg();
-            HotTemplate.Reg();
+
         }
     }
 }

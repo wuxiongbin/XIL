@@ -7,6 +7,52 @@ namespace wxb
     using ILRuntime.Runtime.Enviorment;
     using ILRuntime.Runtime.Intepreter;
     using System.Collections.Generic;
+    using ILRuntime.CLR.TypeSystem;
+    using Mono.Cecil;
+    using Mono.Collections.Generic;
+    using ILRuntime.CLR.Method;
+
+    [System.AttributeUsage(System.AttributeTargets.Class)]
+    public class ReplaceType : System.Attribute
+    {
+        // 替换某个类型的某个同名接口
+        public ReplaceType(System.Type type)
+        {
+            this.type = type;
+        }
+
+        public System.Type type;
+    }
+
+    [System.AttributeUsage(System.AttributeTargets.Method)]
+    public class ReplaceFunction : System.Attribute
+    {
+        // 替换某个类型的某个同名接口
+        public ReplaceFunction(System.Type type)
+        {
+            this.type = type;
+        }
+
+        public ReplaceFunction()
+        {
+
+        }
+
+        public ReplaceFunction(string fieldName)
+        {
+            this.fieldName = fieldName;
+        }
+
+        // 替换某个类型的某个接口
+        public ReplaceFunction(System.Type type, string fieldName)
+        {
+            this.type = type;
+            this.fieldName = fieldName;
+        }
+
+        public System.Type type;
+        public string fieldName;
+    }
 
     public static class hotMgr
     {
@@ -19,11 +65,11 @@ namespace wxb
 #if UNITY_EDITOR
             ResLoad.Set(new EditorResLoad());
 #endif
-
             InitHotModule();
 
             refType = new RefType("hot.hotApp");
             refType.TryInvokeMethod("Init");
+            AutoReplace();
         }
 
         public const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
@@ -99,45 +145,54 @@ namespace wxb
             IL.Help.Init();
         }
 
-        // 替换哪个接口的哪个函数
-        public static bool ReplaceFunction(System.Type type, string funName, MethodInfo info)
+        static ReplaceFunction GetReplaceFunction(Collection<CustomAttribute> CustomAttributes)
         {
-            string cflag = "";
-            string k = funName;
-            if (funName == ".ctor")
+            CustomAttribute custom;
+            for (int i = 0; i < CustomAttributes.Count; ++i)
             {
-                cflag = "_c";
-                k = "ctor";
-            }
+                custom = CustomAttributes[i];
+                if (custom.AttributeType.FullName != "wxb.ReplaceFunction")
+                    continue;
 
-            bool isset = false;
-            for (int i = 0; i < 99; ++i)
-            {
-                string fieldName = string.Format("{0}__Hotfix{1}_{2}", cflag, i, k);
-                var field = type.GetField(fieldName, bindingFlags);
-                if (field == null)
-                    break;
-
-                isset = true;
-
-                if (info != null)
+                var ConstructorArguments = custom.ConstructorArguments;
+                switch (ConstructorArguments.Count)
                 {
-                    field.SetValue(null, new global::IL.DelegateBridge(info));
-                    UnityEngine.Debug.LogFormat("ReplaceFunction type:{0} name:{1}", type.Name, funName);
-                }
-                else
-                {
-                    field.SetValue(null, null);
-                    UnityEngine.Debug.LogFormat("ReplaceFunction type:{0} name:{1} Cannel!", type.Name, funName);
+                case 0: return new ReplaceFunction();
+                case 1:
+                    {
+                        if (ConstructorArguments[0].Type.FullName == "System.String")
+                        {
+                            return new ReplaceFunction(ConstructorArguments[0].Value.ToString());
+                        }
+                        else
+                        {
+                            return new ReplaceFunction(IL.Help.GetTypeByFullName(((TypeReference)ConstructorArguments[0].Value).FullName));
+                        }
+                    }
+                case 2:
+                    return new ReplaceFunction(IL.Help.GetTypeByFullName(((TypeReference)ConstructorArguments[0].Value).FullName),
+                        ConstructorArguments[1].Value.ToString());
                 }
             }
 
-            if (!isset)
+            return null;
+        }
+
+        static ReplaceType GetReplaceType(Collection<CustomAttribute> CustomAttributes)
+        {
+            CustomAttribute custom;
+            for (int i = 0; i < CustomAttributes.Count; ++i)
             {
-                UnityEngine.Debug.LogErrorFormat("ReplaceFunction type:{0} name:{1} not find!", type.Name, funName);
+                custom = CustomAttributes[i];
+                if (custom.AttributeType.FullName != "wxb.ReplaceType")
+                    continue;
+
+                var param = custom.ConstructorArguments[0];
+                TypeReference typeRef = param.Value as TypeReference;
+                return new ReplaceType(IL.Help.GetTypeByFullName(typeRef.FullName));
             }
 
-            return isset;
+            return null;
         }
 
         public static bool ReplaceField(System.Type type, string fieldName, MethodInfo info)
@@ -149,9 +204,66 @@ namespace wxb
                 return false;
             }
 
-            field.SetValue(null, new global::IL.DelegateBridge(info));
-            UnityEngine.Debug.LogFormat("ReplaceFunction type:{0} fieldName:{1}", type.Name, fieldName);
-            return true; ;
+            if (info == null)
+            {
+                field.SetValue(null, null);
+                UnityEngine.Debug.LogFormat("ReplaceFunction type:{0} fieldName:{1} Cannel!", type.Name, fieldName);
+            }
+            else
+            {
+                field.SetValue(null, new global::IL.DelegateBridge(info));
+                UnityEngine.Debug.LogFormat("ReplaceFunction type:{0} fieldName:{1}", type.Name, fieldName);
+            }
+
+            return true;
+        }
+
+        // 自动注册
+        static void AutoReplace()
+        {
+            var types = new Dictionary<string, IType>(appdomain.LoadedTypes);
+            foreach (var ator in types)
+            {
+                ILType type = ator.Value as ILType;
+                if (type == null)
+                    continue;
+
+                var typeDefinition = type.TypeDefinition;
+                ReplaceType replaceType = GetReplaceType(typeDefinition.CustomAttributes);
+                System.Type rt = replaceType == null ? null : replaceType.type;
+                foreach (var il in type.GetMethods())
+                {
+                    var ilMethod = il as ILMethod;
+                    if (ilMethod == null)
+                        continue;
+
+                    var method = ilMethod.Definition;
+                    ReplaceFunction replaceFunction = GetReplaceFunction(method.CustomAttributes);
+                    if (replaceFunction == null)
+                        continue;
+
+                    System.Type srcType = replaceFunction.type != null ? replaceFunction.type : rt;
+                    if (srcType == null)
+                    {
+                        UnityEngine.Debug.LogErrorFormat("type:{0} method:{1} not set srcType!", type.Name, method.Name);
+                        continue;
+                    }
+
+                    string fieldName = replaceFunction.fieldName;
+                    if (string.IsNullOrEmpty(fieldName))
+                        fieldName = "__Hotfix_" + method.Name;
+
+                    var field = srcType.GetField(fieldName, bindingFlags);
+                    if (field == null)
+                    {
+                        UnityEngine.Debug.LogErrorFormat("type:{0} method:{1} not find {2} hot field!", type.Name, method.Name, fieldName);
+                        continue;
+                    }
+
+                    field.SetValue(null, new global::IL.DelegateBridge(ilMethod.ReflectionMethodInfo));
+                    UnityEngine.Debug.LogFormat("type:{0} method:{1} Replace {2}.{3}!", type.Name, method.Name, srcType.Name, fieldName);
+                }
+            }
         }
     }
 }

@@ -9,16 +9,42 @@ namespace AutoIL
         {
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Component, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Component, UnityEngine.Component, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Single, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Single, System.Single, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Vector4, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Vector4, UnityEngine.Vector4, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Matrix4x4, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Matrix4x4, UnityEngine.Matrix4x4, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.GameObject, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.GameObject, UnityEngine.GameObject, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.EventSystems.RaycastResult, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.EventSystems.RaycastResult, UnityEngine.EventSystems.RaycastResult, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.EventSystems.EventTrigger.Entry, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.EventSystems.EventTrigger.Entry, UnityEngine.EventSystems.EventTrigger.Entry, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UIVertex, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UIVertex, UnityEngine.UIVertex, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Vector3, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Vector3, UnityEngine.Vector3, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Color, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Color, UnityEngine.Color, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Color32, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Color32, UnityEngine.Color32, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Vector2, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Vector2, UnityEngine.Vector2, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Int32, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Int32, System.Int32, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.BoneWeight, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.BoneWeight, UnityEngine.BoneWeight, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Rect, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Rect, UnityEngine.Rect, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.AnimatorClipInfo, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.AnimatorClipInfo, UnityEngine.AnimatorClipInfo, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UI.Selectable, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UI.Selectable, UnityEngine.UI.Selectable, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UICharInfo, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UICharInfo, UnityEngine.UICharInfo, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UILineInfo, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UILineInfo, UnityEngine.UILineInfo, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UI.Dropdown.OptionData, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UI.Dropdown.OptionData, UnityEngine.UI.Dropdown.OptionData, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.String, System.Boolean>();
@@ -26,18 +52,9 @@ namespace AutoIL
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Sprite, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Sprite, UnityEngine.Sprite, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.String, System.Int32, System.Char, System.Char>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Vector3, System.Boolean>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Vector3, UnityEngine.Vector3, System.Int32>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Vector4, System.Boolean>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Vector4, UnityEngine.Vector4, System.Int32>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Color, System.Boolean>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Color, UnityEngine.Color, System.Int32>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Color32, System.Boolean>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Color32, UnityEngine.Color32, System.Int32>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<System.Int32, System.Boolean>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<System.Int32, System.Int32, System.Int32>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Matrix4x4, System.Boolean>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Matrix4x4, UnityEngine.Matrix4x4, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UI.RectMask2D, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UI.RectMask2D, UnityEngine.UI.RectMask2D, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UI.ILayoutElement, System.Single>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Type, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Type, System.Type, System.Int32>();
 
@@ -58,6 +75,70 @@ namespace AutoIL
                 return new System.Comparison<UnityEngine.Component>((x, y) =>
                 {
                     return ((System.Func<UnityEngine.Component, UnityEngine.Component, System.Int32>)act)(x, y);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<System.Single>>((act) =>
+            {
+                return new System.Predicate<System.Single>((obj) =>
+                {
+                    return ((System.Func<System.Single, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction<System.Single>>((act) =>
+            {
+                return new UnityEngine.Events.UnityAction<System.Single>((arg0) =>
+                {
+                    ((System.Action<System.Single>)act)(arg0);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<System.Single>>((act) =>
+            {
+                return new System.Comparison<System.Single>((x, y) =>
+                {
+                    return ((System.Func<System.Single, System.Single, System.Int32>)act)(x, y);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.Vector4>>((act) =>
+            {
+                return new System.Predicate<UnityEngine.Vector4>((obj) =>
+                {
+                    return ((System.Func<UnityEngine.Vector4, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<UnityEngine.Vector4>>((act) =>
+            {
+                return new System.Comparison<UnityEngine.Vector4>((x, y) =>
+                {
+                    return ((System.Func<UnityEngine.Vector4, UnityEngine.Vector4, System.Int32>)act)(x, y);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.Matrix4x4>>((act) =>
+            {
+                return new System.Predicate<UnityEngine.Matrix4x4>((obj) =>
+                {
+                    return ((System.Func<UnityEngine.Matrix4x4, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<UnityEngine.Matrix4x4>>((act) =>
+            {
+                return new System.Comparison<UnityEngine.Matrix4x4>((x, y) =>
+                {
+                    return ((System.Func<UnityEngine.Matrix4x4, UnityEngine.Matrix4x4, System.Int32>)act)(x, y);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Camera.CameraCallback>((act) =>
+            {
+                return new UnityEngine.Camera.CameraCallback((cam) =>
+                {
+                    ((System.Action<UnityEngine.Camera>)act)(cam);
                 });
             });
 
@@ -93,14 +174,6 @@ namespace AutoIL
                 });
             });
 
-            appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction<UnityEngine.EventSystems.BaseEventData>>((act) =>
-            {
-                return new UnityEngine.Events.UnityAction<UnityEngine.EventSystems.BaseEventData>((arg0) =>
-                {
-                    ((System.Action<UnityEngine.EventSystems.BaseEventData>)act)(arg0);
-                });
-            });
-
             appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.EventSystems.EventTrigger.Entry>>((act) =>
             {
                 return new System.Predicate<UnityEngine.EventSystems.EventTrigger.Entry>((obj) =>
@@ -114,6 +187,14 @@ namespace AutoIL
                 return new System.Comparison<UnityEngine.EventSystems.EventTrigger.Entry>((x, y) =>
                 {
                     return ((System.Func<UnityEngine.EventSystems.EventTrigger.Entry, UnityEngine.EventSystems.EventTrigger.Entry, System.Int32>)act)(x, y);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction<UnityEngine.EventSystems.BaseEventData>>((act) =>
+            {
+                return new UnityEngine.Events.UnityAction<UnityEngine.EventSystems.BaseEventData>((arg0) =>
+                {
+                    ((System.Action<UnityEngine.EventSystems.BaseEventData>)act)(arg0);
                 });
             });
 
@@ -261,6 +342,94 @@ namespace AutoIL
                 });
             });
 
+            appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Canvas.WillRenderCanvases>((act) =>
+            {
+                return new UnityEngine.Canvas.WillRenderCanvases(() =>
+                {
+                    ((System.Action)act)();
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Font.FontTextureRebuildCallback>((act) =>
+            {
+                return new UnityEngine.Font.FontTextureRebuildCallback(() =>
+                {
+                    ((System.Action)act)();
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.RectTransform.ReapplyDrivenProperties>((act) =>
+            {
+                return new UnityEngine.RectTransform.ReapplyDrivenProperties((driven) =>
+                {
+                    ((System.Action<UnityEngine.RectTransform>)act)(driven);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.UIVertex>>((act) =>
+            {
+                return new System.Predicate<UnityEngine.UIVertex>((obj) =>
+                {
+                    return ((System.Func<UnityEngine.UIVertex, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<UnityEngine.UIVertex>>((act) =>
+            {
+                return new System.Comparison<UnityEngine.UIVertex>((x, y) =>
+                {
+                    return ((System.Func<UnityEngine.UIVertex, UnityEngine.UIVertex, System.Int32>)act)(x, y);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.Vector3>>((act) =>
+            {
+                return new System.Predicate<UnityEngine.Vector3>((obj) =>
+                {
+                    return ((System.Func<UnityEngine.Vector3, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<UnityEngine.Vector3>>((act) =>
+            {
+                return new System.Comparison<UnityEngine.Vector3>((x, y) =>
+                {
+                    return ((System.Func<UnityEngine.Vector3, UnityEngine.Vector3, System.Int32>)act)(x, y);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.Color>>((act) =>
+            {
+                return new System.Predicate<UnityEngine.Color>((obj) =>
+                {
+                    return ((System.Func<UnityEngine.Color, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<UnityEngine.Color>>((act) =>
+            {
+                return new System.Comparison<UnityEngine.Color>((x, y) =>
+                {
+                    return ((System.Func<UnityEngine.Color, UnityEngine.Color, System.Int32>)act)(x, y);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.Color32>>((act) =>
+            {
+                return new System.Predicate<UnityEngine.Color32>((obj) =>
+                {
+                    return ((System.Func<UnityEngine.Color32, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<UnityEngine.Color32>>((act) =>
+            {
+                return new System.Comparison<UnityEngine.Color32>((x, y) =>
+                {
+                    return ((System.Func<UnityEngine.Color32, UnityEngine.Color32, System.Int32>)act)(x, y);
+                });
+            });
+
             appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.Vector2>>((act) =>
             {
                 return new System.Predicate<UnityEngine.Vector2>((obj) =>
@@ -285,11 +454,83 @@ namespace AutoIL
                 });
             });
 
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<System.Int32>>((act) =>
+            {
+                return new System.Predicate<System.Int32>((obj) =>
+                {
+                    return ((System.Func<System.Int32, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction<System.Int32>>((act) =>
+            {
+                return new UnityEngine.Events.UnityAction<System.Int32>((arg0) =>
+                {
+                    ((System.Action<System.Int32>)act)(arg0);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<System.Int32>>((act) =>
+            {
+                return new System.Comparison<System.Int32>((x, y) =>
+                {
+                    return ((System.Func<System.Int32, System.Int32, System.Int32>)act)(x, y);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.BoneWeight>>((act) =>
+            {
+                return new System.Predicate<UnityEngine.BoneWeight>((obj) =>
+                {
+                    return ((System.Func<UnityEngine.BoneWeight, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<UnityEngine.BoneWeight>>((act) =>
+            {
+                return new System.Comparison<UnityEngine.BoneWeight>((x, y) =>
+                {
+                    return ((System.Func<UnityEngine.BoneWeight, UnityEngine.BoneWeight, System.Int32>)act)(x, y);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.Rect>>((act) =>
+            {
+                return new System.Predicate<UnityEngine.Rect>((obj) =>
+                {
+                    return ((System.Func<UnityEngine.Rect, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<UnityEngine.Rect>>((act) =>
+            {
+                return new System.Comparison<UnityEngine.Rect>((x, y) =>
+                {
+                    return ((System.Func<UnityEngine.Rect, UnityEngine.Rect, System.Int32>)act)(x, y);
+                });
+            });
+
             appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction<System.Boolean>>((act) =>
             {
                 return new UnityEngine.Events.UnityAction<System.Boolean>((arg0) =>
                 {
                     ((System.Action<System.Boolean>)act)(arg0);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.AnimatorClipInfo>>((act) =>
+            {
+                return new System.Predicate<UnityEngine.AnimatorClipInfo>((obj) =>
+                {
+                    return ((System.Func<UnityEngine.AnimatorClipInfo, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<UnityEngine.AnimatorClipInfo>>((act) =>
+            {
+                return new System.Comparison<UnityEngine.AnimatorClipInfo>((x, y) =>
+                {
+                    return ((System.Func<UnityEngine.AnimatorClipInfo, UnityEngine.AnimatorClipInfo, System.Int32>)act)(x, y);
                 });
             });
 
@@ -309,6 +550,38 @@ namespace AutoIL
                 });
             });
 
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.UICharInfo>>((act) =>
+            {
+                return new System.Predicate<UnityEngine.UICharInfo>((obj) =>
+                {
+                    return ((System.Func<UnityEngine.UICharInfo, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<UnityEngine.UICharInfo>>((act) =>
+            {
+                return new System.Comparison<UnityEngine.UICharInfo>((x, y) =>
+                {
+                    return ((System.Func<UnityEngine.UICharInfo, UnityEngine.UICharInfo, System.Int32>)act)(x, y);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.UILineInfo>>((act) =>
+            {
+                return new System.Predicate<UnityEngine.UILineInfo>((obj) =>
+                {
+                    return ((System.Func<UnityEngine.UILineInfo, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<UnityEngine.UILineInfo>>((act) =>
+            {
+                return new System.Comparison<UnityEngine.UILineInfo>((x, y) =>
+                {
+                    return ((System.Func<UnityEngine.UILineInfo, UnityEngine.UILineInfo, System.Int32>)act)(x, y);
+                });
+            });
+
             appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.UI.Dropdown.OptionData>>((act) =>
             {
                 return new System.Predicate<UnityEngine.UI.Dropdown.OptionData>((obj) =>
@@ -322,14 +595,6 @@ namespace AutoIL
                 return new System.Comparison<UnityEngine.UI.Dropdown.OptionData>((x, y) =>
                 {
                     return ((System.Func<UnityEngine.UI.Dropdown.OptionData, UnityEngine.UI.Dropdown.OptionData, System.Int32>)act)(x, y);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction<System.Int32>>((act) =>
-            {
-                return new UnityEngine.Events.UnityAction<System.Int32>((arg0) =>
-                {
-                    ((System.Action<System.Int32>)act)(arg0);
                 });
             });
 
@@ -381,107 +646,19 @@ namespace AutoIL
                 });
             });
 
-            appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction<System.Single>>((act) =>
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.UI.RectMask2D>>((act) =>
             {
-                return new UnityEngine.Events.UnityAction<System.Single>((arg0) =>
+                return new System.Predicate<UnityEngine.UI.RectMask2D>((obj) =>
                 {
-                    ((System.Action<System.Single>)act)(arg0);
+                    return ((System.Func<UnityEngine.UI.RectMask2D, System.Boolean>)act)(obj);
                 });
             });
 
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.Vector3>>((act) =>
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<UnityEngine.UI.RectMask2D>>((act) =>
             {
-                return new System.Predicate<UnityEngine.Vector3>((obj) =>
+                return new System.Comparison<UnityEngine.UI.RectMask2D>((x, y) =>
                 {
-                    return ((System.Func<UnityEngine.Vector3, System.Boolean>)act)(obj);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<UnityEngine.Vector3>>((act) =>
-            {
-                return new System.Comparison<UnityEngine.Vector3>((x, y) =>
-                {
-                    return ((System.Func<UnityEngine.Vector3, UnityEngine.Vector3, System.Int32>)act)(x, y);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.Vector4>>((act) =>
-            {
-                return new System.Predicate<UnityEngine.Vector4>((obj) =>
-                {
-                    return ((System.Func<UnityEngine.Vector4, System.Boolean>)act)(obj);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<UnityEngine.Vector4>>((act) =>
-            {
-                return new System.Comparison<UnityEngine.Vector4>((x, y) =>
-                {
-                    return ((System.Func<UnityEngine.Vector4, UnityEngine.Vector4, System.Int32>)act)(x, y);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.Color>>((act) =>
-            {
-                return new System.Predicate<UnityEngine.Color>((obj) =>
-                {
-                    return ((System.Func<UnityEngine.Color, System.Boolean>)act)(obj);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<UnityEngine.Color>>((act) =>
-            {
-                return new System.Comparison<UnityEngine.Color>((x, y) =>
-                {
-                    return ((System.Func<UnityEngine.Color, UnityEngine.Color, System.Int32>)act)(x, y);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.Color32>>((act) =>
-            {
-                return new System.Predicate<UnityEngine.Color32>((obj) =>
-                {
-                    return ((System.Func<UnityEngine.Color32, System.Boolean>)act)(obj);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<UnityEngine.Color32>>((act) =>
-            {
-                return new System.Comparison<UnityEngine.Color32>((x, y) =>
-                {
-                    return ((System.Func<UnityEngine.Color32, UnityEngine.Color32, System.Int32>)act)(x, y);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<System.Int32>>((act) =>
-            {
-                return new System.Predicate<System.Int32>((obj) =>
-                {
-                    return ((System.Func<System.Int32, System.Boolean>)act)(obj);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<System.Int32>>((act) =>
-            {
-                return new System.Comparison<System.Int32>((x, y) =>
-                {
-                    return ((System.Func<System.Int32, System.Int32, System.Int32>)act)(x, y);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.Matrix4x4>>((act) =>
-            {
-                return new System.Predicate<UnityEngine.Matrix4x4>((obj) =>
-                {
-                    return ((System.Func<UnityEngine.Matrix4x4, System.Boolean>)act)(obj);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<UnityEngine.Matrix4x4>>((act) =>
-            {
-                return new System.Comparison<UnityEngine.Matrix4x4>((x, y) =>
-                {
-                    return ((System.Func<UnityEngine.Matrix4x4, UnityEngine.Matrix4x4, System.Int32>)act)(x, y);
+                    return ((System.Func<UnityEngine.UI.RectMask2D, UnityEngine.UI.RectMask2D, System.Int32>)act)(x, y);
                 });
             });
 
@@ -523,10 +700,14 @@ namespace AutoIL
         static public void RegisterMethodDelegate(AppDomain appdomain)
         {
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Component>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.Single>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Vector4>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Matrix4x4>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Camera>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.GameObject>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.EventSystems.RaycastResult>();
-            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.EventSystems.BaseEventData>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.EventSystems.EventTrigger.Entry>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.EventSystems.BaseEventData>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.EventSystems.IPointerEnterHandler, UnityEngine.EventSystems.BaseEventData>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.EventSystems.IPointerExitHandler, UnityEngine.EventSystems.BaseEventData>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.EventSystems.IPointerDownHandler, UnityEngine.EventSystems.BaseEventData>();
@@ -544,19 +725,25 @@ namespace AutoIL
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.EventSystems.IMoveHandler, UnityEngine.EventSystems.BaseEventData>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.EventSystems.ISubmitHandler, UnityEngine.EventSystems.BaseEventData>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.EventSystems.ICancelHandler, UnityEngine.EventSystems.BaseEventData>();
-            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Vector2>();
-            appdomain.DelegateManager.RegisterMethodDelegate<System.Boolean>();
-            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.UI.Selectable>();
-            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.UI.Dropdown.OptionData>();
-            appdomain.DelegateManager.RegisterMethodDelegate<System.Int32>();
-            appdomain.DelegateManager.RegisterMethodDelegate<System.String>();
-            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Sprite>();
-            appdomain.DelegateManager.RegisterMethodDelegate<System.Single>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.RectTransform>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.UIVertex>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Vector3>();
-            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Vector4>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Color>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Color32>();
-            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Matrix4x4>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Vector2>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.Int32>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.BoneWeight>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Rect>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.Boolean>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.AnimatorClipInfo>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.UI.Selectable>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.UICharInfo>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.UILineInfo>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Font>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.UI.Dropdown.OptionData>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.String>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Sprite>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.UI.RectMask2D>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Type>();
 
         }

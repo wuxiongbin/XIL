@@ -3,14 +3,10 @@ using System.Collections.Generic;
 
 namespace hot
 {
+    [ReplaceType(typeof(Template))]
     public static class HotTemplate
     {
-        public static void Reg()
-        {
-            hotMgr.ReplaceFunction(typeof(Template), "Test", typeof(HotTemplate).GetMethod("Test", hotMgr.bindingFlags));
-            hotMgr.ReplaceFunction(typeof(Template), "TestResult", typeof(HotTemplate).GetMethod("TestResult", hotMgr.bindingFlags));
-        }
-
+        [ReplaceFunction()]
         static void Test(List<object> values)
         {
             Template instance = values[0] as Template;
@@ -19,6 +15,7 @@ namespace hot
             UnityEngine.Debug.LogFormat("type:{0} value:{1}", type.FullName, value.ToString());
         }
 
+        [ReplaceFunction()]
         static object TestResult(List<object> values)
         {
             Template template = values[0] as Template;
