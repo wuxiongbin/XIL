@@ -70,14 +70,14 @@ namespace ILRuntime.Runtime.CLRBinding
                 return true;
             foreach (var j in param)
             {
-                if (j.ParameterType.IsPointer || j.ParameterType == typeof(IntPtr))
+                if (j.ParameterType.IsPointer || j.ParameterType == typeof(IntPtr) || j.ParameterType == typeof(System.TypedReference))
                     return true;
             }
 
             if (i is MethodInfo)
             {
                 var returnType = ((MethodInfo)i).ReturnType;
-                if (returnType.IsPointer || returnType == typeof(IntPtr))
+                if (returnType.IsPointer || returnType == typeof(IntPtr) || returnType == typeof(System.TypedReference))
                     return true;
             }
 

@@ -286,11 +286,10 @@
             //UnityEngine.Debug.LogFormat("assemblies:{0}", assemblies.Length);
             foreach (var assembly in assemblies)
             {
-                //UnityEngine.Debug.LogFormat("assembly:{0}", assembly.FullName);
-                if (assembly.FullName.StartsWith("Assembly-CSharp")
-                    //|| assembly.ManifestModule.Name == ("UnityEngine.UI.dll") 
-                    //|| assembly.ManifestModule.Name == ("UnityEngine.dll")
-                    )
+                if (assembly.FullName.StartsWith("Assembly-CSharp-Editor"))
+                    continue;
+
+                if (assembly.FullName.StartsWith("Assembly-CSharp"))
                 {
                     var types = assembly.GetTypes();
                     foreach (var type in types)

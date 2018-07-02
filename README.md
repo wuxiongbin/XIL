@@ -58,6 +58,36 @@ XIL/Hotfix Inject In Editor -- 编辑器下注入接口
 1 使用HotfixAttribute属性宏来修饰类型
 2 默认情况下所有类型都会被热更注入，如需要自己调整，可修改源文件ExportIL.cs里，FixMarkIL接口，自定义需要热更的类型
 
+生成静态DelegateBridge字段名称的规则
+1 没有同名函数，则固定使用"__Hotfix_函数名"方式
+2 有多个同名函数，对这些同名函数进行排序，排序规则如下(可参考接口wxb.Editor.Hotfix.getDelegateName的逻辑):
+  1 参数个数少的在前
+  2 进行字符串拼接，组成key值，规则如下"返回值全名 函数名(参数类型全名1,参数类型全名2,...)"，之后通过key值比较，理论上，不同函数，key值是不会相同的
+  排序之后，取得对应函数在数组当中的下标来进行拼接如何，规则如下"__Hotfix_函数名_下标"的方式
+  为什么排序，主要是希望能够一眼看过去就知道函数对应的下标是多少，方便Hotfix，以及保证每次Hotfix生成的字段名是完全一致的
+
+如何替换函数
+一般有三种方式
+1 通过函数名直接替换hotMgr.ReplaceFunc,可参考函数HotHelloWorld.Reg
+2 自己自动生成的接口DelegateBridge对应的字段名，可直接使用hotMgr.ReplaceField，可参考函数HotHelloWorld.Reg
+3 通过添加属性来自动注册，可参考脚本HotHelloWorld.cs与HotTemplate.cs,这里简单说明下,
+  要替换一个接口，要知道至少三个信息
+  1 替换的接口属性哪个类型的
+  2 替换的接口对应的DelegateBridge字段的名字
+  3 热更当中，要替换的MethodInfo
+	可添加属性ReplaceType到热更的类当中，表示此类型下的接口，默认替换的类型
+	可添加属性ReplaceFunction到热更的接口当中，表示此接口需要替换哪个类型的哪个接口,可使用三种方式初始化
+	1 ReplaceFunction(System.Type type)                    替换type类型下同名的接口
+	2 ReplaceFunction()                                    替换ReplaceType类型下同名的接口
+	3 ReplaceFunction(string fieldName)                    替换ReplaceType类型fieldName字段对应的接口
+	4 ReplaceFunction(System.Type type, string fieldName)  替换type类型fieldName字段对应的接口
+	一般在没有同名函数情况下，可使用1，2种方式注册，
+	有同名函数情况下，就需要使用3，4方式进行注册，可参考HotHelloWorld.cs脚本
+	通过属性进行自动注册的，假如在类型中含有对应DelegateBridge静态字段的Hotfix变量，则会自动对此变量进行赋值，保存一些参数
+	在实际使用补丁方式热更时，经常遇到一些，只是需要在原有函数之前或之后添加一些代码的情况，这时，你可以通过Hotfix来执行原先代码
+	可参考HotHelloWorld.Start的使用
+建议使用第3种方式进行接口替换
+
 建议：
 最好安装下.NET Reflector，可用来反编译被注入的dll,查看源文件，可加深理解XIL的实现原理。
 项目下文件Library/ScriptAssemblies/Assembly-CSharp.dll这u3d生成的dll文件，原理上，也是修改此文件实现热更新功能,可使用.NET Reflector进行反编译查看源码

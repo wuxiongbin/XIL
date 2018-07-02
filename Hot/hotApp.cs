@@ -21,7 +21,7 @@
 
         void Init()
         {
-
+            HotHelloWorld.Reg();
         }
     }
 }

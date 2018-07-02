@@ -50,7 +50,7 @@
         public object Instance { get { return instance; } }
         public System.Type Type { get { return type; } }
 
-        public T GetField<T>(string name) { return (T)GetField(name); }
+        //public T GetField<T>(string name) { return (T)GetField(name); }
         public void SetField(string name, object value)
         {
             var field = IL.Help.GetField(type, name);
@@ -93,10 +93,10 @@
             }
         }
 
-        public T TryGetField<T>(string name)
-        {
-            return (T)TryGetField(name);
-        }
+        //public T TryGetField<T>(string name)
+        //{
+        //    return (T)TryGetField(name);
+        //}
 
         public object TryGetField(string name)
         {
@@ -202,10 +202,10 @@
             }
         }
 
-        public T GetProperty<T>(string name)
-        {
-            return (T)GetProperty(name);
-        }
+        //public T GetProperty<T>(string name)
+        //{
+        //    return (T)GetProperty(name);
+        //}
 
         public void SetProperty(string name, object value)
         {
@@ -244,10 +244,10 @@
             }
         }
 
-        public T TryGetProperty<T>(string name)
-        {
-            return (T)TryGetProperty(name);
-        }
+        //public T TryGetProperty<T>(string name)
+        //{
+        //    return (T)TryGetProperty(name);
+        //}
 
         public void TrySetProperty(string name, object value)
         {

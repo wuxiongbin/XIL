@@ -69,6 +69,7 @@ namespace xys
             types.Add(typeof(UnityEngine.Video.VideoPlayer));
             types.Add(typeof(System.Enum));
             types.Add(typeof(Screen));
+            types.Add(typeof(wxb.Hotfix));
 
             ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(types, "Assets/XIL/Auto");
         }

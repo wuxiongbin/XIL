@@ -7,7 +7,7 @@ using System.IO;
 using MonoIL.Cecil;
 using MonoIL.Cecil.Cil;
 
-namespace wxb
+namespace wxb.Editor
 {
     public static class Hotfix
     {
@@ -334,6 +334,22 @@ namespace wxb
             public string name;
             public List<MethodDefinition> methods;
 
+            static string GetKey(MethodDefinition method)
+            {
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.Append(method.ReturnType.FullName);
+                sb.Append("(");
+                for (int i = 0; i < method.Parameters.Count; ++i)
+                {
+                    if (i != 0)
+                        sb.Append(",");
+                    sb.Append(method.Parameters[i].ParameterType.FullName);
+                }
+                sb.Append(")");
+
+                return sb.ToString();
+            }
+
             public void Sorted()
             {
                 methods.Sort((x, y) => 
@@ -346,11 +362,9 @@ namespace wxb
                     if (xc.Count != yc.Count)
                         return xc.Count.CompareTo(yc.Count);
 
-                    int count = xc.Count;
-
                     // 参数一样，那么以类型来排序
-                    string kx = x.ToString();
-                    string ky = y.ToString();
+                    string kx = GetKey(x);
+                    string ky = GetKey(y);
                     if (kx == ky)
                         UnityEngine.Debug.LogError("key same! + " + x.Name);
 
@@ -361,24 +375,24 @@ namespace wxb
             public int Count { get { return methods.Count; } }
 
             // 所有函数的参数都是不一样
-            public bool isNotSameParam
-            {
-                get
-                {
-                    bool value = true; // 先假设所有参数个数都不一样
-                    HashSet<int> hss = new HashSet<int>();
-                    foreach (var ator in methods)
-                    {
-                        if (!hss.Add(ator.Parameters.Count))
-                        {
-                            value = false;
-                            break;
-                        }
-                    }
+            //public bool isNotSameParam
+            //{
+            //    get
+            //    {
+            //        bool value = true; // 先假设所有参数个数都不一样
+            //        HashSet<int> hss = new HashSet<int>();
+            //        foreach (var ator in methods)
+            //        {
+            //            if (!hss.Add(ator.Parameters.Count))
+            //            {
+            //                value = false;
+            //                break;
+            //            }
+            //        }
 
-                    return value;
-                }
-            }
+            //        return value;
+            //    }
+            //}
         }
 
         static string getDelegateName(MethodDefinition method)
@@ -412,8 +426,8 @@ namespace wxb
                 return name;
 
             // 是否所有函数的参数个数都不一样
-            if (strMethod.isNotSameParam)
-                return name + "_" + method.Parameters.Count;
+            //if (strMethod.isNotSameParam)
+            //    return name + "_" + method.Parameters.Count;
 
             strMethod.Sorted();
             for (int i = 0; i <strMethod.methods.Count; ++i)

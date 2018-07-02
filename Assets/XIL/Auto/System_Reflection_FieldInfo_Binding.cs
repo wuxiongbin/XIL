@@ -85,21 +85,15 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.RuntimeFieldHandle), typeof(System.RuntimeTypeHandle)};
             method = type.GetMethod("GetFieldFromHandle", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, GetFieldFromHandle_20);
-            args = new Type[]{typeof(System.TypedReference)};
-            method = type.GetMethod("GetValueDirect", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetValueDirect_21);
-            args = new Type[]{typeof(System.TypedReference), typeof(System.Object)};
-            method = type.GetMethod("SetValueDirect", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetValueDirect_22);
             args = new Type[]{};
             method = type.GetMethod("GetOptionalCustomModifiers", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetOptionalCustomModifiers_23);
+            app.RegisterCLRMethodRedirection(method, GetOptionalCustomModifiers_21);
             args = new Type[]{};
             method = type.GetMethod("GetRequiredCustomModifiers", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetRequiredCustomModifiers_24);
+            app.RegisterCLRMethodRedirection(method, GetRequiredCustomModifiers_22);
             args = new Type[]{};
             method = type.GetMethod("GetRawConstantValue", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetRawConstantValue_25);
+            app.RegisterCLRMethodRedirection(method, GetRawConstantValue_23);
 
 
 
@@ -506,54 +500,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetValueDirect_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.TypedReference @obj = (System.TypedReference)typeof(System.TypedReference).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Reflection.FieldInfo instance_of_this_method = (System.Reflection.FieldInfo)typeof(System.Reflection.FieldInfo).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            var result_of_this_method = instance_of_this_method.GetValueDirect(@obj);
-
-            object obj_result_of_this_method = result_of_this_method;
-            if(obj_result_of_this_method is CrossBindingAdaptorType)
-            {    
-                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance, true);
-            }
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
-        }
-
-        static StackObject* SetValueDirect_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Object @value = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.TypedReference @obj = (System.TypedReference)typeof(System.TypedReference).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            System.Reflection.FieldInfo instance_of_this_method = (System.Reflection.FieldInfo)typeof(System.Reflection.FieldInfo).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.SetValueDirect(@obj, @value);
-
-            return __ret;
-        }
-
-        static StackObject* GetOptionalCustomModifiers_23(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetOptionalCustomModifiers_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -568,7 +515,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetRequiredCustomModifiers_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetRequiredCustomModifiers_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -583,7 +530,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetRawConstantValue_25(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetRawConstantValue_23(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

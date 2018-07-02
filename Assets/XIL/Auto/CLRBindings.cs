@@ -67,6 +67,7 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine_Video_VideoPlayer_Binding.Register(app);
             System_Enum_Binding.Register(app);
             UnityEngine_Screen_Binding.Register(app);
+            wxb_Hotfix_Binding.Register(app);
         }
 
         /// <summary>
