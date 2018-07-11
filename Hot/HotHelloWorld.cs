@@ -3,9 +3,15 @@ using System.Collections.Generic;
 
 namespace hot
 {
+    [AutoInitAndRelease]
     [ReplaceType(typeof(HelloWorld))]
     public static class HotHelloWorld
     {
+        public static void Init()
+        {
+            UnityEngine.Debug.LogFormat("HotHelloWorld.Init by AutoInitAndRelease");
+        }
+
         public static void Reg()
         {
             hotMgr.ReplaceFunc(typeof(HelloWorld), "TestFunc", typeof(HotHelloWorld).GetMethod("TestFunc", hotMgr.bindingFlags));

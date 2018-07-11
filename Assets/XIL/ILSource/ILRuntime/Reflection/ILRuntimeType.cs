@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -233,6 +234,10 @@ namespace ILRuntime.Reflection
                 if (i.Name == name)
                     return i;
             }
+            if (BaseType != null && BaseType is ILRuntimeWrapperType)
+            {
+                return BaseType.GetField(name, bindingAttr);
+            }
             return null;
         }
 
@@ -252,6 +257,13 @@ namespace ILRuntime.Reflection
                 if ((isStatic != i.IsStatic) && (isInstance != !i.IsStatic))
                     continue;
                 res.Add(i);
+            }
+            if ((bindingAttr & BindingFlags.DeclaredOnly) != BindingFlags.DeclaredOnly)
+            {
+                if (BaseType != null && BaseType is ILRuntimeWrapperType)
+                {
+                    res.AddRange(BaseType.GetFields(bindingAttr));
+                }
             }
             return res.ToArray();
         }
@@ -335,6 +347,13 @@ namespace ILRuntime.Reflection
                 if ((isStatic != i.IsStatic) && (isInstance != !i.IsStatic))
                     continue;
                 res.Add(i);
+            }
+            if ((bindingAttr & BindingFlags.DeclaredOnly) != BindingFlags.DeclaredOnly)
+            {
+                if (BaseType != null && BaseType is ILRuntimeWrapperType)
+                {
+                    res.AddRange(BaseType.GetProperties(bindingAttr));
+                }
             }
             return res.ToArray();
         }
@@ -478,7 +497,7 @@ namespace ILRuntime.Reflection
         {
             get
             {
-                return type.HasGenericParameter;
+                return type.HasGenericParameter || type.GenericArguments != null;
             }
         }
 
@@ -491,4 +510,5 @@ namespace ILRuntime.Reflection
         }
     }
 }
-#endif
+
+#endif

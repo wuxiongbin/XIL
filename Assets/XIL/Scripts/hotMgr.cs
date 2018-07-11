@@ -125,6 +125,13 @@ namespace wxb
         public string fieldName;
     }
 
+    // 自动调用初始化接口，定义在某个类的属性，只要此类下有静态的函数Init，会自动调用
+    [System.AttributeUsage(System.AttributeTargets.Class)]
+    public class AutoInitAndRelease : System.Attribute
+    {
+
+    }
+
     public static class hotMgr
     {
         public static AppDomain appdomain { get; private set; }
@@ -140,7 +147,10 @@ namespace wxb
 
             refType = new RefType("hot.hotApp");
             refType.TryInvokeMethod("Init");
-            AutoReplace();
+
+            var types = new Dictionary<string, IType>(appdomain.LoadedTypes);
+            AutoReplace(types);
+            InitByProperty(typeof(AutoInitAndRelease), "Init", types);
         }
 
         public const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
@@ -355,9 +365,8 @@ namespace wxb
         }
 
         // 自动注册
-        static void AutoReplace()
+        static void AutoReplace(Dictionary<string, IType> types)
         {
-            var types = new Dictionary<string, IType>(appdomain.LoadedTypes);
             Dictionary<string, List<MethodInfo>> NameToSorted = new Dictionary<string, List<MethodInfo>>();
             foreach (var ator in types)
             {
@@ -404,6 +413,49 @@ namespace wxb
                     UnityEngine.Debug.LogFormat("type:{0} method:{1} Replace {2}.{3}!", type.Name, method.Name, srcType.Name, fieldName);
 
                     AutoSetFieldMethodValue(srcType, field, type, fieldName, bridge, NameToSorted);
+                }
+            }
+        }
+
+        static void InitByProperty(System.Type attType, string name, Dictionary<string, IType> types)
+        {
+            string autoAttName = attType.FullName;
+            List<IMethod> calls = new List<IMethod>();
+            foreach (var itor in types)
+            {
+                ILType ilType = itor.Value as ILType;
+                if (ilType == null)
+                    continue;
+
+                TypeDefinition td = ilType.TypeDefinition;
+                foreach (var att in td.CustomAttributes)
+                {
+                    if (att.AttributeType.FullName == autoAttName)
+                    {
+                        var type = itor.Value.TypeForCLR;
+                        var method = itor.Value.GetMethod(name, 0);
+                        if (method == null)
+                            continue;
+                        if (!method.IsStatic)
+                        {
+                            UnityEngine.Debug.LogErrorFormat("hot type:{0} method:{1} not static!", itor.Key, name);
+                            continue;
+                        }
+                        calls.Add(method);
+                        break;
+                    }
+                }
+            }
+
+            for (int i = 0; i < calls.Count; ++i)
+            {
+                try
+                {
+                    appdomain.Invoke(calls[i], null);
+                }
+                catch (System.Exception ex)
+                {
+                    UnityEngine.Debug.LogException(ex);
                 }
             }
         }
