@@ -434,6 +434,8 @@ namespace ILRuntime.Runtime.Enviorment
 
         public void RegisterCLRMethodRedirection(MethodBase mi, CLRRedirectionDelegate func)
         {
+            if (mi == null)
+                return;
             if (!redirectMap.ContainsKey(mi))
                 redirectMap[mi] = func;
         }
