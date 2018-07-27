@@ -205,73 +205,73 @@ namespace ILRuntime.Runtime.CLRBinding
                 if (type == typeof(int))
                 {
                     sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Integer;");
-                    sb.Append("                        ___dst->Value = " + paramName);
+                    sb.Append("                        ___dst->Value = @" + paramName);
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(long))
                 {
                     sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Long;");
-                    sb.Append("                        *(long*)&___dst->Value = " + paramName);
+                    sb.Append("                        *(long*)&___dst->Value = @" + paramName);
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(short))
                 {
                     sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Integer;");
-                    sb.Append("                        ___dst->Value = " + paramName);
+                    sb.Append("                        ___dst->Value = @" + paramName);
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(bool))
                 {
                     sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Integer;");
-                    sb.Append("                        ___dst->Value = " + paramName + " ? 1 : 0;");
+                    sb.Append("                        ___dst->Value = @" + paramName + " ? 1 : 0;");
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(ushort))
                 {
                     sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Integer;");
-                    sb.Append("                        ___dst->Value = " + paramName);
+                    sb.Append("                        ___dst->Value = @" + paramName);
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(float))
                 {
                     sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Float;");
-                    sb.Append("                        *(float*)&___dst->Value = " + paramName);
+                    sb.Append("                        *(float*)&___dst->Value = @" + paramName);
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(double))
                 {
                     sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Double;");
-                    sb.Append("                        *(double*)&___dst->Value = " + paramName);
+                    sb.Append("                        *(double*)&___dst->Value = @" + paramName);
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(byte))
                 {
                     sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Integer;");
-                    sb.Append("                        ___dst->Value = " + paramName);
+                    sb.Append("                        ___dst->Value = @" + paramName);
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(sbyte))
                 {
                     sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Integer;");
-                    sb.Append("                        ___dst->Value = " + paramName);
+                    sb.Append("                        ___dst->Value = @" + paramName);
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(uint))
                 {
                     sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Integer;");
-                    sb.Append("                        ___dst->Value = (int)" + paramName);
+                    sb.Append("                        ___dst->Value = (int)@" + paramName);
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(char))
                 {
                     sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Integer;");
-                    sb.Append("                        ___dst->Value = (int)" + paramName);
+                    sb.Append("                        ___dst->Value = (int)@" + paramName);
                     sb.AppendLine(";");
                 }
                 else if (type == typeof(ulong))
                 {
                     sb.AppendLine("                        ___dst->ObjectType = ObjectTypes.Long;");
-                    sb.Append("                        *(ulong*)&___dst->Value = " + paramName);
+                    sb.Append("                        *(ulong*)&___dst->Value = @" + paramName);
                     sb.AppendLine(";");
                 }
                 else
@@ -279,7 +279,7 @@ namespace ILRuntime.Runtime.CLRBinding
             }
             else
             {
-                sb.Append(@"                        object ___obj = ");
+                sb.Append(@"                        object ___obj = @");
                 sb.Append(paramName);
                 sb.AppendLine(";");
                 sb.AppendLine(@"                        if (___dst->ObjectType >= ObjectTypes.Object)
@@ -399,6 +399,17 @@ namespace ILRuntime.Runtime.CLRBinding
                 }
                 sb.AppendLine(string.Format("            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method{0});", isBox));
             }
+        }
+
+        internal static bool HasByRefParam(this ParameterInfo[] param)
+        {
+            for (int j = param.Length; j > 0; j--)
+            {
+                var p = param[j - 1];
+                if (p.ParameterType.IsByRef)
+                    return true;
+            }
+            return false;
         }
     }
 }

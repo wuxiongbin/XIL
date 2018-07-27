@@ -13,11 +13,11 @@ namespace ILRuntime.Runtime
         {
             isByRef = type.IsByRef;
             int arrayRank = 1;
+            bool isArray = type.IsArray;
             if (isByRef)
             {
                 type = type.GetElementType();
             }
-            bool isArray = type.IsArray;
             if (isArray)
             {
                 arrayRank = type.GetArrayRank();
@@ -71,7 +71,7 @@ namespace ILRuntime.Runtime
             else
             {
                 clsName = simpleClassName ? "" : (!string.IsNullOrEmpty(type.Namespace) ? type.Namespace.Replace(".", "_") + "_" : "");
-                realNamespace = !string.IsNullOrEmpty(type.Namespace) ? type.Namespace + "." : null;
+                realNamespace = !string.IsNullOrEmpty(type.Namespace) ? type.Namespace + "." : "global::";
             }
             clsName = clsName + type.Name.Replace(".", "_").Replace("`", "_").Replace("<", "_").Replace(">", "_");
             bool isGeneric = false;

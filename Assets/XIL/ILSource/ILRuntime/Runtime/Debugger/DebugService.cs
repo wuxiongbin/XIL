@@ -122,51 +122,6 @@ namespace ILRuntime.Runtime.Debugger
             return sb.ToString();
         }
 
-#if UNITY_EDITOR
-        public string GetStackTrance(ILIntepreter intepreper, out string file, out int line)
-        {
-            StringBuilder sb = new StringBuilder();
-            ILRuntime.CLR.Method.ILMethod m;
-            StackFrame[] frames = intepreper.Stack.Frames.ToArray();
-            Mono.Cecil.Cil.Instruction ins = null;
-            if (frames[0].Address != null)
-            {
-                ins = frames[0].Method.Definition.Body.Instructions[frames[0].Address.Value];
-                sb.AppendLine(ins.ToString());
-            }
-            file = null;
-            line = 0;
-            for (int i = 0; i < frames.Length; i++)
-            {
-                var f = frames[i];
-                m = f.Method;
-                string document = "";
-                if (f.Address != null)
-                {
-                    ins = m.Definition.Body.Instructions[f.Address.Value];
-                    var seq = FindSequencePoint(ins);
-                    if (seq != null)
-                    {
-                        document = string.Format("{0}:Line {1}", seq.Document.Url, seq.StartLine);
-                        if (file == null && !string.IsNullOrEmpty(seq.Document.Url))
-                        {
-                            file = seq.Document.Url.Replace('\\', '/');
-                            int pos = file.LastIndexOf("Assets/");
-                            if (pos != -1)
-                            {
-                                file = file.Substring(pos);
-                                line = seq.StartLine;
-                            }
-                        }
-                    }
-                }
-                sb.AppendFormat("at {0} {1}\r\n", m, document);
-            }
-
-            return sb.ToString();
-        }
-#endif
-
         public unsafe string GetThisInfo(ILIntepreter intepreter)
         {
             var topFrame = intepreter.Stack.Frames.Peek();

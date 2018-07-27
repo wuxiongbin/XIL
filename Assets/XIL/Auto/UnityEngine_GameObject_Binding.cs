@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.InteropServices;
-
+using System.Linq;
 using ILRuntime.CLR.TypeSystem;
 using ILRuntime.CLR.Method;
 using ILRuntime.Runtime.Enviorment;
@@ -58,87 +58,87 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.Type), typeof(System.Boolean)};
             method = type.GetMethod("GetComponentsInParent", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, GetComponentsInParent_11);
-            args = new Type[]{};
-            method = type.GetMethod("get_transform", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_transform_12);
-            args = new Type[]{};
-            method = type.GetMethod("get_layer", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_layer_13);
-            args = new Type[]{typeof(System.Int32)};
-            method = type.GetMethod("set_layer", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_layer_14);
-            args = new Type[]{typeof(System.Boolean)};
-            method = type.GetMethod("SetActive", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetActive_15);
-            args = new Type[]{};
-            method = type.GetMethod("get_activeSelf", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_activeSelf_16);
-            args = new Type[]{};
-            method = type.GetMethod("get_activeInHierarchy", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_activeInHierarchy_17);
-            args = new Type[]{};
-            method = type.GetMethod("get_isStatic", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_isStatic_18);
-            args = new Type[]{typeof(System.Boolean)};
-            method = type.GetMethod("set_isStatic", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_isStatic_19);
-            args = new Type[]{};
-            method = type.GetMethod("get_tag", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_tag_20);
-            args = new Type[]{typeof(System.String)};
-            method = type.GetMethod("set_tag", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_tag_21);
-            args = new Type[]{typeof(System.String)};
-            method = type.GetMethod("CompareTag", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, CompareTag_22);
-            args = new Type[]{typeof(System.String)};
-            method = type.GetMethod("FindGameObjectWithTag", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, FindGameObjectWithTag_23);
             args = new Type[]{typeof(System.String)};
             method = type.GetMethod("FindWithTag", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, FindWithTag_24);
-            args = new Type[]{typeof(System.String)};
-            method = type.GetMethod("FindGameObjectsWithTag", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, FindGameObjectsWithTag_25);
-            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(UnityEngine.SendMessageOptions)};
-            method = type.GetMethod("SendMessageUpwards", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SendMessageUpwards_26);
-            args = new Type[]{typeof(System.String), typeof(System.Object)};
-            method = type.GetMethod("SendMessageUpwards", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SendMessageUpwards_27);
-            args = new Type[]{typeof(System.String)};
-            method = type.GetMethod("SendMessageUpwards", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SendMessageUpwards_28);
+            app.RegisterCLRMethodRedirection(method, FindWithTag_12);
             args = new Type[]{typeof(System.String), typeof(UnityEngine.SendMessageOptions)};
             method = type.GetMethod("SendMessageUpwards", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SendMessageUpwards_29);
-            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(UnityEngine.SendMessageOptions)};
-            method = type.GetMethod("SendMessage", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SendMessage_30);
-            args = new Type[]{typeof(System.String), typeof(System.Object)};
-            method = type.GetMethod("SendMessage", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SendMessage_31);
-            args = new Type[]{typeof(System.String)};
-            method = type.GetMethod("SendMessage", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SendMessage_32);
+            app.RegisterCLRMethodRedirection(method, SendMessageUpwards_13);
             args = new Type[]{typeof(System.String), typeof(UnityEngine.SendMessageOptions)};
             method = type.GetMethod("SendMessage", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SendMessage_33);
-            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(UnityEngine.SendMessageOptions)};
-            method = type.GetMethod("BroadcastMessage", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, BroadcastMessage_34);
-            args = new Type[]{typeof(System.String), typeof(System.Object)};
-            method = type.GetMethod("BroadcastMessage", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, BroadcastMessage_35);
-            args = new Type[]{typeof(System.String)};
-            method = type.GetMethod("BroadcastMessage", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, BroadcastMessage_36);
+            app.RegisterCLRMethodRedirection(method, SendMessage_14);
             args = new Type[]{typeof(System.String), typeof(UnityEngine.SendMessageOptions)};
             method = type.GetMethod("BroadcastMessage", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, BroadcastMessage_37);
+            app.RegisterCLRMethodRedirection(method, BroadcastMessage_15);
             args = new Type[]{typeof(System.Type)};
             method = type.GetMethod("AddComponent", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, AddComponent_38);
+            app.RegisterCLRMethodRedirection(method, AddComponent_16);
+            args = new Type[]{};
+            method = type.GetMethod("get_transform", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_transform_17);
+            args = new Type[]{};
+            method = type.GetMethod("get_layer", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_layer_18);
+            args = new Type[]{typeof(System.Int32)};
+            method = type.GetMethod("set_layer", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, set_layer_19);
+            args = new Type[]{typeof(System.Boolean)};
+            method = type.GetMethod("SetActive", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, SetActive_20);
+            args = new Type[]{};
+            method = type.GetMethod("get_activeSelf", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_activeSelf_21);
+            args = new Type[]{};
+            method = type.GetMethod("get_activeInHierarchy", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_activeInHierarchy_22);
+            args = new Type[]{};
+            method = type.GetMethod("get_isStatic", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_isStatic_23);
+            args = new Type[]{typeof(System.Boolean)};
+            method = type.GetMethod("set_isStatic", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, set_isStatic_24);
+            args = new Type[]{};
+            method = type.GetMethod("get_tag", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_tag_25);
+            args = new Type[]{typeof(System.String)};
+            method = type.GetMethod("set_tag", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, set_tag_26);
+            args = new Type[]{typeof(System.String)};
+            method = type.GetMethod("CompareTag", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, CompareTag_27);
+            args = new Type[]{typeof(System.String)};
+            method = type.GetMethod("FindGameObjectWithTag", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, FindGameObjectWithTag_28);
+            args = new Type[]{typeof(System.String)};
+            method = type.GetMethod("FindGameObjectsWithTag", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, FindGameObjectsWithTag_29);
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(UnityEngine.SendMessageOptions)};
+            method = type.GetMethod("SendMessageUpwards", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, SendMessageUpwards_30);
+            args = new Type[]{typeof(System.String), typeof(System.Object)};
+            method = type.GetMethod("SendMessageUpwards", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, SendMessageUpwards_31);
+            args = new Type[]{typeof(System.String)};
+            method = type.GetMethod("SendMessageUpwards", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, SendMessageUpwards_32);
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(UnityEngine.SendMessageOptions)};
+            method = type.GetMethod("SendMessage", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, SendMessage_33);
+            args = new Type[]{typeof(System.String), typeof(System.Object)};
+            method = type.GetMethod("SendMessage", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, SendMessage_34);
+            args = new Type[]{typeof(System.String)};
+            method = type.GetMethod("SendMessage", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, SendMessage_35);
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(UnityEngine.SendMessageOptions)};
+            method = type.GetMethod("BroadcastMessage", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, BroadcastMessage_36);
+            args = new Type[]{typeof(System.String), typeof(System.Object)};
+            method = type.GetMethod("BroadcastMessage", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, BroadcastMessage_37);
+            args = new Type[]{typeof(System.String)};
+            method = type.GetMethod("BroadcastMessage", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, BroadcastMessage_38);
             args = new Type[]{typeof(System.String)};
             method = type.GetMethod("Find", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Find_39);
@@ -430,7 +430,116 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_transform_12(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* FindWithTag_12(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.String @tag = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = UnityEngine.GameObject.FindWithTag(@tag);
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* SendMessageUpwards_13(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.SendMessageOptions @options = (UnityEngine.SendMessageOptions)typeof(UnityEngine.SendMessageOptions).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            System.String @methodName = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
+            UnityEngine.GameObject instance_of_this_method = (UnityEngine.GameObject)typeof(UnityEngine.GameObject).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.SendMessageUpwards(@methodName, @options);
+
+            return __ret;
+        }
+
+        static StackObject* SendMessage_14(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.SendMessageOptions @options = (UnityEngine.SendMessageOptions)typeof(UnityEngine.SendMessageOptions).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            System.String @methodName = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
+            UnityEngine.GameObject instance_of_this_method = (UnityEngine.GameObject)typeof(UnityEngine.GameObject).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.SendMessage(@methodName, @options);
+
+            return __ret;
+        }
+
+        static StackObject* BroadcastMessage_15(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.SendMessageOptions @options = (UnityEngine.SendMessageOptions)typeof(UnityEngine.SendMessageOptions).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            System.String @methodName = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
+            UnityEngine.GameObject instance_of_this_method = (UnityEngine.GameObject)typeof(UnityEngine.GameObject).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.BroadcastMessage(@methodName, @options);
+
+            return __ret;
+        }
+
+        static StackObject* AddComponent_16(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Type @componentType = (System.Type)typeof(System.Type).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.GameObject instance_of_this_method = (UnityEngine.GameObject)typeof(UnityEngine.GameObject).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            var result_of_this_method = instance_of_this_method.AddComponent(@componentType);
+
+            object obj_result_of_this_method = result_of_this_method;
+            if(obj_result_of_this_method is CrossBindingAdaptorType)
+            {    
+                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
+            }
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* get_transform_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -450,7 +559,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_layer_13(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_layer_18(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -467,7 +576,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_layer_14(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_layer_19(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -485,7 +594,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SetActive_15(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetActive_20(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -503,7 +612,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_activeSelf_16(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_activeSelf_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -520,7 +629,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_activeInHierarchy_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_activeInHierarchy_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -537,7 +646,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_isStatic_18(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_isStatic_23(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -554,7 +663,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_isStatic_19(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_isStatic_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -572,7 +681,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_tag_20(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_tag_25(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -587,7 +696,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* set_tag_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_tag_26(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -606,7 +715,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* CompareTag_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* CompareTag_27(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -627,7 +736,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* FindGameObjectWithTag_23(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* FindGameObjectWithTag_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -643,23 +752,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* FindWithTag_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.String @tag = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-
-            var result_of_this_method = UnityEngine.GameObject.FindWithTag(@tag);
-
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
-        static StackObject* FindGameObjectsWithTag_25(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* FindGameObjectsWithTag_29(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -675,7 +768,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* SendMessageUpwards_26(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SendMessageUpwards_30(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -702,7 +795,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SendMessageUpwards_27(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SendMessageUpwards_31(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -725,7 +818,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SendMessageUpwards_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SendMessageUpwards_32(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -744,30 +837,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SendMessageUpwards_29(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.SendMessageOptions @options = (UnityEngine.SendMessageOptions)typeof(UnityEngine.SendMessageOptions).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.String @methodName = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            UnityEngine.GameObject instance_of_this_method = (UnityEngine.GameObject)typeof(UnityEngine.GameObject).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.SendMessageUpwards(@methodName, @options);
-
-            return __ret;
-        }
-
-        static StackObject* SendMessage_30(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SendMessage_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -794,7 +864,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SendMessage_31(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SendMessage_34(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -817,7 +887,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SendMessage_32(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SendMessage_35(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -836,30 +906,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SendMessage_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.SendMessageOptions @options = (UnityEngine.SendMessageOptions)typeof(UnityEngine.SendMessageOptions).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.String @methodName = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            UnityEngine.GameObject instance_of_this_method = (UnityEngine.GameObject)typeof(UnityEngine.GameObject).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.SendMessage(@methodName, @options);
-
-            return __ret;
-        }
-
-        static StackObject* BroadcastMessage_34(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* BroadcastMessage_36(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -886,7 +933,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* BroadcastMessage_35(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* BroadcastMessage_37(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -909,7 +956,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* BroadcastMessage_36(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* BroadcastMessage_38(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -926,53 +973,6 @@ namespace ILRuntime.Runtime.Generated
             instance_of_this_method.BroadcastMessage(@methodName);
 
             return __ret;
-        }
-
-        static StackObject* BroadcastMessage_37(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.SendMessageOptions @options = (UnityEngine.SendMessageOptions)typeof(UnityEngine.SendMessageOptions).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.String @methodName = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            UnityEngine.GameObject instance_of_this_method = (UnityEngine.GameObject)typeof(UnityEngine.GameObject).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.BroadcastMessage(@methodName, @options);
-
-            return __ret;
-        }
-
-        static StackObject* AddComponent_38(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Type @componentType = (System.Type)typeof(System.Type).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            UnityEngine.GameObject instance_of_this_method = (UnityEngine.GameObject)typeof(UnityEngine.GameObject).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            var result_of_this_method = instance_of_this_method.AddComponent(@componentType);
-
-            object obj_result_of_this_method = result_of_this_method;
-            if(obj_result_of_this_method is CrossBindingAdaptorType)
-            {    
-                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
-            }
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
         static StackObject* Find_39(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)

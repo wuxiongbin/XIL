@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.InteropServices;
-
+using System.Linq;
 using ILRuntime.CLR.TypeSystem;
 using ILRuntime.CLR.Method;
 using ILRuntime.Runtime.Enviorment;
@@ -239,8 +239,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.Days;
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             __ret->ObjectType = ObjectTypes.Integer;
             __ret->Value = result_of_this_method;
             return __ret + 1;
@@ -258,8 +260,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.Hours;
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             __ret->ObjectType = ObjectTypes.Integer;
             __ret->Value = result_of_this_method;
             return __ret + 1;
@@ -277,8 +281,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.Milliseconds;
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             __ret->ObjectType = ObjectTypes.Integer;
             __ret->Value = result_of_this_method;
             return __ret + 1;
@@ -296,8 +302,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.Minutes;
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             __ret->ObjectType = ObjectTypes.Integer;
             __ret->Value = result_of_this_method;
             return __ret + 1;
@@ -315,8 +323,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.Seconds;
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             __ret->ObjectType = ObjectTypes.Integer;
             __ret->Value = result_of_this_method;
             return __ret + 1;
@@ -334,8 +344,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.Ticks;
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             __ret->ObjectType = ObjectTypes.Long;
             *(long*)&__ret->Value = result_of_this_method;
             return __ret + 1;
@@ -353,8 +365,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.TotalDays;
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             __ret->ObjectType = ObjectTypes.Double;
             *(double*)&__ret->Value = result_of_this_method;
             return __ret + 1;
@@ -372,8 +386,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.TotalHours;
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             __ret->ObjectType = ObjectTypes.Double;
             *(double*)&__ret->Value = result_of_this_method;
             return __ret + 1;
@@ -391,8 +407,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.TotalMilliseconds;
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             __ret->ObjectType = ObjectTypes.Double;
             *(double*)&__ret->Value = result_of_this_method;
             return __ret + 1;
@@ -410,8 +428,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.TotalMinutes;
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             __ret->ObjectType = ObjectTypes.Double;
             *(double*)&__ret->Value = result_of_this_method;
             return __ret + 1;
@@ -429,8 +449,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.TotalSeconds;
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             __ret->ObjectType = ObjectTypes.Double;
             *(double*)&__ret->Value = result_of_this_method;
             return __ret + 1;
@@ -452,8 +474,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.Add(@ts);
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
@@ -495,8 +519,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.CompareTo(@value);
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             __ret->ObjectType = ObjectTypes.Integer;
             __ret->Value = result_of_this_method;
             return __ret + 1;
@@ -518,8 +544,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.CompareTo(@value);
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             __ret->ObjectType = ObjectTypes.Integer;
             __ret->Value = result_of_this_method;
             return __ret + 1;
@@ -541,8 +569,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.Equals(@obj);
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             __ret->ObjectType = ObjectTypes.Integer;
             __ret->Value = result_of_this_method ? 1 : 0;
             return __ret + 1;
@@ -560,8 +590,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.Duration();
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
@@ -581,8 +613,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.Equals(@value);
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             __ret->ObjectType = ObjectTypes.Integer;
             __ret->Value = result_of_this_method ? 1 : 0;
             return __ret + 1;
@@ -712,8 +746,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.GetHashCode();
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             __ret->ObjectType = ObjectTypes.Integer;
             __ret->Value = result_of_this_method;
             return __ret + 1;
@@ -731,8 +767,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.Negate();
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
@@ -763,7 +801,6 @@ namespace ILRuntime.Runtime.Generated
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             System.String @s = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
 
 
             var result_of_this_method = System.TimeSpan.TryParse(@s, out @result);
@@ -774,7 +811,7 @@ namespace ILRuntime.Runtime.Generated
                 case ObjectTypes.StackObjectReference:
                     {
                         var ___dst = *(StackObject**)&ptr_of_this_method->Value;
-                        object ___obj = result;
+                        object ___obj = @result;
                         if (___dst->ObjectType >= ObjectTypes.Object)
                         {
                             if (___obj is CrossBindingAdaptorType)
@@ -792,12 +829,12 @@ namespace ILRuntime.Runtime.Generated
                         var ___obj = __mStack[ptr_of_this_method->Value];
                         if(___obj is ILTypeInstance)
                         {
-                            ((ILTypeInstance)___obj)[ptr_of_this_method->ValueLow] = result;
+                            ((ILTypeInstance)___obj)[ptr_of_this_method->ValueLow] = @result;
                         }
                         else
                         {
                             var ___type = __domain.GetType(___obj.GetType()) as CLRType;
-                            ___type.SetFieldValue(ptr_of_this_method->ValueLow, ref ___obj, result);
+                            ___type.SetFieldValue(ptr_of_this_method->ValueLow, ref ___obj, @result);
                         }
                     }
                     break;
@@ -806,22 +843,25 @@ namespace ILRuntime.Runtime.Generated
                         var ___type = __domain.GetType(ptr_of_this_method->Value);
                         if(___type is ILType)
                         {
-                            ((ILType)___type).StaticInstance[ptr_of_this_method->ValueLow] = result;
+                            ((ILType)___type).StaticInstance[ptr_of_this_method->ValueLow] = @result;
                         }
                         else
                         {
-                            ((CLRType)___type).SetStaticFieldValue(ptr_of_this_method->ValueLow, result);
+                            ((CLRType)___type).SetStaticFieldValue(ptr_of_this_method->ValueLow, @result);
                         }
                     }
                     break;
                  case ObjectTypes.ArrayReference:
                     {
                         var instance_of_arrayReference = __mStack[ptr_of_this_method->Value] as System.TimeSpan[];
-                        instance_of_arrayReference[ptr_of_this_method->ValueLow] = result;
+                        instance_of_arrayReference[ptr_of_this_method->ValueLow] = @result;
                     }
                     break;
             }
 
+            __intp.Free(ptr_of_this_method);
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            __intp.Free(ptr_of_this_method);
             __ret->ObjectType = ObjectTypes.Integer;
             __ret->Value = result_of_this_method ? 1 : 0;
             return __ret + 1;
@@ -843,8 +883,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.Subtract(@ts);
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
@@ -860,8 +902,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.ToString();
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 

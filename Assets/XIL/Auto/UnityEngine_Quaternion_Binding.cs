@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.InteropServices;
-
+using System.Linq;
 using ILRuntime.CLR.TypeSystem;
 using ILRuntime.CLR.Method;
 using ILRuntime.Runtime.Enviorment;
@@ -107,18 +107,30 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(UnityEngine.Quaternion), typeof(UnityEngine.Quaternion), typeof(System.Single)};
             method = type.GetMethod("RotateTowards", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, RotateTowards_27);
+            args = new Type[]{typeof(UnityEngine.Quaternion)};
+            method = type.GetMethod("Normalize", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Normalize_28);
+            args = new Type[]{};
+            method = type.GetMethod("Normalize", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Normalize_29);
+            args = new Type[]{};
+            method = type.GetMethod("get_normalized", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_normalized_30);
             args = new Type[]{};
             method = type.GetMethod("GetHashCode", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetHashCode_28);
+            app.RegisterCLRMethodRedirection(method, GetHashCode_31);
             args = new Type[]{typeof(System.Object)};
             method = type.GetMethod("Equals", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Equals_29);
+            app.RegisterCLRMethodRedirection(method, Equals_32);
+            args = new Type[]{typeof(UnityEngine.Quaternion)};
+            method = type.GetMethod("Equals", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Equals_33);
             args = new Type[]{};
             method = type.GetMethod("ToString", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, ToString_30);
+            app.RegisterCLRMethodRedirection(method, ToString_34);
             args = new Type[]{typeof(System.String)};
             method = type.GetMethod("ToString", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, ToString_31);
+            app.RegisterCLRMethodRedirection(method, ToString_35);
 
             field = type.GetField("x", flag);
             app.RegisterCLRFieldGetter(field, get_x_0);
@@ -390,8 +402,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method[index];
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             __ret->ObjectType = ObjectTypes.Float;
             *(float*)&__ret->Value = result_of_this_method;
             return __ret + 1;
@@ -415,8 +429,10 @@ namespace ILRuntime.Runtime.Generated
 
             instance_of_this_method[index] = value;
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             return __ret;
         }
 
@@ -444,8 +460,10 @@ namespace ILRuntime.Runtime.Generated
 
             instance_of_this_method.Set(@newX, @newY, @newZ, @newW);
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 5);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             return __ret;
         }
 
@@ -582,8 +600,10 @@ namespace ILRuntime.Runtime.Generated
 
             instance_of_this_method.SetLookRotation(@view);
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             return __ret;
         }
 
@@ -607,8 +627,10 @@ namespace ILRuntime.Runtime.Generated
 
             instance_of_this_method.SetLookRotation(@view, @up);
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             return __ret;
         }
 
@@ -646,8 +668,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.eulerAngles;
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
@@ -667,8 +691,10 @@ namespace ILRuntime.Runtime.Generated
 
             instance_of_this_method.eulerAngles = value;
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             return __ret;
         }
 
@@ -727,15 +753,13 @@ namespace ILRuntime.Runtime.Generated
 
             instance_of_this_method.ToAngleAxis(out @angle, out @axis);
 
-            WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
-
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             switch(ptr_of_this_method->ObjectType)
             {
                 case ObjectTypes.StackObjectReference:
                     {
                         var ___dst = *(StackObject**)&ptr_of_this_method->Value;
-                        object ___obj = axis;
+                        object ___obj = @axis;
                         if (___dst->ObjectType >= ObjectTypes.Object)
                         {
                             if (___obj is CrossBindingAdaptorType)
@@ -753,12 +777,12 @@ namespace ILRuntime.Runtime.Generated
                         var ___obj = __mStack[ptr_of_this_method->Value];
                         if(___obj is ILTypeInstance)
                         {
-                            ((ILTypeInstance)___obj)[ptr_of_this_method->ValueLow] = axis;
+                            ((ILTypeInstance)___obj)[ptr_of_this_method->ValueLow] = @axis;
                         }
                         else
                         {
                             var ___type = __domain.GetType(___obj.GetType()) as CLRType;
-                            ___type.SetFieldValue(ptr_of_this_method->ValueLow, ref ___obj, axis);
+                            ___type.SetFieldValue(ptr_of_this_method->ValueLow, ref ___obj, @axis);
                         }
                     }
                     break;
@@ -767,22 +791,23 @@ namespace ILRuntime.Runtime.Generated
                         var ___type = __domain.GetType(ptr_of_this_method->Value);
                         if(___type is ILType)
                         {
-                            ((ILType)___type).StaticInstance[ptr_of_this_method->ValueLow] = axis;
+                            ((ILType)___type).StaticInstance[ptr_of_this_method->ValueLow] = @axis;
                         }
                         else
                         {
-                            ((CLRType)___type).SetStaticFieldValue(ptr_of_this_method->ValueLow, axis);
+                            ((CLRType)___type).SetStaticFieldValue(ptr_of_this_method->ValueLow, @axis);
                         }
                     }
                     break;
                  case ObjectTypes.ArrayReference:
                     {
                         var instance_of_arrayReference = __mStack[ptr_of_this_method->Value] as UnityEngine.Vector3[];
-                        instance_of_arrayReference[ptr_of_this_method->ValueLow] = axis;
+                        instance_of_arrayReference[ptr_of_this_method->ValueLow] = @axis;
                     }
                     break;
             }
 
+            __intp.Free(ptr_of_this_method);
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             switch(ptr_of_this_method->ObjectType)
             {
@@ -790,7 +815,7 @@ namespace ILRuntime.Runtime.Generated
                     {
                         var ___dst = *(StackObject**)&ptr_of_this_method->Value;
                         ___dst->ObjectType = ObjectTypes.Float;
-                        *(float*)&___dst->Value = angle;
+                        *(float*)&___dst->Value = @angle;
                     }
                     break;
                 case ObjectTypes.FieldReference:
@@ -798,12 +823,12 @@ namespace ILRuntime.Runtime.Generated
                         var ___obj = __mStack[ptr_of_this_method->Value];
                         if(___obj is ILTypeInstance)
                         {
-                            ((ILTypeInstance)___obj)[ptr_of_this_method->ValueLow] = angle;
+                            ((ILTypeInstance)___obj)[ptr_of_this_method->ValueLow] = @angle;
                         }
                         else
                         {
                             var ___type = __domain.GetType(___obj.GetType()) as CLRType;
-                            ___type.SetFieldValue(ptr_of_this_method->ValueLow, ref ___obj, angle);
+                            ___type.SetFieldValue(ptr_of_this_method->ValueLow, ref ___obj, @angle);
                         }
                     }
                     break;
@@ -812,22 +837,27 @@ namespace ILRuntime.Runtime.Generated
                         var ___type = __domain.GetType(ptr_of_this_method->Value);
                         if(___type is ILType)
                         {
-                            ((ILType)___type).StaticInstance[ptr_of_this_method->ValueLow] = angle;
+                            ((ILType)___type).StaticInstance[ptr_of_this_method->ValueLow] = @angle;
                         }
                         else
                         {
-                            ((CLRType)___type).SetStaticFieldValue(ptr_of_this_method->ValueLow, angle);
+                            ((CLRType)___type).SetStaticFieldValue(ptr_of_this_method->ValueLow, @angle);
                         }
                     }
                     break;
                  case ObjectTypes.ArrayReference:
                     {
                         var instance_of_arrayReference = __mStack[ptr_of_this_method->Value] as System.Single[];
-                        instance_of_arrayReference[ptr_of_this_method->ValueLow] = angle;
+                        instance_of_arrayReference[ptr_of_this_method->ValueLow] = @angle;
                     }
                     break;
             }
 
+            __intp.Free(ptr_of_this_method);
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
+            WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
+
+            __intp.Free(ptr_of_this_method);
             return __ret;
         }
 
@@ -851,8 +881,10 @@ namespace ILRuntime.Runtime.Generated
 
             instance_of_this_method.SetFromToRotation(@fromDirection, @toDirection);
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             return __ret;
         }
 
@@ -879,7 +911,61 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetHashCode_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Normalize_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Quaternion @q = (UnityEngine.Quaternion)typeof(UnityEngine.Quaternion).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = UnityEngine.Quaternion.Normalize(@q);
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* Normalize_29(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
+            UnityEngine.Quaternion instance_of_this_method = (UnityEngine.Quaternion)typeof(UnityEngine.Quaternion).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+
+            instance_of_this_method.Normalize();
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
+
+            __intp.Free(ptr_of_this_method);
+            return __ret;
+        }
+
+        static StackObject* get_normalized_30(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
+            UnityEngine.Quaternion instance_of_this_method = (UnityEngine.Quaternion)typeof(UnityEngine.Quaternion).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+
+            var result_of_this_method = instance_of_this_method.normalized;
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
+
+            __intp.Free(ptr_of_this_method);
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* GetHashCode_31(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -891,14 +977,16 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.GetHashCode();
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             __ret->ObjectType = ObjectTypes.Integer;
             __ret->Value = result_of_this_method;
             return __ret + 1;
         }
 
-        static StackObject* Equals_29(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Equals_32(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -914,14 +1002,41 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.Equals(@other);
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             __ret->ObjectType = ObjectTypes.Integer;
             __ret->Value = result_of_this_method ? 1 : 0;
             return __ret + 1;
         }
 
-        static StackObject* ToString_30(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Equals_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Quaternion @other = (UnityEngine.Quaternion)typeof(UnityEngine.Quaternion).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
+            UnityEngine.Quaternion instance_of_this_method = (UnityEngine.Quaternion)typeof(UnityEngine.Quaternion).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+
+            var result_of_this_method = instance_of_this_method.Equals(@other);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
+
+            __intp.Free(ptr_of_this_method);
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method ? 1 : 0;
+            return __ret + 1;
+        }
+
+        static StackObject* ToString_34(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -933,12 +1048,14 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.ToString();
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* ToString_31(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* ToString_35(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -954,8 +1071,10 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = instance_of_this_method.ToString(@format);
 
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
 
+            __intp.Free(ptr_of_this_method);
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 

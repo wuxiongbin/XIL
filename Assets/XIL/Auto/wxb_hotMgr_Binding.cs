@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.InteropServices;
-
+using System.Linq;
 using ILRuntime.CLR.TypeSystem;
 using ILRuntime.CLR.Method;
 using ILRuntime.Runtime.Enviorment;
@@ -35,6 +35,9 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.Type), typeof(System.String), typeof(System.Reflection.MethodInfo)};
             method = type.GetMethod("ReplaceField", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, ReplaceField_3);
+            args = new Type[]{typeof(System.Type), typeof(System.String), typeof(System.Reflection.MethodInfo)};
+            method = type.GetMethod("ReplaceFunc", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, ReplaceFunc_4);
 
             field = type.GetField("bindingFlags", flag);
             app.RegisterCLRFieldGetter(field, get_bindingFlags_0);
@@ -103,6 +106,32 @@ namespace ILRuntime.Runtime.Generated
 
 
             var result_of_this_method = wxb.hotMgr.ReplaceField(@type, @fieldName, @info);
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method ? 1 : 0;
+            return __ret + 1;
+        }
+
+        static StackObject* ReplaceFunc_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Reflection.MethodInfo @info = (System.Reflection.MethodInfo)typeof(System.Reflection.MethodInfo).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            System.String @name = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
+            System.Type @type = (System.Type)typeof(System.Type).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = wxb.hotMgr.ReplaceFunc(@type, @name, @info);
 
             __ret->ObjectType = ObjectTypes.Integer;
             __ret->Value = result_of_this_method ? 1 : 0;
