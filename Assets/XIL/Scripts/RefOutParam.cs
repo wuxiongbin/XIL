@@ -1,9 +1,12 @@
-﻿public class RefOutParam<T>
+﻿namespace IL
 {
-    public RefOutParam(T value)
+    public class RefOutParam<T>
     {
-        this.value = value;
-    }
+        public RefOutParam(T value)
+        {
+            this.value = value;
+        }
 
-    public T value;
+        public T value;
+    }
 }

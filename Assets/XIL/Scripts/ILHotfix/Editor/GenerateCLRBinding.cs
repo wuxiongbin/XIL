@@ -24,6 +24,12 @@ namespace xys
             types.Add(typeof(Object));
             types.Add(typeof(Transform));
             types.Add(typeof(RectTransform));
+            types.Add(typeof(Texture));
+            types.Add(typeof(Texture2D));
+            types.Add(typeof(Resources));
+            types.Add(typeof(AssetBundle));
+            types.Add(typeof(Camera));
+            types.Add(typeof(SystemInfo));
             types.Add(typeof(Time));
             types.Add(typeof(wxb.hotMgr));
             types.Add(typeof(wxb.RefType));

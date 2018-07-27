@@ -25,6 +25,12 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine_Object_Binding.Register(app);
             UnityEngine_Transform_Binding.Register(app);
             UnityEngine_RectTransform_Binding.Register(app);
+            UnityEngine_Texture_Binding.Register(app);
+            UnityEngine_Texture2D_Binding.Register(app);
+            UnityEngine_Resources_Binding.Register(app);
+            UnityEngine_AssetBundle_Binding.Register(app);
+            UnityEngine_Camera_Binding.Register(app);
+            UnityEngine_SystemInfo_Binding.Register(app);
             UnityEngine_Time_Binding.Register(app);
             wxb_hotMgr_Binding.Register(app);
             wxb_RefType_Binding.Register(app);

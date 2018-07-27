@@ -288,13 +288,9 @@
         }
 
         [UnityEditor.MenuItem("XIL/清除委托自动生成脚本")]
-        static void Clear()
+        public static void Clear()
         {
-            if (System.IO.File.Exists(file_path))
-            {
-                System.IO.File.Delete(file_path);
-                System.IO.File.Delete(file_path + ".meta");
-            }
+            BuildDelegate(new Dictionary<System.Type, UseTypeInfo>(), new Dictionary<System.Type, UseTypeInfo>());
         }
 
         static void Export(HashSet<System.Type> types)

@@ -413,6 +413,13 @@ namespace IL
             AutoRegILType.Build();
         }
 
+        [MenuItem("XIL/一键清除")]
+        static void GenClear()
+        {
+            Clear();
+            AutoRegILType.Clear();
+        }
+
         [MenuItem("XIL/注册需要热更的类")]
         static void Gen()
         {
