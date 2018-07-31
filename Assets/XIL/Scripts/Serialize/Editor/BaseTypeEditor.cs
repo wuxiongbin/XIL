@@ -112,6 +112,26 @@ namespace wxb.Editor
         }
     }
 
+    class CharType : BaseType<char>
+    {
+        protected override char OnGUI(string label, char value, System.Type type, out bool isDirty)
+        {
+            char nv = default(char);
+            {
+                string str = EditorGUILayout.TextField(label, value.ToString());
+                if (!string.IsNullOrEmpty(str))
+                    nv = str[0];
+            }
+
+            if (nv != value)
+                isDirty = true;
+            else
+                isDirty = false;
+
+            return nv;
+        }
+    }
+
     class ShortType : BaseType<short>
     {
         protected override short OnGUI(string label, short value, System.Type type, out bool isDirty)

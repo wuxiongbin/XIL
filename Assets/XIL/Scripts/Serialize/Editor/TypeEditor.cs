@@ -35,6 +35,7 @@ namespace wxb.Editor
             AllTypes.Add(typeof(uint).FullName, new UIntType());
             AllTypes.Add(typeof(sbyte).FullName, new sByteType());
             AllTypes.Add(typeof(byte).FullName, new ByteType());
+            AllTypes.Add(typeof(char).FullName, new CharType());
             AllTypes.Add(typeof(short).FullName, new ShortType());
             AllTypes.Add(typeof(ushort).FullName, new UShortType());
             AllTypes.Add(typeof(long).FullName, new LongType());
