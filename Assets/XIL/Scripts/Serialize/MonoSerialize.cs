@@ -18,63 +18,9 @@ namespace wxb
             this.objs = objs;
         }
 
-        public WRStream Stream { get; private set; }
+        public WRStream Stream;
 
-        public List<Object> objs { get; private set; }
-
-        public void Save(string key, object p)
-        {
-            if (p == null)
-                return;
-
-//            if (p.GetType().IsArray)
-//            {
-//                System.Array va = p as System.Array;
-
-//                // 数组
-//                JSONArray array = new JSONArray();
-//                json.put(key, array);
-//                for (int i = 0; i < va.Length; ++i)
-//                {
-//                    object v = va.GetValue(i);
-//                    if (v == null)
-//                        array.put("(null)");
-//                    else if (v is Object)
-//                    {
-//                        array.put(i, Add(v as Object));
-//                    }
-//                    else if (Help.IsBaseType(v.GetType()))
-//                    {
-//                        // 基础类型
-//                        array.put(i, v);
-//                    }
-//#if USE_HOT
-//                    else if (v is ILTypeInstance)
-//                    {
-
-//                    }
-//#endif
-//                    else
-//                    {
-//                        JSONObject j = new JSONObject();
-//                        MonoStream ms = new MonoStream(j, objs);
-//                        array.put(i, j);
-//                        MonoSerialize.WriteTo(v, ms);
-//                    }
-//                }
-//            }
-//            else
-//            {
-//                if (p is Object)
-//                {
-//                    json.putOpt(key, Add(p as Object));
-//                }
-//                else
-//                {
-//                    json.putOpt(key, p);
-//                }
-//            }
-        }
+        public List<Object> objs;
 
         public int Add(Object o)
         {

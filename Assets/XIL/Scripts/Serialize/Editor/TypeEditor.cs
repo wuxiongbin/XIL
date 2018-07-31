@@ -60,21 +60,11 @@ namespace wxb.Editor
 
             if (type.IsArray)
             {
-                string typeName = fullName;
-                typeName = typeName.Substring(0, typeName.Length - 2);
+                var elementType = type.GetElementType();
+                var arrayGUI = new ArrayObjectType(elementType, Get(elementType));
+                AllTypes.Add(fullName, arrayGUI);
 
-                var elementType = IL.Help.GetType(typeName);
-                if (IL.Help.IsBaseType(elementType))
-                {
-                    var arrayGUI = new ArrayObjectType(elementType, Get(elementType));
-                    AllTypes.Add(fullName, arrayGUI);
-
-                    return arrayGUI;
-                }
-                else
-                {
-                    return null;
-                }
+                return arrayGUI;
             }
 
 #if USE_HOT

@@ -305,15 +305,12 @@ namespace wxb.Editor
                     {
                         for (int i = 0; i < size; ++i)
                         {
-                            if (IL.Help.IsBaseType(elementType))
+                            bool cd = false;
+                            object v = element.OnGUI("element " + i, current.GetValue(i), elementType, out cd);
+                            if (cd)
                             {
-                                bool cd = false;
-                                object v = element.OnGUI("element " + i, current.GetValue(i), elementType, out cd);
-                                if (cd)
-                                {
-                                    current.SetValue(v, i);
-                                    isDirty = true;
-                                }
+                                current.SetValue(v, i);
+                                isDirty = true;
                             }
                         }
                     }

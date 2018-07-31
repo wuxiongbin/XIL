@@ -97,9 +97,85 @@ namespace wxb.Editor
         System.Type type;
         List<FieldInfo> infos;
 
+        Dictionary<object, bool> isFoldouts = new Dictionary<object, bool>();
+
         public object OnGUI(string label, object value, System.Type type, out bool isDirty)
         {
+            var current = value;
+            if (current != null)
+            {
+                int hashcode = current.GetHashCode();
+                var isFoldout = false;
+                if (!isFoldouts.TryGetValue(hashcode, out isFoldout))
+                    isFoldouts.Add(hashcode, isFoldout);
+
+                UnityEditor.EditorGUILayout.BeginHorizontal();
+                isFoldout = UnityEditor.EditorGUILayout.Foldout(isFoldout, label);
+                if (copyRoot != null && GUILayout.Button("复制初始化"))
+                {
+                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                    GameObject root = copyRoot.GetValue(current) as GameObject;
+                    if (root != null)
+                    {
+                        sb.AppendLine("var rt = root.transform;");
+                        sb.AppendLine("Transform rtm = null;");
+                        foreach (var d in infos)
+                        {
+                            if (d.Name == "root")
+                                continue;
+
+                            if (isInherited(d.FieldType, typeof(Component)))
+                            {
+                                Component v = (Component)d.GetValue(current);
+                                if (v != null)
+                                {
+                                    if (d.FieldType == typeof(Transform))
+                                    {
+                                        sb.AppendFormat("{0} = (rtm = rt.Find(\"{0}\")) == null ? null : rtm;", d.Name, GetPath(root, v.gameObject));
+                                    }
+                                    else if (d.FieldType == typeof(RectTransform))
+                                    {
+                                        sb.AppendFormat("{0} = (rtm = rt.Find(\"{0}\")) == null ? null : (RectTransform)rtm;", d.Name, GetPath(root, v.gameObject));
+                                    }
+                                    else
+                                    {
+                                        sb.AppendFormat("{0} = (rtm = rt.Find(\"{1}\")) == null ? null : rtm.GetComponent<{2}>();", d.Name, GetPath(root, v.gameObject), d.FieldType.Name);
+                                    }
+
+                                    sb.AppendLine();
+                                }
+                            }
+                            else if (d.FieldType == typeof(GameObject))
+                            {
+                                GameObject v = (GameObject)d.GetValue(current);
+                                if (v != null)
+                                {
+                                    sb.AppendFormat("{0} = (rtm = rt.Find(\"{1}\")) == null ? null : rtm.gameObject;", d.Name, GetPath(root, v.gameObject), d.FieldType.Name);
+                                    sb.AppendLine();
+                                }
+                            }
+                        }
+
+                        GUIUtility.systemCopyBuffer = sb.ToString();
+                        Debug.Log(sb.ToString());
+                    }
+                }
+                UnityEditor.EditorGUILayout.EndHorizontal();
+                isFoldouts[hashcode] = isFoldout;
+                if (!isFoldout)
+                {
+                    isDirty = false;
+                    return false;
+                }
+            }
+
             isDirty = false;
+            if (value == null)
+            {
+                value = IL.Help.Create(type);
+                isDirty = true;
+            }
+
             for (int i = 0; i < infos.Count; ++i)
             {
                 var field = infos[i];
@@ -117,8 +193,6 @@ namespace wxb.Editor
             return value;
         }
 
-        Dictionary<int, bool> isFoldouts = new Dictionary<int, bool>();
-
         public bool OnGUI(object parent, FieldInfo info)
         {
             using (new IndentLevel())
@@ -131,70 +205,6 @@ namespace wxb.Editor
                     current = IL.Help.Create(info.FieldType);
                     info.SetValue(parent, current);
                     isDirty = true;
-                }
-
-                if (current != null)
-                {
-                    int hashcode = current.GetHashCode();
-                    var isFoldout = false;
-                    if (!isFoldouts.TryGetValue(hashcode, out isFoldout))
-                        isFoldouts.Add(hashcode, isFoldout);
-
-                    UnityEditor.EditorGUILayout.BeginHorizontal();
-                    isFoldout = UnityEditor.EditorGUILayout.Foldout(isFoldout, info.Name);                    
-                    if (copyRoot != null && GUILayout.Button("复制初始化"))
-                    {
-                        System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                        GameObject root = copyRoot.GetValue(current) as GameObject;
-                        if (root != null)
-                        {
-                            sb.AppendLine("var rt = root.transform;");
-                            sb.AppendLine("Transform rtm = null;");
-                            foreach (var d in infos)
-                            {
-                                if (d.Name == "root")
-                                    continue;
-
-                                if (isInherited(d.FieldType, typeof(Component)))
-                                {
-                                    Component v = (Component)d.GetValue(current);
-                                    if (v != null)
-                                    {
-                                        if (d.FieldType == typeof(Transform))
-                                        {
-                                            sb.AppendFormat("{0} = (rtm = rt.Find(\"{0}\")) == null ? null : rtm;", d.Name, GetPath(root, v.gameObject));
-                                        }
-                                        else if (d.FieldType == typeof(RectTransform))
-                                        {
-                                            sb.AppendFormat("{0} = (rtm = rt.Find(\"{0}\")) == null ? null : (RectTransform)rtm;", d.Name, GetPath(root, v.gameObject));
-                                        }
-                                        else
-                                        {
-                                            sb.AppendFormat("{0} = (rtm = rt.Find(\"{1}\")) == null ? null : rtm.GetComponent<{2}>();", d.Name, GetPath(root, v.gameObject), d.FieldType.Name);
-                                        }
-
-                                        sb.AppendLine();
-                                    }
-                                }
-                                else if (d.FieldType == typeof(GameObject))
-                                {
-                                    GameObject v = (GameObject)d.GetValue(current);
-                                    if (v != null)
-                                    {
-                                        sb.AppendFormat("{0} = (rtm = rt.Find(\"{1}\")) == null ? null : rtm.gameObject;", d.Name, GetPath(root, v.gameObject), d.FieldType.Name);
-                                        sb.AppendLine();
-                                    }
-                                }
-                            }
-
-                            GUIUtility.systemCopyBuffer = sb.ToString();
-                            Debug.Log(sb.ToString());
-                        }
-                    }
-                    UnityEditor.EditorGUILayout.EndHorizontal();
-                    isFoldouts[hashcode] = isFoldout;
-                    if (!isFoldout)
-                        return false;
                 }
 
                 bool isd = false;
