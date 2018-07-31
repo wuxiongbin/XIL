@@ -56,7 +56,9 @@ namespace wxb.Editor
                 return typeGUI;
 
             if (IL.Help.isType(type, typeof(UnityEngine.Object)))
+            {
                 return AllTypes[typeof(UnityEngine.Object).FullName];
+            }
 
             if (type.IsArray)
             {

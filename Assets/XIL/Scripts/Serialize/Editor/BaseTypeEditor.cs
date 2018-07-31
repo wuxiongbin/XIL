@@ -236,7 +236,13 @@ namespace wxb.Editor
     {
         protected override UnityEngine.Object OnGUI(string label, UnityEngine.Object value, System.Type type, out bool isDirty)
         {
-            UnityEngine.Object nv = EditorGUILayout.ObjectField(label, value, type, true);
+            if (type is ILRuntimeWrapperType)
+            {
+                type = ((ILRuntimeWrapperType)type).RealType;
+            }
+
+            isDirty = false;
+            UnityEngine.Object nv = EditorGUILayout.ObjectField(label, value, type, false);
             if (nv != value)
                 isDirty = true;
             else

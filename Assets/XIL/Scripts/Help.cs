@@ -491,7 +491,7 @@
                         if (field.FieldType.IsArray)
                         {
                             var element = field.FieldType.GetElementType();
-                            if (IsBaseType(element))
+                            if (IsBaseType(element) || isType(element, typeof(UnityEngine.Object)))
                             {
                                 fieldinfos.Add(field);
                             }
