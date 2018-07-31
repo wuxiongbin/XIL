@@ -383,6 +383,8 @@ namespace ILRuntime.Reflection
                 res |= TypeAttributes.Class;
             if (type.TypeDefinition.IsSealed)
                 res |= TypeAttributes.Sealed;
+            if (type.TypeDefinition.IsSerializable)
+                res |= TypeAttributes.Serializable;
             return res;
         }
 

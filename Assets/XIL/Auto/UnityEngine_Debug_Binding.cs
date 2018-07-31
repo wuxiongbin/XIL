@@ -409,7 +409,8 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
 
-            UnityEngine.Debug.Log(@message);
+            ILLog.Log(__intp, __domain, UnityEngine.LogType.Log, @message.ToString());
+            //UnityEngine.Debug.Log(@message);
 
             return __ret;
         }
@@ -429,7 +430,8 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
 
-            UnityEngine.Debug.Log(@message, @context);
+            ILLog.Log(__intp, __domain, UnityEngine.LogType.Log, "message:{0} context:{1}", message, context);
+            //UnityEngine.Debug.Log(@message, @context);
 
             return __ret;
         }
@@ -449,7 +451,8 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
 
-            UnityEngine.Debug.LogFormat(@format, @args);
+            ILLog.Log(__intp, __domain, UnityEngine.LogType.Log, @format, @args);
+            //UnityEngine.Debug.LogFormat(@format, @args);
 
             return __ret;
         }
@@ -473,7 +476,8 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
 
-            UnityEngine.Debug.LogFormat(@context, @format, @args);
+            ILLog.Log(__intp, __domain, UnityEngine.LogType.Log, @format, @args);
+            //UnityEngine.Debug.LogFormat(@context, @format, @args);
 
             return __ret;
         }
@@ -489,7 +493,8 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
 
-            UnityEngine.Debug.LogError(@message);
+            ILLog.Log(__intp, __domain, UnityEngine.LogType.Error, @message.ToString());
+            //UnityEngine.Debug.LogError(@message);
 
             return __ret;
         }
@@ -509,7 +514,8 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
 
-            UnityEngine.Debug.LogError(@message, @context);
+            ILLog.Log(__intp, __domain, UnityEngine.LogType.Error, "message:{0} context:{1}", @message, @context);
+            //UnityEngine.Debug.LogError(@message, @context);
 
             return __ret;
         }
@@ -529,7 +535,8 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
 
-            UnityEngine.Debug.LogErrorFormat(@format, @args);
+            ILLog.Log(__intp, __domain, UnityEngine.LogType.Error, @format, @args);
+            //UnityEngine.Debug.LogErrorFormat(@format, @args);
 
             return __ret;
         }
@@ -553,7 +560,8 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
 
-            UnityEngine.Debug.LogErrorFormat(@context, @format, @args);
+            ILLog.Log(__intp, __domain, UnityEngine.LogType.Error, @format, @args);
+            //UnityEngine.Debug.LogErrorFormat(@context, @format, @args);
 
             return __ret;
         }
@@ -607,7 +615,7 @@ namespace ILRuntime.Runtime.Generated
             System.Exception @exception = (System.Exception)typeof(System.Exception).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-
+            ILLog.Log(__intp, __domain, UnityEngine.LogType.Error, @exception.ToString());
             UnityEngine.Debug.LogException(@exception);
 
             return __ret;
@@ -628,6 +636,7 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
 
+            ILLog.Log(__intp, __domain, UnityEngine.LogType.Error, @exception.ToString());
             UnityEngine.Debug.LogException(@exception, @context);
 
             return __ret;
@@ -644,7 +653,8 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
 
-            UnityEngine.Debug.LogWarning(@message);
+            ILLog.Log(__intp, __domain, UnityEngine.LogType.Warning, @message.ToString());
+            //UnityEngine.Debug.LogWarning(@message);
 
             return __ret;
         }
@@ -664,7 +674,8 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
 
-            UnityEngine.Debug.LogWarning(@message, @context);
+            ILLog.Log(__intp, __domain, UnityEngine.LogType.Warning, "message:{0} context:{1}", @message, @context);
+            //UnityEngine.Debug.LogWarning(@message, @context);
 
             return __ret;
         }
@@ -684,7 +695,8 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
 
-            UnityEngine.Debug.LogWarningFormat(@format, @args);
+            ILLog.Log(__intp, __domain, UnityEngine.LogType.Warning, @format, @args);
+            //UnityEngine.Debug.LogWarningFormat(@format, @args);
 
             return __ret;
         }
@@ -708,7 +720,8 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
 
-            UnityEngine.Debug.LogWarningFormat(@context, @format, @args);
+            ILLog.Log(__intp, __domain, UnityEngine.LogType.Warning, @format, @args);
+            //UnityEngine.Debug.LogWarningFormat(@context, @format, @args);
 
             return __ret;
         }

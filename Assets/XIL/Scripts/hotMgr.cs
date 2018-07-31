@@ -12,6 +12,7 @@ namespace wxb
     using Mono.Collections.Generic;
     using ILRuntime.CLR.Method;
     using global::IL;
+    using ILRuntime.Runtime.Generated;
 
     public class Hotfix
     {
@@ -140,6 +141,9 @@ namespace wxb
 
         public static void Init()
         {
+            if (appdomain != null)
+                return;
+
 #if UNITY_EDITOR
             ResLoad.Set(new EditorResLoad());
 #endif
@@ -214,6 +218,7 @@ namespace wxb
             appdomain.DelegateManager.RegisterMethodDelegate<ushort>();
             appdomain.DelegateManager.RegisterMethodDelegate<char>();
             appdomain.DelegateManager.RegisterMethodDelegate<string>();
+            UnityEngine_Debug_Binding.Register(appdomain);
 
             clrType = System.Type.GetType("AutoIL.ILRegType");
             if (clrType != null)

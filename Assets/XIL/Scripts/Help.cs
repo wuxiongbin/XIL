@@ -148,7 +148,7 @@
             }
         }
 
-        static CacheType GetOrCreate(System.Type type)
+        public static CacheType GetOrCreate(System.Type type)
         {
             CacheType st = null;
             if (!Caches.TryGetValue(type, out st))
@@ -490,11 +490,20 @@
                     {
                         if (field.FieldType.IsArray)
                         {
-                            if (!IsBaseType(field.FieldType.GetElementType()))
-                                continue;
+                            var element = field.FieldType.GetElementType();
+                            if (IsBaseType(element))
+                            {
+                                fieldinfos.Add(field);
+                            }
+                            else
+                            {
+                                if (element.IsSerializable)
+                                {
+                                    fieldinfos.Add(field);
+                                }
+                            }
                         }
-
-                        if (BaseTypes.Contains(field.FieldType))
+                        else if (BaseTypes.Contains(field.FieldType))
                         {
                             // 基础类型
                             fieldinfos.Add(field);
@@ -543,8 +552,7 @@
         {
             if (type.IsArray)
             {
-                var elementType = GetType(type.FullName.Substring(0, type.FullName.Length - 2));
-                return System.Array.CreateInstance(elementType, 0);
+                return System.Array.CreateInstance(type.GetElementType(), 0);
             }
             else if (type.Name == "String")
             {
