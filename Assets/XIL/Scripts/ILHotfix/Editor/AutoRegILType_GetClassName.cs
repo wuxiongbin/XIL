@@ -249,6 +249,11 @@ namespace AutoIL
         {{
 {2}
         }}
+
+        static public void Fame()
+        {{
+{3}
+        }}
     }}
 }}
 " + "#endif";

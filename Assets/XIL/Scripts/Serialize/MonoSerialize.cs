@@ -106,6 +106,11 @@ namespace wxb
                 ts = new ArrayAnyType(type);
                 AllTypes.Add(fullname, ts);
             }
+            else if (type.IsGenericType && fullname.StartsWith("System.Collections.Generic.List`1[["))
+            {
+                ts = new ListAnyType(type);
+                AllTypes.Add(fullname, ts);
+            }
             else
             {
                 List<FieldInfo> fieldinfos = Help.GetSerializeField(type);
@@ -132,10 +137,17 @@ namespace wxb
             if (ts == null)
                 return;
 
-            WRStream stream = new WRStream(bytes);
-            stream.WritePos = bytes.Length;
-            var ms = new MonoStream(stream, objs);
-            ts.MergeFrom(ref obj, ms);
+            try
+            {
+                WRStream stream = new WRStream(bytes);
+                stream.WritePos = bytes.Length;
+                var ms = new MonoStream(stream, objs);
+                ts.MergeFrom(ref obj, ms);
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogException(ex);
+            }
         }
     }
 }

@@ -64,12 +64,22 @@ namespace wxb.Editor
             if (type.IsArray)
             {
                 var elementType = type.GetElementType();
-                var arrayGUI = new ArrayObjectType(elementType, Get(elementType));
+                var arrayGUI = new ArrayTypeEditor(type, elementType, Get(elementType));
                 AllTypes.Add(fullName, arrayGUI);
 
                 return arrayGUI;
             }
+            else if (type.IsGenericType && type.FullName.StartsWith("System.Collections.Generic.List`1[["))
+            {
+                var elementTypes = type.GetGenericArguments();
+                if (elementTypes.Length == 1)
+                {
+                    var arrayGUI = new ListTypeEditor(type, elementTypes[0], Get(elementTypes[0]));
+                    AllTypes.Add(fullName, arrayGUI);
 
+                    return arrayGUI;
+                }
+            }
 #if USE_HOT
             if (type is ILRuntimeType && (type.Name.EndsWith("[]")))
             {

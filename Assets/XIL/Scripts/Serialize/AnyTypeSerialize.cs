@@ -1,5 +1,4 @@
-﻿#define DWXB
-using System.Reflection;
+﻿using System.Reflection;
 using System.Collections.Generic;
 
 namespace wxb
@@ -51,12 +50,14 @@ namespace wxb
                 if (cv == null)
                     continue;
 
+#if USE_HOT
                 if (field.FieldType.IsArray && (field.FieldType is ILRuntime.Reflection.ILRuntimeType))
                 {
                     var ilType = field.FieldType as ILRuntime.Reflection.ILRuntimeType;
                     ts = MonoSerialize.GetByType(ilType);
                 }
                 else
+#endif
                 {
                     ts = MonoSerialize.GetByInstance(cv);
                 }
@@ -67,11 +68,11 @@ namespace wxb
                     continue;
 
                 stream.WriteLength(count);
-#if DWXB
+#if UNITY_EDITOR
                 int write_pos = stream.WritePos;
 #endif
                 ts.WriteTo(cv, ms);
-#if DWXB
+#if UNITY_EDITOR
                 if (stream.WritePos != write_pos + count)
                 {
                     UnityEngine.Debug.LogErrorFormat("type:{0} CalculateSize error!", ts.GetType().Name);

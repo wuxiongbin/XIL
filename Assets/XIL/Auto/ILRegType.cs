@@ -21,8 +21,6 @@ namespace AutoIL
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.EventSystems.RaycastResult, UnityEngine.EventSystems.RaycastResult, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.EventSystems.EventTrigger.Entry, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.EventSystems.EventTrigger.Entry, UnityEngine.EventSystems.EventTrigger.Entry, System.Int32>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UIVertex, System.Boolean>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UIVertex, UnityEngine.UIVertex, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Vector3, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Vector3, UnityEngine.Vector3, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Color, System.Boolean>();
@@ -35,6 +33,8 @@ namespace AutoIL
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Int32, System.Int32, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.BoneWeight, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.BoneWeight, UnityEngine.BoneWeight, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UIVertex, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UIVertex, UnityEngine.UIVertex, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Rect, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Rect, UnityEngine.Rect, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.AnimatorClipInfo, System.Boolean>();
@@ -57,6 +57,8 @@ namespace AutoIL
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UI.ILayoutElement, System.Single>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Type, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Type, System.Type, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Object, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Object, UnityEngine.Object, System.Int32>();
 
         }
 
@@ -366,22 +368,6 @@ namespace AutoIL
                 });
             });
 
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.UIVertex>>((act) =>
-            {
-                return new System.Predicate<UnityEngine.UIVertex>((obj) =>
-                {
-                    return ((System.Func<UnityEngine.UIVertex, System.Boolean>)act)(obj);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<UnityEngine.UIVertex>>((act) =>
-            {
-                return new System.Comparison<UnityEngine.UIVertex>((x, y) =>
-                {
-                    return ((System.Func<UnityEngine.UIVertex, UnityEngine.UIVertex, System.Int32>)act)(x, y);
-                });
-            });
-
             appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.Vector3>>((act) =>
             {
                 return new System.Predicate<UnityEngine.Vector3>((obj) =>
@@ -491,6 +477,22 @@ namespace AutoIL
                 return new System.Comparison<UnityEngine.BoneWeight>((x, y) =>
                 {
                     return ((System.Func<UnityEngine.BoneWeight, UnityEngine.BoneWeight, System.Int32>)act)(x, y);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.UIVertex>>((act) =>
+            {
+                return new System.Predicate<UnityEngine.UIVertex>((obj) =>
+                {
+                    return ((System.Func<UnityEngine.UIVertex, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<UnityEngine.UIVertex>>((act) =>
+            {
+                return new System.Comparison<UnityEngine.UIVertex>((x, y) =>
+                {
+                    return ((System.Func<UnityEngine.UIVertex, UnityEngine.UIVertex, System.Int32>)act)(x, y);
                 });
             });
 
@@ -678,19 +680,19 @@ namespace AutoIL
                 });
             });
 
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<ILRuntime.CLR.Method.IMethod>>((act) =>
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.Object>>((act) =>
             {
-                return new System.Predicate<ILRuntime.CLR.Method.IMethod>((obj) =>
+                return new System.Predicate<UnityEngine.Object>((obj) =>
                 {
-                    return ((System.Func<ILRuntime.CLR.Method.IMethod, System.Boolean>)act)(obj);
+                    return ((System.Func<UnityEngine.Object, System.Boolean>)act)(obj);
                 });
             });
 
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<ILRuntime.CLR.Method.IMethod>>((act) =>
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<UnityEngine.Object>>((act) =>
             {
-                return new System.Comparison<ILRuntime.CLR.Method.IMethod>((x, y) =>
+                return new System.Comparison<UnityEngine.Object>((x, y) =>
                 {
-                    return ((System.Func<ILRuntime.CLR.Method.IMethod, ILRuntime.CLR.Method.IMethod, System.Int32>)act)(x, y);
+                    return ((System.Func<UnityEngine.Object, UnityEngine.Object, System.Int32>)act)(x, y);
                 });
             });
 
@@ -700,6 +702,7 @@ namespace AutoIL
         static public void RegisterMethodDelegate(AppDomain appdomain)
         {
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Component>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Rendering.AsyncGPUReadbackRequest>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Single>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Vector4>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Matrix4x4>();
@@ -726,13 +729,13 @@ namespace AutoIL
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.EventSystems.ISubmitHandler, UnityEngine.EventSystems.BaseEventData>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.EventSystems.ICancelHandler, UnityEngine.EventSystems.BaseEventData>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.RectTransform>();
-            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.UIVertex>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Vector3>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Color>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Color32>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Vector2>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Int32>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.BoneWeight>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.UIVertex>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Rect>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Boolean>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.AnimatorClipInfo>();
@@ -745,6 +748,15 @@ namespace AutoIL
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Sprite>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.UI.RectMask2D>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Type>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Object>();
+
+        }
+
+        static public void Fame()
+        {
+            System.Type v = null;
+            v = typeof(System.Collections.Generic.List<System.Int32>);
+
 
         }
     }

@@ -11,6 +11,13 @@
 
     public static class Help
     {
+#if !USE_HOT
+        static Help()
+        {
+            Init();
+        }
+#endif
+
         // 缓存的类型信息
         static Dictionary<System.Type, CacheType> Caches = new Dictionary<System.Type, CacheType>();
 

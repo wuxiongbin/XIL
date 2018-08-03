@@ -818,14 +818,14 @@
                 //sb.AppendLine();
             }
 
-            //System.Text.StringBuilder tsb = new System.Text.StringBuilder();
-            //BuildDHot(hotTDic, tsb);
+            System.Text.StringBuilder tsb = new System.Text.StringBuilder();
+            BuildDHot(hotTDic, tsb);
 
             System.IO.Directory.CreateDirectory(file_path.Substring(0, file_path.LastIndexOf('/')));
             System.IO.File.WriteAllText(file_path, string.Format(RegTextFile, 
                 sb.RegisterFunctionDelegate, 
                 sb.RegisterDelegateConvertor, 
-                sb.RegisterMethodDelegate/*, tsb.ToString()*/), System.Text.Encoding.UTF8);
+                sb.RegisterMethodDelegate, tsb.ToString()), System.Text.Encoding.UTF8);
 
             UnityEditor.AssetDatabase.Refresh();
         }

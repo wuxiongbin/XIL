@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace wxb
 {
-    abstract class ArraySerialize<T> : ITypeSerialize
+    abstract class IListSerialize<T> : ITypeSerialize
     {
         int ITypeSerialize.CalculateSize(object value)
         {
@@ -27,29 +27,32 @@ namespace wxb
 
         void ITypeSerialize.WriteTo(object value, MonoStream ms)
         {
-            T[] array = (T[])value;
+            IList<T> array = (IList<T>)value;
             if (array == null)
                 return;
 
-            ms.Stream.WriteLength(array.Length);
+            int count = array.Count;
+            ms.Stream.WriteLength(count);
 
             if (array != null)
             {
                 var stream = ms.Stream;
-                for (int i = 0; i < array.Length; ++i)
+                for (int i = 0; i < count; ++i)
                 {
                     Write(stream, array[i]);
                 }
             }
         }
 
+        protected abstract IList<T> Create(int lenght);
+
         void ITypeSerialize.MergeFrom(ref object value, MonoStream ms)
         {
             int lenght = ms.Stream.ReadLength();
-            var array = value as IList;
+            var array = value as IList<T>;
             if (array == null || array.Count != lenght)
             {
-                array = new T[lenght];
+                array = Create(lenght);
                 value = array;
             }
 
@@ -63,92 +66,11 @@ namespace wxb
         protected abstract T Read(WRStream stream);
     }
 
-    class ArrayAnyType : ITypeSerialize
+    abstract class ArraySerialize<T> : IListSerialize<T>
     {
-        System.Type elementType;
-        ITypeSerialize elementTypeSerialize;
-
-        public ArrayAnyType(System.Type arrayType)
+        protected override IList<T> Create(int lenght)
         {
-            elementType = arrayType.GetElementType();
-            elementTypeSerialize = MonoSerialize.GetByType(elementType);
-        }
-
-        int ITypeSerialize.CalculateSize(object value)
-        {
-            if (value == null)
-                return 0;
-
-            IList array = value as IList;
-            int total = WRStream.ComputeLengthSize(array.Count);
-            // 长度+各个元素内容
-            for (int i = 0; i < array.Count; ++i)
-            {
-                int s = elementTypeSerialize.CalculateSize(array[i]);
-                total += WRStream.ComputeLengthSize(s);
-                total += s;
-            }
-
-            return total;
-        }
-
-        void ITypeSerialize.WriteTo(object value, MonoStream ms)
-        {
-            IList array = (IList)value;
-            if (array == null)
-                return;
-
-            var stream = ms.Stream;
-            stream.WriteLength(array.Count);
-            for (int i = 0; i < array.Count; ++i)
-            {
-                int count = elementTypeSerialize.CalculateSize(array[i]);
-                stream.WriteLength(count);
-                if (count != 0)
-                {
-                    elementTypeSerialize.WriteTo(array[i], ms);
-                }
-            }
-        }
-
-        void ITypeSerialize.MergeFrom(ref object value, MonoStream ms)
-        {
-            var stream = ms.Stream;
-            int lenght = stream.ReadLength();
-            var array = value as IList;
-            if (array == null || array.Count != lenght)
-            {
-                array = System.Array.CreateInstance(elementType, lenght);
-                value = array;
-            }
-
-            for (int i = 0; i < lenght; ++i)
-            {
-                object v = array[i];
-                int count = stream.ReadLength();
-                if (count != 0)
-                {
-                    int endpos = stream.WritePos;
-                    stream.WritePos = stream.ReadPos + count;
-                    try
-                    {
-                        elementTypeSerialize.MergeFrom(ref v, ms);
-                        array[i] = v;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        Debug.LogException(ex);
-                    }
-                    finally
-                    {
-                        stream.WritePos = endpos;
-                    }
-                }
-                else
-                {
-                    array[i] = null;
-                }
-            }
+            return new T[lenght];
         }
     }
 
