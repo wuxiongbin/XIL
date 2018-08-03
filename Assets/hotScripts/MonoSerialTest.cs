@@ -5,9 +5,11 @@ using UnityEngine;
 
 namespace hot
 {
+    [System.Serializable]
     class TestListVV
     {
         public int value;
+        public string name;
     }
 
     [wxb.AutoILMono]
