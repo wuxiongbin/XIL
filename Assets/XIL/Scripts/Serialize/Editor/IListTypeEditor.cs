@@ -25,6 +25,18 @@ namespace wxb.Editor
         Dictionary<int, bool> isFoldouts = new Dictionary<int, bool>();
 
         protected abstract IList CreateList(System.Type elementType, int count);
+        Dictionary<int, EditorPageBtn> EditorPageBtns = new Dictionary<int, EditorPageBtn>();
+
+        EditorPageBtn GetOrCreate(int hashcode)
+        {
+            EditorPageBtn epb;
+            if (EditorPageBtns.TryGetValue(hashcode, out epb))
+                return epb;
+
+            epb = new EditorPageBtn();
+            EditorPageBtns.Add(hashcode, epb);
+            return epb;
+        }
 
         public object OnGUI(string label, object value, System.Type type, out bool isDirty)
         {
@@ -36,7 +48,10 @@ namespace wxb.Editor
             if (!isFoldouts.TryGetValue(hashcode, out isFoldout))
                 isFoldouts.Add(hashcode, isFoldout);
 
-            isFoldout = EditorGUILayout.Foldout(isFoldout, label);
+            isFoldout = EditorGUILayout.Foldout(isFoldout, 
+                current is System.Array ?
+                string.Format("{0}({1}[])", label, elementType.Name) :
+                string.Format("{0}(List<{1}>)", label, elementType.Name));
             isFoldouts[hashcode] = isFoldout;
             if (isFoldout)
             {
@@ -58,10 +73,23 @@ namespace wxb.Editor
 
                 using (new IndentLevel())
                 {
-                    for (int i = 0; i < size; ++i)
+                    int begin = 0;
+                    int end = size;
+                    if (size >= 30)
+                    {
+                        var epb = GetOrCreate(hashcode);
+                        epb.total = current.Count;
+                        epb.pageNum = 30;
+                        epb.OnRender();
+
+                        begin = epb.beginIndex;
+                        end = epb.endIndex;
+                    }
+
+                    for (int i = begin; i < end; ++i)
                     {
                         bool cd = false;
-                        object v = element.OnGUI("element " + i, current[i], elementType, out cd);
+                        object v = element.OnGUI(string.Format("[{0}]", i), current[i], elementType, out cd);
                         if (cd)
                         {
                             current[i] = v;

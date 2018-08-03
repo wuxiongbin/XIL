@@ -523,7 +523,7 @@
                         }
                         else if (fieldType.IsGenericType && fieldType.FullName.StartsWith("System.Collections.Generic.List`1[["))
                         {
-                            var element = fieldType.GetGenericArguments()[0];
+                            System.Type element = GetElementByList(fieldType);
                             if (IsBaseType(element) || isType(element, typeof(UnityEngine.Object)))
                             {
                                 fieldinfos.Add(field);
@@ -548,6 +548,25 @@
                     }
                 }
             }
+        }
+
+        public static System.Type GetElementByList(System.Type type)
+        {
+            System.Type element;
+            if (type is ILRuntimeWrapperType)
+            {
+                element = ((ILRuntimeWrapperType)type).RealType.GetGenericArguments()[0];
+                if (element is ILRuntimeType)
+                {
+
+                }
+            }
+            else
+            {
+                element = type.GetGenericArguments()[0];
+            }
+
+            return element;
         }
 
         static public List<FieldInfo> GetSerializeField(object obj)

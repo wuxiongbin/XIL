@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Collections.Generic;
+using ILRuntime.Reflection;
 
 namespace wxb
 {
@@ -27,8 +28,14 @@ namespace wxb
                 if (cv == null)
                     continue;
 
+                var fieldType = fieldInfo.FieldType;
+                if (fieldType is ILRuntimeType)
+                {
+
+                }
+
                 total += WRStream.ComputeStringSize(fieldInfo.Name);
-                int size = MonoSerialize.GetByInstance(cv).CalculateSize(cv);
+                int size = MonoSerialize.GetByType(fieldType).CalculateSize(cv);
                 total += WRStream.ComputeLengthSize(size);
                 total += size;
             }

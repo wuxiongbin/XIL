@@ -4,6 +4,22 @@ using System.Collections.Generic;
 
 namespace wxb.Editor
 {
+    public class GUIColor : System.IDisposable
+    {
+        Color color;
+
+        public GUIColor(Color color)
+        {
+            this.color = GUI.color;
+            GUI.color = color;
+        }
+
+        public void Dispose()
+        {
+            GUI.color = color;
+        }
+
+    }
     public class IndentLevel : System.IDisposable
     {
         public IndentLevel()
@@ -208,7 +224,7 @@ namespace wxb.Editor
                 }
 
                 bool isd = false;
-                OnGUI(info.Name, current, info.FieldType, out isd);
+                OnGUI(string.Format("{0}({1})", info.Name, info.FieldType.Name), current, info.FieldType, out isd);
                 return isDirty | isd;
             }
         }

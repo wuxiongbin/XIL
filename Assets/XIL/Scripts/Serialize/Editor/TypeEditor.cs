@@ -71,14 +71,11 @@ namespace wxb.Editor
             }
             else if (type.IsGenericType && type.FullName.StartsWith("System.Collections.Generic.List`1[["))
             {
-                var elementTypes = type.GetGenericArguments();
-                if (elementTypes.Length == 1)
-                {
-                    var arrayGUI = new ListTypeEditor(type, elementTypes[0], Get(elementTypes[0]));
-                    AllTypes.Add(fullName, arrayGUI);
+                var elementType = IL.Help.GetElementByList(type);
+                var arrayGUI = new ListTypeEditor(type, elementType, Get(elementType));
+                AllTypes.Add(fullName, arrayGUI);
 
-                    return arrayGUI;
-                }
+                return arrayGUI;
             }
 #if USE_HOT
             if (type is ILRuntimeType && (type.Name.EndsWith("[]")))
