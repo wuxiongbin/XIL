@@ -455,6 +455,11 @@
 
         static public void GetSerializeField(System.Type type, List<FieldInfo> fieldinfos)
         {
+            if (type.IsGenericType && type.FullName.StartsWith("System.Collections.Generic.List`1[["))
+            {
+                return;
+            }
+
 #if USE_HOT
             bool isILType = false;
             HashSet<string> noPubs = new HashSet<string>();
@@ -479,12 +484,13 @@
                 for (int i = 0; i < fields.Length; ++i)
                 {
                     var field = fields[i];
+                    var fieldType = field.FieldType;
 #if USE_HOT
                     if (isILType && !allfields.Contains(field.Name))
                         continue;
 #endif
                     bool isPublic = field.IsPublic;
-                    if (field.FieldType.BaseType == typeof(System.MulticastDelegate) || field.FieldType.BaseType == typeof(System.Delegate))
+                    if (fieldType.BaseType == typeof(System.MulticastDelegate) || fieldType.BaseType == typeof(System.Delegate))
                         continue;
 #if USE_HOT
                     if (isPublic)
@@ -495,9 +501,9 @@
 #endif
                     if (isPublic || (field.GetCustomAttributes(typeof(UnityEngine.SerializeField), false).Length != 0))
                     {
-                        if (field.FieldType.IsArray)
+                        if (fieldType.IsArray)
                         {
-                            var element = field.FieldType.GetElementType();
+                            var element = fieldType.GetElementType();
                             if (IsBaseType(element) || isType(element, typeof(UnityEngine.Object)))
                             {
                                 fieldinfos.Add(field);
@@ -510,10 +516,25 @@
                                 }
                             }
                         }
-                        else if (BaseTypes.Contains(field.FieldType))
+                        else if (BaseTypes.Contains(fieldType))
                         {
                             // 基础类型
                             fieldinfos.Add(field);
+                        }
+                        else if (fieldType.IsGenericType && fieldType.FullName.StartsWith("System.Collections.Generic.List`1[["))
+                        {
+                            var element = fieldType.GetGenericArguments()[0];
+                            if (IsBaseType(element) || isType(element, typeof(UnityEngine.Object)))
+                            {
+                                fieldinfos.Add(field);
+                            }
+                            else
+                            {
+                                if (element.IsSerializable)
+                                {
+                                    fieldinfos.Add(field);
+                                }
+                            }
                         }
                         else
                         {
