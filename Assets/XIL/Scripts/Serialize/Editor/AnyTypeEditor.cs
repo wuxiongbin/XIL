@@ -125,58 +125,65 @@ namespace wxb.Editor
                 if (!isFoldouts.TryGetValue(hashcode, out isFoldout))
                     isFoldouts.Add(hashcode, isFoldout);
 
-                UnityEditor.EditorGUILayout.BeginHorizontal();
-                isFoldout = UnityEditor.EditorGUILayout.Foldout(isFoldout, label);
-                if (copyRoot != null && GUILayout.Button("复制初始化"))
+                try
                 {
-                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                    GameObject root = copyRoot.GetValue(current) as GameObject;
-                    if (root != null)
+                    UnityEditor.EditorGUILayout.BeginHorizontal();
+                    isFoldout = UnityEditor.EditorGUILayout.Foldout(isFoldout, label);
+                    if (copyRoot != null && GUILayout.Button("复制初始化"))
                     {
-                        sb.AppendLine("var rt = root.transform;");
-                        sb.AppendLine("Transform rtm = null;");
-                        foreach (var d in infos)
+                        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                        GameObject root = copyRoot.GetValue(current) as GameObject;
+                        if (root != null)
                         {
-                            if (d.Name == "root")
-                                continue;
-
-                            if (isInherited(d.FieldType, typeof(Component)))
+                            sb.AppendLine("var rt = root.transform;");
+                            sb.AppendLine("Transform rtm = null;");
+                            foreach (var d in infos)
                             {
-                                Component v = (Component)d.GetValue(current);
-                                if (v != null)
-                                {
-                                    if (d.FieldType == typeof(Transform))
-                                    {
-                                        sb.AppendFormat("{0} = (rtm = rt.Find(\"{0}\")) == null ? null : rtm;", d.Name, GetPath(root, v.gameObject));
-                                    }
-                                    else if (d.FieldType == typeof(RectTransform))
-                                    {
-                                        sb.AppendFormat("{0} = (rtm = rt.Find(\"{0}\")) == null ? null : (RectTransform)rtm;", d.Name, GetPath(root, v.gameObject));
-                                    }
-                                    else
-                                    {
-                                        sb.AppendFormat("{0} = (rtm = rt.Find(\"{1}\")) == null ? null : rtm.GetComponent<{2}>();", d.Name, GetPath(root, v.gameObject), d.FieldType.Name);
-                                    }
+                                if (d.Name == "root")
+                                    continue;
 
-                                    sb.AppendLine();
+                                if (isInherited(d.FieldType, typeof(Component)))
+                                {
+                                    Component v = (Component)d.GetValue(current);
+                                    if (v != null)
+                                    {
+                                        if (d.FieldType == typeof(Transform))
+                                        {
+                                            sb.AppendFormat("{0} = (rtm = rt.Find(\"{0}\")) == null ? null : rtm;", d.Name, GetPath(root, v.gameObject));
+                                        }
+                                        else if (d.FieldType == typeof(RectTransform))
+                                        {
+                                            sb.AppendFormat("{0} = (rtm = rt.Find(\"{0}\")) == null ? null : (RectTransform)rtm;", d.Name, GetPath(root, v.gameObject));
+                                        }
+                                        else
+                                        {
+                                            sb.AppendFormat("{0} = (rtm = rt.Find(\"{1}\")) == null ? null : rtm.GetComponent<{2}>();", d.Name, GetPath(root, v.gameObject), d.FieldType.Name);
+                                        }
+
+                                        sb.AppendLine();
+                                    }
+                                }
+                                else if (d.FieldType == typeof(GameObject))
+                                {
+                                    GameObject v = (GameObject)d.GetValue(current);
+                                    if (v != null)
+                                    {
+                                        sb.AppendFormat("{0} = (rtm = rt.Find(\"{1}\")) == null ? null : rtm.gameObject;", d.Name, GetPath(root, v.gameObject), d.FieldType.Name);
+                                        sb.AppendLine();
+                                    }
                                 }
                             }
-                            else if (d.FieldType == typeof(GameObject))
-                            {
-                                GameObject v = (GameObject)d.GetValue(current);
-                                if (v != null)
-                                {
-                                    sb.AppendFormat("{0} = (rtm = rt.Find(\"{1}\")) == null ? null : rtm.gameObject;", d.Name, GetPath(root, v.gameObject), d.FieldType.Name);
-                                    sb.AppendLine();
-                                }
-                            }
+
+                            GUIUtility.systemCopyBuffer = sb.ToString();
+                            Debug.Log(sb.ToString());
                         }
-
-                        GUIUtility.systemCopyBuffer = sb.ToString();
-                        Debug.Log(sb.ToString());
                     }
                 }
-                UnityEditor.EditorGUILayout.EndHorizontal();
+                finally
+                {
+                    UnityEditor.EditorGUILayout.EndHorizontal();
+                }
+
                 isFoldouts[hashcode] = isFoldout;
                 if (!isFoldout)
                 {

@@ -56,7 +56,7 @@ namespace wxb.Editor
             if (isFoldout)
             {
                 int size = current.Count;
-                int ns = EditorGUILayout.IntField("size", size);
+                int ns = EditorGUILayout.IntField("Size", size);
                 if (size != ns)
                 {
                     var newV = CreateList(elementType, ns);

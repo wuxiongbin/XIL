@@ -370,9 +370,6 @@
             if (AllTypesByFullName.TryGetValue(name, out t))
                 return t;
 
-            if (name.StartsWith("xys.hot"))
-                return GetTypeByFullName(name.Substring(4));
-
             UnityEngine.Debug.LogErrorFormat("type:{0} not find!", name);
             return null;
         }
@@ -567,6 +564,7 @@
         {
             var type = fieldInfo.FieldType;
             System.Type element;
+#if USE_HOT
             if (type is ILRuntimeWrapperType)
             {
                 element = ((ILRuntimeWrapperType)type).RealType.GetGenericArguments()[0];
@@ -583,6 +581,7 @@
                 }
             }
             else
+#endif
             {
                 element = type.GetGenericArguments()[0];
             }
@@ -593,6 +592,7 @@
         public static System.Type GetElementByList(System.Type type)
         {
             System.Type element;
+#if USE_HOT
             if (type is ILRuntimeWrapperType)
             {
                 element = ((ILRuntimeWrapperType)type).RealType.GetGenericArguments()[0];
@@ -603,6 +603,7 @@
                 }
             }
             else
+#endif
             {
                 element = type.GetGenericArguments()[0];
             }

@@ -9,7 +9,7 @@
 
     }
 
-    public class ILMonoBehaviour : MonoBehaviour
+    public class ILMonoBehaviour : MonoBehaviour, ISerializationCallbackReceiver
     {
         [SerializeField]
         [HideInInspector]
@@ -25,21 +25,42 @@
 
         public RefType refType { get; private set; }
 
+        void ISerializationCallbackReceiver.OnBeforeSerialize()
+        {
+#if UNITY_EDITOR
+            if (instance == null)
+            {
+                bytes = null;
+                objs.Clear();
+                refType = null;
+            }
+            else
+            {
+                var ms = MonoSerialize.WriteTo(instance);
+                bytes = ms.Stream.GetBytes();
+                objs = ms.objs;
+            }
+#endif
+        }
+
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
+        {
+            Init();
+        }
+
 #if UNITY_EDITOR
         object instance;
 #endif
-        public object GetObject()
-        {
-            Init();
-            return refType.Instance;
-        }
 
         void Init()
         {
-            if (refType != null)
+            if (string.IsNullOrEmpty(typeName))
                 return;
 
-            refType = new RefType(typeName, this);
+            if (refType == null)
+            {
+                refType = new RefType(typeName, this);
+            }
             MonoSerialize.MergeFrom(refType.Instance, bytes, objs);
 
 #if UNITY_EDITOR
@@ -49,33 +70,38 @@
 
         private void Awake()
         {
-            Init();
-            refType.TryInvokeMethod("Awake");
+            if (refType != null)
+                refType.TryInvokeMethod("Awake");
         }
 
-        protected virtual void Start()
+        void Start()
         {
-            refType.TryInvokeMethod("Start");
+            if (refType != null)
+                refType.TryInvokeMethod("Start");
         }
 
-        protected virtual void OnEnable()
+        void OnEnable()
         {
-            refType.TryInvokeMethod("OnEnable");
+            if (refType != null)
+                refType.TryInvokeMethod("OnEnable");
         }
 
-        protected virtual void OnDisable()
+        void OnDisable()
         {
-            refType.TryInvokeMethod("OnDisable");
+            if (refType != null)
+                refType.TryInvokeMethod("OnDisable");
         }
 
-        protected virtual void OnDestroy()
+        void OnDestroy()
         {
-            refType.TryInvokeMethod("OnDestroy");
+            if (refType != null)
+                refType.TryInvokeMethod("OnDestroy");
         }
 
-        protected virtual void OnApplicationQuit()
+        void OnApplicationQuit()
         {
-            refType.TryInvokeMethod("OnApplicationQuit");
+            if (refType != null)
+                refType.TryInvokeMethod("OnApplicationQuit");
         }        
     }
 }

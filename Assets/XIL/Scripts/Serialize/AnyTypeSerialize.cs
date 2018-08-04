@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using System.Collections.Generic;
+#if USE_HOT
 using ILRuntime.Reflection;
+#endif
 
 namespace wxb
 {
@@ -29,11 +31,6 @@ namespace wxb
                     continue;
 
                 var fieldType = fieldInfo.FieldType;
-                if (fieldType is ILRuntimeType)
-                {
-
-                }
-
                 total += WRStream.ComputeStringSize(fieldInfo.Name);
                 int size = MonoSerialize.GetByType(fieldInfo).CalculateSize(cv);
                 total += WRStream.ComputeLengthSize(size);
@@ -58,18 +55,6 @@ namespace wxb
                     continue;
 
                 ts = MonoSerialize.GetByType(field);
-
-                //#if USE_HOT
-                //                if (field.FieldType.IsArray && (field.FieldType is ILRuntime.Reflection.ILRuntimeType))
-                //                {
-                //                    //var ilType = field.FieldType as ILRuntime.Reflection.ILRuntimeType;
-                //                    ts = MonoSerialize.GetByType(field);
-                //                }
-                //                else
-                //#endif
-                //                {
-                //                    ts = MonoSerialize.GetByInstance(cv);
-                //                }
 
                 stream.WriteString(field.Name);
                 int count = ts.CalculateSize(cv);
@@ -120,15 +105,15 @@ namespace wxb
                         else
                         {
                             object cv = fieldInfo.GetValue(value);
-                            bool isSet = false;
+                            //bool isSet = false;
                             if (cv == null)
                             {
                                 cv = IL.Help.Create(fieldInfo.FieldType);
-                                isSet = true;
+                                //isSet = true;
                             }
 
                             MonoSerialize.GetByType(fieldInfo).MergeFrom(ref cv, ms);
-                            if (isSet || !cv.GetType().IsClass)
+                            //if (isSet || !cv.GetType().IsClass || cv.GetType().FullName == "System.String")
                             {
                                 fieldInfo.SetValue(value, cv);
                             }

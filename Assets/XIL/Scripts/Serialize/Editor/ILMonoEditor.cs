@@ -15,7 +15,7 @@ namespace wxb.IL.Editor
         FieldInfo objsField;
         FieldInfo bytesField;
 
-        UnityEngine.MonoBehaviour target;
+        MonoBehaviour target;
 
         List<System.Type> allTypes;
 
@@ -55,16 +55,22 @@ namespace wxb.IL.Editor
             allTypes = Help.GetCustomAttributesType(attributeType);
         }
 
+        void RegisterCompleteObjectUndo()
+        {
+            Undo.RegisterCompleteObjectUndo(target, "ILMonoEditor");
+        }
+
         public void OnGUI(string newTypename)
         {
             string typeName = (string)typeNameField.GetValue(target);
             if (newTypename != typeName)
             {
+                RegisterCompleteObjectUndo();
+
                 typeName = newTypename;
                 typeNameField.SetValue(target, typeName);
                 instanceField.SetValue(target, null);
-                if (target is UnityEngine.Object)
-                    EditorUtility.SetDirty((UnityEngine.Object)target);
+                EditorUtility.SetDirty(target);
             }
 
             if (string.IsNullOrEmpty(typeName))
@@ -78,53 +84,13 @@ namespace wxb.IL.Editor
             }
 
             object instance = instanceField.GetValue(target);
-            if (instance == null
-#if USE_HOT
-                || (instance is ILTypeInstance && ((ILTypeInstance)instance).Type.FullName != newTypename) 
-                || (!(instance is ILTypeInstance) && instance.GetType().FullName != newTypename)
-#endif
-                )
-            {
-                var ctor = Help.GetType(newTypename).GetConstructor(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance, null, new System.Type[0] { } , null);
-                if (ctor == null)
-                {
-                    UnityEngine.Debug.LogErrorFormat("type:{0} not find ctor!", newTypename);
-                    instance = null;
-                    return;
-                }
-
-                instance = ctor.Invoke(null);
-                instanceField.SetValue(target, instance);
-                if (target is UnityEngine.Object)
-                    EditorUtility.SetDirty((UnityEngine.Object)target);
-
-                byte[] bytes = (byte[])bytesField.GetValue(target);
-                var objs = (List<UnityEngine.Object>)objsField.GetValue(target);
-                MonoSerialize.MergeFrom(instance, bytes, objs);
-            }
-            else
-            {
-                if (!UnityEngine.Application.isPlaying)
-                {
-                    byte[] bytes = (byte[])bytesField.GetValue(target);
-                    var objs = (List<UnityEngine.Object>)objsField.GetValue(target);
-                    MonoSerialize.MergeFrom(instance, bytes, objs);
-                }
-            }
+            if (instance == null)
+                return;
 
             if (wxb.Editor.TypeEditor.OnGUI(instance))
             {
-                if (!UnityEngine.Application.isPlaying)
-                {
-                    Undo.RegisterCompleteObjectUndo(target, "ILMonoEditor");
-                }
-
-                var ms = MonoSerialize.WriteTo(instance);
-                objsField.SetValue(target, ms.objs);
-                bytesField.SetValue(target, ms.Stream.GetBytes());
-
-                if (target is UnityEngine.Object)
-                    EditorUtility.SetDirty((UnityEngine.Object)target);
+                EditorUtility.SetDirty(target);
+                RegisterCompleteObjectUndo();
             }
         }
 

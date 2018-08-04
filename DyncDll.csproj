@@ -56,5 +56,6 @@ copy $(TargetDir)$(TargetName).pdb $(ProjectDir)Data</PostBuildEvent>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Hot\**\*.cs" />
+    <Compile Include="Assets\hotScripts\**\*.cs" />
   </ItemGroup>
 </Project>

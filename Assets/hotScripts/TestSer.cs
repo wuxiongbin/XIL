@@ -8,7 +8,7 @@ using UnityEngine;
 namespace hot
 {
     [System.Serializable]
-    class XXX : System.IEquatable<XXX>
+    class XXX
     {
         public long id;
         public string x;
@@ -38,7 +38,7 @@ namespace hot
     }
 
     [System.Serializable]
-    class TEEE : System.IEquatable<TEEE>
+    class TEEE
     {
         public long id;
         public string name;
@@ -91,6 +91,7 @@ namespace hot
         TEEE1[] teees;
     }
 
+    [wxb.AutoILMono]
     class TestSer
     {
         [SerializeField]
