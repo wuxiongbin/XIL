@@ -49,7 +49,7 @@ namespace wxb.Editor
         // 基础类型
         static Dictionary<string, ITypeGUI> AllTypes = new Dictionary<string, ITypeGUI>();
 
-        public static ITypeGUI Get(System.Type type)
+        public static ITypeGUI Get(System.Type type, FieldInfo fieldInfo)
         {
             ITypeGUI typeGUI = null;
             string fullName = type.FullName;
@@ -64,15 +64,15 @@ namespace wxb.Editor
             if (type.IsArray)
             {
                 var elementType = type.GetElementType();
-                var arrayGUI = new ArrayTypeEditor(type, elementType, Get(elementType));
+                var arrayGUI = new ArrayTypeEditor(type, elementType, Get(elementType, null));
                 AllTypes.Add(fullName, arrayGUI);
 
                 return arrayGUI;
             }
             else if (type.IsGenericType && type.FullName.StartsWith("System.Collections.Generic.List`1[["))
             {
-                var elementType = IL.Help.GetElementByList(type);
-                var arrayGUI = new ListTypeEditor(type, elementType, Get(elementType));
+                var elementType = IL.Help.GetElementByList(fieldInfo);
+                var arrayGUI = new ListTypeEditor(type, elementType, Get(elementType, null));
                 AllTypes.Add(fullName, arrayGUI);
 
                 return arrayGUI;
@@ -104,7 +104,7 @@ namespace wxb.Editor
             for (int i = 0; i < fieldinfos.Count; ++i)
             {
                 var field = fieldinfos[i];
-                isDirty |= Get(field.FieldType).OnGUI(parent, field);
+                isDirty |= Get(field.FieldType, field).OnGUI(parent, field);
             }
 
             return isDirty;

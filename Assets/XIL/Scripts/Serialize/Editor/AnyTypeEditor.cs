@@ -203,7 +203,7 @@ namespace wxb.Editor
                     isDirty = true;
                 }
 
-                isDirty |= TypeEditor.Get(field.FieldType).OnGUI(value, field);
+                isDirty |= TypeEditor.Get(field.FieldType, field).OnGUI(value, field);
             }
 
             return value;
@@ -224,7 +224,7 @@ namespace wxb.Editor
                 }
 
                 bool isd = false;
-                OnGUI(string.Format("{0}({1})", info.Name, info.FieldType.Name), current, info.FieldType, out isd);
+                OnGUI(string.Format("{1} {0}", info.Name, info.FieldType.Name), current, info.FieldType, out isd);
                 return isDirty | isd;
             }
         }

@@ -25,7 +25,17 @@ namespace wxb
         static System.Type[] ctor_type_param= new System.Type[1] { typeof(int) };
         static object[] ctor_param = new object[1] { 0 };
 
-        public ListAnyType(System.Type arrayType) : base(arrayType, IL.Help.GetElementByList(arrayType))
+        public ListAnyType(System.Type listType) : base(listType, IL.Help.GetElementByList(listType))
+        {
+            Init();
+        }
+
+        public ListAnyType(FieldInfo fieldInfo) : base(fieldInfo.FieldType, IL.Help.GetElementByList(fieldInfo))
+        {
+            Init();
+        }
+
+        void Init()
         {
             ctor_info = arrayType.GetConstructor(ctor_type_param);
             if (!elementType.IsClass)

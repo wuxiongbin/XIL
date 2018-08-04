@@ -50,8 +50,8 @@ namespace wxb.Editor
 
             isFoldout = EditorGUILayout.Foldout(isFoldout, 
                 current is System.Array ?
-                string.Format("{0}({1}[])", label, elementType.Name) :
-                string.Format("{0}(List<{1}>)", label, elementType.Name));
+                string.Format("{1}[] {0}", label, elementType.Name) :
+                string.Format("List<{1}> {0}", label, elementType.Name));
             isFoldouts[hashcode] = isFoldout;
             if (isFoldout)
             {

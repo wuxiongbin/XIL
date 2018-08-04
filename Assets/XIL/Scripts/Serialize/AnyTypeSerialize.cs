@@ -35,7 +35,7 @@ namespace wxb
                 }
 
                 total += WRStream.ComputeStringSize(fieldInfo.Name);
-                int size = MonoSerialize.GetByType(fieldType).CalculateSize(cv);
+                int size = MonoSerialize.GetByType(fieldInfo).CalculateSize(cv);
                 total += WRStream.ComputeLengthSize(size);
                 total += size;
             }
@@ -57,17 +57,19 @@ namespace wxb
                 if (cv == null)
                     continue;
 
-#if USE_HOT
-                if (field.FieldType.IsArray && (field.FieldType is ILRuntime.Reflection.ILRuntimeType))
-                {
-                    var ilType = field.FieldType as ILRuntime.Reflection.ILRuntimeType;
-                    ts = MonoSerialize.GetByType(ilType);
-                }
-                else
-#endif
-                {
-                    ts = MonoSerialize.GetByInstance(cv);
-                }
+                ts = MonoSerialize.GetByType(field);
+
+                //#if USE_HOT
+                //                if (field.FieldType.IsArray && (field.FieldType is ILRuntime.Reflection.ILRuntimeType))
+                //                {
+                //                    //var ilType = field.FieldType as ILRuntime.Reflection.ILRuntimeType;
+                //                    ts = MonoSerialize.GetByType(field);
+                //                }
+                //                else
+                //#endif
+                //                {
+                //                    ts = MonoSerialize.GetByInstance(cv);
+                //                }
 
                 stream.WriteString(field.Name);
                 int count = ts.CalculateSize(cv);
@@ -125,7 +127,7 @@ namespace wxb
                                 isSet = true;
                             }
 
-                            MonoSerialize.GetByType(fieldInfo.FieldType).MergeFrom(ref cv, ms);
+                            MonoSerialize.GetByType(fieldInfo).MergeFrom(ref cv, ms);
                             if (isSet || !cv.GetType().IsClass)
                             {
                                 fieldInfo.SetValue(value, cv);

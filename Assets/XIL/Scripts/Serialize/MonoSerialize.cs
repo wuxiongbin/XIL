@@ -89,6 +89,39 @@ namespace wxb
             return GetByType(type);
         }
 
+        public static ITypeSerialize GetByType(FieldInfo fieldInfo)
+        {
+            var type = fieldInfo.FieldType;
+            ITypeSerialize ts = null;
+            string fullname = type.FullName;
+            if (AllTypes.TryGetValue(fullname, out ts))
+                return ts;
+
+            if (Help.isType(type, typeof(Object)))
+            {
+                return AllTypes[typeof(Object).FullName];
+            }
+
+            if (type.IsArray)
+            {
+                ts = new ArrayAnyType(type);
+                AllTypes.Add(fullname, ts);
+            }
+            else if (type.IsGenericType && fullname.StartsWith("System.Collections.Generic.List`1[["))
+            {
+                ts = new ListAnyType(fieldInfo);
+                AllTypes.Add(fullname, ts);
+            }
+            else
+            {
+                List<FieldInfo> fieldinfos = Help.GetSerializeField(type);
+                ts = new AnyType(type, fieldinfos);
+                AllTypes.Add(fullname, ts);
+            }
+
+            return ts;
+        }
+
         public static ITypeSerialize GetByType(System.Type type)
         {
             ITypeSerialize ts = null;

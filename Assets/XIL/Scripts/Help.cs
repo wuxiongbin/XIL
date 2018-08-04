@@ -504,6 +504,9 @@
                         if (fieldType.IsArray)
                         {
                             var element = fieldType.GetElementType();
+                            if (element.IsArray || isListType(element)) // 不支持2D数组类型
+                                continue;
+
                             if (IsBaseType(element) || isType(element, typeof(UnityEngine.Object)))
                             {
                                 fieldinfos.Add(field);
@@ -521,9 +524,12 @@
                             // 基础类型
                             fieldinfos.Add(field);
                         }
-                        else if (fieldType.IsGenericType && fieldType.FullName.StartsWith("System.Collections.Generic.List`1[["))
+                        else if (isListType(fieldType))
                         {
-                            System.Type element = GetElementByList(fieldType);
+                            System.Type element = GetElementByList(field);
+                            if (element.IsArray || isListType(element)) // 不支持2D数组类型
+                                continue;
+
                             if (IsBaseType(element) || isType(element, typeof(UnityEngine.Object)))
                             {
                                 fieldinfos.Add(field);
@@ -550,15 +556,50 @@
             }
         }
 
+        static bool isListType(System.Type type)
+        {
+            if (type.IsGenericType && type.FullName.StartsWith("System.Collections.Generic.List`1[["))
+                return true;
+            return false;
+        }
+
+        public static System.Type GetElementByList(FieldInfo fieldInfo)
+        {
+            var type = fieldInfo.FieldType;
+            System.Type element;
+            if (type is ILRuntimeWrapperType)
+            {
+                element = ((ILRuntimeWrapperType)type).RealType.GetGenericArguments()[0];
+                string FullName = element.FullName;
+                if (element == typeof(ILTypeInstance))
+                {
+                    ILRuntimeFieldInfo ilField = fieldInfo as ILRuntimeFieldInfo;
+                    var vv = ilField.ILFieldType.GenericArguments;
+                    return vv[0].Value.ReflectionType;
+                }
+                else
+                {
+                    return element;
+                }
+            }
+            else
+            {
+                element = type.GetGenericArguments()[0];
+            }
+
+            return element;
+        }
+
         public static System.Type GetElementByList(System.Type type)
         {
             System.Type element;
             if (type is ILRuntimeWrapperType)
             {
                 element = ((ILRuntimeWrapperType)type).RealType.GetGenericArguments()[0];
-                if (element is ILRuntimeType)
+                string FullName = element.FullName;
+                if (element == typeof(ILTypeInstance))
                 {
-
+                    UnityEngine.Debug.LogError(element.FullName);
                 }
             }
             else
