@@ -1,158 +1,163 @@
 ﻿#if !USE_HOT
+#pragma warning disable 169
+#pragma warning disable 649
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-class XXX : System.IEquatable<XXX>
+namespace hot
 {
-    public long id;
-    public string x;
-    public string y;
-
-    public bool Equals(XXX other)
+    [System.Serializable]
+    class XXX : System.IEquatable<XXX>
     {
-        if (id != other.id)
-            return false;
+        public long id;
+        public string x;
+        public string y;
 
-        if (x != other.x)
-            return false;
-
-        if (y != other.y)
-            return false;
-
-        return true;
-    }
-}
-
-[System.Serializable]
-class TEEE1
-{
-    public long id;
-    //public string name;
-    public string text;
-}
-
-[System.Serializable]
-class TEEE : System.IEquatable<TEEE>
-{
-    public long id;
-    public string name;
-    public string text;
-
-    public XXX xxx;
-    //public XXX[] xxxs;
-
-    public static TEEE Range()
-    {
-        TEEE t = new TEEE();
-        t.id = UnityEngine.Random.Range(0, int.MaxValue);
-        t.name = "324rr23dc";
-        t.text = "sdfasdfsad";
-
-        t.xxx = new XXX()
+        public bool Equals(XXX other)
         {
-            id = 32332,
-            x = "3232",
-            y = "2341"
-        };
+            if (id != other.id)
+                return false;
 
-        return t;
+            if (x != other.x)
+                return false;
+
+            if (y != other.y)
+                return false;
+
+            return true;
+        }
     }
 
-    public bool Equals(TEEE other)
+    [System.Serializable]
+    class TEEE1
     {
-        if (id != other.id)
-            return false;
-
-        if (name != other.name)
-            return false;
-
-        if (text != other.text)
-            return false;
-
-        if (!xxx.Equals(other.xxx))
-            return false;
-
-        return true;
+        public long id;
+        //public string name;
+        public string text;
     }
-}
 
-class TestSer1
-{
-    [SerializeField]
-    TEEE1 teee;
+    [System.Serializable]
+    class TEEE : System.IEquatable<TEEE>
+    {
+        public long id;
+        public string name;
+        public string text;
 
-    [SerializeField]
-    TEEE1[] teees;
-}
+        public XXX xxx;
+        //public XXX[] xxxs;
 
-class TestSer
-{
-    [SerializeField]
-    TEEE teee;
+        public static TEEE Range()
+        {
+            TEEE t = new TEEE();
+            t.id = UnityEngine.Random.Range(0, int.MaxValue);
+            t.name = "324rr23dc";
+            t.text = "sdfasdfsad";
 
-    [SerializeField]
-    TEEE[] teees;
+            t.xxx = new XXX()
+            {
+                id = 32332,
+                x = "3232",
+                y = "2341"
+            };
 
-    [SerializeField]
-    string name;
+            return t;
+        }
 
-    [SerializeField]
-    string[] names;
+        public bool Equals(TEEE other)
+        {
+            if (id != other.id)
+                return false;
 
-    [SerializeField]
-    int intValue;
+            if (name != other.name)
+                return false;
 
-    [SerializeField]
-    int[] intValues;
+            if (text != other.text)
+                return false;
 
-    [SerializeField]
-    uint uintValue;
+            if (!xxx.Equals(other.xxx))
+                return false;
 
-    [SerializeField]
-    uint[] uintValues;
+            return true;
+        }
+    }
 
-    [SerializeField]
-    short shortValue;
+    class TestSer1
+    {
+        [SerializeField]
+        TEEE1 teee;
 
-    [SerializeField]
-    short[] shortValues;
+        [SerializeField]
+        TEEE1[] teees;
+    }
 
-    [SerializeField]
-    ushort ushortValue;
+    class TestSer
+    {
+        [SerializeField]
+        TEEE teee;
 
-    [SerializeField]
-    ushort[] ushortValues;
+        [SerializeField]
+        TEEE[] teees;
 
-    [SerializeField]
-    char charValue;
+        [SerializeField]
+        string name;
 
-    [SerializeField]
-    char[] charValues;
+        [SerializeField]
+        string[] names;
 
-    [SerializeField]
-    float floatValue;
+        [SerializeField]
+        int intValue;
 
-    [SerializeField]
-    float[] floatValues;
+        [SerializeField]
+        int[] intValues;
 
-    [SerializeField]
-    double doubleValue;
+        [SerializeField]
+        uint uintValue;
 
-    [SerializeField]
-    double[] doubleValues;
+        [SerializeField]
+        uint[] uintValues;
 
-    [SerializeField]
-    byte byteValue;
+        [SerializeField]
+        short shortValue;
 
-    [SerializeField]
-    byte[] byteValues;
+        [SerializeField]
+        short[] shortValues;
 
-    [SerializeField]
-    sbyte sbyteValue;
+        [SerializeField]
+        ushort ushortValue;
 
-    [SerializeField]
-    byte[] sbyteValues;
+        [SerializeField]
+        ushort[] ushortValues;
+
+        [SerializeField]
+        char charValue;
+
+        [SerializeField]
+        char[] charValues;
+
+        [SerializeField]
+        float floatValue;
+
+        [SerializeField]
+        float[] floatValues;
+
+        [SerializeField]
+        double doubleValue;
+
+        [SerializeField]
+        double[] doubleValues;
+
+        [SerializeField]
+        byte byteValue;
+
+        [SerializeField]
+        byte[] byteValues;
+
+        [SerializeField]
+        sbyte sbyteValue;
+
+        [SerializeField]
+        byte[] sbyteValues;
+    }
 }
 #endif

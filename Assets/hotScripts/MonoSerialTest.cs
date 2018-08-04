@@ -1,4 +1,6 @@
 ﻿#if !USE_HOT
+#pragma warning disable 169
+#pragma warning disable 649
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +12,19 @@ namespace hot
     {
         public int value;
         public string name;
+
+        [System.Serializable]
+        public class TestSSS
+        {
+            public int value;
+            public string name;
+        }
+
+        [SerializeField]
+        TestSSS[] ssss;
+
+        [SerializeField]
+        List<TestSSS> ssss11;
     }
 
     [wxb.AutoILMono]
@@ -20,6 +35,7 @@ namespace hot
         public int[] values;
 
         public List<int> valuesss;
+        public TestListVV[] ttvaluess;
         public List<TestListVV> ttvaluesss;
 
         void Start()
