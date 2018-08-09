@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -1866,6 +1867,13 @@ namespace ILRuntime.Runtime.Intepreter
                                                                         var it = AppDomain.GetType(oldObj.GetType());
                                                                         ((CLRType)it).SetFieldValue(idx, ref oldObj, obj);
                                                                     }
+                                                                }
+                                                                break;
+                                                            case ObjectTypes.ArrayReference:
+                                                                {
+                                                                    var arr = mStack[objRef->Value] as Array;
+                                                                    int idx = objRef->ValueLow;
+                                                                    arr.SetValue(obj, idx);
                                                                 }
                                                                 break;
                                                             case ObjectTypes.StaticFieldReference:
@@ -5176,4 +5184,5 @@ namespace ILRuntime.Runtime.Intepreter
         }
     }
 }
-#endif
+
+#endif
