@@ -37,18 +37,33 @@ namespace wxb
 
         void Init()
         {
-            ctor_info = arrayType.GetConstructor(ctor_type_param);
-            if (!elementType.IsClass)
-                elementDefaultValue = elementType.Assembly.CreateInstance(elementType.FullName);
+            try
+            {
+                ctor_info = arrayType.GetConstructor(ctor_type_param);
+                if (!elementType.IsClass)
+                    elementDefaultValue = elementType.Assembly.CreateInstance(elementType.FullName);
+            }
+            catch (System.Exception ex)
+            {
+                UnityEngine.Debug.LogException(ex);
+            }
         }
 
         protected override IList Create(int lenght)
         {
             ctor_param[0] = lenght;
-            IList list = ctor_info.Invoke(null, ctor_param) as IList;
-            for (int i = 0; i < lenght; ++i)
-                list.Add(elementDefaultValue);
-            return list;
+            try
+            {
+                IList list = ctor_info.Invoke(ctor_param) as IList;
+                for (int i = 0; i < lenght; ++i)
+                    list.Add(elementDefaultValue);
+                return list;
+            }
+            catch (System.Exception ex)
+            {
+                UnityEngine.Debug.LogException(ex);
+                return null;
+            }
         }
     }
 }

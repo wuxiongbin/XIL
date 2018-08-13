@@ -12,7 +12,6 @@ namespace wxb
     using Mono.Collections.Generic;
     using ILRuntime.CLR.Method;
     using global::IL;
-    using ILRuntime.Runtime.Generated;
 
     public class Hotfix
     {
@@ -138,6 +137,7 @@ namespace wxb
         public static AppDomain appdomain { get; private set; }
 
         static RefType refType;
+        public static RefType RefType { get { return refType; } }
 
         public static void Init()
         {
@@ -155,6 +155,7 @@ namespace wxb
             var types = new Dictionary<string, IType>(appdomain.LoadedTypes);
             AutoReplace(types);
             InitByProperty(typeof(AutoInitAndRelease), "Init", types);
+            types.Clear();
         }
 
         public const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
@@ -218,7 +219,7 @@ namespace wxb
             appdomain.DelegateManager.RegisterMethodDelegate<ushort>();
             appdomain.DelegateManager.RegisterMethodDelegate<char>();
             appdomain.DelegateManager.RegisterMethodDelegate<string>();
-            UnityEngine_Debug_Binding.Register(appdomain);
+            ILRuntime.Runtime.Generated.UnityEngine_Debug_Binding.Register(appdomain);
 
             clrType = System.Type.GetType("AutoIL.ILRegType");
             if (clrType != null)
@@ -409,12 +410,13 @@ namespace wxb
                     var field = srcType.GetField(fieldName, bindingFlags);
                     if (field == null)
                     {
-                        UnityEngine.Debug.LogErrorFormat("type:{0} method:{1} not find {2} hot field!", type.Name, method.Name, fieldName);
+                        UnityEngine.Debug.LogErrorFormat("hotType:{0} method:{1} not find srcType:{2}.{3} hot field!", type.Name, method.Name, srcType.FullName, fieldName);
                         continue;
                     }
 
                     var bridge = new global::IL.DelegateBridge(ilMethod.ReflectionMethodInfo);
                     field.SetValue(null, bridge);
+                    Fields.Add(field);
                     UnityEngine.Debug.LogFormat("type:{0} method:{1} Replace {2}.{3}!", type.Name, method.Name, srcType.Name, fieldName);
 
                     AutoSetFieldMethodValue(srcType, field, type, fieldName, bridge, NameToSorted);
@@ -520,6 +522,30 @@ namespace wxb
 
             Hotfix hotfix = new Hotfix(srcFieldInfo, srcMethodInfo, bridge);
             fieldInfo.SetValue(null, hotfix);
+        }
+
+        static HashSet<FieldInfo> Fields = new HashSet<FieldInfo>();
+
+        // 释放所有热更模块
+        public static void ReleaseAll()
+        {
+            if (appdomain == null)
+                return;
+
+            ResLoad.Set(null);
+            refType.TryInvokeMethod("ReleaseAll");
+            var types = new Dictionary<string, IType>(appdomain.LoadedTypes);
+            InitByProperty(typeof(AutoInitAndRelease), "Release", types);
+            types.Clear();
+
+            foreach (var ator in Fields)
+                ator.SetValue(null, null);
+            Fields.Clear();
+
+            IL.Help.ReleaseAll();
+            refType = null;
+            appdomain = null;
+            System.GC.Collect();
         }
     }
 }

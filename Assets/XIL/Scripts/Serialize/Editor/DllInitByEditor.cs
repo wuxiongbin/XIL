@@ -11,5 +11,12 @@ public class DllInitByEditor
     {
         wxb.hotMgr.Init();
     }
+
+    [UnityEditor.MenuItem("Assets/ReloadHotDll")]
+    static void Reload()
+    {
+        wxb.hotMgr.ReleaseAll();
+        wxb.hotMgr.Init();
+    }
 }
 #endif

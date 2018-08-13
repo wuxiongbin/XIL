@@ -31,49 +31,53 @@ namespace wxb.Editor
     {
         static TypeEditor()
         {
-            AllTypes.Add(typeof(int).FullName, new IntType());
-            AllTypes.Add(typeof(uint).FullName, new UIntType());
-            AllTypes.Add(typeof(sbyte).FullName, new sByteType());
-            AllTypes.Add(typeof(byte).FullName, new ByteType());
-            AllTypes.Add(typeof(char).FullName, new CharType());
-            AllTypes.Add(typeof(short).FullName, new ShortType());
-            AllTypes.Add(typeof(ushort).FullName, new UShortType());
-            AllTypes.Add(typeof(long).FullName, new LongType());
-            AllTypes.Add(typeof(ulong).FullName, new ULongType());
-            AllTypes.Add(typeof(float).FullName, new FloatType());
-            AllTypes.Add(typeof(double).FullName, new DoubleType());
-            AllTypes.Add(typeof(string).FullName, new StrType());
-            AllTypes.Add(typeof(UnityEngine.Object).FullName, new ObjectType());
+            AllTypes.Add(typeof(UnityEngine.Object), new ObjectType());
+
+            BaseTypes.Add(typeof(int).FullName, new IntType());
+            BaseTypes.Add(typeof(uint).FullName, new UIntType());
+            BaseTypes.Add(typeof(sbyte).FullName, new sByteType());
+            BaseTypes.Add(typeof(byte).FullName, new ByteType());
+            BaseTypes.Add(typeof(char).FullName, new CharType());
+            BaseTypes.Add(typeof(short).FullName, new ShortType());
+            BaseTypes.Add(typeof(ushort).FullName, new UShortType());
+            BaseTypes.Add(typeof(long).FullName, new LongType());
+            BaseTypes.Add(typeof(ulong).FullName, new ULongType());
+            BaseTypes.Add(typeof(float).FullName, new FloatType());
+            BaseTypes.Add(typeof(double).FullName, new DoubleType());
+            BaseTypes.Add(typeof(string).FullName, new StrType());
         }
-        
+
         // 基础类型
-        static Dictionary<string, ITypeGUI> AllTypes = new Dictionary<string, ITypeGUI>();
+        static Dictionary<System.Type, ITypeGUI> AllTypes = new Dictionary<System.Type, ITypeGUI>();
+        static Dictionary<string, ITypeGUI> BaseTypes = new Dictionary<string, ITypeGUI>();
 
         public static ITypeGUI Get(System.Type type, FieldInfo fieldInfo)
         {
             ITypeGUI typeGUI = null;
-            string fullName = type.FullName;
-            if (AllTypes.TryGetValue(fullName, out typeGUI))
+            if (BaseTypes.TryGetValue(type.FullName, out typeGUI))
+                return typeGUI;
+
+            if (AllTypes.TryGetValue(type, out typeGUI))
                 return typeGUI;
 
             if (IL.Help.isType(type, typeof(UnityEngine.Object)))
             {
-                return AllTypes[typeof(UnityEngine.Object).FullName];
+                return AllTypes[typeof(UnityEngine.Object)];
             }
 
             if (type.IsArray)
             {
                 var elementType = type.GetElementType();
                 var arrayGUI = new ArrayTypeEditor(type, elementType, Get(elementType, null));
-                AllTypes.Add(fullName, arrayGUI);
+                AllTypes.Add(type, arrayGUI);
 
                 return arrayGUI;
             }
-            else if (type.IsGenericType && type.FullName.StartsWith("System.Collections.Generic.List`1[["))
+            else if (IL.Help.isListType(type))
             {
                 var elementType = IL.Help.GetElementByList(fieldInfo);
                 var arrayGUI = new ListTypeEditor(type, elementType, Get(elementType, null));
-                AllTypes.Add(fullName, arrayGUI);
+                AllTypes.Add(type, arrayGUI);
 
                 return arrayGUI;
             }
@@ -93,7 +97,7 @@ namespace wxb.Editor
             }
             List<FieldInfo> fieldinfos = IL.Help.GetSerializeField(type);
             var gui = new AnyType(type, fieldinfos);
-            AllTypes.Add(fullName, gui);
+            AllTypes.Add(type, gui);
             return gui;
         }
 

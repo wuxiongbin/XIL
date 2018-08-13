@@ -202,7 +202,15 @@ namespace wxb.Editor
             for (int i = 0; i < infos.Count; ++i)
             {
                 var field = infos[i];
-                object v = field.GetValue(value);
+                object v = null;
+                try
+                {
+                    v = field.GetValue(value);
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.LogException(ex);
+                }
                 if (v == null && (!IL.Help.isType(field.FieldType, typeof(Object))))
                 {
                     v = IL.Help.Create(field.FieldType);

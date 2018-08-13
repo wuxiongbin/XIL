@@ -553,7 +553,7 @@
             }
         }
 
-        static bool isListType(System.Type type)
+        public static bool isListType(System.Type type)
         {
             if (type.IsGenericType && type.FullName.StartsWith("System.Collections.Generic.List`1[["))
                 return true;
