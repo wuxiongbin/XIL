@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -280,7 +281,14 @@ namespace ILRuntime.CLR.TypeSystem
             if (!def.IsGenericParameter)
             {
                 if (def is TypeSpecification)
-                    RetriveDefinitino(def.GetElementType());
+                {
+                    if (def.IsByReference || def is ArrayType)
+                    {
+                        definition = null;
+                    }
+                    else
+                        RetriveDefinitino(def.GetElementType());
+                }
                 else
                     definition = def as TypeDefinition;
             }
@@ -478,7 +486,7 @@ namespace ILRuntime.CLR.TypeSystem
         void InitializeInterfaces()
         {
             interfaceInitialized = true;
-            if (definition.HasInterfaces)
+            if (definition != null && definition.HasInterfaces)
             {
                 interfaces = new IType[definition.Interfaces.Count];
                 for (int i = 0; i < interfaces.Length; i++)
@@ -503,7 +511,7 @@ namespace ILRuntime.CLR.TypeSystem
         }
         void InitializeBaseType()
         {
-            if (definition.BaseType != null)
+            if (definition != null && definition.BaseType != null)
             {
                 bool specialProcess = false;
                 List<int> spIdx = null;
@@ -641,6 +649,8 @@ namespace ILRuntime.CLR.TypeSystem
         {
             methods = new Dictionary<string, List<ILMethod>>();
             constructors = new List<ILMethod>();
+            if (definition == null)
+                return;
             foreach (var i in definition.Methods)
             {
                 if (i.IsConstructor)
@@ -942,6 +952,11 @@ namespace ILRuntime.CLR.TypeSystem
         void InitializeFields()
         {
             fieldMapping = new Dictionary<string, int>();
+            if(definition == null)
+            {
+                fieldTypes = new IType[0];
+                fieldDefinitions = new FieldDefinition[0];
+            }
             fieldTypes = new IType[definition.Fields.Count];
             fieldDefinitions = new FieldDefinition[definition.Fields.Count];
             var fields = definition.Fields;
@@ -1141,6 +1156,8 @@ namespace ILRuntime.CLR.TypeSystem
         public IType ResolveGenericType(IType contextType)
         {
             var ga = contextType.GenericArguments;
+            if (definition == null)
+                return null;
             IType[] kv = new IType[definition.GenericParameters.Count];
             for (int i = 0; i < kv.Length; i++)
             {
@@ -1211,4 +1228,5 @@ namespace ILRuntime.CLR.TypeSystem
         }
     }
 }
-#endif
+
+#endif

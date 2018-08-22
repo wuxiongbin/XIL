@@ -125,6 +125,12 @@ namespace wxb
                     }
                     finally
                     {
+#if UNITY_EDITOR
+                        if (stream.ReadSize != 0)
+                        {
+                            UnityEngine.Debug.LogErrorFormat("type:{0} fieldName:{1} length:{2}", type.Name, fieldName, length);
+                        }
+#endif
                         stream.WritePos = endPos;
                     }
                 }
