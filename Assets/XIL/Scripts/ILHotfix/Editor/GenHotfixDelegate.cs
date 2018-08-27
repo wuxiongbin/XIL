@@ -407,14 +407,14 @@ namespace IL
         //}
 
         [MenuItem("XIL/一键生成")]
-        static void GenOne()
+        public static void GenOne()
         {
             Gen();
             AutoRegILType.Build();
         }
 
         [MenuItem("XIL/一键清除")]
-        static void GenClear()
+        public static void GenClear()
         {
             Clear();
             AutoRegILType.Clear();

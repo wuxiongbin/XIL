@@ -44,7 +44,6 @@ namespace ILRuntime.Runtime.Generated
             System_Convert_Binding.Register(app);
             System_DateTime_Binding.Register(app);
             System_TimeSpan_Binding.Register(app);
-            System_String_Binding.Register(app);
             System_Text_StringBuilder_Binding.Register(app);
             System_Collections_Generic_Dictionary_2_ILTypeInstance_ILTypeInstance_Binding.Register(app);
             System_Collections_Generic_Dictionary_2_Int32_ILTypeInstance_Binding.Register(app);

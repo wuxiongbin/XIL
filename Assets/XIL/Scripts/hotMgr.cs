@@ -139,32 +139,45 @@ namespace wxb
         static RefType refType;
         public static RefType RefType { get { return refType; } }
 
-        public static void Init()
+        // 所有的热更当中的类型
+        public static List<IType> AllTypes { get; private set; }
+
+        public static void Init(IResLoad resLoad = null)
         {
             if (appdomain != null)
                 return;
 
 #if UNITY_EDITOR
-            ResLoad.Set(new EditorResLoad());
+            DllInitByEditor.Release();
 #endif
+            if (resLoad == null)
+            {
+#if UNITY_EDITOR
+                ResLoad.Set(new EditorResLoad());
+#endif
+            }
+            else
+            {
+                ResLoad.Set(resLoad);
+            }
+
             InitHotModule();
 
             refType = new RefType("hot.hotApp");
             refType.TryInvokeMethod("Init");
 
-            var types = new Dictionary<string, IType>(appdomain.LoadedTypes);
-            AutoReplace(types);
-            InitByProperty(typeof(AutoInitAndRelease), "Init", types);
-            types.Clear();
+            AllTypes = new List<IType>();
+            foreach (var ator in appdomain.LoadedTypes)
+                AllTypes.Add(ator.Value);
+
+            AutoReplace(AllTypes);
+            InitByProperty(typeof(AutoInitAndRelease), "Init", AllTypes);
         }
 
         public const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
 
         static public void InitHotModule()
         {
-            if (appdomain != null)
-                return;
-
             appdomain = new AppDomain();
             appdomain.RegisterCrossBindingAdaptor(new CoroutineAdapter());
 
@@ -173,6 +186,8 @@ namespace wxb
             {
                 clrType.GetMethod("Initialize").Invoke(null, new object[] { appdomain });
             }
+
+            ILRuntime.Runtime.Generated.UnityEngine_Debug_Binding.Register(appdomain);
 
             try
             {
@@ -193,6 +208,12 @@ namespace wxb
                 UnityEngine.Debug.LogException(ex);
             }
 
+            RegDelegate(appdomain);
+            IL.Help.Init();
+        }
+
+        public static void RegDelegate(AppDomain appdomain)
+        {
             // 热更代码当中使用List<T>类型,注册下
             // List<T>
             {
@@ -219,17 +240,14 @@ namespace wxb
             appdomain.DelegateManager.RegisterMethodDelegate<ushort>();
             appdomain.DelegateManager.RegisterMethodDelegate<char>();
             appdomain.DelegateManager.RegisterMethodDelegate<string>();
-            ILRuntime.Runtime.Generated.UnityEngine_Debug_Binding.Register(appdomain);
 
-            clrType = System.Type.GetType("AutoIL.ILRegType");
+            var clrType = System.Type.GetType("AutoIL.ILRegType");
             if (clrType != null)
             {
                 clrType.GetMethod("RegisterFunctionDelegate").Invoke(null, new object[] { appdomain });
                 clrType.GetMethod("RegisterDelegateConvertor").Invoke(null, new object[] { appdomain });
                 clrType.GetMethod("RegisterMethodDelegate").Invoke(null, new object[] { appdomain });
             }
-
-            IL.Help.Init();
         }
 
         static ReplaceFunction GetReplaceFunction(Collection<CustomAttribute> CustomAttributes)
@@ -371,12 +389,12 @@ namespace wxb
         }
 
         // 自动注册
-        static void AutoReplace(Dictionary<string, IType> types)
+        static void AutoReplace(List<IType> types)
         {
             Dictionary<string, List<MethodInfo>> NameToSorted = new Dictionary<string, List<MethodInfo>>();
             foreach (var ator in types)
             {
-                ILType type = ator.Value as ILType;
+                ILType type = ator as ILType;
                 if (type == null)
                     continue;
 
@@ -424,13 +442,13 @@ namespace wxb
             }
         }
 
-        static void InitByProperty(System.Type attType, string name, Dictionary<string, IType> types)
+        public static void FindAttribute(System.Type attType, System.Action<System.Type> on)
         {
             string autoAttName = attType.FullName;
             List<IMethod> calls = new List<IMethod>();
-            foreach (var itor in types)
+            foreach (var itor in AllTypes)
             {
-                ILType ilType = itor.Value as ILType;
+                ILType ilType = itor as ILType;
                 if (ilType == null)
                     continue;
 
@@ -439,13 +457,34 @@ namespace wxb
                 {
                     if (att.AttributeType.FullName == autoAttName)
                     {
-                        var type = itor.Value.TypeForCLR;
-                        var method = itor.Value.GetMethod(name, 0);
+                        on(ilType.ReflectionType);
+                    }
+                }
+            }
+        }
+
+        static void InitByProperty(System.Type attType, string name, List<IType> types)
+        {
+            string autoAttName = attType.FullName;
+            List<IMethod> calls = new List<IMethod>();
+            foreach (var itor in types)
+            {
+                ILType ilType = itor as ILType;
+                if (ilType == null)
+                    continue;
+
+                TypeDefinition td = ilType.TypeDefinition;
+                foreach (var att in td.CustomAttributes)
+                {
+                    if (att.AttributeType.FullName == autoAttName)
+                    {
+                        var type = ilType.TypeForCLR;
+                        var method = ilType.GetMethod(name, 0);
                         if (method == null)
                             continue;
                         if (!method.IsStatic)
                         {
-                            UnityEngine.Debug.LogErrorFormat("hot type:{0} method:{1} not static!", itor.Key, name);
+                            UnityEngine.Debug.LogErrorFormat("hot type:{0} method:{1} not static!", ilType.FullName, name);
                             continue;
                         }
                         calls.Add(method);
@@ -534,19 +573,43 @@ namespace wxb
 
             ResLoad.Set(null);
             refType.TryInvokeMethod("ReleaseAll");
-            var types = new Dictionary<string, IType>(appdomain.LoadedTypes);
-            InitByProperty(typeof(AutoInitAndRelease), "Release", types);
-            types.Clear();
+            //var types = new Dictionary<string, IType>(appdomain.LoadedTypes);
+            InitByProperty(typeof(AutoInitAndRelease), "Release", AllTypes);
 
             foreach (var ator in Fields)
                 ator.SetValue(null, null);
             Fields.Clear();
 
             IL.Help.ReleaseAll();
+            AllTypes.Clear();
+            AllTypes = null;
             refType = null;
             appdomain = null;
             System.GC.Collect();
         }
+
+#if COM_DEBUG && USE_HOT
+        // 重加载热更脚本
+#if UNITY_EDITOR
+        [EditorField]
+#endif
+        public static System.Collections.IEnumerator Reload()
+        {
+            ReleaseAll();
+            yield return 0;
+
+            System.GC.Collect();
+            yield return UnityEngine.Resources.UnloadUnusedAssets();
+            yield return 0;
+            System.GC.Collect();
+
+            // 重加载资源包
+            yield return com.eb.miku.game.GameLogo.ReloadDebugPack();
+
+            // 重新初始化脚本系统
+            Init();
+        }
+#endif
     }
 }
 #endif

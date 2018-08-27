@@ -50,6 +50,7 @@
 
 #if UNITY_EDITOR
         object instance;
+        public List<Object> Objs { get { return objs; } }
 #endif
 
         void Init()

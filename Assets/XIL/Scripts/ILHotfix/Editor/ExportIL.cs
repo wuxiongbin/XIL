@@ -57,6 +57,11 @@ namespace wxb
                 if (isAttribute(t))
                     continue;
 
+                if (t.GetCustomAttributes(typeof(EditorClass), true).Length != 0)
+                {
+                    continue;
+                }
+
                 if (t.GetCustomAttributes(typeof(HotfixAttribute), false).Length == 0)
                 {
                     //ILRuntime

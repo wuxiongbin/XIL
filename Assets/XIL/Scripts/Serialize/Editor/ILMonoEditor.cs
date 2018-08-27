@@ -40,6 +40,9 @@ namespace wxb.IL.Editor
 
         public void Init(UnityEngine.MonoBehaviour target)
         {
+#if USE_HOT
+            var appdomain = DllInitByEditor.appdomain;
+#endif
             this.target = target;
             System.Type type = target.GetType();
             typeNameField = GetField(type, "typeName", BindingFlags.Instance | BindingFlags.NonPublic);

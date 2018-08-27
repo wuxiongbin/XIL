@@ -17,7 +17,6 @@
             Init();
         }
 #endif
-
         // 缓存的类型信息
         static Dictionary<System.Type, CacheType> Caches = new Dictionary<System.Type, CacheType>();
 
@@ -266,10 +265,10 @@
 
         public static void Init()
         {
+            ReleaseAll();
 #if USE_HOT
 #if UNITY_EDITOR
-            var iltypes = hotMgr.appdomain.LoadedTypes;
-            foreach (var itor in iltypes)
+            foreach (var itor in DllInitByEditor.appdomain.LoadedTypes)
 #else
             foreach (var itor in hotMgr.appdomain.LoadedTypes)
 #endif
@@ -290,7 +289,6 @@
             Reg<double>();
 #endif
             var assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
-            //UnityEngine.Debug.LogFormat("assemblies:{0}", assemblies.Length);
             foreach (var assembly in assemblies)
             {
                 if (assembly.FullName.StartsWith("Assembly-CSharp-Editor"))
@@ -364,8 +362,20 @@
 
         static Dictionary<string, System.Type> AllTypesByFullName = new Dictionary<string, System.Type>();
 
+        public static void ForEach(System.Action<System.Type> fun)
+        {
+            foreach (var ator in AllTypesByFullName)
+                fun(ator.Value);
+        }
+
         public static System.Type GetTypeByFullName(string name)
         {
+#if USE_HOT && UNITY_EDITOR
+            if (AllTypesByFullName.Count == 0)
+            {
+                var app = DllInitByEditor.appdomain;
+            }
+#endif
             System.Type t = null;
             if (AllTypesByFullName.TryGetValue(name, out t))
                 return t;

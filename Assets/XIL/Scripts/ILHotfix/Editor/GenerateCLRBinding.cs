@@ -1,7 +1,8 @@
 ﻿#if USE_HOT
+using UnityEngine;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace xys
 {
@@ -10,7 +11,7 @@ namespace xys
         [UnityEditor.MenuItem("XIL/CLR绑定")]
         static void Generate()
         {
-            List<System.Type> types = new List<System.Type>();
+            HashSet<System.Type> types = new HashSet<System.Type>();
             types.Add(typeof(int));
             types.Add(typeof(float));
             types.Add(typeof(long));
@@ -47,7 +48,6 @@ namespace xys
             types.Add(typeof(System.Convert));
             types.Add(typeof(System.DateTime));
             types.Add(typeof(System.TimeSpan));
-            types.Add(typeof(System.String));
             types.Add(typeof(System.Text.StringBuilder));
             types.Add(typeof(Dictionary<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance>));
             types.Add(typeof(Dictionary<int, ILRuntime.Runtime.Intepreter.ILTypeInstance>));
@@ -77,7 +77,7 @@ namespace xys
             types.Add(typeof(Screen));
             types.Add(typeof(wxb.Hotfix));
 
-            ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(types, "Assets/XIL/Auto");
+            ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(types.ToList(), "Assets/XIL/Auto");
         }
     }
 }
