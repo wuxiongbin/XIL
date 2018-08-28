@@ -353,7 +353,7 @@ namespace wxb
                 }
             }
 
-            public string toString(string name)
+            public string toString(string name, out int paramCount)
             {
                 System.Text.StringBuilder sb = new System.Text.StringBuilder();
                 List<Generator.Parameter> parameters = new List<Generator.Parameter>();
@@ -379,7 +379,7 @@ namespace wxb
                 sb.Append("        {");
 
                 sb.AppendLine();
-                Generator.InILCode(sb, name, GetTypeName(Return.realType), parameters);
+                Generator.InILCode(sb, name, GetTypeName(Return.realType), parameters, out paramCount);
 
                 sb.Append("        }");
 
@@ -450,6 +450,7 @@ namespace IL
             var flag = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static | BindingFlags.IgnoreCase | BindingFlags.DeclaredOnly;
             var alls = new List<System.Type>();
 
+            HashSet<int> ObjectsParamCount = new HashSet<int>();
             HashSet<string> exports = new HashSet<string>(classes);
             foreach (var ator in System.AppDomain.CurrentDomain.GetAssemblies().Select((assemblies) => assemblies.GetTypes()))
             {
@@ -517,8 +518,11 @@ namespace IL
             foreach (var ator in allfuns)
             {
                 ator.Value.toInfo("        ", sb);
-                sb.AppendFormat("        {0}", ator.Value.toString(name + (++index)));
+                int paramCount = 0;
+                sb.AppendFormat("        {0}", ator.Value.toString(name + (++index), out paramCount));
                 sb.AppendLine();
+                if (paramCount != 0)
+                    ObjectsParamCount.Add(paramCount);
             }
 
             System.IO.File.WriteAllText(file, string.Format(file_format + "#endif", sb.ToString()));
@@ -530,6 +534,7 @@ namespace IL
                 sb.AppendLine(ator);
             Debug.LogFormat(sb.ToString());
 
+            GeneratorObjects.Gen(ObjectsParamCount);
             AssetDatabase.Refresh();
         }
     }

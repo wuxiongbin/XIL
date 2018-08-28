@@ -6,7 +6,7 @@ namespace wxb
     using System.Reflection;
     using System.Collections.Generic;
 
-    public static class Generator
+    public static partial class Generator
     {
         public class Parameter
         {
@@ -75,15 +75,21 @@ namespace wxb
             return sb.ToString();
         }
 
-        static string toGenParam(List<Parameter> Param, int start)
+        static string toGenParam(List<Parameter> Param, int start, out int paramCount)
         {
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append("param = new object[]{ ");
-
-            int count = 0;
+            if (Param.Count - start == 0)
+            {
+                sb.Append("pObjs = new EmptyObjs(");
+            }
+            else
+            {
+                sb.Append("pObjs = new Objects(");
+            }
+            paramCount = 0;
             for (int i = start; i < Param.Count; ++i)
             {
-                if (count != 0)
+                if (paramCount != 0)
                 {
                     sb.Append(", ");
                 }
@@ -97,65 +103,80 @@ namespace wxb
                     sb.Append(string.Format("new RefOutParam<{0}>({1})", Param[i].typeName, Param[i].name));
                 }
 
-                ++count;
+                ++paramCount;
             }
-            sb.Append(" };");
+            sb.Append(")");
 
             return sb.ToString();
         }
 
-        static void Global(System.Text.StringBuilder sb, string funName, string returnName, List<Parameter> paramList)
+        static void Global(System.Text.StringBuilder sb, string funName, string returnName, List<Parameter> paramList, out int paramCount)
         {
             // 插入生成的IL代码
             //sb.AppendLine("            if (methodInfo != null)");
             //sb.AppendLine("            {");
-
+            bool isOutRef = paramList.FindIndex((x) => { return (x.pt == Parameter.Type.Out || x.pt == Parameter.Type.Ref) ? true : false; }) != -1;
             string initP = InitOutParam(paramList, "            ");
             if (!string.IsNullOrEmpty(initP))
                 sb.Append(initP);
 
-            sb.Append("            object[] ");
-            sb.Append(toGenParam(paramList, 0));
+            sb.AppendFormat("            using (var {0})", toGenParam(paramList, 0, out paramCount));
             sb.AppendLine();
+
+            sb.Append("            {");
+            sb.AppendLine();
+            if (isOutRef)
+            {
+                sb.Append("                var param = pObjs.objs;");
+                sb.AppendLine();
+            }
 
             if (returnName != "void")
             {
-                sb.AppendLine(string.Format("            {0} result = default({0});", returnName));
+                sb.AppendLine(string.Format("                {0} result = default({0});", returnName));
             }
 
             if (returnName == "void")
             {
-                sb.AppendLine("            methodInfo.Invoke(null, param);");
+                if (isOutRef)
+                    sb.AppendLine("                methodInfo.Invoke(null, param);");
+                else
+                    sb.AppendLine("                methodInfo.Invoke(null, pObjs.objs);");
             }
             else
             {
-                sb.AppendFormat("            result = ({0})methodInfo.Invoke(null, param);", returnName);
+                if (isOutRef)
+                    sb.AppendFormat("                result = ({0})methodInfo.Invoke(null, param);", returnName);
+                else
+                    sb.AppendFormat("                result = ({0})methodInfo.Invoke(null, pObjs.objs);", returnName);
+
                 sb.AppendLine();
             }
 
-            if (paramList.FindIndex((x) => { return (x.pt == Parameter.Type.Out || x.pt == Parameter.Type.Ref) ? true : false; }) != -1)
+            if (isOutRef)
             {
-                sb.Append(SetOutParam(paramList, 0, "            "));
+                sb.Append(SetOutParam(paramList, 0, "                "));
             }
 
             if (returnName != "void")
             {
-                sb.AppendLine("            return result;");
+                sb.AppendLine("                return result;");
             }
             else
             {
                 //sb.AppendLine("            return;");
             }
 
+            sb.AppendLine("            }");
             //sb.AppendLine("            }");
         }
 
-        public static void InILCode(System.Text.StringBuilder sb, string funName, string returnName, List<Parameter> paramList)
+        public static void InILCode(System.Text.StringBuilder sb, string funName, string returnName, List<Parameter> paramList, out int paramCount)
         {
             //sb.AppendLine();
             //sb.AppendFormat("#if USE_HOT");
             //sb.AppendLine();
-            Global(sb, funName, returnName, paramList);
+            Global(sb, funName, returnName, paramList, out paramCount);
             //sb.AppendFormat("#endif");
             //sb.AppendLine();
         }

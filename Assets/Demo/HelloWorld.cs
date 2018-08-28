@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class HelloWorld : MonoBehaviour
 {
+    static void TestNo()
+    {
+
+    }
+
+    static int TestInt()
+    {
+        return 0;
+    }
+
     public HelloWorld()
     {
 
