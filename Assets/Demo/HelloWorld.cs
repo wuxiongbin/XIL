@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class HelloWorld : MonoBehaviour
 {
+    static void TestXX(int p1, int p2, int p3, int p4, string p5, string p6, string p7, string p8, Vector3 p9, Vector2 p10, Vector4 p11)
+    {
+
+    }
+
     static void TestNo()
     {
 
@@ -43,6 +48,8 @@ public class HelloWorld : MonoBehaviour
         Debug.LogFormat("ref value:{0} out value:{1}", refValue, outValue);
 
         TestFunc();
+
+        TestXX(1, 2, 3, 4, "5", "6", "7", "8", new Vector3(1, 2, 3), new Vector2(4, 5), new Vector4(7, 8, 9, 10));
     }
 
     void Test(ref int refValue, out int outValue)
@@ -55,7 +62,7 @@ public class HelloWorld : MonoBehaviour
     {
         get
         {
-            return 0;
+            return 2222;
         }
     }
 

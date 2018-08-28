@@ -1,5 +1,6 @@
 ﻿using IL;
 using wxb;
+using UnityEngine;
 using System.Collections.Generic;
 #pragma warning disable 169
 #pragma warning disable 649
@@ -10,6 +11,22 @@ namespace hot
     [ReplaceType(typeof(HelloWorld))]
     public static class HotHelloWorld
     {
+        [ReplaceFunction()]
+        static void TestXX(int p1, int p2, int p3, int p4, string p5, string p6, string p7, string p8, Vector3 p9, Vector2 p10, Vector4 p11)
+        {
+            Debug.LogFormat("p1:{0}", p1);
+            Debug.LogFormat("p2:{0}", p2);
+            Debug.LogFormat("p3:{0}", p3);
+            Debug.LogFormat("p4:{0}", p4);
+            Debug.LogFormat("p5:{0}", p5);
+            Debug.LogFormat("p6:{0}", p6);
+            Debug.LogFormat("p7:{0}", p7);
+            Debug.LogFormat("p8:{0}", p8);
+            Debug.LogFormat("p9:{0}", p9);
+            Debug.LogFormat("p10:{0}", p10);
+            Debug.LogFormat("p11:{0}", p11);
+        }
+
         public static void Init()
         {
             UnityEngine.Debug.LogFormat("HotHelloWorld.Init by AutoInitAndRelease");
