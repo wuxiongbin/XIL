@@ -115,6 +115,11 @@
 
         static IPool current = new QueuePool();
 
+        public static void SetDefault()
+        {
+            current = new DefaultPool();
+        }
+
         public static void SetCurrent(IPool pool)
         {
             current = pool;

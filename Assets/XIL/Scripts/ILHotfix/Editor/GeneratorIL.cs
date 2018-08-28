@@ -6,7 +6,7 @@ namespace wxb
     using System.Reflection;
     using System.Collections.Generic;
 
-    public static partial class Generator
+    public static class Generator
     {
         public class Parameter
         {
