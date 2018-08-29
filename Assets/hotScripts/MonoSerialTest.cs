@@ -30,6 +30,7 @@ namespace hot
     [wxb.AutoILMono]
     class MonoSerialTest
     {
+        public GameObject go;
         public int maxValue;
         public string nameValue;
         public int[] values;

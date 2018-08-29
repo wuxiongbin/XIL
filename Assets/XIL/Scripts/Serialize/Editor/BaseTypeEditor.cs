@@ -264,7 +264,7 @@ namespace wxb.Editor
             }
 #endif
             isDirty = false;
-            UnityEngine.Object nv = EditorGUILayout.ObjectField(label, value, type, false);
+            UnityEngine.Object nv = EditorGUILayout.ObjectField(label, value, type, true);
             if (nv != value)
                 isDirty = true;
             else
