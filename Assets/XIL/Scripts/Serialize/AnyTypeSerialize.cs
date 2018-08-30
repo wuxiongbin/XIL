@@ -106,11 +106,11 @@ namespace wxb
                         {
                             object cv = fieldInfo.GetValue(value);
                             //bool isSet = false;
-                            if (cv == null)
-                            {
-                                cv = IL.Help.Create(fieldInfo.FieldType);
-                                //isSet = true;
-                            }
+                            //if (cv == null)
+                            //{
+                            //    cv = IL.Help.Create(fieldInfo.FieldType);
+                            //    //isSet = true;
+                            //}
 
                             MonoSerialize.GetByType(fieldInfo).MergeFrom(ref cv, ms);
                             //if (isSet || !cv.GetType().IsClass || cv.GetType().FullName == "System.String")
