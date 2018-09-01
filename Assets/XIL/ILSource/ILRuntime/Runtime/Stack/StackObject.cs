@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -157,11 +158,27 @@ namespace ILRuntime.Runtime.Stack
                     esp.Value = idx;
                     if (fieldType is CLRType)
                     {
-                        mStack[idx] = ((CLRType)fieldType).CreateDefaultInstance();
+                        if (fieldType.TypeForCLR.IsEnum)
+                        {
+                            esp.ObjectType = ObjectTypes.Integer;
+                            esp.Value = 0;
+                            esp.ValueLow = 0;
+                            mStack[idx] = null;
+                        }
+                        else
+                            mStack[idx] = ((CLRType)fieldType).CreateDefaultInstance();
                     }
                     else
                     {
-                        mStack[idx] = ((ILType)fieldType).Instantiate();
+                        if (((ILType)fieldType).IsEnum)
+                        {
+                            esp.ObjectType = ObjectTypes.Integer;
+                            esp.Value = 0;
+                            esp.ValueLow = 0;
+                            mStack[idx] = null;
+                        }
+                        else
+                            mStack[idx] = ((ILType)fieldType).Instantiate();
                     }
                 }
                 else
@@ -225,4 +242,5 @@ namespace ILRuntime.Runtime.Stack
         ArrayReference,//Value = objIdx, ValueLow = elemIdx
     }
 }
-#endif
+
+#endif

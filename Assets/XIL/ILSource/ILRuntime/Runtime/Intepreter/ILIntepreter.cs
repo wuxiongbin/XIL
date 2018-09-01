@@ -2938,7 +2938,7 @@ namespace ILRuntime.Runtime.Intepreter
                                                     {
                                                         char val = (char)obj;
                                                         objRef->ObjectType = ObjectTypes.Integer;
-                                                        *(char*)&objRef->Value = val;
+                                                        *(&objRef->Value) = val;
                                                     }
                                                     else if (type == typeof(uint))
                                                     {

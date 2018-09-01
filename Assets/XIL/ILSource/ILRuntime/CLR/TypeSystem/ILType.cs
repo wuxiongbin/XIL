@@ -429,10 +429,7 @@ namespace ILRuntime.CLR.TypeSystem
         {
             get
             {
-                if (definition == null)
-                    return false;
-
-                return definition.IsEnum;
+                return definition != null ? definition.IsEnum : false;
             }
         }
 
