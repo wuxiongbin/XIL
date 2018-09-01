@@ -14,6 +14,8 @@
         Dictionary<string, MemberInfo> NameToMethodBase = new Dictionary<string, MemberInfo>();
         List<FieldInfo> serializes; // 序列化的字段
 
+        static readonly BindingFlags Flags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
+
         struct Ctor
         {
             public System.Type param;
@@ -30,7 +32,7 @@
                 return default_ctor;
 
             is_default_ctor = true;
-            default_ctor = type.GetConstructor(IL.Help.Flags, null, IL.Help.EmptyType, null);
+            default_ctor = type.GetConstructor(Flags, null, IL.Help.EmptyType, null);
             return default_ctor;
         }
 
@@ -51,7 +53,7 @@
             while (p != null)
             {
                 IL.Help.OneType[0] = p;
-                var ctor = type.GetConstructor(IL.Help.Flags, null, IL.Help.OneType, null);
+                var ctor = type.GetConstructor(Flags, null, IL.Help.OneType, null);
                 if (ctor != null)
                 {
                     System.Array.Resize(ref Ctors, count + 1);
@@ -67,6 +69,25 @@
             return null;
         }
 
+        static MethodInfo GetMethodInfo(System.Type type, string name)
+        {
+            try
+            {
+                return type.GetMethod(name, Flags);
+            }
+            catch (AmbiguousMatchException /*ex*/)
+            {
+                var methods = type.GetMethods(Flags);
+                for (int i = 0; i < methods.Length; ++i)
+                {
+                    if (methods[i].Name == name)
+                        return methods[i];
+                }
+
+                return null;
+            }
+        }
+
         public MethodInfo GetMethod(string name)
         {
             MemberInfo mb = null;
@@ -76,7 +97,7 @@
             System.Type st = type;
             while (true)
             {
-                MethodInfo info = st.GetMethod(name, IL.Help.Flags);
+                MethodInfo info = GetMethodInfo(st, name);
                 if (info == null)
                 {
                     if ((st = st.BaseType) != null)
@@ -99,7 +120,7 @@
             System.Type st = type;
             while (true)
             {
-                PropertyInfo info = st.GetProperty(name, IL.Help.Flags);
+                PropertyInfo info = st.GetProperty(name, Flags);
                 if (info == null)
                 {
                     if ((st = st.BaseType) != null)
@@ -122,7 +143,7 @@
             System.Type st = type;
             while (true)
             {
-                FieldInfo info = st.GetField(name, IL.Help.Flags);
+                FieldInfo info = st.GetField(name, Flags);
                 if (info == null)
                 {
                     if ((st = st.BaseType) != null)

@@ -205,7 +205,6 @@
         public static readonly object[] OneObj = new object[1];
         public static readonly System.Type[] OneType = new System.Type[1];
         public static readonly System.Type[] EmptyType = new System.Type[0];
-        public static readonly BindingFlags Flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
         public static object CreateInstaince(System.Type instanceType, object parent)
         {
@@ -368,6 +367,20 @@
                 fun(ator.Value);
         }
 
+        public static bool TryGetTypeByFullName(string name, out System.Type type)
+        {
+#if USE_HOT && UNITY_EDITOR
+            if (AllTypesByFullName.Count == 0)
+            {
+                var app = DllInitByEditor.appdomain;
+            }
+#endif
+            if (AllTypesByFullName.TryGetValue(name, out type))
+                return true;
+
+            return false;
+        }
+
         public static System.Type GetTypeByFullName(string name)
         {
 #if USE_HOT && UNITY_EDITOR
@@ -492,6 +505,8 @@
                 {
                     var field = fields[i];
                     var fieldType = field.FieldType;
+                    if (field.IsStatic)
+                        continue;
 #if USE_HOT
                     if (isILType && !allfields.Contains(field.Name))
                         continue;

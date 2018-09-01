@@ -135,7 +135,11 @@ namespace ILRuntime.Reflection
 
         public override ParameterInfo[] GetParameters()
         {
-            throw new NotImplementedException();
+            ParameterInfo[] infos = new ParameterInfo[parameters.Length];
+            for (int i = 0; i < parameters.Length; ++i)
+                infos[i] = parameters[i]; ;
+
+            return infos;
         }
 
         public override object Invoke(object obj, BindingFlags invokeAttr, Binder binder, object[] parameters, CultureInfo culture)

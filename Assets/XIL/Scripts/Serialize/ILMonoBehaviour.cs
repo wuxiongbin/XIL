@@ -31,7 +31,10 @@
             if (instance == null)
             {
                 bytes = null;
-                objs.Clear();
+                if (objs != null)
+                    objs.Clear();
+                else
+                    objs = new List<Object>();
                 refType = null;
             }
             else

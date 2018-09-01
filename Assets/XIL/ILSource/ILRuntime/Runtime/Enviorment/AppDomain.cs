@@ -450,6 +450,9 @@ namespace ILRuntime.Runtime.Enviorment
 
         public void RegisterCLRFieldGetter(FieldInfo f, CLRFieldGetterDelegate getter)
         {
+            if (f == null)
+                return;
+
             if (!fieldGetterMap.ContainsKey(f))
                 fieldGetterMap[f] = getter;
         }

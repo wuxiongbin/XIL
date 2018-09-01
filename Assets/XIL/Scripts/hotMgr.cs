@@ -525,7 +525,7 @@ namespace wxb
                 int last = methodName.LastIndexOf('_');
                 if (last == -1)
                 {
-                    srcMethodInfo = srcType.GetMethod(methodName, bindingFlags);
+                    srcMethodInfo = IL.Help.GetMethod(srcType, methodName);
                 }
                 else
                 {
@@ -533,7 +533,7 @@ namespace wxb
                     bool isInt = int.TryParse(methodName.Substring(last + 1), out value);
                     if (!isInt)
                     {
-                        srcMethodInfo = srcType.GetMethod(methodName, bindingFlags);
+                        srcMethodInfo = IL.Help.GetMethod(srcType, methodName);
                     }
                     else
                     {
