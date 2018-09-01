@@ -28,7 +28,8 @@ namespace wxb
         public static List<string> FixMarkIL()
         {
             var assembly = Assembly.Load("Assembly-CSharp");
-            var types = assembly.GetExportedTypes();
+            //var types = assembly.GetExportedTypes();
+            var types = assembly.GetTypes();
             List<string> classes = new List<string>();
             HashSet<Type> delegateTypes = new HashSet<Type>();
 
@@ -69,6 +70,8 @@ namespace wxb
                     if (FullName.StartsWith("IL.") ||
                         FullName.StartsWith("ILRuntime.") ||
                         FullName.StartsWith("wxb.") ||
+                        FullName.StartsWith("Microsoft.") ||
+                        FullName.StartsWith("<.") ||
                         FullName.StartsWith("Mono."))
                         continue;
                 }

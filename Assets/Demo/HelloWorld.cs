@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class HelloWorld : MonoBehaviour
 {
+    public class TestNeast1
+    {
+        public int value = 0;
+    }
+
+    class TestNeast2
+    {
+        public int value = 0;
+    }
+
     static void TestXX(int p1, int p2, int p3, int p4, string p5, string p6, string p7, string p8, Vector3 p9, Vector2 p10, Vector4 p11)
     {
 

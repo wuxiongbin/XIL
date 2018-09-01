@@ -276,7 +276,8 @@ namespace wxb.Editor
                 hotfix_bridges = (from method in delegateBridgeType.Methods where method.Name.StartsWith("__Gen_Delegate_Imp") select method).ToList();
 
                 var hotfixAttributeType = assembly.MainModule.Types.Single(t => t.FullName == "wxb.HotfixAttribute");
-                foreach (var type in (from module in assembly.Modules from type in module.Types select type))
+                var types = (from module in assembly.Modules from type in module.Types select type);
+                foreach (var type in types)
                 {
                     if (!injectType(assembly, hotfixAttributeType, type, exports))
                     {
