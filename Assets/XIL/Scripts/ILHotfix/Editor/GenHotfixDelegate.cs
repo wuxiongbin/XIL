@@ -243,7 +243,9 @@ namespace wxb
                     return isPublic(type.Assembly.GetType(type.FullName.Substring(0, type.FullName.Length - 1)));
 
                 if (type.IsNested)
-                    return type.IsNestedPublic;
+                {
+                    return type.IsNestedPublic && (isPublic(type.DeclaringType));
+                }
 
                 return type.IsPublic;
             }
