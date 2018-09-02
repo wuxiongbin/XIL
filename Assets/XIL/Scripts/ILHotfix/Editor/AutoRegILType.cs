@@ -276,6 +276,10 @@
         {
             HashSet<System.Type> types = new HashSet<System.Type>(); 
             var assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
+#if USE_HOT
+            Assembly assembly = Assembly.LoadFile(ResourcesPath.dataPath + "/../Data/DyncDll.dll");
+            types.UnionWith(assembly.GetTypes());
+#endif
             foreach (var assemblie in assemblies)
             {
                 if (!IsAssemblie(assemblie))
@@ -827,6 +831,7 @@
                 sb.RegisterDelegateConvertor, 
                 sb.RegisterMethodDelegate, tsb.ToString()), System.Text.Encoding.UTF8);
 
+            UnityEditor.AssetDatabase.ImportAsset(file_path);
             UnityEditor.AssetDatabase.Refresh();
         }
 

@@ -181,14 +181,16 @@ namespace wxb
             appdomain = new AppDomain();
             appdomain.RegisterCrossBindingAdaptor(new CoroutineAdapter());
 
+#if UNITY_EDITOR
             System.Type clrType = System.Type.GetType("ILRuntime.Runtime.Generated.CLRBindings");
             if (clrType != null)
             {
                 clrType.GetMethod("Initialize").Invoke(null, new object[] { appdomain });
             }
-
+#else
+            ILRuntime.Runtime.Generated.CLRBindings.Initialize(appdomain);
+#endif
             ILRuntime.Runtime.Generated.UnityEngine_Debug_Binding.Register(appdomain);
-
             try
             {
                 using (var fs = ResLoad.GetStream("Data/DyncDll.dll"))
@@ -240,7 +242,12 @@ namespace wxb
             appdomain.DelegateManager.RegisterMethodDelegate<ushort>();
             appdomain.DelegateManager.RegisterMethodDelegate<char>();
             appdomain.DelegateManager.RegisterMethodDelegate<string>();
+            appdomain.DelegateManager.RegisterMethodDelegate<object, object>();
+            appdomain.DelegateManager.RegisterMethodDelegate<int, object>();
+            appdomain.DelegateManager.RegisterMethodDelegate<long, object>();
+            appdomain.DelegateManager.RegisterMethodDelegate<string, object>();
 
+#if UNITY_EDITOR
             var clrType = System.Type.GetType("AutoIL.ILRegType");
             if (clrType != null)
             {
@@ -248,6 +255,11 @@ namespace wxb
                 clrType.GetMethod("RegisterDelegateConvertor").Invoke(null, new object[] { appdomain });
                 clrType.GetMethod("RegisterMethodDelegate").Invoke(null, new object[] { appdomain });
             }
+#else
+            AutoIL.ILRegType.RegisterFunctionDelegate(appdomain);
+            AutoIL.ILRegType.RegisterDelegateConvertor(appdomain);
+            AutoIL.ILRegType.RegisterMethodDelegate(appdomain);
+#endif
         }
 
         static ReplaceFunction GetReplaceFunction(Collection<CustomAttribute> CustomAttributes)

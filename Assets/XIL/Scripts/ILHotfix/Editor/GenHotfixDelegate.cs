@@ -237,15 +237,28 @@ namespace wxb
                 methods.Add(info);
             }
 
+            static bool isEditorClass(System.Type type)
+            {
+                if (type.IsArray)
+                    return isEditorClass(type.GetElementType());
+
+                if (type.GetCustomAttributes(typeof(EditorClass), true).Length != 0)
+                    return true;
+                if (type.IsNested)
+                    return isEditorClass(type.DeclaringType);
+                return false;
+            }
+
             static bool isPublic(System.Type type)
             {
+                if (type.IsArray)
+                    return isPublic(type.GetElementType());
+
                 if (type.FullName.EndsWith("&"))
                     return isPublic(type.Assembly.GetType(type.FullName.Substring(0, type.FullName.Length - 1)));
 
                 if (type.IsNested)
-                {
-                    return type.IsNestedPublic && (isPublic(type.DeclaringType));
-                }
+                    return type.IsNestedPublic && isPublic(type.DeclaringType);
 
                 return type.IsPublic;
             }
@@ -254,12 +267,12 @@ namespace wxb
             {
                 get
                 {
-                    if (!isPublic(Return.realType))
+                    if (!isPublic(Return.realType) || isEditorClass(Return.realType))
                         return false;
 
                     for (int i = 0; i < Params.Count; ++i)
                     {
-                        if (!isPublic(Params[i].realType))
+                        if (!isPublic(Params[i].realType) || isEditorClass(Return.realType))
                             return false;
                     }
 

@@ -25,18 +25,35 @@ namespace wxb
             return isAttribute(type.BaseType);
         }
 
+        static bool IsCompilerGenerated(System.Type t)
+        {
+            var compiler = typeof(System.Runtime.CompilerServices.CompilerGeneratedAttribute);
+            return IsAttributes(t, compiler);
+        }
+
+        static bool IsAttributes(System.Type t, System.Type att)
+        {
+            if (t.GetCustomAttributes(att, true).Length != 0)
+                return true;
+
+            if (t.IsNested)
+                return IsAttributes(t.DeclaringType, att);
+            return false;
+        }
+
         public static List<string> FixMarkIL()
         {
             var assembly = Assembly.Load("Assembly-CSharp");
-            //var types = assembly.GetExportedTypes();
             var types = assembly.GetTypes();
             List<string> classes = new List<string>();
             HashSet<Type> delegateTypes = new HashSet<Type>();
-
             foreach (var t in types)
             {
                 //已手动标记
                 if (t.IsClass == false || t.IsInterface || typeof(Delegate).IsAssignableFrom(t))
+                    continue;
+
+                if (IsCompilerGenerated(t))
                     continue;
 
                 bool isBlack = false;
@@ -58,7 +75,7 @@ namespace wxb
                 if (isAttribute(t))
                     continue;
 
-                if (t.GetCustomAttributes(typeof(EditorClass), true).Length != 0)
+                if (IsAttributes(t, typeof(EditorClass)))
                 {
                     continue;
                 }
