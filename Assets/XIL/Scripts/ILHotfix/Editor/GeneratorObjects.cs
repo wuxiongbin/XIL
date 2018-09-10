@@ -14,8 +14,17 @@ namespace wxb
             int[] v = ps.ToArray();
             System.Array.Sort(v, (x, y) => { return x.CompareTo(y); });
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append(@"
-namespace IL
+#if UNITY_IOS
+            sb.AppendLine("#if UNITY_IOS");
+            string filepath = "Assets/XIL/Auto/GenObjects_ios.cs";
+#elif UNITY_ANDROID
+            sb.AppendLine("#if UNITY_ANDROID");
+            string filepath = "Assets/XIL/Auto/GenObjects_ad.cs";
+#else
+            sb.AppendLine("#if UNITY_STANDALONE_WIN");
+            string filepath = "Assets/XIL/Auto/GenObjects_pc.cs";
+#endif
+            sb.Append(@"namespace IL
 {
     public partial struct Objects
     {"
@@ -28,8 +37,10 @@ namespace IL
 
             sb.Append(@"
     }
-}");
-            System.IO.File.WriteAllText("Assets/XIL/Auto/GenObjects.cs", sb.ToString());
+}
+");
+            sb.Append("#endif");
+            System.IO.File.WriteAllText(filepath, sb.ToString());
         }
 
         [UnityEditor.MenuItem("Assets/Objects")]

@@ -1,6 +1,6 @@
 ﻿#if USE_HOT
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -33,6 +33,7 @@ namespace xys
             types.Add(typeof(SystemInfo));
             types.Add(typeof(Time));
             types.Add(typeof(wxb.hotMgr));
+            types.Add(typeof(wxb.IL.Help));
             types.Add(typeof(wxb.RefType));
             types.Add(typeof(System.Type));
             types.Add(typeof(System.Reflection.MethodInfo));
@@ -43,6 +44,7 @@ namespace xys
             //所有DLL内的类型的真实C#类型都是ILTypeInstance
             types.Add(typeof(List<ILRuntime.Runtime.Intepreter.ILTypeInstance>));
             types.Add(typeof(ILRuntime.Runtime.Intepreter.ILTypeInstance));
+            types.Add(typeof(System.Array));
 
             types.Add(typeof(System.Math));
             types.Add(typeof(System.Convert));
@@ -69,6 +71,7 @@ namespace xys
             types.Add(typeof(UnityEngine.Color));
             types.Add(typeof(HashSet<long>));
             types.Add(typeof(HashSet<int>));
+            types.Add(typeof(HashSet<string>));
             types.Add(typeof(System.Linq.Enumerable));
             types.Add(typeof(Canvas));
             types.Add(typeof(Matrix4x4));

@@ -33,6 +33,7 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine_SystemInfo_Binding.Register(app);
             UnityEngine_Time_Binding.Register(app);
             wxb_hotMgr_Binding.Register(app);
+            wxb_IL_Help_Binding.Register(app);
             wxb_RefType_Binding.Register(app);
             System_Type_Binding.Register(app);
             System_Reflection_MethodInfo_Binding.Register(app);
@@ -65,6 +66,7 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine_Color_Binding.Register(app);
             System_Collections_Generic_HashSet_1_Int64_Binding.Register(app);
             System_Collections_Generic_HashSet_1_Int32_Binding.Register(app);
+            System_Collections_Generic_HashSet_1_String_Binding.Register(app);
             System_Linq_Enumerable_Binding.Register(app);
             UnityEngine_Canvas_Binding.Register(app);
             UnityEngine_Matrix4x4_Binding.Register(app);

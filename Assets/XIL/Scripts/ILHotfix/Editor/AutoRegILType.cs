@@ -269,7 +269,16 @@
             return false;
         }
 
-        const string file_path = "Assets/XIL/Auto/ILRegType.cs";
+#if UNITY_IOS
+        const string marco = "UNITY_IOS";
+        const string file_path = "Assets/XIL/Auto/ILRegType_ios.cs";
+#elif UNITY_ANDROID
+        const string marco = "UNITY_ANDROID";
+        const string file_path = "Assets/XIL/Auto/ILRegType_ad.cs";
+#else
+        const string marco = "UNITY_STANDALONE_WIN";
+        const string file_path = "Assets/XIL/Auto/ILRegType_pc.cs";
+#endif
 
         [UnityEditor.MenuItem("XIL/委托自动生成")]
         public static void Build()
@@ -826,7 +835,8 @@
             BuildDHot(hotTDic, tsb);
 
             System.IO.Directory.CreateDirectory(file_path.Substring(0, file_path.LastIndexOf('/')));
-            System.IO.File.WriteAllText(file_path, string.Format(RegTextFile, 
+            System.IO.File.WriteAllText(file_path, string.Format(RegTextFile,
+                marco,
                 sb.RegisterFunctionDelegate, 
                 sb.RegisterDelegateConvertor, 
                 sb.RegisterMethodDelegate, tsb.ToString()), System.Text.Encoding.UTF8);

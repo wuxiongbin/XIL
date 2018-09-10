@@ -403,12 +403,12 @@ namespace wxb
         }
 
 
-        const string file_format = @"#if USE_HOT
+        const string file_format = @"#if USE_HOT && {0}
 namespace IL
 {{
     public partial class DelegateBridge
     {{
-{0}
+{1}
     }}
 }}
 ";
@@ -524,7 +524,16 @@ namespace IL
                 }
             }
 
-            string file = "Assets/XIL/Auto/GenDelegateBridge.cs";
+#if UNITY_IOS
+            string marco = "UNITY_IOS";
+            string file = "Assets/XIL/Auto/GenDelegateBridge_ios.cs";
+#elif UNITY_ANDROID
+            string marco = "UNITY_ANDROID";
+            string file = "Assets/XIL/Auto/GenDelegateBridge_ad.cs";
+#else
+            string marco = "UNITY_STANDALONE_WIN";
+            string file = "Assets/XIL/Auto/GenDelegateBridge_pc.cs";
+#endif
             System.IO.Directory.CreateDirectory(file.Substring(0, file.LastIndexOf('/')));
 
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -540,7 +549,7 @@ namespace IL
                     ObjectsParamCount.Add(paramCount);
             }
 
-            System.IO.File.WriteAllText(file, string.Format(file_format + "#endif", sb.ToString()));
+            System.IO.File.WriteAllText(file, string.Format(file_format + "#endif", marco, sb.ToString()));
             Debug.LogFormat("count:{0}", allfuns.Count);
 
             sb.Length = 0;

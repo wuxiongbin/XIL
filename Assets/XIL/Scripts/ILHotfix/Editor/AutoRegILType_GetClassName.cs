@@ -228,7 +228,7 @@
             sb.AppendLine("});");
         }
 
-        const string RegTextFile = @"#if USE_HOT
+        const string RegTextFile = @"#if USE_HOT && {0}
 namespace AutoIL
 {{
     using ILRuntime.Runtime.Enviorment;
@@ -237,22 +237,22 @@ namespace AutoIL
     {{
         static public void RegisterFunctionDelegate(AppDomain appdomain)
         {{
-{0}
+{1}
         }}
 
         static public void RegisterDelegateConvertor(AppDomain appdomain)
         {{
-{1}
+{2}
         }}
 
         static public void RegisterMethodDelegate(AppDomain appdomain)
         {{
-{2}
+{3}
         }}
 
         static public void Fame()
         {{
-{3}
+{4}
         }}
     }}
 }}

@@ -1,4 +1,4 @@
-#if USE_HOT
+#if USE_HOT && UNITY_STANDALONE_WIN
 namespace IL
 {
     public partial class DelegateBridge
@@ -80,6 +80,15 @@ namespace IL
             {
                 System.Collections.IEnumerator result = default(System.Collections.IEnumerator);
                 result = (System.Collections.IEnumerator)methodInfo.Invoke(null, pObjs.objs);
+                return result;
+            }
+        }
+        public System.Delegate __Gen_Delegate_Imp11(object p0)
+        {
+            using (var pObjs = new Objects(p0))
+            {
+                System.Delegate result = default(System.Delegate);
+                result = (System.Delegate)methodInfo.Invoke(null, pObjs.objs);
                 return result;
             }
         }

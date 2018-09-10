@@ -403,6 +403,7 @@
         }
 
 #if UNITY_EDITOR
+        [EditorField]
         public static List<System.Type> GetCustomAttributesType(System.Type type)
         {
             List<System.Type> types = new List<System.Type>();
@@ -423,6 +424,7 @@
         }
       
         // 得到继承type的类型
+        [EditorField]
         public static List<System.Type> GetBaseType(string baseTypeFullName)
         {
             List<System.Type> types = new List<System.Type>();
@@ -439,6 +441,7 @@
             return types;
         }
 
+        [EditorField]
         static bool HasCustomAttributes(System.Type type, System.Type customAtt)
         {
             if (type == null)
@@ -467,7 +470,6 @@
 #endif
         }
 #endif
-
         public static List<FieldInfo> GetSerializeField(System.Type type)
         {
             return GetOrCreate(type).GetSerializeField();
