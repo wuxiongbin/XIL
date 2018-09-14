@@ -11,6 +11,9 @@ namespace wxb
     {
         public static void Gen(HashSet<int> ps)
         {
+            for (int i = 1; i <= 10; ++i)
+                ps.Remove(i);
+
             int[] v = ps.ToArray();
             System.Array.Sort(v, (x, y) => { return x.CompareTo(y); });
             System.Text.StringBuilder sb = new System.Text.StringBuilder();

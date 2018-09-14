@@ -26,7 +26,7 @@ namespace wxb
             this.bridge = bridge;
         }
 
-        public Hotfix(System.Type type, string name, System.Type hotfixType) : this(type, "__Hotfix0_" + name, name, hotfixType, name)
+        public Hotfix(System.Type type, string name, System.Type hotfixType) : this(type, "__Hotfix_" + name, name, hotfixType, name)
         {
 
         }
@@ -74,6 +74,94 @@ namespace wxb
             }
             field.SetValue(null, bridge);
             return r;
+        }
+
+        public object Invoke(object obj)
+        {
+            using (var pObjs = new EmptyObjs())
+            {
+                return Invoke(obj, pObjs.objs);
+            }
+        }
+
+        public object Invoke(object obj, object p1)
+        {
+            using (var pObjs = new Objects(p1))
+            {
+                return Invoke(obj, pObjs.objs);
+            }
+        }
+
+        public object Invoke(object obj, object p1, object p2)
+        {
+            using (var pObjs = new Objects(p1, p2))
+            {
+                return Invoke(obj, pObjs.objs);
+            }
+        }
+
+        public object Invoke(object obj, object p1, object p2, object p3)
+        {
+            using (var pObjs = new Objects(p1, p2, p3))
+            {
+                return Invoke(obj, pObjs.objs);
+            }
+        }
+
+        public object Invoke(object obj, object p1, object p2, object p3, object p4)
+        {
+            using (var pObjs = new Objects(p1, p2, p3, p4))
+            {
+                return Invoke(obj, pObjs.objs);
+            }
+        }
+
+        public object Invoke(object obj, object p1, object p2, object p3, object p4, object p5)
+        {
+            using (var pObjs = new Objects(p1, p2, p3, p4, p5))
+            {
+                return Invoke(obj, pObjs.objs);
+            }
+        }
+
+        public object Invoke(object obj, object p1, object p2, object p3, object p4, object p5, object p6)
+        {
+            using (var pObjs = new Objects(p1, p2, p3, p4, p5, p6))
+            {
+                return Invoke(obj, pObjs.objs);
+            }
+        }
+
+        public object Invoke(object obj, object p1, object p2, object p3, object p4, object p5, object p6, object p7)
+        {
+            using (var pObjs = new Objects(p1, p2, p3, p4, p5, p6, p7))
+            {
+                return Invoke(obj, pObjs.objs);
+            }
+        }
+
+        public object Invoke(object obj, object p1, object p2, object p3, object p4, object p5, object p6, object p7, object p8)
+        {
+            using (var pObjs = new Objects(p1, p2, p3, p4, p5, p6, p7, p8))
+            {
+                return Invoke(obj, pObjs.objs);
+            }
+        }
+
+        public object Invoke(object obj, object p1, object p2, object p3, object p4, object p5, object p6, object p7, object p8, object p9)
+        {
+            using (var pObjs = new Objects(p1, p2, p3, p4, p5, p6, p7, p8, p9))
+            {
+                return Invoke(obj, pObjs.objs);
+            }
+        }
+
+        public object Invoke(object obj, object p1, object p2, object p3, object p4, object p5, object p6, object p7, object p8, object p9, object p10)
+        {
+            using (var pObjs = new Objects(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10))
+            {
+                return Invoke(obj, pObjs.objs);
+            }
         }
 
         public void Release()
@@ -306,7 +394,10 @@ namespace wxb
 
                 var param = custom.ConstructorArguments[0];
                 TypeReference typeRef = param.Value as TypeReference;
-                return new ReplaceType(IL.Help.GetTypeByFullName(typeRef.FullName));
+                var fullName = typeRef.FullName;
+                if (fullName.IndexOf('/') != -1)
+                    fullName = fullName.Replace('/', '+');
+                return new ReplaceType(IL.Help.GetTypeByFullName(fullName));
             }
 
             return null;
@@ -328,6 +419,12 @@ namespace wxb
             }
             else
             {
+                if (!info.IsStatic)
+                {
+                    UnityEngine.Debug.LogErrorFormat("ReplaceField type:{0} fieldName:{1} methodInfo is not static!", type.Name, fieldName, info.Name);
+                    return false;
+                }
+
                 field.SetValue(null, new global::IL.DelegateBridge(info));
                 UnityEngine.Debug.LogFormat("ReplaceFunction type:{0} fieldName:{1}", type.Name, fieldName);
             }
@@ -425,6 +522,12 @@ namespace wxb
                     ReplaceFunction replaceFunction = GetReplaceFunction(method.CustomAttributes);
                     if (replaceFunction == null)
                         continue;
+
+                    if (!ilMethod.IsStatic)
+                    {
+                        UnityEngine.Debug.LogErrorFormat("type:{0} method:{1} is not static fun!", type.Name, method.Name);
+                        continue;
+                    }
 
                     System.Type srcType = replaceFunction.type != null ? replaceFunction.type : rt;
                     if (srcType == null)

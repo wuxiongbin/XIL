@@ -388,14 +388,14 @@ namespace ILRuntime.Runtime.Enviorment
 
             if (module.HasTypes)
             {
-                List<ILType> types = new List<ILType>();
+                //List<ILType> types = new List<ILType>();
 
                 foreach (var t in module.GetTypes()) //获取所有此模块定义的类型
                 {
                     ILType type = new ILType(t, this);
 
                     mapType[t.FullName] = type;
-                    types.Add(type);
+                    //types.Add(type);
 
                 }
             }
