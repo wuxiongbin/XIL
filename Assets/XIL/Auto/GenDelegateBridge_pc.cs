@@ -74,16 +74,7 @@ namespace IL
                 methodInfo.Invoke(null, pObjs.objs);
             }
         }
-        public System.Collections.IEnumerator __Gen_Delegate_Imp10(object p0)
-        {
-            using (var pObjs = new Objects(p0))
-            {
-                System.Collections.IEnumerator result = default(System.Collections.IEnumerator);
-                result = (System.Collections.IEnumerator)methodInfo.Invoke(null, pObjs.objs);
-                return result;
-            }
-        }
-        public System.Delegate __Gen_Delegate_Imp11(object p0)
+        public System.Delegate __Gen_Delegate_Imp10(object p0)
         {
             using (var pObjs = new Objects(p0))
             {

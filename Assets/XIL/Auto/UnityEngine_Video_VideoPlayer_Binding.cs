@@ -122,134 +122,158 @@ namespace ILRuntime.Runtime.Generated
             method = type.GetMethod("get_isPlaying", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, get_isPlaying_32);
             args = new Type[]{};
+            method = type.GetMethod("get_isPaused", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_isPaused_33);
+            args = new Type[]{};
             method = type.GetMethod("get_canSetTime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_canSetTime_33);
+            app.RegisterCLRMethodRedirection(method, get_canSetTime_34);
             args = new Type[]{};
             method = type.GetMethod("get_time", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_time_34);
+            app.RegisterCLRMethodRedirection(method, get_time_35);
             args = new Type[]{typeof(System.Double)};
             method = type.GetMethod("set_time", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_time_35);
+            app.RegisterCLRMethodRedirection(method, set_time_36);
             args = new Type[]{};
             method = type.GetMethod("get_frame", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_frame_36);
+            app.RegisterCLRMethodRedirection(method, get_frame_37);
             args = new Type[]{typeof(System.Int64)};
             method = type.GetMethod("set_frame", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_frame_37);
+            app.RegisterCLRMethodRedirection(method, set_frame_38);
+            args = new Type[]{};
+            method = type.GetMethod("get_clockTime", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_clockTime_39);
             args = new Type[]{};
             method = type.GetMethod("get_canStep", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_canStep_38);
+            app.RegisterCLRMethodRedirection(method, get_canStep_40);
             args = new Type[]{};
             method = type.GetMethod("StepForward", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, StepForward_39);
+            app.RegisterCLRMethodRedirection(method, StepForward_41);
             args = new Type[]{};
             method = type.GetMethod("get_canSetPlaybackSpeed", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_canSetPlaybackSpeed_40);
+            app.RegisterCLRMethodRedirection(method, get_canSetPlaybackSpeed_42);
             args = new Type[]{};
             method = type.GetMethod("get_playbackSpeed", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_playbackSpeed_41);
+            app.RegisterCLRMethodRedirection(method, get_playbackSpeed_43);
             args = new Type[]{typeof(System.Single)};
             method = type.GetMethod("set_playbackSpeed", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_playbackSpeed_42);
+            app.RegisterCLRMethodRedirection(method, set_playbackSpeed_44);
             args = new Type[]{};
             method = type.GetMethod("get_isLooping", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_isLooping_43);
+            app.RegisterCLRMethodRedirection(method, get_isLooping_45);
             args = new Type[]{typeof(System.Boolean)};
             method = type.GetMethod("set_isLooping", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_isLooping_44);
+            app.RegisterCLRMethodRedirection(method, set_isLooping_46);
             args = new Type[]{};
             method = type.GetMethod("get_canSetTimeSource", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_canSetTimeSource_45);
+            app.RegisterCLRMethodRedirection(method, get_canSetTimeSource_47);
             args = new Type[]{};
             method = type.GetMethod("get_timeSource", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_timeSource_46);
+            app.RegisterCLRMethodRedirection(method, get_timeSource_48);
             args = new Type[]{typeof(UnityEngine.Video.VideoTimeSource)};
             method = type.GetMethod("set_timeSource", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_timeSource_47);
+            app.RegisterCLRMethodRedirection(method, set_timeSource_49);
             args = new Type[]{};
             method = type.GetMethod("get_timeReference", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_timeReference_48);
+            app.RegisterCLRMethodRedirection(method, get_timeReference_50);
             args = new Type[]{typeof(UnityEngine.Video.VideoTimeReference)};
             method = type.GetMethod("set_timeReference", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_timeReference_49);
+            app.RegisterCLRMethodRedirection(method, set_timeReference_51);
             args = new Type[]{};
             method = type.GetMethod("get_externalReferenceTime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_externalReferenceTime_50);
+            app.RegisterCLRMethodRedirection(method, get_externalReferenceTime_52);
             args = new Type[]{typeof(System.Double)};
             method = type.GetMethod("set_externalReferenceTime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_externalReferenceTime_51);
+            app.RegisterCLRMethodRedirection(method, set_externalReferenceTime_53);
             args = new Type[]{};
             method = type.GetMethod("get_canSetSkipOnDrop", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_canSetSkipOnDrop_52);
+            app.RegisterCLRMethodRedirection(method, get_canSetSkipOnDrop_54);
             args = new Type[]{};
             method = type.GetMethod("get_skipOnDrop", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_skipOnDrop_53);
+            app.RegisterCLRMethodRedirection(method, get_skipOnDrop_55);
             args = new Type[]{typeof(System.Boolean)};
             method = type.GetMethod("set_skipOnDrop", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_skipOnDrop_54);
+            app.RegisterCLRMethodRedirection(method, set_skipOnDrop_56);
             args = new Type[]{};
             method = type.GetMethod("get_frameCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_frameCount_55);
+            app.RegisterCLRMethodRedirection(method, get_frameCount_57);
             args = new Type[]{};
             method = type.GetMethod("get_frameRate", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_frameRate_56);
+            app.RegisterCLRMethodRedirection(method, get_frameRate_58);
+            args = new Type[]{};
+            method = type.GetMethod("get_length", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_length_59);
+            args = new Type[]{};
+            method = type.GetMethod("get_width", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_width_60);
+            args = new Type[]{};
+            method = type.GetMethod("get_height", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_height_61);
+            args = new Type[]{};
+            method = type.GetMethod("get_pixelAspectRatioNumerator", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_pixelAspectRatioNumerator_62);
+            args = new Type[]{};
+            method = type.GetMethod("get_pixelAspectRatioDenominator", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_pixelAspectRatioDenominator_63);
             args = new Type[]{};
             method = type.GetMethod("get_audioTrackCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_audioTrackCount_57);
+            app.RegisterCLRMethodRedirection(method, get_audioTrackCount_64);
             args = new Type[]{typeof(System.UInt16)};
             method = type.GetMethod("GetAudioLanguageCode", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetAudioLanguageCode_58);
+            app.RegisterCLRMethodRedirection(method, GetAudioLanguageCode_65);
             args = new Type[]{typeof(System.UInt16)};
             method = type.GetMethod("GetAudioChannelCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetAudioChannelCount_59);
+            app.RegisterCLRMethodRedirection(method, GetAudioChannelCount_66);
+            args = new Type[]{typeof(System.UInt16)};
+            method = type.GetMethod("GetAudioSampleRate", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, GetAudioSampleRate_67);
             args = new Type[]{};
             method = type.GetMethod("get_controlledAudioTrackMaxCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_controlledAudioTrackMaxCount_60);
+            app.RegisterCLRMethodRedirection(method, get_controlledAudioTrackMaxCount_68);
             args = new Type[]{};
             method = type.GetMethod("get_controlledAudioTrackCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_controlledAudioTrackCount_61);
+            app.RegisterCLRMethodRedirection(method, get_controlledAudioTrackCount_69);
             args = new Type[]{typeof(System.UInt16)};
             method = type.GetMethod("set_controlledAudioTrackCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_controlledAudioTrackCount_62);
+            app.RegisterCLRMethodRedirection(method, set_controlledAudioTrackCount_70);
             args = new Type[]{typeof(System.UInt16), typeof(System.Boolean)};
             method = type.GetMethod("EnableAudioTrack", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, EnableAudioTrack_63);
+            app.RegisterCLRMethodRedirection(method, EnableAudioTrack_71);
             args = new Type[]{typeof(System.UInt16)};
             method = type.GetMethod("IsAudioTrackEnabled", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, IsAudioTrackEnabled_64);
+            app.RegisterCLRMethodRedirection(method, IsAudioTrackEnabled_72);
             args = new Type[]{};
             method = type.GetMethod("get_audioOutputMode", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_audioOutputMode_65);
+            app.RegisterCLRMethodRedirection(method, get_audioOutputMode_73);
             args = new Type[]{typeof(UnityEngine.Video.VideoAudioOutputMode)};
             method = type.GetMethod("set_audioOutputMode", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_audioOutputMode_66);
+            app.RegisterCLRMethodRedirection(method, set_audioOutputMode_74);
             args = new Type[]{};
             method = type.GetMethod("get_canSetDirectAudioVolume", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_canSetDirectAudioVolume_67);
+            app.RegisterCLRMethodRedirection(method, get_canSetDirectAudioVolume_75);
             args = new Type[]{typeof(System.UInt16)};
             method = type.GetMethod("GetDirectAudioVolume", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetDirectAudioVolume_68);
+            app.RegisterCLRMethodRedirection(method, GetDirectAudioVolume_76);
             args = new Type[]{typeof(System.UInt16), typeof(System.Single)};
             method = type.GetMethod("SetDirectAudioVolume", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetDirectAudioVolume_69);
+            app.RegisterCLRMethodRedirection(method, SetDirectAudioVolume_77);
             args = new Type[]{typeof(System.UInt16)};
             method = type.GetMethod("GetDirectAudioMute", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetDirectAudioMute_70);
+            app.RegisterCLRMethodRedirection(method, GetDirectAudioMute_78);
             args = new Type[]{typeof(System.UInt16), typeof(System.Boolean)};
             method = type.GetMethod("SetDirectAudioMute", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetDirectAudioMute_71);
+            app.RegisterCLRMethodRedirection(method, SetDirectAudioMute_79);
             args = new Type[]{typeof(System.UInt16)};
             method = type.GetMethod("GetTargetAudioSource", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetTargetAudioSource_72);
+            app.RegisterCLRMethodRedirection(method, GetTargetAudioSource_80);
             args = new Type[]{typeof(System.UInt16), typeof(UnityEngine.AudioSource)};
             method = type.GetMethod("SetTargetAudioSource", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetTargetAudioSource_73);
+            app.RegisterCLRMethodRedirection(method, SetTargetAudioSource_81);
             args = new Type[]{};
             method = type.GetMethod("get_sendFrameReadyEvents", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_sendFrameReadyEvents_74);
+            app.RegisterCLRMethodRedirection(method, get_sendFrameReadyEvents_82);
             args = new Type[]{typeof(System.Boolean)};
             method = type.GetMethod("set_sendFrameReadyEvents", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_sendFrameReadyEvents_75);
+            app.RegisterCLRMethodRedirection(method, set_sendFrameReadyEvents_83);
 
 
 
@@ -832,7 +856,24 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_canSetTime_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_isPaused_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            var result_of_this_method = instance_of_this_method.isPaused;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method ? 1 : 0;
+            return __ret + 1;
+        }
+
+        static StackObject* get_canSetTime_34(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -849,7 +890,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_time_34(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_time_35(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -866,7 +907,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_time_35(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_time_36(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -884,7 +925,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_frame_36(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_frame_37(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -901,7 +942,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_frame_37(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_frame_38(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -919,7 +960,24 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_canStep_38(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_clockTime_39(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            var result_of_this_method = instance_of_this_method.clockTime;
+
+            __ret->ObjectType = ObjectTypes.Double;
+            *(double*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_canStep_40(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -936,7 +994,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* StepForward_39(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* StepForward_41(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -951,7 +1009,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_canSetPlaybackSpeed_40(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_canSetPlaybackSpeed_42(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -968,7 +1026,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_playbackSpeed_41(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_playbackSpeed_43(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -985,7 +1043,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_playbackSpeed_42(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_playbackSpeed_44(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1003,7 +1061,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_isLooping_43(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_isLooping_45(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1020,7 +1078,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_isLooping_44(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_isLooping_46(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1038,7 +1096,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_canSetTimeSource_45(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_canSetTimeSource_47(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1055,7 +1113,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_timeSource_46(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_timeSource_48(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1070,7 +1128,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* set_timeSource_47(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_timeSource_49(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1089,7 +1147,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_timeReference_48(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_timeReference_50(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1104,7 +1162,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* set_timeReference_49(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_timeReference_51(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1123,7 +1181,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_externalReferenceTime_50(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_externalReferenceTime_52(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1140,7 +1198,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_externalReferenceTime_51(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_externalReferenceTime_53(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1158,7 +1216,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_canSetSkipOnDrop_52(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_canSetSkipOnDrop_54(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1175,7 +1233,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_skipOnDrop_53(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_skipOnDrop_55(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1192,7 +1250,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_skipOnDrop_54(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_skipOnDrop_56(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1210,7 +1268,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_frameCount_55(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_frameCount_57(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1227,7 +1285,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_frameRate_56(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_frameRate_58(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1244,7 +1302,92 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_audioTrackCount_57(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_length_59(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            var result_of_this_method = instance_of_this_method.length;
+
+            __ret->ObjectType = ObjectTypes.Double;
+            *(double*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_width_60(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            var result_of_this_method = instance_of_this_method.width;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = (int)result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_height_61(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            var result_of_this_method = instance_of_this_method.height;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = (int)result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_pixelAspectRatioNumerator_62(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            var result_of_this_method = instance_of_this_method.pixelAspectRatioNumerator;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = (int)result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_pixelAspectRatioDenominator_63(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            var result_of_this_method = instance_of_this_method.pixelAspectRatioDenominator;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = (int)result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_audioTrackCount_64(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1261,7 +1404,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* GetAudioLanguageCode_58(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetAudioLanguageCode_65(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1279,7 +1422,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetAudioChannelCount_59(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetAudioChannelCount_66(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1299,7 +1442,27 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_controlledAudioTrackMaxCount_60(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetAudioSampleRate_67(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.UInt16 @trackIndex = (ushort)ptr_of_this_method->Value;
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            var result_of_this_method = instance_of_this_method.GetAudioSampleRate(@trackIndex);
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = (int)result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_controlledAudioTrackMaxCount_68(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -1312,7 +1475,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_controlledAudioTrackCount_61(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_controlledAudioTrackCount_69(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1329,7 +1492,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_controlledAudioTrackCount_62(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_controlledAudioTrackCount_70(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1347,7 +1510,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* EnableAudioTrack_63(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* EnableAudioTrack_71(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1368,7 +1531,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* IsAudioTrackEnabled_64(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* IsAudioTrackEnabled_72(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1388,7 +1551,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_audioOutputMode_65(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_audioOutputMode_73(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1403,7 +1566,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* set_audioOutputMode_66(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_audioOutputMode_74(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1422,7 +1585,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_canSetDirectAudioVolume_67(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_canSetDirectAudioVolume_75(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1439,7 +1602,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* GetDirectAudioVolume_68(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetDirectAudioVolume_76(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1459,7 +1622,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* SetDirectAudioVolume_69(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetDirectAudioVolume_77(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1480,7 +1643,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* GetDirectAudioMute_70(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetDirectAudioMute_78(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1500,7 +1663,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* SetDirectAudioMute_71(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetDirectAudioMute_79(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1521,7 +1684,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* GetTargetAudioSource_72(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetTargetAudioSource_80(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1539,7 +1702,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* SetTargetAudioSource_73(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetTargetAudioSource_81(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1561,7 +1724,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_sendFrameReadyEvents_74(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_sendFrameReadyEvents_82(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1578,7 +1741,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_sendFrameReadyEvents_75(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_sendFrameReadyEvents_83(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

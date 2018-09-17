@@ -4,7 +4,7 @@
     using System.Reflection;
     using System.Collections.Generic;
 
-    public class RefType
+    public partial class RefType
     {
         public RefType(string fullType, object param)
         {
@@ -22,6 +22,13 @@
 
             if (type != null)
                 instance = IL.Help.CreateInstaince(type, null);
+        }
+
+        public RefType(System.Type type)
+        {
+            this.type = type;
+            this.fullType = type.FullName;
+            instance = IL.Help.CreateInstaince(type, null);
         }
 
         public RefType(object instance)
@@ -133,12 +140,12 @@
             }
         }
 
-        public void InvokeMethod(string name, params object[] param)
+        public void InvokeMethod(string name, object[] param)
         {
             InvokeMethodReturn(name, param);
         }
 
-        public object InvokeMethodReturn(string name, params object[] param)
+        public object InvokeMethodReturn(string name, object[] param)
         {
             var methodInfo = IL.Help.GetMethod(type, name);
             if (methodInfo == null)
@@ -159,12 +166,12 @@
             }
         }
 
-        public void TryInvokeMethod(string name, params object[] param)
+        public void TryInvokeMethod(string name, object[] param)
         {
             TryInvokeMethodReturn(name, param);
         }
 
-        public object TryInvokeMethodReturn(string name, params object[] param)
+        public object TryInvokeMethodReturn(string name, object[] param)
         {
             var methodInfo = IL.Help.GetMethod(type, name);
             if (methodInfo == null)
@@ -265,5 +272,86 @@
                 Debug.LogException(ex);
             }
         }
+
+#if UNITY_EDITOR
+        [EditorClass]
+        //[UnityEditor.MenuItem("XIL/RefType优化")]
+        static void RefTypeOpt()
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.AppendFormatLine("namespace wxb");
+            sb.AppendFormatLine("{{");
+            sb.AppendFormatLine("    public partial class RefType");
+            sb.AppendFormatLine("    {{");
+
+            Name(sb, "InvokeMethod", false);
+            sb.AppendLine();
+            Name(sb, "InvokeMethodReturn", true);
+            sb.AppendLine();
+            Name(sb, "TryInvokeMethod", false);
+            sb.AppendLine();
+            Name(sb, "TryInvokeMethodReturn", true);
+            sb.AppendLine();
+
+            sb.AppendFormatLine("    }}");
+            sb.AppendFormatLine("}}");
+
+            string filename = "Assets/XIL/Scripts/RefType_InvokeMethod.cs";
+            if (System.IO.File.Exists(filename))
+                System.IO.File.Delete(filename);
+            System.IO.File.WriteAllText(filename, sb.ToString());
+            UnityEditor.AssetDatabase.ImportAsset(filename);
+        }
+
+        [EditorClass]
+        static void Name(System.Text.StringBuilder sb, string name, bool isReturn)
+        {
+            for (int i = 0; i < 10; ++i)
+            {
+                if (i == 0)
+                {
+                    sb.AppendFormatLine("        public {0} {1}(string name)", isReturn ? "object" : "void", name);
+                    sb.AppendFormatLine("        {{");
+                    sb.AppendFormatLine("            using (var obj = new global::IL.EmptyObjs())");
+                    sb.AppendFormatLine("            {{");
+                    if (isReturn)
+                        sb.AppendFormatLine("                return {0}(name, obj.objs);", name);
+                    else
+                        sb.AppendFormatLine("                {0}(name, obj.objs);", name);
+                    sb.AppendFormatLine("            }}");
+                    sb.AppendFormatLine("        }}");
+                }
+                else
+                {
+                    sb.AppendFormat("        public {0} {1}(string name", isReturn ? "object" : "void", name);
+                    for (int j = 0; j < i; ++j)
+                    {
+                        sb.AppendFormat(", object p{0}", j);
+                    }
+                    sb.AppendLine(")");
+
+                    sb.AppendFormatLine("        {{");
+                    sb.AppendFormat("            using (var obj = new global::IL.Objects(");
+                    for (int j = 0; j < i; ++j)
+                    {
+                        if (j == 0)
+                            sb.AppendFormat("p{0}", j);
+                        else
+                            sb.AppendFormat(", p{0}", j);
+                    }
+                    sb.AppendLine("))");
+
+                    sb.AppendFormatLine("            {{");
+                    if (isReturn)
+                        sb.AppendFormatLine("                return {0}(name, obj.objs);", name);
+                    else
+                        sb.AppendFormatLine("                {0}(name, obj.objs);", name);
+
+                    sb.AppendFormatLine("            }}");
+                    sb.AppendFormatLine("        }}");
+                }
+            }
+        }
+#endif
     }
 }

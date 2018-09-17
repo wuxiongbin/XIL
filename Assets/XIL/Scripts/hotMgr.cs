@@ -54,9 +54,29 @@ namespace wxb
                 return;
             }
 
+            if (!hotMgr.IsStatic(hotMethod))
+            {
+                UnityEngine.Debug.LogErrorFormat("Hotfix type:{0} funName:{1} methodInfo is not static!", hotfixType.Name, hotfixFunName);
+                return;
+            }
+
             bridge = new DelegateBridge(hotMethod);
             field.SetValue(null, bridge);
             UnityEngine.Debug.LogFormat("{0}.{1} Replace {2}.{3}", type.Name, funName, hotfixType.Name, hotfixFunName);
+        }
+
+        public void Run(System.Action action)
+        {
+            field.SetValue(null, null);
+            try
+            {
+                action();
+            }
+            catch (System.Exception ex)
+            {
+                UnityEngine.Debug.LogException(ex);
+            }
+            field.SetValue(null, bridge);
         }
 
         // 执行自身,会把原先热更的字段设置为空，然后通过反射的方式执行自己，再设置回去热更的接口
@@ -222,6 +242,12 @@ namespace wxb
 
     public static class hotMgr
     {
+        public static System.Text.StringBuilder AppendFormatLine(this System.Text.StringBuilder sb, string format, params object[] objs)
+        {
+            sb.AppendFormat(format, objs);
+            return sb.AppendLine();
+        }
+
         public static AppDomain appdomain { get; private set; }
 
         static RefType refType;
@@ -432,7 +458,7 @@ namespace wxb
             return true;
         }
 
-        static bool IsStatic(MethodInfo info)
+        public static bool IsStatic(MethodInfo info)
         {
 #if USE_HOT
             if (info is ILRuntime.Reflection.ILRuntimeMethodInfo)
@@ -714,29 +740,6 @@ namespace wxb
             appdomain = null;
             System.GC.Collect();
         }
-
-#if COM_DEBUG && USE_HOT
-        // 重加载热更脚本
-#if UNITY_EDITOR
-        [EditorField]
-#endif
-        public static System.Collections.IEnumerator Reload()
-        {
-            ReleaseAll();
-            yield return 0;
-
-            System.GC.Collect();
-            yield return UnityEngine.Resources.UnloadUnusedAssets();
-            yield return 0;
-            System.GC.Collect();
-
-            // 重加载资源包
-            yield return com.eb.miku.game.GameLogo.ReloadDebugPack();
-
-            // 重新初始化脚本系统
-            Init();
-        }
-#endif
     }
 }
 #endif
