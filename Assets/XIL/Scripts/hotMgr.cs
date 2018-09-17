@@ -419,7 +419,7 @@ namespace wxb
             }
             else
             {
-                if (!info.IsStatic)
+                if (!IsStatic(info))
                 {
                     UnityEngine.Debug.LogErrorFormat("ReplaceField type:{0} fieldName:{1} methodInfo is not static!", type.Name, fieldName, info.Name);
                     return false;
@@ -430,6 +430,18 @@ namespace wxb
             }
 
             return true;
+        }
+
+        static bool IsStatic(MethodInfo info)
+        {
+#if USE_HOT
+            if (info is ILRuntime.Reflection.ILRuntimeMethodInfo)
+            {
+                var ilMI = info as ILRuntime.Reflection.ILRuntimeMethodInfo;
+                return ilMI.ILMethod.IsStatic;
+            }
+#endif
+            return info.IsStatic;
         }
 
         // 直接替换函数，一般用在没有同名函数情况下
