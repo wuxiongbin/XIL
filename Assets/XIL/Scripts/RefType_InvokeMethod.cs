@@ -72,6 +72,13 @@ namespace wxb
                 InvokeMethod(name, obj.objs);
             }
         }
+        public void InvokeMethod(string name, object p0, object p1, object p2, object p3, object p4, object p5, object p6, object p7, object p8, object p9)
+        {
+            using (var obj = new global::IL.Objects(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9))
+            {
+                InvokeMethod(name, obj.objs);
+            }
+        }
 
         public object InvokeMethodReturn(string name)
         {
@@ -139,6 +146,13 @@ namespace wxb
         public object InvokeMethodReturn(string name, object p0, object p1, object p2, object p3, object p4, object p5, object p6, object p7, object p8)
         {
             using (var obj = new global::IL.Objects(p0, p1, p2, p3, p4, p5, p6, p7, p8))
+            {
+                return InvokeMethodReturn(name, obj.objs);
+            }
+        }
+        public object InvokeMethodReturn(string name, object p0, object p1, object p2, object p3, object p4, object p5, object p6, object p7, object p8, object p9)
+        {
+            using (var obj = new global::IL.Objects(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9))
             {
                 return InvokeMethodReturn(name, obj.objs);
             }
@@ -214,6 +228,13 @@ namespace wxb
                 TryInvokeMethod(name, obj.objs);
             }
         }
+        public void TryInvokeMethod(string name, object p0, object p1, object p2, object p3, object p4, object p5, object p6, object p7, object p8, object p9)
+        {
+            using (var obj = new global::IL.Objects(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9))
+            {
+                TryInvokeMethod(name, obj.objs);
+            }
+        }
 
         public object TryInvokeMethodReturn(string name)
         {
@@ -281,6 +302,13 @@ namespace wxb
         public object TryInvokeMethodReturn(string name, object p0, object p1, object p2, object p3, object p4, object p5, object p6, object p7, object p8)
         {
             using (var obj = new global::IL.Objects(p0, p1, p2, p3, p4, p5, p6, p7, p8))
+            {
+                return TryInvokeMethodReturn(name, obj.objs);
+            }
+        }
+        public object TryInvokeMethodReturn(string name, object p0, object p1, object p2, object p3, object p4, object p5, object p6, object p7, object p8, object p9)
+        {
+            using (var obj = new global::IL.Objects(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9))
             {
                 return TryInvokeMethodReturn(name, obj.objs);
             }

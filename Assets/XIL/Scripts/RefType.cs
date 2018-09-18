@@ -306,7 +306,7 @@
         [EditorClass]
         static void Name(System.Text.StringBuilder sb, string name, bool isReturn)
         {
-            for (int i = 0; i < 10; ++i)
+            for (int i = 0; i < 11; ++i)
             {
                 if (i == 0)
                 {

@@ -94,96 +94,108 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("InvokeMethod", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, InvokeMethod_23);
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
+            method = type.GetMethod("InvokeMethod", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, InvokeMethod_24);
             args = new Type[]{typeof(System.String)};
-            method = type.GetMethod("InvokeMethodReturn", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, InvokeMethodReturn_24);
-            args = new Type[]{typeof(System.String), typeof(System.Object)};
             method = type.GetMethod("InvokeMethodReturn", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, InvokeMethodReturn_25);
-            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object)};
+            args = new Type[]{typeof(System.String), typeof(System.Object)};
             method = type.GetMethod("InvokeMethodReturn", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, InvokeMethodReturn_26);
-            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("InvokeMethodReturn", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, InvokeMethodReturn_27);
-            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("InvokeMethodReturn", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, InvokeMethodReturn_28);
-            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("InvokeMethodReturn", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, InvokeMethodReturn_29);
-            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("InvokeMethodReturn", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, InvokeMethodReturn_30);
-            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("InvokeMethodReturn", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, InvokeMethodReturn_31);
-            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("InvokeMethodReturn", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, InvokeMethodReturn_32);
-            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("InvokeMethodReturn", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, InvokeMethodReturn_33);
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
+            method = type.GetMethod("InvokeMethodReturn", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, InvokeMethodReturn_34);
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
+            method = type.GetMethod("InvokeMethodReturn", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, InvokeMethodReturn_35);
             args = new Type[]{typeof(System.String)};
-            method = type.GetMethod("TryInvokeMethod", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, TryInvokeMethod_34);
-            args = new Type[]{typeof(System.String), typeof(System.Object)};
-            method = type.GetMethod("TryInvokeMethod", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, TryInvokeMethod_35);
-            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("TryInvokeMethod", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, TryInvokeMethod_36);
-            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
+            args = new Type[]{typeof(System.String), typeof(System.Object)};
             method = type.GetMethod("TryInvokeMethod", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, TryInvokeMethod_37);
-            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("TryInvokeMethod", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, TryInvokeMethod_38);
-            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("TryInvokeMethod", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, TryInvokeMethod_39);
-            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("TryInvokeMethod", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, TryInvokeMethod_40);
-            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("TryInvokeMethod", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, TryInvokeMethod_41);
-            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("TryInvokeMethod", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, TryInvokeMethod_42);
-            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("TryInvokeMethod", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, TryInvokeMethod_43);
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
+            method = type.GetMethod("TryInvokeMethod", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, TryInvokeMethod_44);
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
+            method = type.GetMethod("TryInvokeMethod", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, TryInvokeMethod_45);
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
+            method = type.GetMethod("TryInvokeMethod", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, TryInvokeMethod_46);
             args = new Type[]{typeof(System.String)};
             method = type.GetMethod("TryInvokeMethodReturn", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, TryInvokeMethodReturn_44);
+            app.RegisterCLRMethodRedirection(method, TryInvokeMethodReturn_47);
             args = new Type[]{typeof(System.String), typeof(System.Object)};
             method = type.GetMethod("TryInvokeMethodReturn", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, TryInvokeMethodReturn_45);
+            app.RegisterCLRMethodRedirection(method, TryInvokeMethodReturn_48);
             args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("TryInvokeMethodReturn", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, TryInvokeMethodReturn_46);
+            app.RegisterCLRMethodRedirection(method, TryInvokeMethodReturn_49);
             args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("TryInvokeMethodReturn", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, TryInvokeMethodReturn_47);
+            app.RegisterCLRMethodRedirection(method, TryInvokeMethodReturn_50);
             args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("TryInvokeMethodReturn", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, TryInvokeMethodReturn_48);
+            app.RegisterCLRMethodRedirection(method, TryInvokeMethodReturn_51);
             args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("TryInvokeMethodReturn", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, TryInvokeMethodReturn_49);
+            app.RegisterCLRMethodRedirection(method, TryInvokeMethodReturn_52);
             args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("TryInvokeMethodReturn", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, TryInvokeMethodReturn_50);
+            app.RegisterCLRMethodRedirection(method, TryInvokeMethodReturn_53);
             args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("TryInvokeMethodReturn", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, TryInvokeMethodReturn_51);
+            app.RegisterCLRMethodRedirection(method, TryInvokeMethodReturn_54);
             args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("TryInvokeMethodReturn", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, TryInvokeMethodReturn_52);
+            app.RegisterCLRMethodRedirection(method, TryInvokeMethodReturn_55);
             args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
             method = type.GetMethod("TryInvokeMethodReturn", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, TryInvokeMethodReturn_53);
+            app.RegisterCLRMethodRedirection(method, TryInvokeMethodReturn_56);
+            args = new Type[]{typeof(System.String), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object), typeof(System.Object)};
+            method = type.GetMethod("TryInvokeMethodReturn", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, TryInvokeMethodReturn_57);
 
 
 
@@ -905,7 +917,66 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* InvokeMethodReturn_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* InvokeMethod_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 12);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Object @p9 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            System.Object @p8 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
+            System.Object @p7 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 4);
+            System.Object @p6 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 5);
+            System.Object @p5 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 6);
+            System.Object @p4 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 7);
+            System.Object @p3 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 8);
+            System.Object @p2 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 9);
+            System.Object @p1 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 10);
+            System.Object @p0 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 11);
+            System.String @name = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 12);
+            wxb.RefType instance_of_this_method = (wxb.RefType)typeof(wxb.RefType).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.InvokeMethod(@name, @p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9);
+
+            return __ret;
+        }
+
+        static StackObject* InvokeMethodReturn_25(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -929,7 +1000,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
         }
 
-        static StackObject* InvokeMethodReturn_25(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* InvokeMethodReturn_26(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -957,7 +1028,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
         }
 
-        static StackObject* InvokeMethodReturn_26(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* InvokeMethodReturn_27(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -989,7 +1060,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
         }
 
-        static StackObject* InvokeMethodReturn_27(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* InvokeMethodReturn_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1025,7 +1096,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
         }
 
-        static StackObject* InvokeMethodReturn_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* InvokeMethodReturn_29(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1065,7 +1136,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
         }
 
-        static StackObject* InvokeMethodReturn_29(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* InvokeMethodReturn_30(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1109,7 +1180,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
         }
 
-        static StackObject* InvokeMethodReturn_30(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* InvokeMethodReturn_31(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1157,7 +1228,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
         }
 
-        static StackObject* InvokeMethodReturn_31(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* InvokeMethodReturn_32(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1209,7 +1280,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
         }
 
-        static StackObject* InvokeMethodReturn_32(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* InvokeMethodReturn_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1265,7 +1336,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
         }
 
-        static StackObject* InvokeMethodReturn_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* InvokeMethodReturn_34(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1325,7 +1396,71 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
         }
 
-        static StackObject* TryInvokeMethod_34(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* InvokeMethodReturn_35(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 12);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Object @p9 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            System.Object @p8 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
+            System.Object @p7 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 4);
+            System.Object @p6 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 5);
+            System.Object @p5 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 6);
+            System.Object @p4 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 7);
+            System.Object @p3 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 8);
+            System.Object @p2 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 9);
+            System.Object @p1 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 10);
+            System.Object @p0 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 11);
+            System.String @name = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 12);
+            wxb.RefType instance_of_this_method = (wxb.RefType)typeof(wxb.RefType).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            var result_of_this_method = instance_of_this_method.InvokeMethodReturn(@name, @p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9);
+
+            object obj_result_of_this_method = result_of_this_method;
+            if(obj_result_of_this_method is CrossBindingAdaptorType)
+            {    
+                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance, true);
+            }
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
+        }
+
+        static StackObject* TryInvokeMethod_36(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1344,7 +1479,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* TryInvokeMethod_35(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryInvokeMethod_37(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1367,7 +1502,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* TryInvokeMethod_36(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryInvokeMethod_38(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1394,7 +1529,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* TryInvokeMethod_37(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryInvokeMethod_39(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1425,7 +1560,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* TryInvokeMethod_38(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryInvokeMethod_40(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1460,7 +1595,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* TryInvokeMethod_39(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryInvokeMethod_41(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1499,7 +1634,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* TryInvokeMethod_40(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryInvokeMethod_42(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1542,7 +1677,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* TryInvokeMethod_41(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryInvokeMethod_43(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1589,7 +1724,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* TryInvokeMethod_42(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryInvokeMethod_44(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1640,7 +1775,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* TryInvokeMethod_43(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryInvokeMethod_45(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1695,7 +1830,66 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* TryInvokeMethodReturn_44(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryInvokeMethod_46(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 12);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Object @p9 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            System.Object @p8 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
+            System.Object @p7 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 4);
+            System.Object @p6 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 5);
+            System.Object @p5 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 6);
+            System.Object @p4 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 7);
+            System.Object @p3 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 8);
+            System.Object @p2 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 9);
+            System.Object @p1 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 10);
+            System.Object @p0 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 11);
+            System.String @name = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 12);
+            wxb.RefType instance_of_this_method = (wxb.RefType)typeof(wxb.RefType).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.TryInvokeMethod(@name, @p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9);
+
+            return __ret;
+        }
+
+        static StackObject* TryInvokeMethodReturn_47(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1719,7 +1913,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
         }
 
-        static StackObject* TryInvokeMethodReturn_45(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryInvokeMethodReturn_48(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1747,7 +1941,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
         }
 
-        static StackObject* TryInvokeMethodReturn_46(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryInvokeMethodReturn_49(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1779,7 +1973,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
         }
 
-        static StackObject* TryInvokeMethodReturn_47(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryInvokeMethodReturn_50(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1815,7 +2009,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
         }
 
-        static StackObject* TryInvokeMethodReturn_48(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryInvokeMethodReturn_51(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1855,7 +2049,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
         }
 
-        static StackObject* TryInvokeMethodReturn_49(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryInvokeMethodReturn_52(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1899,7 +2093,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
         }
 
-        static StackObject* TryInvokeMethodReturn_50(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryInvokeMethodReturn_53(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1947,7 +2141,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
         }
 
-        static StackObject* TryInvokeMethodReturn_51(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryInvokeMethodReturn_54(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1999,7 +2193,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
         }
 
-        static StackObject* TryInvokeMethodReturn_52(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryInvokeMethodReturn_55(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -2055,7 +2249,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
         }
 
-        static StackObject* TryInvokeMethodReturn_53(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryInvokeMethodReturn_56(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -2106,6 +2300,70 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.TryInvokeMethodReturn(@name, @p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8);
+
+            object obj_result_of_this_method = result_of_this_method;
+            if(obj_result_of_this_method is CrossBindingAdaptorType)
+            {    
+                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance, true);
+            }
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
+        }
+
+        static StackObject* TryInvokeMethodReturn_57(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 12);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Object @p9 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            System.Object @p8 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
+            System.Object @p7 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 4);
+            System.Object @p6 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 5);
+            System.Object @p5 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 6);
+            System.Object @p4 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 7);
+            System.Object @p3 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 8);
+            System.Object @p2 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 9);
+            System.Object @p1 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 10);
+            System.Object @p0 = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 11);
+            System.String @name = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 12);
+            wxb.RefType instance_of_this_method = (wxb.RefType)typeof(wxb.RefType).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            var result_of_this_method = instance_of_this_method.TryInvokeMethodReturn(@name, @p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9);
 
             object obj_result_of_this_method = result_of_this_method;
             if(obj_result_of_this_method is CrossBindingAdaptorType)
