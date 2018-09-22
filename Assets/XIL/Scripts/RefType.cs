@@ -273,7 +273,7 @@
             }
         }
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR && USE_HOT
         [EditorClass]
         //[UnityEditor.MenuItem("XIL/RefType优化")]
         static void RefTypeOpt()

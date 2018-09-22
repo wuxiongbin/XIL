@@ -8,6 +8,7 @@ using System.Collections.Generic;
 namespace hot
 {
     [AutoInitAndRelease]
+    //[wxb.Platform(UnityEngine.RuntimePlatform.WindowsPlayer)]
     [ReplaceType(typeof(HelloWorld))]
     public static class HotHelloWorld
     {

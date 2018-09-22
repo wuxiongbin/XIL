@@ -191,6 +191,17 @@ namespace wxb
         }
     }
 
+    [System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Method)]
+    public class Platform : System.Attribute
+    {
+        public Platform(UnityEngine.RuntimePlatform platform)
+        {
+            this.platform = platform;
+        }
+
+        public UnityEngine.RuntimePlatform platform;
+    }
+
     [System.AttributeUsage(System.AttributeTargets.Class)]
     public class ReplaceType : System.Attribute
     {
@@ -409,6 +420,21 @@ namespace wxb
             return null;
         }
 
+        static void GetPlatform(Collection<CustomAttribute> CustomAttributes, System.Action<UnityEngine.RuntimePlatform> action)
+        {
+            CustomAttribute custom;
+            for (int i = 0; i < CustomAttributes.Count; ++i)
+            {
+                custom = CustomAttributes[i];
+                if (custom.AttributeType.FullName != "wxb.Platform")
+                    continue;
+
+                var param = custom.ConstructorArguments[0];
+                UnityEngine.RuntimePlatform platform = (UnityEngine.RuntimePlatform)param.Value;
+                action(platform);
+            }
+        }
+
         static ReplaceType GetReplaceType(Collection<CustomAttribute> CustomAttributes)
         {
             CustomAttribute custom;
@@ -535,10 +561,31 @@ namespace wxb
             return methods;
         }
 
+        static UnityEngine.RuntimePlatform GetCurrentPlatform()
+        {
+#if UNITY_EDITOR
+            switch (UnityEditor.EditorUserBuildSettings.activeBuildTarget)
+            {
+            case UnityEditor.BuildTarget.Android:
+                return UnityEngine.RuntimePlatform.Android;
+            case UnityEditor.BuildTarget.iOS:
+                return UnityEngine.RuntimePlatform.IPhonePlayer;
+            case UnityEditor.BuildTarget.StandaloneWindows:
+            case UnityEditor.BuildTarget.StandaloneWindows64:
+                return UnityEngine.RuntimePlatform.WindowsPlayer;
+            }
+            return UnityEngine.Application.platform;
+#else
+            return UnityEngine.Application.platform;
+#endif
+        }
+
         // 自动注册
         static void AutoReplace(List<IType> types)
         {
             Dictionary<string, List<MethodInfo>> NameToSorted = new Dictionary<string, List<MethodInfo>>();
+            List<UnityEngine.RuntimePlatform> platforms = new List<UnityEngine.RuntimePlatform>();
+            UnityEngine.RuntimePlatform rp = GetCurrentPlatform();
             foreach (var ator in types)
             {
                 ILType type = ator as ILType;
@@ -549,6 +596,13 @@ namespace wxb
                 var typeDefinition = type.TypeDefinition;
                 ReplaceType replaceType = GetReplaceType(typeDefinition.CustomAttributes);
                 System.Type rt = replaceType == null ? null : replaceType.type;
+                platforms.Clear();
+                GetPlatform(typeDefinition.CustomAttributes, (p) => { platforms.Add(p); });
+                if (platforms.Count != 0 && !platforms.Contains(rp))
+                {
+                    UnityEngine.Debug.LogWarningFormat("platorms:{0} type:{1} not hotfix!", rp, type.Name);
+                    continue; // 不属于此平台的
+                }
                 // 相同函数名排序问题
                 foreach (var il in type.GetMethods())
                 {
@@ -565,6 +619,14 @@ namespace wxb
                     {
                         UnityEngine.Debug.LogErrorFormat("type:{0} method:{1} is not static fun!", type.Name, method.Name);
                         continue;
+                    }
+
+                    platforms.Clear();
+                    GetPlatform(method.CustomAttributes, (p) => { platforms.Add(p); });
+                    if (platforms.Count != 0 && !platforms.Contains(rp))
+                    {
+                        UnityEngine.Debug.LogWarningFormat("platorms:{0} type:{1}.{2} not hotfix!", rp, type.Name, ilMethod.Name);
+                        continue; // 不属于此平台的
                     }
 
                     System.Type srcType = replaceFunction.type != null ? replaceFunction.type : rt;

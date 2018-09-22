@@ -74,15 +74,6 @@ namespace IL
                 methodInfo.Invoke(null, pObjs.objs);
             }
         }
-        public System.Delegate __Gen_Delegate_Imp10(object p0)
-        {
-            using (var pObjs = new Objects(p0))
-            {
-                System.Delegate result = default(System.Delegate);
-                result = (System.Delegate)methodInfo.Invoke(null, pObjs.objs);
-                return result;
-            }
-        }
 
     }
 }
