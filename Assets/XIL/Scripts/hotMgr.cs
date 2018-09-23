@@ -40,7 +40,7 @@ namespace wxb
                 return;
             }
 
-            method = type.GetMethod(funName, wxb.hotMgr.bindingFlags);
+            method = IL.Help.GetMethod(type, funName);
             if (method == null)
             {
                 UnityEngine.Debug.LogErrorFormat("type method {0}.{1} not find!", type.Name, funName);
