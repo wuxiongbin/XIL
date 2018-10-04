@@ -79,6 +79,22 @@ namespace wxb
             field.SetValue(null, bridge);
         }
 
+        public object Run(System.Func<object> fun)
+        {
+            object value = null;
+            field.SetValue(null, null);
+            try
+            {
+                value = fun();
+            }
+            catch (System.Exception ex)
+            {
+                UnityEngine.Debug.LogException(ex);
+            }
+            field.SetValue(null, bridge);
+            return value;
+        }
+
         // 执行自身,会把原先热更的字段设置为空，然后通过反射的方式执行自己，再设置回去热更的接口
         public object Invoke(object obj, object[] parameters)
         {
@@ -208,10 +224,14 @@ namespace wxb
         // 替换某个类型的某个同名接口
         public ReplaceType(System.Type type)
         {
-            this.type = type;
+
         }
 
-        public System.Type type;
+        // 函数全名
+        public ReplaceType(string fullName)
+        {
+
+        }
     }
 
     [System.AttributeUsage(System.AttributeTargets.Method)]
@@ -220,7 +240,7 @@ namespace wxb
         // 替换某个类型的某个同名接口
         public ReplaceFunction(System.Type type)
         {
-            this.type = type;
+
         }
 
         public ReplaceFunction()
@@ -228,20 +248,23 @@ namespace wxb
 
         }
 
-        public ReplaceFunction(string fieldName)
+        // fieldNameOrTypeName有可能是类型名，也有可能是字段名
+        // 以__Hotfix_开始的为字段名，否则为类型名
+        public ReplaceFunction(string fieldNameOrTypeName)
         {
-            this.fieldName = fieldName;
+
         }
 
         // 替换某个类型的某个接口
         public ReplaceFunction(System.Type type, string fieldName)
         {
-            this.type = type;
-            this.fieldName = fieldName;
+
         }
 
-        public System.Type type;
-        public string fieldName;
+        public ReplaceFunction(string typeName, string fieldName)
+        {
+
+        }
     }
 
     // 自动调用初始化接口，定义在某个类的属性，只要此类下有静态的函数Init，会自动调用
@@ -387,7 +410,7 @@ namespace wxb
 #endif
         }
 
-        static ReplaceFunction GetReplaceFunction(Collection<CustomAttribute> CustomAttributes)
+        static bool GetReplaceFunction(Collection<CustomAttribute> CustomAttributes, out System.Type type, out string fieldName)
         {
             CustomAttribute custom;
             for (int i = 0; i < CustomAttributes.Count; ++i)
@@ -399,25 +422,60 @@ namespace wxb
                 var ConstructorArguments = custom.ConstructorArguments;
                 switch (ConstructorArguments.Count)
                 {
-                case 0: return new ReplaceFunction();
+                case 0:
+                    {
+                        type = null;
+                        fieldName = null;
+                    }
+                    return true;
                 case 1:
                     {
-                        if (ConstructorArguments[0].Type.FullName == "System.String")
+                        var zeroValue = ConstructorArguments[0];
+                        if (zeroValue.Value is string)
                         {
-                            return new ReplaceFunction(ConstructorArguments[0].Value.ToString());
+                            string strValue = (string)zeroValue.Value;
+                            if (strValue.Contains("__Hotfix_"))
+                            {
+                                // 字段
+                                fieldName = strValue;
+                                type = null;
+                            }
+                            else
+                            {
+                                type = GetTypeByName(strValue);
+                                fieldName = null;
+                            }
                         }
                         else
                         {
-                            return new ReplaceFunction(IL.Help.GetTypeByFullName(((TypeReference)ConstructorArguments[0].Value).FullName));
+                            // 类型
+                            type = GetTypeByName(((TypeReference)zeroValue.Value).FullName);
+                            fieldName = null;
                         }
+                        return true;
                     }
                 case 2:
-                    return new ReplaceFunction(IL.Help.GetTypeByFullName(((TypeReference)ConstructorArguments[0].Value).FullName),
-                        ConstructorArguments[1].Value.ToString());
+                    {
+                        var zeroValue = ConstructorArguments[0];
+                        var oneValue = ConstructorArguments[1];
+                        if (zeroValue.Value is string)
+                        {
+                            type = GetTypeByName((string)zeroValue.Value);
+                        }
+                        else
+                        {
+                            type = GetTypeByName(((TypeReference)zeroValue.Value).FullName);
+                        }
+
+                        fieldName = (string)oneValue.Value;
+                        return true;
+                    }
                 }
             }
 
-            return null;
+            type = null;
+            fieldName = null;
+            return false;
         }
 
         static void GetPlatform(Collection<CustomAttribute> CustomAttributes, System.Action<UnityEngine.RuntimePlatform> action)
@@ -435,7 +493,14 @@ namespace wxb
             }
         }
 
-        static ReplaceType GetReplaceType(Collection<CustomAttribute> CustomAttributes)
+        static System.Type GetTypeByName(string fullName)
+        {
+            if (fullName.IndexOf('/') != -1)
+                fullName = fullName.Replace('/', '+');
+            return IL.Help.GetTypeByFullName(fullName);
+        }
+
+        static System.Type GetReplaceType(Collection<CustomAttribute> CustomAttributes)
         {
             CustomAttribute custom;
             for (int i = 0; i < CustomAttributes.Count; ++i)
@@ -445,11 +510,18 @@ namespace wxb
                     continue;
 
                 var param = custom.ConstructorArguments[0];
-                TypeReference typeRef = param.Value as TypeReference;
-                var fullName = typeRef.FullName;
-                if (fullName.IndexOf('/') != -1)
-                    fullName = fullName.Replace('/', '+');
-                return new ReplaceType(IL.Help.GetTypeByFullName(fullName));
+                string fullName = null;
+                if (param.Value is TypeReference)
+                {
+                    TypeReference typeRef = param.Value as TypeReference;
+                    fullName = typeRef.FullName;
+                }
+                else
+                {
+                    fullName = (string)param.Value;
+                }
+
+                return GetTypeByName(fullName);
             }
 
             return null;
@@ -594,8 +666,7 @@ namespace wxb
 
                 NameToSorted.Clear();
                 var typeDefinition = type.TypeDefinition;
-                ReplaceType replaceType = GetReplaceType(typeDefinition.CustomAttributes);
-                System.Type rt = replaceType == null ? null : replaceType.type;
+                System.Type rt = GetReplaceType(typeDefinition.CustomAttributes);
                 platforms.Clear();
                 GetPlatform(typeDefinition.CustomAttributes, (p) => { platforms.Add(p); });
                 if (platforms.Count != 0 && !platforms.Contains(rp))
@@ -611,8 +682,9 @@ namespace wxb
                         continue;
 
                     var method = ilMethod.Definition;
-                    ReplaceFunction replaceFunction = GetReplaceFunction(method.CustomAttributes);
-                    if (replaceFunction == null)
+                    System.Type methodType;
+                    string methodFieldName;
+                    if (!GetReplaceFunction(method.CustomAttributes, out methodType, out methodFieldName))
                         continue;
 
                     if (!ilMethod.IsStatic)
@@ -629,14 +701,14 @@ namespace wxb
                         continue; // 不属于此平台的
                     }
 
-                    System.Type srcType = replaceFunction.type != null ? replaceFunction.type : rt;
+                    System.Type srcType = methodType != null ? methodType : rt;
                     if (srcType == null)
                     {
                         UnityEngine.Debug.LogErrorFormat("type:{0} method:{1} not set srcType!", type.Name, method.Name);
                         continue;
                     }
 
-                    string fieldName = replaceFunction.fieldName;
+                    string fieldName = methodFieldName;
                     if (string.IsNullOrEmpty(fieldName))
                         fieldName = "__Hotfix_" + method.Name;
 

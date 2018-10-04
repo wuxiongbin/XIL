@@ -7,8 +7,43 @@ using System.Collections.Generic;
 
 namespace hot
 {
+    [wxb.ReplaceType("TestReplaceFunction")]
+    public class HotfixTestReplaceFunction
+    {
+        [wxb.ReplaceFunction("TestReplaceFunction")]
+        static void Test1(TestReplaceFunction obj)
+        {
+
+        }
+
+        [wxb.ReplaceFunction("__Hotfix_Test2")]
+        static void Test2(TestReplaceFunction obj)
+        {
+
+        }
+
+        [wxb.ReplaceFunction(typeof(TestReplaceFunction))]
+        static void Test3(TestReplaceFunction obj)
+        {
+
+        }
+
+        [wxb.ReplaceFunction(typeof(TestReplaceFunction), "__Hotfix_Test4")]
+        static void Test4(TestReplaceFunction obj)
+        {
+
+        }
+
+        [wxb.ReplaceFunction("TestReplaceFunction", "__Hotfix_Test5")]
+        static void Test5(TestReplaceFunction obj)
+        {
+
+        }
+    }
+
     [AutoInitAndRelease]
     //[wxb.Platform(UnityEngine.RuntimePlatform.WindowsPlayer)]
+    //[ReplaceType("HelloWorld")]
     [ReplaceType(typeof(HelloWorld))]
     public static class HotHelloWorld
     {

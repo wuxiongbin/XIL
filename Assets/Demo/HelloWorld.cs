@@ -2,6 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class TestReplaceFunction
+{
+    public void Test1()
+    {
+
+    }
+
+    public void Test2()
+    {
+
+    }
+
+    public void Test3()
+    {
+
+    }
+
+    public void Test4()
+    {
+
+    }
+
+    public void Test5()
+    {
+
+    }
+}
+
 public class HelloWorld : MonoBehaviour
 {
     public class TestNeast1
