@@ -212,10 +212,8 @@ namespace wxb
     {
         public Platform(UnityEngine.RuntimePlatform platform)
         {
-            this.platform = platform;
-        }
 
-        public UnityEngine.RuntimePlatform platform;
+        }
     }
 
     [System.AttributeUsage(System.AttributeTargets.Class)]
@@ -434,7 +432,7 @@ namespace wxb
                         if (zeroValue.Value is string)
                         {
                             string strValue = (string)zeroValue.Value;
-                            if (strValue.Contains("__Hotfix_"))
+                            if (strValue.StartsWith("__Hotfix_"))
                             {
                                 // 字段
                                 fieldName = strValue;
