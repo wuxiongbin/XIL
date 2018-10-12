@@ -1,11 +1,10 @@
-# XIL
+## XIL 
+## 使用ILRuntime实现的类似XLUA功能的Unity3D下热修复BUG的解决方案
 
 **公司项目[(初音未来:梦幻歌姬)](http://miku.qq.com)已经使用此插件上线，由腾讯运营，上线运营情况良好，插件自身目前暂未发现BUG!**  
 
 下图为Demo截图
-![Demo截图](http://www.wxbxy.top:55555/xil.png)
-
-使用ILRuntime实现的类似XLUA功能的Unity3D下热修复BUG的解决方案
+![Demo截图](http://www.wxbxy.top:55555/xil1.png)
 
 和XLUA一样的地方
 和XLUA原理类似，注入和XLUA基本一致。
