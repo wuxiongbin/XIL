@@ -808,6 +808,8 @@ namespace ILRuntime.Runtime.Enviorment
                             genericArguments[i] = new KeyValuePair<string, IType>(key, val);
                         else
                         {
+                            if (!dummyGenericInstance)
+                                return null;
                             genericArguments = null;
                             break;
                         }

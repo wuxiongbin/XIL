@@ -1,4 +1,4 @@
-#if USE_HOT && UNITY_EDITOR
+﻿#if USE_HOT && UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -11,6 +11,32 @@ namespace ILRuntime.Runtime.CLRBinding
 {
     static class MethodBindingGenerator
     {
+        static string GenerateParameterTypes(MethodInfo i, bool needBracket)
+        {
+            string clsName, realClsName;
+            bool isByRef;
+            var param = i.GetParameters();
+            StringBuilder sb2 = new StringBuilder();
+            if (needBracket)
+                sb2.Append("{");
+            bool first = true;
+            foreach (var j in param)
+            {
+                if (first)
+                    first = false;
+                else
+                    sb2.Append(", ");
+                sb2.Append("typeof(");
+                j.ParameterType.GetClassName(out clsName, out realClsName, out isByRef);
+                sb2.Append(realClsName);
+                sb2.Append(")");
+                if (isByRef)
+                    sb2.Append(".MakeByRefType()");
+            }
+            if (needBracket)
+                sb2.Append("}");
+            return sb2.ToString();
+        }
         internal static string GenerateMethodRegisterCode(this Type type, MethodInfo[] methods, HashSet<MethodBase> excludes, out bool needMethods)
         {
             needMethods = false;
@@ -51,6 +77,8 @@ namespace ILRuntime.Runtime.CLRBinding
                     StringBuilder sb2 = new StringBuilder();
                     sb2.Append("{");
                     bool first = true;
+                    string clsName, realClsName;
+                    bool isByRef;
                     foreach (var j in param)
                     {
                         if (first)
@@ -58,8 +86,6 @@ namespace ILRuntime.Runtime.CLRBinding
                         else
                             sb2.Append(", ");
                         sb2.Append("typeof(");
-                        string clsName, realClsName;
-                        bool isByRef;
                         j.GetClassName(out clsName, out realClsName, out isByRef);
                         sb2.Append(realClsName);
                         sb2.Append(")");
@@ -72,9 +98,22 @@ namespace ILRuntime.Runtime.CLRBinding
                     sb.Append(@"            {
                 foreach(var m in lst)
                 {
-                    if(m.GetParameters().Length == ");
-                    sb.Append(i.GetParameters().Length.ToString());
-                    sb.Append(@")
+                    if(m.MatchGenericParameters(args, ");
+                    if (i.ReturnType != typeof(void))
+                    {
+                        sb.Append("typeof(");
+                        i.ReturnType.GetClassName(out clsName, out realClsName, out isByRef);
+                        sb.Append(realClsName);
+                        sb.Append(")");
+                    }
+                    else
+                        sb.Append("typeof(void)");
+                    if (i.GetParameters().Length > 0)
+                    {
+                        sb.Append(", ");
+                        sb.Append(GenerateParameterTypes(i, false));
+                    }
+                    sb.Append(@"))
                     {
                         method = m.MakeGenericMethod(args);
                         app.RegisterCLRMethodRedirection(method, ");
@@ -90,23 +129,7 @@ namespace ILRuntime.Runtime.CLRBinding
                     string clsName, realClsName;
                     bool isByRef;
                     var param = i.GetParameters();
-                    StringBuilder sb2 = new StringBuilder();
-                    sb2.Append("{");
-                    bool first = true;
-                    foreach (var j in param)
-                    {
-                        if (first)
-                            first = false;
-                        else
-                            sb2.Append(", ");
-                        sb2.Append("typeof(");
-                        j.ParameterType.GetClassName(out clsName, out realClsName, out isByRef);
-                        sb2.Append(realClsName);
-                        sb2.Append(")");
-                        if (isByRef)
-                            sb2.Append(".MakeByRefType()");
-                    }
-                    sb2.Append("}");
+                    string sb2 = GenerateParameterTypes(i, true);
                     sb.AppendLine(string.Format("            args = new Type[]{0};", sb2));
 
                     i.ReturnType.GetClassName(out clsName, out realClsName, out isByRef);
@@ -132,7 +155,7 @@ namespace ILRuntime.Runtime.CLRBinding
             return sb.ToString();
         }
     
-        internal static string GenerateMethodWraperCode(this Type type, MethodInfo[] methods, string typeClsName, HashSet<MethodBase> excludes, List<Type> valueTypeBinders)
+        internal static string GenerateMethodWraperCode(this Type type, MethodInfo[] methods, string typeClsName, HashSet<MethodBase> excludes, List<Type> valueTypeBinders, Enviorment.AppDomain domain)
         {
             StringBuilder sb = new StringBuilder();
             bool isMultiArr = type.IsArray && type.GetArrayRank() > 1;
@@ -605,13 +628,13 @@ namespace ILRuntime.Runtime.CLRBinding
 
                         sb.AppendLine("            } else {");
 
-                        i.ReturnType.GetReturnValueCode(sb);
+                        i.ReturnType.GetReturnValueCode(sb, domain);
 
                         sb.AppendLine("            }");
                     }
                     else
                     {
-                        i.ReturnType.GetReturnValueCode(sb);
+                        i.ReturnType.GetReturnValueCode(sb, domain);
                     }
                 }
                 else
@@ -625,4 +648,5 @@ namespace ILRuntime.Runtime.CLRBinding
         }
     }
 }
-#endif
+
+#endif

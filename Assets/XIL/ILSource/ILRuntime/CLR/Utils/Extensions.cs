@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -78,6 +79,8 @@ namespace ILRuntime.CLR.Utils
                         }
                         if (t == null)
                             t = appdomain.GetType(name);
+                        if (t != null && i.ParameterType.IsByReference)
+                            t = t.MakeByRefType();
                     }
 
                     param.Add(t);
@@ -302,4 +305,5 @@ namespace ILRuntime.CLR.Utils
         }
     }
 }
-#endif
+
+#endif
