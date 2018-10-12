@@ -62,7 +62,7 @@ XIL/Hotfix Inject In Editor &#8194;&#8194;&#8194;-- 编辑器下注入接口
 1. 通过函数名直接替换hotMgr.ReplaceFunc,可参考函数HotHelloWorld.Reg
 2. 自己自动生成的接口DelegateBridge对应的字段名，可直接使用hotMgr.ReplaceField，可参考函数HotHelloWorld.Reg
 3. **通过添加属性来自动注册**，可参考脚本HotHelloWorld.cs与HotTemplate.cs,这里简单说明下,  要替换一个接口，要知道至少三个信息
-    - 1. 替换的接口属性哪个类型的
+    - 1. 替换的原类型
     - 2. 替换的接口对应的DelegateBridge字段的名字
     - 3. 热更当中，要替换的MethodInfo
 
