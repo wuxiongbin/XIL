@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -527,6 +528,8 @@ namespace ILRuntime.CLR.Method
             if (token is TypeReference)
             {
                 TypeReference _ref = ((TypeReference)token);
+                if (_ref.IsArray)
+                    return CheckHasGenericParamter(_ref.GetElementType());
                 if (_ref.IsGenericParameter)
                     return true;
                 if (_ref.IsGenericInstance)
@@ -675,4 +678,5 @@ namespace ILRuntime.CLR.Method
         }
     }
 }
-#endif
+
+#endif
