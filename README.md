@@ -75,8 +75,8 @@ XIL/Hotfix Inject In Editor &#8194;&#8194;&#8194;-- 编辑器下注入接口
 	可添加属性ReplaceFunction到热更的接口当中，表示此接口需要替换哪个类型的哪个接口,可使用三种方式初始化  
 	1 ReplaceFunction(System.Type type)                    替换type类型下同名的接口  
 	2 ReplaceFunction()                                    替换ReplaceType类型下同名的接口  
-	3 ReplaceFunction(string fieldNameOrTypeName)  
-&#8194;&#8194;&#8194;&#8194;&#8194;&#8194;a _Hotfix_开头，替换ReplaceType类型fieldName字段对应的接口  
+	3 ReplaceFunction(string fieldNameOrTypeName), fieldNameOrTypeName值前缀不同，有不同的含义  
+&#8194;&#8194;&#8194;&#8194;&#8194;&#8194;a __Hotfix_开头，替换ReplaceType类型fieldName字段对应的接口  
 &#8194;&#8194;&#8194;&#8194;&#8194;&#8194;b 替换类型全名为fieldNameOrTypeName下同名的接口  
 	4 ReplaceFunction(System.Type type, string fieldName)  替换type类型fieldName字段对应的接口  
 	5 ReplaceFunction(string type, string fieldName)  替换类型全名为type下fieldName字段对应的接口  
