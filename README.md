@@ -6,10 +6,10 @@
 下图为Demo截图
 ![Demo截图](http://www.wxbxy.top:55555/xil2.png)
 
-和XLUA一样的地方
+和XLUA一样的地方  
 和XLUA原理类似，注入和XLUA基本一致。
 
-不一样的地方
+不一样的地方  
 使用C#来进行代码的热更，避免项目内lua与C#代码交叉混杂，修复BUG时，需要C#一份，lua一份。
 
 目录以及文件说明:
