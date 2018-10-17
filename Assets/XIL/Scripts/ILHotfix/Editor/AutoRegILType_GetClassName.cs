@@ -127,7 +127,7 @@
                     return;
             }
 
-            if (ps.Length > 5)
+            if (ps.Length >= 5)
                 return;
 
             string clsName, rName;
