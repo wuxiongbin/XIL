@@ -715,6 +715,8 @@
                 bool isVoid = returnType.Name == "Void";
                 if (isVoid && parameters.Count == 0)
                     return false;
+                if (parameters.Count >= 5)
+                    return false;
 
                 if (!IsHotUsed(returnType))
                     return false;

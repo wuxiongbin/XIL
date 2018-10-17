@@ -127,6 +127,9 @@
                     return;
             }
 
+            if (ps.Length > 5)
+                return;
+
             string clsName, rName;
             bool isByRef;
             GetClassName(type, out clsName, out rName, out isByRef);
