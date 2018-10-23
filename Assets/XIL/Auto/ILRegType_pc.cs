@@ -9,8 +9,11 @@ namespace AutoIL
         {
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Component, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Component, UnityEngine.Component, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Object>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Object, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Object, System.Object, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Int32, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Int32, System.Int32, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Single, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Single, System.Single, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Vector4, System.Boolean>();
@@ -31,8 +34,6 @@ namespace AutoIL
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Color32, UnityEngine.Color32, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Vector2, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Vector2, UnityEngine.Vector2, System.Int32>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<System.Int32, System.Boolean>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<System.Int32, System.Int32, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.BoneWeight, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.BoneWeight, UnityEngine.BoneWeight, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UIVertex, System.Boolean>();
@@ -127,6 +128,30 @@ namespace AutoIL
                 return new System.Comparison<System.Object>((x, y) =>
                 {
                     return ((System.Func<System.Object, System.Object, System.Int32>)act)(x, y);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<System.Int32>>((act) =>
+            {
+                return new System.Predicate<System.Int32>((obj) =>
+                {
+                    return ((System.Func<System.Int32, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction<System.Int32>>((act) =>
+            {
+                return new UnityEngine.Events.UnityAction<System.Int32>((arg0) =>
+                {
+                    ((System.Action<System.Int32>)act)(arg0);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<System.Int32>>((act) =>
+            {
+                return new System.Comparison<System.Int32>((x, y) =>
+                {
+                    return ((System.Func<System.Int32, System.Int32, System.Int32>)act)(x, y);
                 });
             });
 
@@ -466,30 +491,6 @@ namespace AutoIL
                 });
             });
 
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<System.Int32>>((act) =>
-            {
-                return new System.Predicate<System.Int32>((obj) =>
-                {
-                    return ((System.Func<System.Int32, System.Boolean>)act)(obj);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction<System.Int32>>((act) =>
-            {
-                return new UnityEngine.Events.UnityAction<System.Int32>((arg0) =>
-                {
-                    ((System.Action<System.Int32>)act)(arg0);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<System.Int32>>((act) =>
-            {
-                return new System.Comparison<System.Int32>((x, y) =>
-                {
-                    return ((System.Func<System.Int32, System.Int32, System.Int32>)act)(x, y);
-                });
-            });
-
             appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<UnityEngine.BoneWeight>>((act) =>
             {
                 return new System.Predicate<UnityEngine.BoneWeight>((obj) =>
@@ -761,6 +762,7 @@ namespace AutoIL
         {
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Component>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Object>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.Int32>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Rendering.AsyncGPUReadbackRequest>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Single>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Vector4>();
@@ -792,7 +794,6 @@ namespace AutoIL
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Color>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Color32>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Vector2>();
-            appdomain.DelegateManager.RegisterMethodDelegate<System.Int32>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.BoneWeight>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.UIVertex>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Rect>();
@@ -827,11 +828,15 @@ namespace AutoIL
         static public void Fame()
         {
             System.Type v = null;
+            v = typeof(System.Collections.Generic.List<System.String>);
+
             v = typeof(System.Collections.Generic.List<System.String>.Enumerator);
 
             v = typeof(IL.RefOutParam<System.Int32>);
 
             v = typeof(System.Collections.Generic.List<System.Object>);
+
+            v = typeof(System.Collections.Generic.List<System.Int32>);
 
 
         }

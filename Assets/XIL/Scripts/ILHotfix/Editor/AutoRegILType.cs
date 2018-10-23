@@ -18,6 +18,9 @@
         // 是否热更当中的类型
         static bool IsHotType(System.Type type)
         {
+            if (type.Assembly.ManifestModule.Name == "DyncDll.dll")
+                return true;
+
             string ns = type.FullName;
             if (string.IsNullOrEmpty(ns))
                 return false;
