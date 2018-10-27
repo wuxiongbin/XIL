@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,8 @@ namespace ILRuntime.CLR.TypeSystem
         bool IsDelegate { get; }
 
         bool IsPrimitive { get; }
+
+        bool IsEnum { get; }
 
         bool IsByRef { get; }
 
@@ -86,4 +89,5 @@ namespace ILRuntime.CLR.TypeSystem
         IType ResolveGenericType(IType contextType);
     }
 }
-#endif
+
+#endif
