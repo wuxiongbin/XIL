@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -212,7 +213,7 @@ namespace ILRuntime.Runtime.Stack
                 {
                     var ft = t.FieldTypes[i];
                     StackObject* val = ILIntepreter.Minus(ptr, t.FieldStartIndex + i + 1);
-                    if (ft.IsPrimitive)
+                    if (ft.IsPrimitive || ft.IsEnum)
                         StackObject.Initialized(val, ft);
                     else
                     {
@@ -281,7 +282,7 @@ namespace ILRuntime.Runtime.Stack
                 {
                     var ft = t.FieldTypes[i];
                     StackObject* val = ILIntepreter.Minus(ptr, t.FieldStartIndex + i + 1);
-                    if (ft.IsPrimitive)
+                    if (ft.IsPrimitive || ft.IsEnum)
                         StackObject.Initialized(val, ft);
                     else
                     {
@@ -421,4 +422,5 @@ namespace ILRuntime.Runtime.Stack
         }
     }
 }
-#endif
+
+#endif

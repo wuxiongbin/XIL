@@ -50,7 +50,7 @@ XIL/Hotfix Inject In Editor &#8194;&#8194;&#8194;-- 编辑器下注入接口
 
 **生成补丁dll**  
 1 打开Hot解决方案  
-2 替换DyncDll工程依赖UnityEngine.dll以及UnityEngine.UI.dll的文件，在目录Hot下，默认是Unity2018.2.11f1版本的，可以替换为自己项目对应的版本
+2 替换DyncDll工程依赖UnityEngine.dll以及UnityEngine.UI.dll的文件，在目录Hot下，默认是Unity2018.2.11f1版本的，可以替换为自己项目对应的版本  
 3 编译运行DyncDll工程，编译成功，即可在Data目录下生成补丁库。
 
 **如何添加需要热更的类型:**  
