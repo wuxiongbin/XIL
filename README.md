@@ -95,4 +95,6 @@ XIL/Hotfix Inject In Editor &#8194;&#8194;&#8194;-- 编辑器下注入接口
 
 热更下模拟MonoBehaviour组件,用法可以参考hotScripts下脚本，可以做到平时在非热更环境下开发调试，到要发版本时再转换为热更方式
 
+**Unity5.6以下版本**，编辑器下使用的Mono库，会报错，**应该是Unity3D的Bug**。可以使用源文件来替换dll，源文件在压缩包Mono.Cecil.zip下,可解压此文件，放到在Assets/XIL/Scripts/ILHotfix/Editor/下，并删除这三个Dll(Mono.Cecil.dll, Mono.Cecil.Mdb.dll,MonoCecil.Pdb.dll)
+
 如遇到BUG，可添加QQ:12666146或邮件qewsfs@qq.com联系。
