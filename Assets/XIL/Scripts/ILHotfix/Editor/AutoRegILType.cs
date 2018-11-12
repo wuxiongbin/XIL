@@ -60,6 +60,9 @@
 
             if (type.IsGenericType)
             {
+                if (type.ContainsGenericParameters)
+                    return true;
+
                 foreach (var ator in type.GetGenericArguments())
                 {
                     if (IsEditorType(ator))
