@@ -107,59 +107,53 @@ namespace ILRuntime.Runtime.Generated
             method = type.GetMethod("IncrementUpdateCount", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, IncrementUpdateCount_27);
             args = new Type[]{};
-            method = type.GetMethod("get_imageContentsHash", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_imageContentsHash_28);
-            args = new Type[]{typeof(UnityEngine.Hash128)};
-            method = type.GetMethod("set_imageContentsHash", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_imageContentsHash_29);
-            args = new Type[]{};
             method = type.GetMethod("get_totalTextureMemory", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_totalTextureMemory_30);
+            app.RegisterCLRMethodRedirection(method, get_totalTextureMemory_28);
             args = new Type[]{};
             method = type.GetMethod("get_desiredTextureMemory", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_desiredTextureMemory_31);
+            app.RegisterCLRMethodRedirection(method, get_desiredTextureMemory_29);
             args = new Type[]{};
             method = type.GetMethod("get_targetTextureMemory", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_targetTextureMemory_32);
+            app.RegisterCLRMethodRedirection(method, get_targetTextureMemory_30);
             args = new Type[]{};
             method = type.GetMethod("get_currentTextureMemory", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_currentTextureMemory_33);
+            app.RegisterCLRMethodRedirection(method, get_currentTextureMemory_31);
             args = new Type[]{};
             method = type.GetMethod("get_nonStreamingTextureMemory", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_nonStreamingTextureMemory_34);
+            app.RegisterCLRMethodRedirection(method, get_nonStreamingTextureMemory_32);
             args = new Type[]{};
             method = type.GetMethod("get_streamingMipmapUploadCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_streamingMipmapUploadCount_35);
+            app.RegisterCLRMethodRedirection(method, get_streamingMipmapUploadCount_33);
             args = new Type[]{};
             method = type.GetMethod("get_streamingRendererCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_streamingRendererCount_36);
+            app.RegisterCLRMethodRedirection(method, get_streamingRendererCount_34);
             args = new Type[]{};
             method = type.GetMethod("get_streamingTextureCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_streamingTextureCount_37);
+            app.RegisterCLRMethodRedirection(method, get_streamingTextureCount_35);
             args = new Type[]{};
             method = type.GetMethod("get_nonStreamingTextureCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_nonStreamingTextureCount_38);
+            app.RegisterCLRMethodRedirection(method, get_nonStreamingTextureCount_36);
             args = new Type[]{};
             method = type.GetMethod("get_streamingTexturePendingLoadCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_streamingTexturePendingLoadCount_39);
+            app.RegisterCLRMethodRedirection(method, get_streamingTexturePendingLoadCount_37);
             args = new Type[]{};
             method = type.GetMethod("get_streamingTextureLoadingCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_streamingTextureLoadingCount_40);
+            app.RegisterCLRMethodRedirection(method, get_streamingTextureLoadingCount_38);
             args = new Type[]{};
             method = type.GetMethod("SetStreamingTextureMaterialDebugProperties", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetStreamingTextureMaterialDebugProperties_41);
+            app.RegisterCLRMethodRedirection(method, SetStreamingTextureMaterialDebugProperties_39);
             args = new Type[]{};
             method = type.GetMethod("get_streamingTextureForceLoadAll", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_streamingTextureForceLoadAll_42);
+            app.RegisterCLRMethodRedirection(method, get_streamingTextureForceLoadAll_40);
             args = new Type[]{typeof(System.Boolean)};
             method = type.GetMethod("set_streamingTextureForceLoadAll", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_streamingTextureForceLoadAll_43);
+            app.RegisterCLRMethodRedirection(method, set_streamingTextureForceLoadAll_41);
             args = new Type[]{};
             method = type.GetMethod("get_streamingTextureDiscardUnusedMips", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_streamingTextureDiscardUnusedMips_44);
+            app.RegisterCLRMethodRedirection(method, get_streamingTextureDiscardUnusedMips_42);
             args = new Type[]{typeof(System.Boolean)};
             method = type.GetMethod("set_streamingTextureDiscardUnusedMips", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_streamingTextureDiscardUnusedMips_45);
+            app.RegisterCLRMethodRedirection(method, set_streamingTextureDiscardUnusedMips_43);
 
 
 
@@ -633,41 +627,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_imageContentsHash_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.Texture instance_of_this_method = (UnityEngine.Texture)typeof(UnityEngine.Texture).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            var result_of_this_method = instance_of_this_method.imageContentsHash;
-
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
-        static StackObject* set_imageContentsHash_29(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.Hash128 @value = (UnityEngine.Hash128)typeof(UnityEngine.Hash128).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            UnityEngine.Texture instance_of_this_method = (UnityEngine.Texture)typeof(UnityEngine.Texture).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.imageContentsHash = value;
-
-            return __ret;
-        }
-
-        static StackObject* get_totalTextureMemory_30(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_totalTextureMemory_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -680,7 +640,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_desiredTextureMemory_31(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_desiredTextureMemory_29(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -693,7 +653,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_targetTextureMemory_32(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_targetTextureMemory_30(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -706,7 +666,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_currentTextureMemory_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_currentTextureMemory_31(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -719,7 +679,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_nonStreamingTextureMemory_34(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_nonStreamingTextureMemory_32(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -732,7 +692,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_streamingMipmapUploadCount_35(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_streamingMipmapUploadCount_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -745,7 +705,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_streamingRendererCount_36(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_streamingRendererCount_34(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -758,7 +718,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_streamingTextureCount_37(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_streamingTextureCount_35(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -771,7 +731,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_nonStreamingTextureCount_38(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_nonStreamingTextureCount_36(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -784,7 +744,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_streamingTexturePendingLoadCount_39(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_streamingTexturePendingLoadCount_37(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -797,7 +757,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_streamingTextureLoadingCount_40(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_streamingTextureLoadingCount_38(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -810,7 +770,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* SetStreamingTextureMaterialDebugProperties_41(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetStreamingTextureMaterialDebugProperties_39(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -821,7 +781,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_streamingTextureForceLoadAll_42(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_streamingTextureForceLoadAll_40(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -834,7 +794,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_streamingTextureForceLoadAll_43(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_streamingTextureForceLoadAll_41(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -849,7 +809,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_streamingTextureDiscardUnusedMips_44(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_streamingTextureDiscardUnusedMips_42(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -862,7 +822,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_streamingTextureDiscardUnusedMips_45(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_streamingTextureDiscardUnusedMips_43(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

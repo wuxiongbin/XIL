@@ -86,12 +86,24 @@ namespace ILRuntime.Runtime.CLRBinding
                     return true;
             }
 
+            if (type == typeof(UnityEngine.Texture))
+            {
+                switch (i.Name)
+                {
+                case "get_imageContentsHash":
+                case "set_imageContentsHash":
+                    return true;
+                }
+            }
+
             if (type == typeof(UnityEngine.Texture2D))
             {
                 switch (i.Name)
                 {
                 case "get_alphaIsTransparency":
                 case "set_alphaIsTransparency":
+                case "get_imageContentsHash":
+                case "set_imageContentsHash":
                     return true;
                 }
             }
