@@ -3,34 +3,34 @@ namespace IL
 {
     public partial class DelegateBridge
     {
-        public void __Gen_Delegate_Imp1(int p0, int p1, int p2, int p3, object p4, object p5, object p6, object p7, UnityEngine.Vector3 p8, UnityEngine.Vector2 p9, UnityEngine.Vector4 p10)
+        public void __Gen_Delegate_Imp1(object p0)
+        {
+            using (var pObjs = new Objects(p0))
+            {
+                methodInfo.Invoke(null, pObjs.objs);
+            }
+        }
+        public void __Gen_Delegate_Imp2(int p0, int p1, int p2, int p3, object p4, object p5, object p6, object p7, UnityEngine.Vector3 p8, UnityEngine.Vector2 p9, UnityEngine.Vector4 p10)
         {
             using (var pObjs = new Objects(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10))
             {
                 methodInfo.Invoke(null, pObjs.objs);
             }
         }
-        public void __Gen_Delegate_Imp2()
+        public void __Gen_Delegate_Imp3()
         {
             using (var pObjs = new EmptyObjs())
             {
                 methodInfo.Invoke(null, pObjs.objs);
             }
         }
-        public int __Gen_Delegate_Imp3()
+        public int __Gen_Delegate_Imp4()
         {
             using (var pObjs = new EmptyObjs())
             {
                 int result = default(int);
                 result = (int)methodInfo.Invoke(null, pObjs.objs);
                 return result;
-            }
-        }
-        public void __Gen_Delegate_Imp4(object p0)
-        {
-            using (var pObjs = new Objects(p0))
-            {
-                methodInfo.Invoke(null, pObjs.objs);
             }
         }
         public void __Gen_Delegate_Imp5(object p0, ref System.Int32 p1, out System.Int32 p2)
@@ -72,6 +72,15 @@ namespace IL
             using (var pObjs = new Objects(p0, p1, p2))
             {
                 methodInfo.Invoke(null, pObjs.objs);
+            }
+        }
+        public System.Delegate __Gen_Delegate_Imp10(object p0)
+        {
+            using (var pObjs = new Objects(p0))
+            {
+                System.Delegate result = default(System.Delegate);
+                result = (System.Delegate)methodInfo.Invoke(null, pObjs.objs);
+                return result;
             }
         }
 
