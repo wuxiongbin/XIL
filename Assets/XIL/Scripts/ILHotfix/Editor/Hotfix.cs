@@ -259,7 +259,17 @@ namespace wxb.Editor
             AssemblyDefinition assembly = null;
             try
             {
-                var readerParameters = new ReaderParameters { ReadSymbols = true };
+                var readerParameters = new ReaderParameters
+                {
+                    ReadSymbols = true,
+                    InMemory = true,
+                };
+
+                string pdb = System.IO.Path.ChangeExtension(inject_assembly_path, ".pdb");
+                if (System.IO.File.Exists(pdb))
+                {
+                    readerParameters.SymbolReaderProvider = new PortablePdbReaderProvider();
+                }
                 assembly = AssemblyDefinition.ReadAssembly(inject_assembly_path, readerParameters);
 
                 init(assembly);

@@ -108,6 +108,23 @@ namespace ILRuntime.Runtime.CLRBinding
                 }
             }
 
+            if (type == typeof(System.Text.RegularExpressions.Group) && i.Name == "get_Name")
+                return true;
+
+            if (type == typeof(System.Text.RegularExpressions.Regex))
+            {
+                switch (i.Name)
+                {
+                case "CompileToAssembly":
+                case "CustomAttributeBuilder":
+                case "RegexCompilationInfo":
+                    return true;
+                }
+            }
+
+            if (type == typeof(Type) && i.Name == "get_IsSZArray")
+                return true;
+
             switch (i.Name)
             {
             case "get_runInEditMode":
@@ -115,6 +132,56 @@ namespace ILRuntime.Runtime.CLRBinding
             case "op_UnaryPlus":
             case "OnRebuildRequested":
                 return true;
+            }
+
+            if (type == typeof(float))
+            {
+                if (i.Name == "IsFinite")
+                    return true;
+            }
+
+            if (type.FullName.StartsWith("System.Collections.Generic.HashSet`1["))
+            {
+                switch (i.Name)
+                {
+                case "TryGetValue":
+                    return true;
+                case ".ctor":
+                    {
+                        if (i is ConstructorInfo)
+                        {
+                            var p = i.GetParameters();
+                            if ((p.Length == 1 || p.Length == 2) && (p[0].ParameterType == typeof(int) || p[0].ParameterType.FullName.StartsWith("System.Collections.Generic.IEnumerable`1")))
+                                return true;
+                        }
+                    }
+                    break;
+                }
+            }
+
+            if (type.FullName.StartsWith("System.Collections.Generic.Dictionary`2[["))
+            {
+                switch (i.Name)
+                {
+                case "Remove":
+                    {
+                        if (i.GetParameters().Length == 2)
+                            return true;
+                    }
+                    break;
+                case "TryAdd":
+                    return true;
+                case ".ctor":
+                    {
+                        if (i is ConstructorInfo)
+                        {
+                            var p = i.GetParameters();
+                            if ((p.Length == 1 || p.Length == 2) && p[0].ParameterType.FullName.StartsWith("System.Collections.Generic.IEnumerable`1["))
+                                return true;
+                        }                        
+                    }
+                    break;
+                }
             }
 
             return false;
