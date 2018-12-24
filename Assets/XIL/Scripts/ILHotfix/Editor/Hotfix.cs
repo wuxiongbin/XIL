@@ -327,7 +327,9 @@ namespace wxb.Editor
 			{
 				assembly.MainModule.SymbolReader.Dispose();
 			}
-		}
+
+            assembly.Dispose();
+        }
 
         static OpCode[] ldargs = new OpCode[] { OpCodes.Ldarg_0, OpCodes.Ldarg_1, OpCodes.Ldarg_2, OpCodes.Ldarg_3 };
 
