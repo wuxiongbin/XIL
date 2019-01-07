@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,10 +13,13 @@ namespace ILRuntime.Reflection
     public class ILRuntimeParameterInfo : ParameterInfo
     {
         IType type;
+        MethodBase method;
 
-        public ILRuntimeParameterInfo(IType type)
+        public ILRuntimeParameterInfo(IType type, MethodBase method)
         {
             this.type = type;
+            this.method = method;
+            this.MemberImpl = method;
         }
         public override Type ParameterType
         {
@@ -24,6 +28,15 @@ namespace ILRuntime.Reflection
                 return type.ReflectionType;
             }
         }
+
+        public override string Name
+        {
+            get
+            {
+                return type.FullName;
+            }
+        }
     }
 }
-#endif
+
+#endif

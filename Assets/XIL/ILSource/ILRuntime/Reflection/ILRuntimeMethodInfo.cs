@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,7 @@ namespace ILRuntime.Reflection
             parameters = new ILRuntimeParameterInfo[m.ParameterCount];
             for (int i = 0; i < m.ParameterCount; i++)
             {
-                parameters[i] = new ILRuntimeParameterInfo(m.Parameters[i]);
+                parameters[i] = new ILRuntimeParameterInfo(m.Parameters[i], this);
             }
         }
 
@@ -135,11 +136,7 @@ namespace ILRuntime.Reflection
 
         public override ParameterInfo[] GetParameters()
         {
-            ParameterInfo[] infos = new ParameterInfo[parameters.Length];
-            for (int i = 0; i < parameters.Length; ++i)
-                infos[i] = parameters[i]; ;
-
-            return infos;
+            return parameters;
         }
 
         public override object Invoke(object obj, BindingFlags invokeAttr, Binder binder, object[] parameters, CultureInfo culture)
@@ -174,4 +171,5 @@ namespace ILRuntime.Reflection
         }
     }
 }
-#endif
+
+#endif

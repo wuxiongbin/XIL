@@ -123,6 +123,16 @@ namespace ILRuntime.CLR.TypeSystem
         {
             get
             {
+                if (genericArguments != null)
+                {
+                    foreach(var i in genericArguments)
+                    {
+                        if(i.Value is ILType && i.Value.HasGenericParameter)
+                        {
+                            return true;
+                        }
+                    }
+                }
                 return clrType.ContainsGenericParameters;
             }
         }

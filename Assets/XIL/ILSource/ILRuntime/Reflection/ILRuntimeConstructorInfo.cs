@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,7 @@ namespace ILRuntime.Reflection
             parameters = new ILRuntimeParameterInfo[m.ParameterCount];
             for(int i = 0; i < m.ParameterCount; i++)
             {
-                parameters[i] = new ILRuntimeParameterInfo(m.Parameters[i]);
+                parameters[i] = new ILRuntimeParameterInfo(m.Parameters[i], this);
             }
         }
 
@@ -105,4 +106,5 @@ namespace ILRuntime.Reflection
         }
     }
 }
-#endif
+
+#endif
