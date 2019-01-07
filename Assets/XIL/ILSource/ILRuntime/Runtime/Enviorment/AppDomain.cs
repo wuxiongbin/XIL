@@ -560,9 +560,9 @@ namespace ILRuntime.Runtime.Enviorment
                         {
                             if (i > 0)
                                 sb.Append(",");
-                            if (genericParams[i].Contains(","))
+                            /*if (genericParams[i].Contains(","))
                                 sb.Append(genericParams[i].Substring(0, genericParams[i].IndexOf(',')));
-                            else
+                            else*/
                                 sb.Append(genericParams[i]);
                         }
                         sb.Append('>');
