@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace wxb
 {
-    public partial class GenHotfixDegleng
+    public partial class GenHotfixDelegate
     {
         public enum ParamType
         {
@@ -16,7 +16,7 @@ namespace wxb
             Out, // out参数
         }
 
-        static GenHotfixDegleng()
+        static GenHotfixDelegate()
         {
             TypeToNames = new Dictionary<System.Type, string>();
             TypeToNames.Add(typeof(object), "object");
@@ -457,6 +457,26 @@ namespace IL
             return IsUnityObjectType(type.BaseType);
         }
 
+        static bool IsEditorAttribute(MemberInfo minfo)
+        {
+            if (minfo.GetCustomAttribute(typeof(EditorField)) != null)
+                return true;
+
+            if (minfo is MethodBase)
+            {
+                var info = minfo as MethodBase;
+                if (info.IsSpecialName && (info.Name.StartsWith("get_") || info.Name.StartsWith("set_")))
+                {
+                    var flag = BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
+                    var property = info.ReflectedType.GetProperty(info.Name.Substring(4), flag);
+                    if (property.GetCustomAttribute(typeof(EditorField)) != null)
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
         public static void AutoCode(List<string> classes)
         {
             // 自动生成所有需要委托
@@ -467,9 +487,12 @@ namespace IL
 
             HashSet<int> ObjectsParamCount = new HashSet<int>();
             HashSet<string> exports = new HashSet<string>(classes);
-            foreach (var ator in System.AppDomain.CurrentDomain.GetAssemblies().Select((assemblies) => assemblies.GetTypes()))
+            foreach (var ator in System.AppDomain.CurrentDomain.GetAssemblies())
             {
-                foreach (var type in ator)
+                if (ator.FullName.StartsWith("System"))
+                    continue;
+
+                foreach (var type in ator.GetTypes())
                 {
                     if (exports.Contains(type.FullName.Replace('+', '/')) || type.GetCustomAttributes(typeof(HotfixAttribute), false).Length != 0)
                     {
@@ -480,6 +503,9 @@ namespace IL
                         foreach (var method in type.GetMethods(flag))
                         {
                             if (method.IsGenericMethod)
+                                continue;
+
+                            if (IsEditorAttribute(method))
                                 continue;
 
                             Funs fun = new Funs(method, method.IsStatic ? false : true);
@@ -506,6 +532,9 @@ namespace IL
                             if (ctor.IsGenericMethod)
                                 continue;
 
+                            if (IsEditorAttribute(ctor))
+                                continue;
+
                             Funs fun = new Funs(ctor, ctor.IsStatic ? false : true);
                             if (!fun.isExport)
                                 continue;
@@ -524,16 +553,10 @@ namespace IL
                 }
             }
 
-#if UNITY_IOS
-            string marco = "UNITY_IOS";
-            string file = "Assets/XIL/Auto/GenDelegateBridge_ios.cs";
-#elif UNITY_ANDROID
-            string marco = "UNITY_ANDROID";
-            string file = "Assets/XIL/Auto/GenDelegateBridge_ad.cs";
-#else
-            string marco = "UNITY_STANDALONE_WIN";
-            string file = "Assets/XIL/Auto/GenDelegateBridge_pc.cs";
-#endif
+            string marco, suffix;
+            AutoRegILType.GetPlatform(out marco, out suffix);
+            string file = string.Format("Assets/XIL/Auto/GenDelegateBridge_{0}.cs", suffix);
+
             System.IO.Directory.CreateDirectory(file.Substring(0, file.LastIndexOf('/')));
 
             System.Text.StringBuilder sb = new System.Text.StringBuilder();

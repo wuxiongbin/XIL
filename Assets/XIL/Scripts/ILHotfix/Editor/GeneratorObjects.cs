@@ -17,16 +17,12 @@ namespace wxb
             int[] v = ps.ToArray();
             System.Array.Sort(v, (x, y) => { return x.CompareTo(y); });
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
-#if UNITY_IOS
-            sb.AppendLine("#if UNITY_IOS");
-            string filepath = "Assets/XIL/Auto/GenObjects_ios.cs";
-#elif UNITY_ANDROID
-            sb.AppendLine("#if UNITY_ANDROID");
-            string filepath = "Assets/XIL/Auto/GenObjects_ad.cs";
-#else
-            sb.AppendLine("#if UNITY_STANDALONE_WIN");
-            string filepath = "Assets/XIL/Auto/GenObjects_pc.cs";
-#endif
+
+            string marco, suffix;
+            AutoRegILType.GetPlatform(out marco, out suffix);
+            string filepath = string.Format("Assets/XIL/Auto/GenObjects_{0}.cs", suffix);
+
+            sb.AppendLine(string.Format("#if {0}", marco));
             sb.Append(@"namespace IL
 {
     public partial struct Objects

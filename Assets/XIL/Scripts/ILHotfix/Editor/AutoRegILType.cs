@@ -77,6 +77,14 @@
             if (type.FullName.Contains("GUIEditor") || type.FullName.Contains("MikuArtTech.EditorTools."))
                 return true;
 
+            if (type.FullName.StartsWith("System.Runtime.Remoting"))
+                return true;
+
+            if (type.FullName == "System.CrossAppDomainDelegate")
+                return true;
+            if (type.FullName == "System.AppDomainInitializer")
+                return true;
+
             if (type.GetCustomAttributes(typeof(EditorClass), true).Length != 0)
                 return true;
 
@@ -274,17 +282,6 @@
 
             return false;
         }
-
-#if UNITY_IOS
-        const string marco = "UNITY_IOS";
-        const string file_path = "Assets/XIL/Auto/ILRegType_ios.cs";
-#elif UNITY_ANDROID
-        const string marco = "UNITY_ANDROID";
-        const string file_path = "Assets/XIL/Auto/ILRegType_ad.cs";
-#else
-        const string marco = "UNITY_STANDALONE_WIN";
-        const string file_path = "Assets/XIL/Auto/ILRegType_pc.cs";
-#endif
 
         [UnityEditor.MenuItem("XIL/委托自动生成")]
         public static void Build()
@@ -773,8 +770,29 @@
             public System.Text.StringBuilder RegisterMethodDelegate = new System.Text.StringBuilder();
         }
 
+        public static void GetPlatform(out string marc, out string suffix)
+        {
+#if UNITY_IOS
+            marc = "UNITY_IOS";
+            suffix = "ios";
+#elif UNITY_ANDROID
+            marc = "UNITY_ANDROID";
+            suffix = "ad";
+#elif UNITY_WEBGL
+            marc = "UNITY_WEBGL";
+            suffix = "webgl";
+#else
+            marc = "UNITY_STANDALONE_WIN";
+            suffix = "pc";
+#endif
+        }
+
         static void BuildDelegate(Dictionary<System.Type, UseTypeInfo> csharpDelegate, Dictionary<System.Type, UseTypeInfo> hotTDic)
         {
+            string marco, file_suffix;
+            GetPlatform(out marco, out file_suffix);
+            string file_path = string.Format("Assets/XIL/Auto/ILRegType_{0}.cs", file_suffix);
+
             Dictionary<DelegateKey, List<System.Type>> keys = new Dictionary<DelegateKey, List<System.Type>>();
 
             foreach (var ator in csharpDelegate)

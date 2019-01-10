@@ -88,7 +88,11 @@ namespace wxb.IL.Editor
 
             object instance = instanceField.GetValue(target);
             if (instance == null)
+            {
+                instance = IL.Help.Create(type);
+                instanceField.SetValue(target, instance);
                 return;
+            }
 
             if (wxb.Editor.TypeEditor.OnGUI(instance))
             {
