@@ -459,7 +459,7 @@ namespace IL
 
         static bool IsEditorAttribute(MemberInfo minfo)
         {
-            if (minfo.GetCustomAttribute(typeof(EditorField)) != null)
+            if (minfo.GetCustomAttributes(typeof(EditorField), true).Length != 0)
                 return true;
 
             if (minfo is MethodBase)
@@ -469,7 +469,7 @@ namespace IL
                 {
                     var flag = BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
                     var property = info.ReflectedType.GetProperty(info.Name.Substring(4), flag);
-                    if (property.GetCustomAttribute(typeof(EditorField)) != null)
+                    if (property.GetCustomAttributes(typeof(EditorField), true).Length != 0)
                         return true;
                 }
             }

@@ -42,6 +42,15 @@
                 var ms = MonoSerialize.WriteTo(instance);
                 bytes = ms.Stream.GetBytes();
                 objs = ms.objs;
+
+#if USE_HOT
+                if (instance is ILRuntime.Runtime.Intepreter.ILTypeInstance)
+                {
+                    var ti = instance as ILRuntime.Runtime.Intepreter.ILTypeInstance;
+                    if (ti.Type.AppDomain != DllInitByEditor.appdomain)
+                        instance = null;
+                }
+#endif
             }
 #endif
         }
