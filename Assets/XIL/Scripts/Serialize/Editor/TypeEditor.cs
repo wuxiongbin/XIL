@@ -31,6 +31,28 @@ namespace wxb.Editor
     {
         static TypeEditor()
         {
+            Init();
+        }
+
+        // 基础类型
+        static Dictionary<System.Type, ITypeGUI> AllTypes = new Dictionary<System.Type, ITypeGUI>();
+        static Dictionary<string, ITypeGUI> BaseTypes = new Dictionary<string, ITypeGUI>();
+
+        public static void Release()
+        {
+            AllTypes.Clear();
+            BaseTypes.Clear();
+            Init();
+        }
+
+        [UnityEditor.InitializeOnLoadMethod]
+        static void InitializeOnLoadMethod()
+        {
+            wxb.IL.Help.on_release_all = Release;
+        }
+
+        static void Init()
+        {
             AllTypes.Add(typeof(UnityEngine.Object), new ObjectType());
 
             BaseTypes.Add(typeof(int).FullName, new IntType());
@@ -46,10 +68,6 @@ namespace wxb.Editor
             BaseTypes.Add(typeof(double).FullName, new DoubleType());
             BaseTypes.Add(typeof(string).FullName, new StrType());
         }
-
-        // 基础类型
-        static Dictionary<System.Type, ITypeGUI> AllTypes = new Dictionary<System.Type, ITypeGUI>();
-        static Dictionary<string, ITypeGUI> BaseTypes = new Dictionary<string, ITypeGUI>();
 
         public static ITypeGUI Get(System.Type type, FieldInfo fieldInfo)
         {

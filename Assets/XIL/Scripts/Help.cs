@@ -350,8 +350,17 @@
             AllTypesByFullName.Clear();
             BaseTypes.Clear();
             Caches.Clear();
+#if UNITY_EDITOR
+            MonoSerialize.Release();
+            if (on_release_all != null)
+                on_release_all();
+#endif
         }
 
+#if UNITY_EDITOR
+        [EditorField]
+        public static System.Action on_release_all;
+#endif
         static HashSet<System.Type> BaseTypes = new HashSet<System.Type>();
 
         public static bool IsBaseType(System.Type type)

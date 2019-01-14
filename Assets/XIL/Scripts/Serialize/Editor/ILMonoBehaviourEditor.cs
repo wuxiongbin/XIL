@@ -14,7 +14,7 @@ namespace wxb.Editor
 
         private void OnEnable()
         {
-            monoEditor.InitByAttribute(target as ILMonoBehaviour, typeof(AutoILMono));
+            monoEditor.InitByAttribute(serializedObject, target as ILMonoBehaviour, typeof(AutoILMono));
         }
 
         public override void OnInspectorGUI()

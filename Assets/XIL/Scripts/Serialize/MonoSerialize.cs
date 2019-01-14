@@ -46,7 +46,15 @@ namespace wxb
     {
         static Dictionary<string, ITypeSerialize> AllTypes = new Dictionary<string, ITypeSerialize>();
 
-        static MonoSerialize()
+#if UNITY_EDITOR
+        public static void Release()
+        {
+            AllTypes.Clear();
+            Init();
+        }
+#endif
+
+        static void Init()
         {
             AllTypes.Add(typeof(int).FullName, new IntType());
             AllTypes.Add(typeof(uint).FullName, new UIntType());
@@ -65,7 +73,7 @@ namespace wxb
             AllTypes.Add(typeof(int[]).FullName, new ArrayIntType());
             AllTypes.Add(typeof(uint[]).FullName, new ArrayUIntType());
             AllTypes.Add(typeof(sbyte[]).FullName, new ArraySByteType());
-            AllTypes.Add(typeof(byte[]).FullName, new ArrayByteType());            
+            AllTypes.Add(typeof(byte[]).FullName, new ArrayByteType());
             AllTypes.Add(typeof(char[]).FullName, new ArrayCharType());
             AllTypes.Add(typeof(short[]).FullName, new ArrayShortType());
             AllTypes.Add(typeof(ushort[]).FullName, new ArrayUShortType());
@@ -75,6 +83,11 @@ namespace wxb
             AllTypes.Add(typeof(float[]).FullName, new ArrayFloatType());
             AllTypes.Add(typeof(double[]).FullName, new ArrayDoubleType());
             AllTypes.Add(typeof(Object[]).FullName, new ArrayObjectType());
+        }
+
+        static MonoSerialize()
+        {
+            Init();
         }
 
         public static ITypeSerialize GetByInstance(object obj)

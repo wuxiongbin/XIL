@@ -15,7 +15,8 @@ namespace wxb.IL.Editor
         FieldInfo objsField;
         FieldInfo bytesField;
 
-        MonoBehaviour target;
+        MonoBehaviour behaviour;
+        object customizeData;
 
         List<System.Type> allTypes;
 
@@ -31,49 +32,107 @@ namespace wxb.IL.Editor
             return null;
         }
 
-        public void InitByBaseType(UnityEngine.MonoBehaviour target, string baseTypeFullName)
+        public void InitByBaseType(SerializedObject serializedObject, UnityEngine.MonoBehaviour target, string baseTypeFullName)
         {
-            Init(target);
+            Init(serializedObject, target);
 
             allTypes = Help.GetBaseType(baseTypeFullName);
         }
 
-        public void Init(UnityEngine.MonoBehaviour target)
+        SerializedObject serializedObject;
+        public void Init(SerializedObject serializedObject, UnityEngine.MonoBehaviour behaviour)
         {
+            this.serializedObject = serializedObject;
 #if USE_HOT
             var appdomain = DllInitByEditor.appdomain;
 #endif
-            this.target = target;
-            System.Type type = target.GetType();
+            this.behaviour = behaviour;
+            var customizeDataField = GetField(behaviour.GetType(), "customizeData", BindingFlags.Instance | BindingFlags.NonPublic);
+            if (customizeDataField != null)
+            {
+                customizeData = customizeDataField.GetValue(behaviour);
+                if (customizeData == null)
+                {
+                    customizeData = Help.Create(customizeDataField.FieldType);
+                    customizeDataField.SetValue(behaviour, customizeData);
+                    EditorUtility.SetDirty(behaviour);
+                    EditorApplication.QueuePlayerLoopUpdate();
+                }
+
+                var customizeData_sp = serializedObject.FindProperty("customizeData");
+                bool isHit = GetValue(customizeData, "typeName") == null;
+                if (isHit)
+                {
+                    serializedObject.Update();
+                    SetByRef(behaviour, customizeData, "typeName");
+                    SetByRef(behaviour, customizeData, "objs");
+                    SetByRef(behaviour, customizeData, "bytes");
+                    ((CustomizeData)customizeData).OnAfterDeserialize(behaviour);
+                    EditorUtility.SetDirty(behaviour);
+                }
+            }
+            else
+            {
+                customizeData = behaviour;
+            }
+            
+            System.Type type = customizeDataField != null ? customizeDataField.FieldType : behaviour.GetType();
             typeNameField = GetField(type, "typeName", BindingFlags.Instance | BindingFlags.NonPublic);
             instanceField = GetField(type, "instance", BindingFlags.Instance | BindingFlags.NonPublic);
             objsField = GetField(type, "objs", BindingFlags.Instance | BindingFlags.NonPublic);
             bytesField = GetField(type, "bytes", BindingFlags.Instance | BindingFlags.NonPublic);
         }
 
-        public void InitByAttribute(UnityEngine.MonoBehaviour target, System.Type attributeType)
+        // src.name
+        static object GetValue(object src, string name)
         {
-            Init(target);
+            var flag = BindingFlags.Instance | BindingFlags.NonPublic;
+            var src_field = src.GetType().GetField(name, flag);
+            if (src_field == null)
+                return null;
+
+            return src_field.GetValue(src);
+        }
+
+        // dst.name = src.name;
+        static bool SetByRef(object src, object dst, string name)
+        {
+            var flag = BindingFlags.Instance | BindingFlags.NonPublic;
+            var src_field = GetField(src.GetType(), name, flag);
+            if (src_field == null)
+                return false;
+
+            var dst_field = GetField(dst.GetType(), name, flag);
+            if (dst_field == null)
+                return false;
+
+            dst_field.SetValue(dst, src_field.GetValue(src));
+            return true;
+        }
+
+        public void InitByAttribute(SerializedObject serializedObject, UnityEngine.MonoBehaviour target, System.Type attributeType)
+        {
+            Init(serializedObject, target);
 
             allTypes = Help.GetCustomAttributesType(attributeType);
         }
 
         void RegisterCompleteObjectUndo()
         {
-            Undo.RegisterCompleteObjectUndo(target, "ILMonoEditor");
+            Undo.RegisterCompleteObjectUndo(behaviour, "ILMonoEditor");
         }
 
         public void OnGUI(string newTypename)
         {
-            string typeName = (string)typeNameField.GetValue(target);
+            string typeName = (string)typeNameField.GetValue(customizeData);
             if (newTypename != typeName)
             {
                 RegisterCompleteObjectUndo();
 
                 typeName = newTypename;
-                typeNameField.SetValue(target, typeName);
-                instanceField.SetValue(target, null);
-                EditorUtility.SetDirty(target);
+                typeNameField.SetValue(customizeData, typeName);
+                instanceField.SetValue(customizeData, null);
+                EditorUtility.SetDirty(behaviour);
             }
 
             if (string.IsNullOrEmpty(typeName))
@@ -86,17 +145,17 @@ namespace wxb.IL.Editor
                 return;
             }
 
-            object instance = instanceField.GetValue(target);
+            object instance = instanceField.GetValue(customizeData);
             if (instance == null)
             {
                 instance = IL.Help.Create(type);
-                instanceField.SetValue(target, instance);
+                instanceField.SetValue(customizeData, instance);
                 return;
             }
 
             if (wxb.Editor.TypeEditor.OnGUI(instance))
             {
-                EditorUtility.SetDirty(target);
+                EditorUtility.SetDirty(behaviour);
                 RegisterCompleteObjectUndo();
             }
         }
@@ -144,13 +203,37 @@ namespace wxb.IL.Editor
         public void OnGUI()
         {
             m_searchName = EditorGUILayout.TextField("输入搜索：", m_searchName);
-            string typeName = (string)typeNameField.GetValue(target);
+            string typeName = (string)typeNameField.GetValue(customizeData);
             if (!string.IsNullOrEmpty(typeName) && typeName.StartsWith("xys.hot"))
                 typeName = typeName.Substring(4);
 
             string newTypename = StringPopupT("typeName", typeName, allTypes, (System.Type t) => { return t.FullName; }, m_searchName);
 
             OnGUI(newTypename);
+        }
+
+        public void OnChildGUI(Object target)
+        {
+            FieldInfo isShowTypeInfo = target.GetType().GetField("isShowTypeInfo", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            if (isShowTypeInfo != null)
+            {
+                bool value = (bool)isShowTypeInfo.GetValue(target);
+                bool newValue = EditorGUILayout.Foldout(value, "映射类型数据");
+                if (newValue != value)
+                    isShowTypeInfo.SetValue(target, newValue);
+                if (!newValue)
+                    return;
+            }
+
+            System.Type type = target.GetType();
+            var attributes = type.GetCustomAttributes(typeof(SingleILMono), true);
+            if (attributes != null && attributes.Length != 0)
+            {
+                OnGUI(((SingleILMono)attributes[0]).type);
+                return;
+            }
+
+            OnGUI();
         }
 
         [MenuItem("Assets/TestLogIL")]
@@ -161,6 +244,5 @@ namespace wxb.IL.Editor
             var method = type.GetMethod("TestLog", BindingFlags.NonPublic | BindingFlags.Static);
             method.Invoke(null, new object[] { });
         }
-
     }
 }
