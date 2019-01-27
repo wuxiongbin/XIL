@@ -468,9 +468,16 @@ namespace IL
                 if (info.IsSpecialName && (info.Name.StartsWith("get_") || info.Name.StartsWith("set_")))
                 {
                     var flag = BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
-                    var property = info.ReflectedType.GetProperty(info.Name.Substring(4), flag);
-                    if (property.GetCustomAttributes(typeof(EditorField), true).Length != 0)
-                        return true;
+                    var propertys = info.ReflectedType.GetProperties(flag);
+                    string name = info.Name.Substring(4);
+                    foreach (var ator in propertys)
+                    {
+                        if (ator.Name == name)
+                        {
+                            if (ator.GetCustomAttributes(typeof(EditorField), true).Length != 0)
+                                return true;
+                        }
+                    }
                 }
             }
 

@@ -86,6 +86,15 @@ namespace ILRuntime.Runtime.CLRBinding
                     return true;
             }
 
+            if (type == typeof(UnityEngine.Input))
+            {
+                switch (i.Name)
+                {
+                case "IsJoystickPreconfigured":
+                    return true;
+                }
+            }
+
             if (type == typeof(UnityEngine.Texture))
             {
                 switch (i.Name)
@@ -138,6 +147,57 @@ namespace ILRuntime.Runtime.CLRBinding
             {
                 if (i.Name == "IsFinite")
                     return true;
+            }
+
+            if (type.FullName.StartsWith("System.Collections.Generic.HashSet`1["))
+            {
+                switch (i.Name)
+                {
+                case "TryGetValue":
+                    return true;
+                case ".ctor":
+                    {
+                        if (i is ConstructorInfo)
+                        {
+                            var p = i.GetParameters();
+                            if ((p.Length == 1 || p.Length == 2) && (p[0].ParameterType == typeof(int) || p[0].ParameterType.FullName.StartsWith("System.Collections.Generic.IEnumerable`1")))
+                                return true;
+                        }
+                    }
+                    break;
+                }
+            }
+
+            if (type == typeof(System.IO.Directory))
+            {
+                switch (i.Name)
+                {
+                case "CreateDirectory":
+                    {
+                        if (i.GetParameters().Length >= 2)
+                            return true;
+                    }
+                    break;
+                case "SetAccessControl":
+                case "GetAccessControl":
+                    return true;
+                }
+            }
+
+            if (type == typeof(System.IO.File))
+            {
+                switch (i.Name)
+                {
+                case "Create":
+                    {
+                        if (i.GetParameters().Length >= 3)
+                            return true;
+                    }
+                    break;
+                case "SetAccessControl":
+                case "GetAccessControl":
+                    return true;
+                }
             }
 
             if (type.FullName.StartsWith("System.Collections.Generic.HashSet`1["))
