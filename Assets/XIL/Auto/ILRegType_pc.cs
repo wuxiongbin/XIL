@@ -58,10 +58,21 @@ namespace AutoIL
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UI.RectMask2D, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UI.RectMask2D, UnityEngine.UI.RectMask2D, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.UI.ILayoutElement, System.Single>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<System.Type, System.Boolean>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<System.Type, System.Type, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Threading.Tasks.Task>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Exception, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Object, System.Threading.Tasks.Task>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.IAsyncResult, System.Threading.Tasks.Task>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Threading.Tasks.Task[], System.Threading.Tasks.Task>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Threading.Tasks.Task, System.Threading.Tasks.Task>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Object, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.IAsyncResult, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Threading.Tasks.Task[], System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Threading.Tasks.Task, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Object, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Object, UnityEngine.Object, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Type, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Type, System.Type, System.Int32>();
 
         }
 
@@ -691,22 +702,6 @@ namespace AutoIL
                 });
             });
 
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<System.Type>>((act) =>
-            {
-                return new System.Predicate<System.Type>((obj) =>
-                {
-                    return ((System.Func<System.Type, System.Boolean>)act)(obj);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<System.Type>>((act) =>
-            {
-                return new System.Comparison<System.Type>((x, y) =>
-                {
-                    return ((System.Func<System.Type, System.Type, System.Int32>)act)(x, y);
-                });
-            });
-
             appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<ILRuntime.CLR.TypeSystem.IType>>((act) =>
             {
                 return new System.Predicate<ILRuntime.CLR.TypeSystem.IType>((obj) =>
@@ -720,6 +715,14 @@ namespace AutoIL
                 return new System.Comparison<ILRuntime.CLR.TypeSystem.IType>((x, y) =>
                 {
                     return ((System.Func<ILRuntime.CLR.TypeSystem.IType, ILRuntime.CLR.TypeSystem.IType, System.Int32>)act)(x, y);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.EventHandler<System.Threading.Tasks.UnobservedTaskExceptionEventArgs>>((act) =>
+            {
+                return new System.EventHandler<System.Threading.Tasks.UnobservedTaskExceptionEventArgs>((sender, e) =>
+                {
+                    ((System.Action<System.Object, System.Threading.Tasks.UnobservedTaskExceptionEventArgs>)act)(sender, e);
                 });
             });
 
@@ -752,6 +755,22 @@ namespace AutoIL
                 return new System.Comparison<UnityEngine.Object>((x, y) =>
                 {
                     return ((System.Func<UnityEngine.Object, UnityEngine.Object, System.Int32>)act)(x, y);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<System.Type>>((act) =>
+            {
+                return new System.Predicate<System.Type>((obj) =>
+                {
+                    return ((System.Func<System.Type, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<System.Type>>((act) =>
+            {
+                return new System.Comparison<System.Type>((x, y) =>
+                {
+                    return ((System.Func<System.Type, System.Type, System.Int32>)act)(x, y);
                 });
             });
 
@@ -821,6 +840,15 @@ namespace AutoIL
             appdomain.DelegateManager.RegisterMethodDelegate<wxb.BehaviourAction, UnityEngine.Collider>();
             appdomain.DelegateManager.RegisterMethodDelegate<wxb.BehaviourAction, UnityEngine.Collider2D>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Type>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.Threading.Tasks.Task>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.Threading.Tasks.Task, System.Object>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.Object, System.Threading.Tasks.UnobservedTaskExceptionEventArgs>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.IAsyncResult>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.Threading.Tasks.Task[]>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.Threading.Tasks.Task<System.Threading.Tasks.Task>>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.Threading.Tasks.Task<System.Threading.Tasks.Task>, System.Object>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.Threading.Tasks.Task<System.Int32>>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.Threading.Tasks.Task<System.Int32>, System.Object>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Object>();
 
         }

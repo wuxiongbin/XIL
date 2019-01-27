@@ -56,104 +56,107 @@ namespace ILRuntime.Runtime.Generated
             method = type.GetMethod("set_dimension", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, set_dimension_10);
             args = new Type[]{};
+            method = type.GetMethod("get_isReadable", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_isReadable_11);
+            args = new Type[]{};
             method = type.GetMethod("get_wrapMode", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_wrapMode_11);
+            app.RegisterCLRMethodRedirection(method, get_wrapMode_12);
             args = new Type[]{typeof(UnityEngine.TextureWrapMode)};
             method = type.GetMethod("set_wrapMode", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_wrapMode_12);
+            app.RegisterCLRMethodRedirection(method, set_wrapMode_13);
             args = new Type[]{};
             method = type.GetMethod("get_wrapModeU", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_wrapModeU_13);
+            app.RegisterCLRMethodRedirection(method, get_wrapModeU_14);
             args = new Type[]{typeof(UnityEngine.TextureWrapMode)};
             method = type.GetMethod("set_wrapModeU", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_wrapModeU_14);
+            app.RegisterCLRMethodRedirection(method, set_wrapModeU_15);
             args = new Type[]{};
             method = type.GetMethod("get_wrapModeV", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_wrapModeV_15);
+            app.RegisterCLRMethodRedirection(method, get_wrapModeV_16);
             args = new Type[]{typeof(UnityEngine.TextureWrapMode)};
             method = type.GetMethod("set_wrapModeV", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_wrapModeV_16);
+            app.RegisterCLRMethodRedirection(method, set_wrapModeV_17);
             args = new Type[]{};
             method = type.GetMethod("get_wrapModeW", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_wrapModeW_17);
+            app.RegisterCLRMethodRedirection(method, get_wrapModeW_18);
             args = new Type[]{typeof(UnityEngine.TextureWrapMode)};
             method = type.GetMethod("set_wrapModeW", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_wrapModeW_18);
+            app.RegisterCLRMethodRedirection(method, set_wrapModeW_19);
             args = new Type[]{};
             method = type.GetMethod("get_filterMode", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_filterMode_19);
+            app.RegisterCLRMethodRedirection(method, get_filterMode_20);
             args = new Type[]{typeof(UnityEngine.FilterMode)};
             method = type.GetMethod("set_filterMode", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_filterMode_20);
+            app.RegisterCLRMethodRedirection(method, set_filterMode_21);
             args = new Type[]{};
             method = type.GetMethod("get_anisoLevel", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_anisoLevel_21);
+            app.RegisterCLRMethodRedirection(method, get_anisoLevel_22);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("set_anisoLevel", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_anisoLevel_22);
+            app.RegisterCLRMethodRedirection(method, set_anisoLevel_23);
             args = new Type[]{};
             method = type.GetMethod("get_mipMapBias", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_mipMapBias_23);
+            app.RegisterCLRMethodRedirection(method, get_mipMapBias_24);
             args = new Type[]{typeof(System.Single)};
             method = type.GetMethod("set_mipMapBias", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_mipMapBias_24);
+            app.RegisterCLRMethodRedirection(method, set_mipMapBias_25);
             args = new Type[]{};
             method = type.GetMethod("get_texelSize", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_texelSize_25);
+            app.RegisterCLRMethodRedirection(method, get_texelSize_26);
             args = new Type[]{};
             method = type.GetMethod("get_updateCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_updateCount_26);
+            app.RegisterCLRMethodRedirection(method, get_updateCount_27);
             args = new Type[]{};
             method = type.GetMethod("IncrementUpdateCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, IncrementUpdateCount_27);
+            app.RegisterCLRMethodRedirection(method, IncrementUpdateCount_28);
             args = new Type[]{};
             method = type.GetMethod("get_totalTextureMemory", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_totalTextureMemory_28);
+            app.RegisterCLRMethodRedirection(method, get_totalTextureMemory_29);
             args = new Type[]{};
             method = type.GetMethod("get_desiredTextureMemory", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_desiredTextureMemory_29);
+            app.RegisterCLRMethodRedirection(method, get_desiredTextureMemory_30);
             args = new Type[]{};
             method = type.GetMethod("get_targetTextureMemory", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_targetTextureMemory_30);
+            app.RegisterCLRMethodRedirection(method, get_targetTextureMemory_31);
             args = new Type[]{};
             method = type.GetMethod("get_currentTextureMemory", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_currentTextureMemory_31);
+            app.RegisterCLRMethodRedirection(method, get_currentTextureMemory_32);
             args = new Type[]{};
             method = type.GetMethod("get_nonStreamingTextureMemory", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_nonStreamingTextureMemory_32);
+            app.RegisterCLRMethodRedirection(method, get_nonStreamingTextureMemory_33);
             args = new Type[]{};
             method = type.GetMethod("get_streamingMipmapUploadCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_streamingMipmapUploadCount_33);
+            app.RegisterCLRMethodRedirection(method, get_streamingMipmapUploadCount_34);
             args = new Type[]{};
             method = type.GetMethod("get_streamingRendererCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_streamingRendererCount_34);
+            app.RegisterCLRMethodRedirection(method, get_streamingRendererCount_35);
             args = new Type[]{};
             method = type.GetMethod("get_streamingTextureCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_streamingTextureCount_35);
+            app.RegisterCLRMethodRedirection(method, get_streamingTextureCount_36);
             args = new Type[]{};
             method = type.GetMethod("get_nonStreamingTextureCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_nonStreamingTextureCount_36);
+            app.RegisterCLRMethodRedirection(method, get_nonStreamingTextureCount_37);
             args = new Type[]{};
             method = type.GetMethod("get_streamingTexturePendingLoadCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_streamingTexturePendingLoadCount_37);
+            app.RegisterCLRMethodRedirection(method, get_streamingTexturePendingLoadCount_38);
             args = new Type[]{};
             method = type.GetMethod("get_streamingTextureLoadingCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_streamingTextureLoadingCount_38);
+            app.RegisterCLRMethodRedirection(method, get_streamingTextureLoadingCount_39);
             args = new Type[]{};
             method = type.GetMethod("SetStreamingTextureMaterialDebugProperties", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetStreamingTextureMaterialDebugProperties_39);
+            app.RegisterCLRMethodRedirection(method, SetStreamingTextureMaterialDebugProperties_40);
             args = new Type[]{};
             method = type.GetMethod("get_streamingTextureForceLoadAll", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_streamingTextureForceLoadAll_40);
+            app.RegisterCLRMethodRedirection(method, get_streamingTextureForceLoadAll_41);
             args = new Type[]{typeof(System.Boolean)};
             method = type.GetMethod("set_streamingTextureForceLoadAll", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_streamingTextureForceLoadAll_41);
+            app.RegisterCLRMethodRedirection(method, set_streamingTextureForceLoadAll_42);
             args = new Type[]{};
             method = type.GetMethod("get_streamingTextureDiscardUnusedMips", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_streamingTextureDiscardUnusedMips_42);
+            app.RegisterCLRMethodRedirection(method, get_streamingTextureDiscardUnusedMips_43);
             args = new Type[]{typeof(System.Boolean)};
             method = type.GetMethod("set_streamingTextureDiscardUnusedMips", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_streamingTextureDiscardUnusedMips_43);
+            app.RegisterCLRMethodRedirection(method, set_streamingTextureDiscardUnusedMips_44);
 
 
 
@@ -340,7 +343,24 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_wrapMode_11(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_isReadable_11(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Texture instance_of_this_method = (UnityEngine.Texture)typeof(UnityEngine.Texture).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            var result_of_this_method = instance_of_this_method.isReadable;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method ? 1 : 0;
+            return __ret + 1;
+        }
+
+        static StackObject* get_wrapMode_12(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -355,7 +375,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* set_wrapMode_12(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_wrapMode_13(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -374,7 +394,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_wrapModeU_13(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_wrapModeU_14(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -389,7 +409,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* set_wrapModeU_14(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_wrapModeU_15(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -408,7 +428,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_wrapModeV_15(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_wrapModeV_16(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -423,7 +443,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* set_wrapModeV_16(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_wrapModeV_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -442,7 +462,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_wrapModeW_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_wrapModeW_18(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -457,7 +477,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* set_wrapModeW_18(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_wrapModeW_19(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -476,7 +496,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_filterMode_19(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_filterMode_20(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -491,7 +511,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* set_filterMode_20(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_filterMode_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -510,7 +530,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_anisoLevel_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_anisoLevel_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -527,7 +547,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_anisoLevel_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_anisoLevel_23(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -545,7 +565,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_mipMapBias_23(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_mipMapBias_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -562,7 +582,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_mipMapBias_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_mipMapBias_25(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -580,7 +600,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_texelSize_25(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_texelSize_26(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -595,7 +615,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_updateCount_26(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_updateCount_27(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -612,7 +632,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* IncrementUpdateCount_27(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* IncrementUpdateCount_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -627,7 +647,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_totalTextureMemory_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_totalTextureMemory_29(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -640,7 +660,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_desiredTextureMemory_29(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_desiredTextureMemory_30(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -653,7 +673,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_targetTextureMemory_30(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_targetTextureMemory_31(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -666,7 +686,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_currentTextureMemory_31(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_currentTextureMemory_32(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -679,7 +699,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_nonStreamingTextureMemory_32(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_nonStreamingTextureMemory_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -692,7 +712,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_streamingMipmapUploadCount_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_streamingMipmapUploadCount_34(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -705,7 +725,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_streamingRendererCount_34(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_streamingRendererCount_35(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -718,7 +738,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_streamingTextureCount_35(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_streamingTextureCount_36(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -731,7 +751,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_nonStreamingTextureCount_36(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_nonStreamingTextureCount_37(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -744,7 +764,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_streamingTexturePendingLoadCount_37(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_streamingTexturePendingLoadCount_38(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -757,7 +777,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_streamingTextureLoadingCount_38(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_streamingTextureLoadingCount_39(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -770,7 +790,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* SetStreamingTextureMaterialDebugProperties_39(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetStreamingTextureMaterialDebugProperties_40(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -781,7 +801,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_streamingTextureForceLoadAll_40(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_streamingTextureForceLoadAll_41(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -794,7 +814,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_streamingTextureForceLoadAll_41(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_streamingTextureForceLoadAll_42(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -809,7 +829,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_streamingTextureDiscardUnusedMips_42(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_streamingTextureDiscardUnusedMips_43(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -822,7 +842,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_streamingTextureDiscardUnusedMips_43(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_streamingTextureDiscardUnusedMips_44(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

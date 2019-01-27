@@ -322,6 +322,29 @@ namespace wxb
 
         public const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
 
+        static System.IO.Stream DllStream;
+#if USE_PDB || USE_MDB
+        static System.IO.Stream SymbolStream;
+#endif
+        public static System.IO.MemoryStream CopyStream(System.IO.Stream input)
+        {
+            try
+            {
+                if (input == null)
+                    return null;
+
+                int length = (int)(input.Length - input.Position);
+                byte[] bytes = new byte[length];
+                input.Read(bytes, 0, length);
+                return new System.IO.MemoryStream(bytes);
+            }
+            catch (System.Exception ex)
+            {
+                UnityEngine.Debug.LogException(ex);
+                return null;
+            }
+        }
+
         static public void InitHotModule()
         {
             appdomain = new AppDomain();
@@ -339,15 +362,16 @@ namespace wxb
             ILRuntime.Runtime.Generated.UnityEngine_Debug_Binding.Register(appdomain);
             try
             {
-                using (var fs = ResLoad.GetStream("Data/DyncDll.dll"))
+                DllStream = CopyStream(ResLoad.GetStream("Data/DyncDll.dll"));
                 {
 #if USE_PDB
-                    using (var p = ResLoad.GetStream("Data/DyncDll.pdb"))
-                    {
-                        appdomain.LoadAssembly(fs, p, new Mono.Cecil.Pdb.PdbReaderProvider());
-                    }
+                    SymbolStream = CopyStream(ResLoad.GetStream("Data/DyncDll.pdb"));
+                    appdomain.LoadAssembly(DllStream, SymbolStream, new Mono.Cecil.Pdb.PdbReaderProvider());
+#elif USE_MDB
+                    SymbolStream = CopyStream(ResLoad.GetStream("Data/DyncDll.mdb"));
+                    appdomain.LoadAssembly(DllStream, SymbolStream, new Mono.Cecil.Mdb.MdbReaderProvider());
 #else
-                    appdomain.LoadAssembly(fs);
+                    appdomain.LoadAssembly(DllStream);
 #endif
                 }
             }
@@ -870,6 +894,19 @@ namespace wxb
             AllTypes = null;
             refType = null;
             appdomain = null;
+            if (DllStream != null)
+            {
+                DllStream.Close();
+                DllStream = null;
+            }
+
+#if USE_PDB || USE_MDB
+            if (SymbolStream != null)
+            {
+                SymbolStream.Close();
+                SymbolStream = null;
+            }
+#endif
             System.GC.Collect();
         }
     }

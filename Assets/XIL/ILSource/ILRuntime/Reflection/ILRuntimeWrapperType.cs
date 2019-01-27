@@ -1,5 +1,4 @@
-﻿#if USE_HOT
-using System;
+#if USE_HOTusing System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -279,5 +278,4 @@ namespace ILRuntime.Reflection
         }
     }
 }
-
-#endif
+#endif

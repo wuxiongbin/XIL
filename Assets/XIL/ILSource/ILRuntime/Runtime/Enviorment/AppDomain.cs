@@ -1,5 +1,4 @@
-#if USE_HOT
-using System;
+#if USE_HOTusing System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -373,6 +372,7 @@ namespace ILRuntime.Runtime.Enviorment
         /// <param name="stream">Assembly Stream</param>
         /// <param name="symbol">symbol Stream</param>
         /// <param name="symbolReader">symbol 读取器</param>
+        /// <param name="inMemory">是否完整读入内存</param>
         public void LoadAssembly(System.IO.Stream stream, System.IO.Stream symbol, ISymbolReaderProvider symbolReader)
         {
             var module = ModuleDefinition.ReadModule(stream); //从MONO中加载模块
@@ -396,14 +396,14 @@ namespace ILRuntime.Runtime.Enviorment
 
             if (module.HasTypes)
             {
-                //List<ILType> types = new List<ILType>();
+                List<ILType> types = new List<ILType>();
 
                 foreach (var t in module.GetTypes()) //获取所有此模块定义的类型
                 {
                     ILType type = new ILType(t, this);
 
                     mapType[t.FullName] = type;
-                    //types.Add(type);
+                    types.Add(type);
 
                 }
             }
@@ -418,7 +418,6 @@ namespace ILRuntime.Runtime.Enviorment
                 doubleType = GetType("System.Double");
                 objectType = GetType("System.Object");
             }
-            module.AssemblyResolver.ResolveFailure += AssemblyResolver_ResolveFailure;
 #if DEBUG && !DISABLE_ILRUNTIME_DEBUG
             debugService.NotifyModuleLoaded(module.Name);
 #endif
@@ -434,20 +433,6 @@ namespace ILRuntime.Runtime.Enviorment
             references[name] = content;
         }
 
-        private AssemblyDefinition AssemblyResolver_ResolveFailure(object sender, AssemblyNameReference reference)
-        {
-            byte[] content;
-            if (references.TryGetValue(reference.Name, out content))
-            {
-                using (System.IO.MemoryStream ms = new System.IO.MemoryStream(content))
-                {
-                    return AssemblyDefinition.ReadAssembly(ms);
-                }
-            }
-            else
-                return null;
-        }
-
         public void RegisterCLRMethodRedirection(MethodBase mi, CLRRedirectionDelegate func)
         {
             if (mi == null)
@@ -458,9 +443,6 @@ namespace ILRuntime.Runtime.Enviorment
 
         public void RegisterCLRFieldGetter(FieldInfo f, CLRFieldGetterDelegate getter)
         {
-            if (f == null)
-                return;
-
             if (!fieldGetterMap.ContainsKey(f))
                 fieldGetterMap[f] = getter;
         }
@@ -748,7 +730,7 @@ namespace ILRuntime.Runtime.Enviorment
                 }
                 if (_ref.IsByReference)
                 {
-                    var et = _ref.GetElementType();
+                    var et = ((ByReferenceType)_ref).ElementType;
                     bool valid = !et.ContainsGenericParameter;
                     var t = GetType(et, contextType, contextMethod);
                     if (t != null)
@@ -772,7 +754,7 @@ namespace ILRuntime.Runtime.Enviorment
                 if (_ref.IsArray)
                 {
                     ArrayType at = (ArrayType)_ref;
-                    var t = GetType(_ref.GetElementType(), contextType, contextMethod);
+                    var t = GetType(at.ElementType, contextType, contextMethod);
                     if (t != null)
                     {
                         res = t.MakeArrayType(at.Rank);
@@ -1391,5 +1373,4 @@ namespace ILRuntime.Runtime.Enviorment
         }
     }
 }
-
-#endif
+#endif

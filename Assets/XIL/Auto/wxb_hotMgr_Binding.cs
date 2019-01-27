@@ -38,27 +38,30 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(wxb.IResLoad)};
             method = type.GetMethod("Init", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Init_4);
+            args = new Type[]{typeof(System.IO.Stream)};
+            method = type.GetMethod("CopyStream", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, CopyStream_5);
             args = new Type[]{};
             method = type.GetMethod("InitHotModule", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, InitHotModule_5);
+            app.RegisterCLRMethodRedirection(method, InitHotModule_6);
             args = new Type[]{typeof(ILRuntime.Runtime.Enviorment.AppDomain)};
             method = type.GetMethod("RegDelegate", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, RegDelegate_6);
+            app.RegisterCLRMethodRedirection(method, RegDelegate_7);
             args = new Type[]{typeof(System.Type), typeof(System.String), typeof(System.Reflection.MethodInfo)};
             method = type.GetMethod("ReplaceField", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, ReplaceField_7);
+            app.RegisterCLRMethodRedirection(method, ReplaceField_8);
             args = new Type[]{typeof(System.Reflection.MethodInfo)};
             method = type.GetMethod("IsStatic", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, IsStatic_8);
+            app.RegisterCLRMethodRedirection(method, IsStatic_9);
             args = new Type[]{typeof(System.Type), typeof(System.String), typeof(System.Reflection.MethodInfo)};
             method = type.GetMethod("ReplaceFunc", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, ReplaceFunc_9);
+            app.RegisterCLRMethodRedirection(method, ReplaceFunc_10);
             args = new Type[]{typeof(System.Type), typeof(System.Action<System.Type>)};
             method = type.GetMethod("FindAttribute", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, FindAttribute_10);
+            app.RegisterCLRMethodRedirection(method, FindAttribute_11);
             args = new Type[]{};
             method = type.GetMethod("ReleaseAll", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, ReleaseAll_11);
+            app.RegisterCLRMethodRedirection(method, ReleaseAll_12);
 
             field = type.GetField("bindingFlags", flag);
             app.RegisterCLRFieldGetter(field, get_bindingFlags_0);
@@ -157,7 +160,28 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* InitHotModule_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* CopyStream_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.IO.Stream @input = (System.IO.Stream)typeof(System.IO.Stream).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = wxb.hotMgr.CopyStream(@input);
+
+            object obj_result_of_this_method = result_of_this_method;
+            if(obj_result_of_this_method is CrossBindingAdaptorType)
+            {    
+                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
+            }
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* InitHotModule_6(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -168,7 +192,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* RegDelegate_6(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* RegDelegate_7(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -184,7 +208,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* ReplaceField_7(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* ReplaceField_8(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -210,7 +234,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* IsStatic_8(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* IsStatic_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -228,7 +252,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* ReplaceFunc_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* ReplaceFunc_10(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -254,7 +278,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* FindAttribute_10(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* FindAttribute_11(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -274,7 +298,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* ReleaseAll_11(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* ReleaseAll_12(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);

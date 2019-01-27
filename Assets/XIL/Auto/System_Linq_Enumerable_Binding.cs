@@ -25,58 +25,58 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Int32>)};
             method = type.GetMethod("Average", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Average_0);
-            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Int64>)};
-            method = type.GetMethod("Average", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Average_1);
-            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Double>)};
-            method = type.GetMethod("Average", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Average_2);
-            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Single>)};
-            method = type.GetMethod("Average", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Average_3);
-            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Decimal>)};
-            method = type.GetMethod("Average", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Average_4);
             args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>>)};
             method = type.GetMethod("Average", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Average_5);
+            app.RegisterCLRMethodRedirection(method, Average_1);
+            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Int64>)};
+            method = type.GetMethod("Average", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Average_2);
             args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>>)};
+            method = type.GetMethod("Average", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Average_3);
+            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Single>)};
+            method = type.GetMethod("Average", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Average_4);
+            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>)};
+            method = type.GetMethod("Average", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Average_5);
+            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Double>)};
             method = type.GetMethod("Average", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Average_6);
             args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Double>>)};
             method = type.GetMethod("Average", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Average_7);
-            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Decimal>>)};
+            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Decimal>)};
             method = type.GetMethod("Average", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Average_8);
-            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>)};
+            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Decimal>>)};
             method = type.GetMethod("Average", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Average_9);
             args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Int32>)};
             method = type.GetMethod("Max", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Max_10);
-            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Int64>)};
-            method = type.GetMethod("Max", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Max_11);
-            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Double>)};
-            method = type.GetMethod("Max", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Max_12);
-            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Single>)};
-            method = type.GetMethod("Max", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Max_13);
-            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Decimal>)};
-            method = type.GetMethod("Max", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Max_14);
             args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>>)};
             method = type.GetMethod("Max", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Max_15);
+            app.RegisterCLRMethodRedirection(method, Max_11);
+            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Int64>)};
+            method = type.GetMethod("Max", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Max_12);
             args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>>)};
             method = type.GetMethod("Max", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Max_16);
+            app.RegisterCLRMethodRedirection(method, Max_13);
+            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Double>)};
+            method = type.GetMethod("Max", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Max_14);
             args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Double>>)};
             method = type.GetMethod("Max", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Max_17);
+            app.RegisterCLRMethodRedirection(method, Max_15);
+            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Single>)};
+            method = type.GetMethod("Max", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Max_16);
             args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>)};
+            method = type.GetMethod("Max", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Max_17);
+            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Decimal>)};
             method = type.GetMethod("Max", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Max_18);
             args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Decimal>>)};
@@ -85,28 +85,28 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Int32>)};
             method = type.GetMethod("Min", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Min_20);
-            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Int64>)};
-            method = type.GetMethod("Min", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Min_21);
-            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Double>)};
-            method = type.GetMethod("Min", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Min_22);
-            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Single>)};
-            method = type.GetMethod("Min", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Min_23);
-            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Decimal>)};
-            method = type.GetMethod("Min", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Min_24);
             args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>>)};
             method = type.GetMethod("Min", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Min_25);
+            app.RegisterCLRMethodRedirection(method, Min_21);
+            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Int64>)};
+            method = type.GetMethod("Min", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Min_22);
             args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>>)};
+            method = type.GetMethod("Min", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Min_23);
+            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Single>)};
+            method = type.GetMethod("Min", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Min_24);
+            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>)};
+            method = type.GetMethod("Min", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Min_25);
+            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Double>)};
             method = type.GetMethod("Min", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Min_26);
             args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Double>>)};
             method = type.GetMethod("Min", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Min_27);
-            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>)};
+            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Decimal>)};
             method = type.GetMethod("Min", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Min_28);
             args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Decimal>>)};
@@ -127,16 +127,16 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>>)};
             method = type.GetMethod("Sum", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Sum_34);
-            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Double>)};
-            method = type.GetMethod("Sum", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Sum_35);
-            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Double>>)};
-            method = type.GetMethod("Sum", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Sum_36);
             args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Single>)};
             method = type.GetMethod("Sum", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Sum_37);
+            app.RegisterCLRMethodRedirection(method, Sum_35);
             args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>)};
+            method = type.GetMethod("Sum", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Sum_36);
+            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Double>)};
+            method = type.GetMethod("Sum", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Sum_37);
+            args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Double>>)};
             method = type.GetMethod("Sum", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Sum_38);
             args = new Type[]{typeof(System.Collections.Generic.IEnumerable<System.Decimal>)};
@@ -178,15 +178,13 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.IEnumerable<System.Int64> @source = (System.Collections.Generic.IEnumerable<System.Int64>)typeof(System.Collections.Generic.IEnumerable<System.Int64>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
 
             var result_of_this_method = System.Linq.Enumerable.Average(@source);
 
-            __ret->ObjectType = ObjectTypes.Double;
-            *(double*)&__ret->Value = result_of_this_method;
-            return __ret + 1;
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
         static StackObject* Average_2(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
@@ -196,7 +194,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.IEnumerable<System.Double> @source = (System.Collections.Generic.IEnumerable<System.Double>)typeof(System.Collections.Generic.IEnumerable<System.Double>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.IEnumerable<System.Int64> @source = (System.Collections.Generic.IEnumerable<System.Int64>)typeof(System.Collections.Generic.IEnumerable<System.Int64>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
 
@@ -214,6 +212,22 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = System.Linq.Enumerable.Average(@source);
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* Average_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             System.Collections.Generic.IEnumerable<System.Single> @source = (System.Collections.Generic.IEnumerable<System.Single>)typeof(System.Collections.Generic.IEnumerable<System.Single>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
@@ -225,22 +239,6 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* Average_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.IEnumerable<System.Decimal> @source = (System.Collections.Generic.IEnumerable<System.Decimal>)typeof(System.Collections.Generic.IEnumerable<System.Decimal>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-
-            var result_of_this_method = System.Linq.Enumerable.Average(@source);
-
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
         static StackObject* Average_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
@@ -248,7 +246,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.IEnumerable<System.Nullable<System.Single>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
 
@@ -264,13 +262,15 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.IEnumerable<System.Double> @source = (System.Collections.Generic.IEnumerable<System.Double>)typeof(System.Collections.Generic.IEnumerable<System.Double>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
 
             var result_of_this_method = System.Linq.Enumerable.Average(@source);
 
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+            __ret->ObjectType = ObjectTypes.Double;
+            *(double*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
         }
 
         static StackObject* Average_7(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
@@ -296,7 +296,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.IEnumerable<System.Nullable<System.Decimal>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Decimal>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Decimal>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.IEnumerable<System.Decimal> @source = (System.Collections.Generic.IEnumerable<System.Decimal>)typeof(System.Collections.Generic.IEnumerable<System.Decimal>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
 
@@ -312,7 +312,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.IEnumerable<System.Nullable<System.Single>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.IEnumerable<System.Nullable<System.Decimal>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Decimal>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Decimal>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
 
@@ -346,6 +346,22 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = System.Linq.Enumerable.Max(@source);
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* Max_12(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             System.Collections.Generic.IEnumerable<System.Int64> @source = (System.Collections.Generic.IEnumerable<System.Int64>)typeof(System.Collections.Generic.IEnumerable<System.Int64>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
@@ -357,7 +373,23 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* Max_12(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Max_13(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = System.Linq.Enumerable.Max(@source);
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* Max_14(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -375,7 +407,23 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* Max_13(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Max_15(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Collections.Generic.IEnumerable<System.Nullable<System.Double>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Double>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Double>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = System.Linq.Enumerable.Max(@source);
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* Max_16(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -393,54 +441,6 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* Max_14(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.IEnumerable<System.Decimal> @source = (System.Collections.Generic.IEnumerable<System.Decimal>)typeof(System.Collections.Generic.IEnumerable<System.Decimal>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-
-            var result_of_this_method = System.Linq.Enumerable.Max(@source);
-
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
-        static StackObject* Max_15(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-
-            var result_of_this_method = System.Linq.Enumerable.Max(@source);
-
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
-        static StackObject* Max_16(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-
-            var result_of_this_method = System.Linq.Enumerable.Max(@source);
-
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
         static StackObject* Max_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
@@ -448,7 +448,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.IEnumerable<System.Nullable<System.Double>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Double>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Double>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.IEnumerable<System.Nullable<System.Single>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
 
@@ -464,7 +464,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.IEnumerable<System.Nullable<System.Single>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.IEnumerable<System.Decimal> @source = (System.Collections.Generic.IEnumerable<System.Decimal>)typeof(System.Collections.Generic.IEnumerable<System.Decimal>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
 
@@ -514,6 +514,22 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = System.Linq.Enumerable.Min(@source);
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* Min_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             System.Collections.Generic.IEnumerable<System.Int64> @source = (System.Collections.Generic.IEnumerable<System.Int64>)typeof(System.Collections.Generic.IEnumerable<System.Int64>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
@@ -525,25 +541,23 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* Min_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Min_23(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.IEnumerable<System.Double> @source = (System.Collections.Generic.IEnumerable<System.Double>)typeof(System.Collections.Generic.IEnumerable<System.Double>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
 
             var result_of_this_method = System.Linq.Enumerable.Min(@source);
 
-            __ret->ObjectType = ObjectTypes.Double;
-            *(double*)&__ret->Value = result_of_this_method;
-            return __ret + 1;
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* Min_23(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Min_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -561,22 +575,6 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* Min_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.IEnumerable<System.Decimal> @source = (System.Collections.Generic.IEnumerable<System.Decimal>)typeof(System.Collections.Generic.IEnumerable<System.Decimal>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-
-            var result_of_this_method = System.Linq.Enumerable.Min(@source);
-
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
         static StackObject* Min_25(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
@@ -584,7 +582,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.IEnumerable<System.Nullable<System.Single>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
 
@@ -600,13 +598,15 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Int64>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.IEnumerable<System.Double> @source = (System.Collections.Generic.IEnumerable<System.Double>)typeof(System.Collections.Generic.IEnumerable<System.Double>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
 
             var result_of_this_method = System.Linq.Enumerable.Min(@source);
 
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+            __ret->ObjectType = ObjectTypes.Double;
+            *(double*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
         }
 
         static StackObject* Min_27(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
@@ -632,7 +632,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.IEnumerable<System.Nullable<System.Single>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.IEnumerable<System.Decimal> @source = (System.Collections.Generic.IEnumerable<System.Decimal>)typeof(System.Collections.Generic.IEnumerable<System.Decimal>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
 
@@ -755,14 +755,14 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.IEnumerable<System.Double> @source = (System.Collections.Generic.IEnumerable<System.Double>)typeof(System.Collections.Generic.IEnumerable<System.Double>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.IEnumerable<System.Single> @source = (System.Collections.Generic.IEnumerable<System.Single>)typeof(System.Collections.Generic.IEnumerable<System.Single>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
 
             var result_of_this_method = System.Linq.Enumerable.Sum(@source);
 
-            __ret->ObjectType = ObjectTypes.Double;
-            *(double*)&__ret->Value = result_of_this_method;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
             return __ret + 1;
         }
 
@@ -773,7 +773,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.IEnumerable<System.Nullable<System.Double>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Double>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Double>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.IEnumerable<System.Nullable<System.Single>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
 
@@ -789,14 +789,14 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.IEnumerable<System.Single> @source = (System.Collections.Generic.IEnumerable<System.Single>)typeof(System.Collections.Generic.IEnumerable<System.Single>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.IEnumerable<System.Double> @source = (System.Collections.Generic.IEnumerable<System.Double>)typeof(System.Collections.Generic.IEnumerable<System.Double>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
 
             var result_of_this_method = System.Linq.Enumerable.Sum(@source);
 
-            __ret->ObjectType = ObjectTypes.Float;
-            *(float*)&__ret->Value = result_of_this_method;
+            __ret->ObjectType = ObjectTypes.Double;
+            *(double*)&__ret->Value = result_of_this_method;
             return __ret + 1;
         }
 
@@ -807,7 +807,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.IEnumerable<System.Nullable<System.Single>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Single>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.IEnumerable<System.Nullable<System.Double>> @source = (System.Collections.Generic.IEnumerable<System.Nullable<System.Double>>)typeof(System.Collections.Generic.IEnumerable<System.Nullable<System.Double>>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
 
