@@ -163,7 +163,7 @@ PlayerSettings:
   flashStrippingLevel: 2
   spritePackerPolicy: 
   scriptingDefineSymbols:
-    1: USE_HOT;USE_PDB
+    1: USE_HOT
   metroPackageName: XIL
   metroPackageLogo: 
   metroPackageLogo140: 

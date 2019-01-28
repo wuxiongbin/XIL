@@ -1,1 +1,3 @@
-#if USE_HOT#endif
+﻿#if USE_HOT
+
+#endif
