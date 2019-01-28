@@ -79,6 +79,7 @@ namespace xys
             types.Add(typeof(System.Enum));
             types.Add(typeof(Screen));
             types.Add(typeof(wxb.Hotfix));
+            types.Add(typeof(wxb.L));
 
             ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(types.ToList(), "Assets/XIL/Auto");
         }

@@ -74,6 +74,7 @@ namespace ILRuntime.Runtime.Generated
             System_Enum_Binding.Register(app);
             UnityEngine_Screen_Binding.Register(app);
             wxb_Hotfix_Binding.Register(app);
+            wxb_L_Binding.Register(app);
         }
 
         /// <summary>

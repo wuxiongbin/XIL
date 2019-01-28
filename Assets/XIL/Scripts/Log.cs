@@ -8,6 +8,7 @@ namespace wxb
         {
             void Log(object obj);
             void LogFormat(string format, params object[] objs);
+            void LogWarningFormat(string format, params object[] objs);            
             void LogError(object obj);
             void LogErrorFormat(string format, params object[] objs);
             void LogException(System.Exception ex);
@@ -24,7 +25,10 @@ namespace wxb
             {
                 UnityEngine.Debug.LogFormat(format, objs);
             }
-
+            void I.LogWarningFormat(string format, params object[] objs)
+            {
+                UnityEngine.Debug.LogWarningFormat(format, objs);
+            }
             void I.LogError(object obj)
             {
                 UnityEngine.Debug.LogError(obj);
@@ -61,6 +65,14 @@ namespace wxb
                 return;
 
             active.LogFormat(format, objs);
+        }
+
+        static public void LogWarningFormat(string format, params object[] objs)
+        {
+            if (active == null)
+                return;
+
+            active.LogWarningFormat(format, objs);
         }
 
         static public void LogError(object obj)

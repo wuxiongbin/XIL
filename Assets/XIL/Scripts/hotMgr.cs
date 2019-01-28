@@ -36,33 +36,33 @@ namespace wxb
             field = type.GetField(fieldName, wxb.hotMgr.bindingFlags);
             if (field == null)
             {
-                UnityEngine.Debug.LogErrorFormat("type field:{0}.{1} not find!", type.Name, fieldName);
+                wxb.L.LogErrorFormat("type field:{0}.{1} not find!", type.Name, fieldName);
                 return;
             }
 
             method = IL.Help.GetMethod(type, funName);
             if (method == null)
             {
-                UnityEngine.Debug.LogErrorFormat("type method {0}.{1} not find!", type.Name, funName);
+                wxb.L.LogErrorFormat("type method {0}.{1} not find!", type.Name, funName);
                 return;
             }
 
             var hotMethod = hotfixType.GetMethod(hotfixFunName, wxb.hotMgr.bindingFlags);
             if (hotMethod == null)
             {
-                UnityEngine.Debug.LogErrorFormat("{0}.{1} Replace {2}.{3}", type.Name, funName, hotfixType.Name, hotfixFunName);
+                wxb.L.LogErrorFormat("{0}.{1} Replace {2}.{3}", type.Name, funName, hotfixType.Name, hotfixFunName);
                 return;
             }
 
             if (!hotMgr.IsStatic(hotMethod))
             {
-                UnityEngine.Debug.LogErrorFormat("Hotfix type:{0} funName:{1} methodInfo is not static!", hotfixType.Name, hotfixFunName);
+                wxb.L.LogErrorFormat("Hotfix type:{0} funName:{1} methodInfo is not static!", hotfixType.Name, hotfixFunName);
                 return;
             }
 
             bridge = new DelegateBridge(hotMethod);
             field.SetValue(null, bridge);
-            UnityEngine.Debug.LogFormat("{0}.{1} Replace {2}.{3}", type.Name, funName, hotfixType.Name, hotfixFunName);
+            wxb.L.LogFormat("{0}.{1} Replace {2}.{3}", type.Name, funName, hotfixType.Name, hotfixFunName);
         }
 
         public void Run(System.Action action)
@@ -74,7 +74,7 @@ namespace wxb
             }
             catch (System.Exception ex)
             {
-                UnityEngine.Debug.LogException(ex);
+                wxb.L.LogException(ex);
             }
             field.SetValue(null, bridge);
         }
@@ -89,7 +89,7 @@ namespace wxb
             }
             catch (System.Exception ex)
             {
-                UnityEngine.Debug.LogException(ex);
+                wxb.L.LogException(ex);
             }
             field.SetValue(null, bridge);
             return value;
@@ -106,7 +106,7 @@ namespace wxb
             }
             catch (System.Exception ex)
             {
-                UnityEngine.Debug.LogException(ex);
+                wxb.L.LogException(ex);
             }
             field.SetValue(null, bridge);
             return r;
@@ -340,7 +340,7 @@ namespace wxb
             }
             catch (System.Exception ex)
             {
-                UnityEngine.Debug.LogException(ex);
+                wxb.L.LogException(ex);
                 return null;
             }
         }
@@ -377,7 +377,7 @@ namespace wxb
             }
             catch (System.Exception ex)
             {
-                UnityEngine.Debug.LogException(ex);
+                wxb.L.LogException(ex);
             }
 
             RegDelegate(appdomain);
@@ -554,25 +554,25 @@ namespace wxb
             var field = type.GetField(fieldName, bindingFlags);
             if (field == null)
             {
-                UnityEngine.Debug.LogErrorFormat("ReplaceField type:{0} fieldName:{1} not find!", type.Name, fieldName);
+                wxb.L.LogErrorFormat("ReplaceField type:{0} fieldName:{1} not find!", type.Name, fieldName);
                 return false;
             }
 
             if (info == null)
             {
                 field.SetValue(null, null);
-                UnityEngine.Debug.LogFormat("ReplaceFunction type:{0} fieldName:{1} Cannel!", type.Name, fieldName);
+                wxb.L.LogFormat("ReplaceFunction type:{0} fieldName:{1} Cannel!", type.Name, fieldName);
             }
             else
             {
                 if (!IsStatic(info))
                 {
-                    UnityEngine.Debug.LogErrorFormat("ReplaceField type:{0} fieldName:{1} methodInfo is not static!", type.Name, fieldName, info.Name);
+                    wxb.L.LogErrorFormat("ReplaceField type:{0} fieldName:{1} methodInfo is not static!", type.Name, fieldName, info.Name);
                     return false;
                 }
 
                 field.SetValue(null, new global::IL.DelegateBridge(info));
-                UnityEngine.Debug.LogFormat("ReplaceFunction type:{0} fieldName:{1}", type.Name, fieldName);
+                wxb.L.LogFormat("ReplaceFunction type:{0} fieldName:{1}", type.Name, fieldName);
             }
 
             return true;
@@ -693,7 +693,7 @@ namespace wxb
                 GetPlatform(typeDefinition.CustomAttributes, (p) => { platforms.Add(p); });
                 if (platforms.Count != 0 && !platforms.Contains(rp))
                 {
-                    UnityEngine.Debug.LogWarningFormat("platorms:{0} type:{1} not hotfix!", rp, type.Name);
+                    wxb.L.LogWarningFormat("platorms:{0} type:{1} not hotfix!", rp, type.Name);
                     continue; // 不属于此平台的
                 }
                 // 相同函数名排序问题
@@ -711,7 +711,7 @@ namespace wxb
 
                     if (!ilMethod.IsStatic)
                     {
-                        UnityEngine.Debug.LogErrorFormat("type:{0} method:{1} is not static fun!", type.Name, method.Name);
+                        wxb.L.LogErrorFormat("type:{0} method:{1} is not static fun!", type.Name, method.Name);
                         continue;
                     }
 
@@ -719,14 +719,14 @@ namespace wxb
                     GetPlatform(method.CustomAttributes, (p) => { platforms.Add(p); });
                     if (platforms.Count != 0 && !platforms.Contains(rp))
                     {
-                        UnityEngine.Debug.LogWarningFormat("platorms:{0} type:{1}.{2} not hotfix!", rp, type.Name, ilMethod.Name);
+                        wxb.L.LogWarningFormat("platorms:{0} type:{1}.{2} not hotfix!", rp, type.Name, ilMethod.Name);
                         continue; // 不属于此平台的
                     }
 
                     System.Type srcType = methodType != null ? methodType : rt;
                     if (srcType == null)
                     {
-                        UnityEngine.Debug.LogErrorFormat("type:{0} method:{1} not set srcType!", type.Name, method.Name);
+                        wxb.L.LogErrorFormat("type:{0} method:{1} not set srcType!", type.Name, method.Name);
                         continue;
                     }
 
@@ -737,14 +737,14 @@ namespace wxb
                     var field = srcType.GetField(fieldName, bindingFlags);
                     if (field == null)
                     {
-                        UnityEngine.Debug.LogErrorFormat("hotType:{0} method:{1} not find srcType:{2}.{3} hot field!", type.Name, method.Name, srcType.FullName, fieldName);
+                        wxb.L.LogErrorFormat("hotType:{0} method:{1} not find srcType:{2}.{3} hot field!", type.Name, method.Name, srcType.FullName, fieldName);
                         continue;
                     }
 
                     var bridge = new global::IL.DelegateBridge(ilMethod.ReflectionMethodInfo);
                     field.SetValue(null, bridge);
                     Fields.Add(field);
-                    UnityEngine.Debug.LogFormat("type:{0} method:{1} Replace {2}.{3}!", type.Name, method.Name, srcType.Name, fieldName);
+                    wxb.L.LogFormat("type:{0} method:{1} Replace {2}.{3}!", type.Name, method.Name, srcType.Name, fieldName);
 
                     AutoSetFieldMethodValue(srcType, field, type, fieldName, bridge, NameToSorted);
                 }
@@ -793,7 +793,7 @@ namespace wxb
                             continue;
                         if (!method.IsStatic)
                         {
-                            UnityEngine.Debug.LogErrorFormat("hot type:{0} method:{1} not static!", ilType.FullName, name);
+                            wxb.L.LogErrorFormat("hot type:{0} method:{1} not static!", ilType.FullName, name);
                             continue;
                         }
                         calls.Add(method);
@@ -810,7 +810,7 @@ namespace wxb
                 }
                 catch (System.Exception ex)
                 {
-                    UnityEngine.Debug.LogException(ex);
+                    wxb.L.LogException(ex);
                 }
             }
         }
@@ -824,7 +824,7 @@ namespace wxb
             var fieldInfo = type.ReflectionType.GetField(fieldName, bindingFlags);
             if (fieldInfo == null)
             {
-                UnityEngine.Debug.LogErrorFormat("type:{0} fieldInfo:{1} find but not find clrType fieldInfo!", type.Name, fieldName);
+                wxb.L.LogErrorFormat("type:{0} fieldInfo:{1} find but not find clrType fieldInfo!", type.Name, fieldName);
                 return;
             }
 
@@ -863,7 +863,7 @@ namespace wxb
 
                 if (srcMethodInfo == null)
                 {
-                    UnityEngine.Debug.LogErrorFormat("type:{0} method:{1} not find by Field!", type.Name, methodName, fieldName);
+                    wxb.L.LogErrorFormat("type:{0} method:{1} not find by Field!", type.Name, methodName, fieldName);
                     return;
                 }
             }
