@@ -40,6 +40,16 @@ namespace wxb
             }
         }
 
+        static MemoryStream ReadFile(string file)
+        {
+            if (!System.IO.File.Exists(file))
+                return null;
+
+            var bytes = System.IO.File.ReadAllBytes(file);
+            var ms = new MemoryStream(bytes);
+            return ms;
+        }
+
         [MenuItem("Assets/LoadHotDLL")]
         static void LoadDLL()
         {
@@ -55,21 +65,20 @@ namespace wxb
             ILRuntime.Runtime.Generated.UnityEngine_Debug_Binding.Register(appdomain);
             try
             {
-                using (System.IO.FileStream fs = new System.IO.FileStream("Data/DyncDll.dll", System.IO.FileMode.Open))
-                {
+                var fs = ReadFile("Data/DyncDll.dll");
 #if USE_PDB
-                    using (System.IO.FileStream p = new System.IO.FileStream("Data/DyncDll.pdb", System.IO.FileMode.Open))
-                    {
-                        appdomain.LoadAssembly(fs, p, new Mono.Cecil.Pdb.PdbReaderProvider());
-                    }
+                var p = ReadFile("Data/DyncDll.pdb");
+                appdomain.LoadAssembly(fs, p, new Mono.Cecil.Pdb.PdbReaderProvider());
+#elif USE_MDB
+                var p = ReadFile("Data/DyncDll.mdb");
+                appdomain.LoadAssembly(fs, p, new Mono.Cecil.Mdb.MdbReaderProvider());
 #else
-                    appdomain_.LoadAssembly(fs);
+                appdomain_.LoadAssembly(fs);
 #endif
-                }
             }
             catch (System.Exception ex)
             {
-                UnityEngine.Debug.LogException(ex);
+                wxb.L.LogException(ex);
             }
 
             hotMgr.RegDelegate(appdomain_);

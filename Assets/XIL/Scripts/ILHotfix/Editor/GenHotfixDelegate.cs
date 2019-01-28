@@ -83,7 +83,7 @@ namespace wxb
                 }
                 if (rt == type)
                 {
-                    Debug.LogErrorFormat("type:{0} -> {1}", type.Name, rt.Name);
+                    wxb.L.LogErrorFormat("type:{0} -> {1}", type.Name, rt.Name);
                 }
 
                 GetClassName(rt, out bClsName, out bRealClsName, out tmp);
@@ -118,7 +118,7 @@ namespace wxb
                     bool tmp;
                     if (type == j)
                     {
-                        Debug.LogErrorFormat("type:{0} -> {1}", type.Name, j.Name);
+                        wxb.L.LogErrorFormat("type:{0} -> {1}", type.Name, j.Name);
                     }
 
                     GetClassName(j, out a, out b, out tmp, true);
@@ -418,7 +418,7 @@ namespace IL
         //    var flag = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static | BindingFlags.IgnoreCase | BindingFlags.DeclaredOnly;
         //    var type = typeof(HelloWorld);
         //    var methods = type.GetConstructors(flag);
-        //    Debug.LogFormat(methods.Length.ToString());
+        //    wxb.L.LogFormat(methods.Length.ToString());
         //}
 
         [MenuItem("XIL/一键生成")]
@@ -468,9 +468,16 @@ namespace IL
                 if (info.IsSpecialName && (info.Name.StartsWith("get_") || info.Name.StartsWith("set_")))
                 {
                     var flag = BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
-                    var property = info.ReflectedType.GetProperty(info.Name.Substring(4), flag);
-                    if (property.GetCustomAttributes(typeof(EditorField), true).Length != 0)
-                        return true;
+                    var propertys = info.ReflectedType.GetProperties(flag);
+                    string name = info.Name.Substring(4);
+                    foreach (var ator in propertys)
+                    {
+                        if (ator.Name == name)
+                        {
+                            if (ator.GetCustomAttributes(typeof(EditorField), true).Length != 0)
+                                return true;
+                        }
+                    }
                 }
             }
 
@@ -496,7 +503,7 @@ namespace IL
                 {
                     if (exports.Contains(type.FullName.Replace('+', '/')) || type.GetCustomAttributes(typeof(HotfixAttribute), false).Length != 0)
                     {
-                        //Debug.LogFormat("type:{0}", type.FullName);
+                        //wxb.L.LogFormat("type:{0}", type.FullName);
                         if (type.IsGenericType)
                             continue;
 
@@ -573,13 +580,13 @@ namespace IL
             }
 
             System.IO.File.WriteAllText(file, string.Format(file_format + "#endif", marco, sb.ToString()));
-            Debug.LogFormat("count:{0}", allfuns.Count);
+            wxb.L.LogFormat("count:{0}", allfuns.Count);
 
             sb.Length = 0;
             sb.AppendLine(string.Format("countType:{0}", classes.Count));
             foreach (var ator in classes)
                 sb.AppendLine(ator);
-            Debug.LogFormat(sb.ToString());
+            wxb.L.LogFormat(sb.ToString());
 
             GeneratorObjects.Gen(ObjectsParamCount);
             AssetDatabase.Refresh();

@@ -227,8 +227,8 @@
                     }
                     catch (System.Exception ex)
                     {
-                        UnityEngine.Debug.LogErrorFormat("type:{0}", instanceType.FullName);
-                        UnityEngine.Debug.LogException(ex);
+                        wxb.L.LogErrorFormat("type:{0}", instanceType.FullName);
+                        wxb.L.LogException(ex);
                         throw ex;
                     }
                     finally
@@ -249,14 +249,14 @@
                 }
                 catch (System.Exception ex)
                 {
-                    UnityEngine.Debug.LogErrorFormat("type:{0}", instanceType.FullName);
-                    UnityEngine.Debug.LogException(ex);
+                    wxb.L.LogErrorFormat("type:{0}", instanceType.FullName);
+                    wxb.L.LogException(ex);
                     throw ex;
                 }
             }
             else
             {
-                UnityEngine.Debug.LogErrorFormat("{0}: not find Constructor!", instanceType.Name);
+                wxb.L.LogErrorFormat("{0}: not find Constructor!", instanceType.Name);
             }
 
             return instance;
@@ -310,7 +310,7 @@
                                 if ((t is ILRuntimeWrapperType) && ((ILRuntimeWrapperType)t).RealType == type)
                                     continue;
 
-                                UnityEngine.Debug.LogErrorFormat("error:{0}", type.FullName);
+                                wxb.L.LogErrorFormat("error:{0}", type.FullName);
                             }
 #endif
                             continue;
@@ -402,7 +402,7 @@
             if (AllTypesByFullName.TryGetValue(name, out t))
                 return t;
 
-            UnityEngine.Debug.LogErrorFormat("type:{0} not find!", name);
+            wxb.L.LogErrorFormat("type:{0} not find!", name);
             return null;
         }
 
@@ -471,7 +471,7 @@
             }
             catch (System.Exception ex)
             {
-                UnityEngine.Debug.LogException(ex);
+                wxb.L.LogException(ex);
                 return false;
             }
 #else
@@ -635,7 +635,7 @@
                 string FullName = element.FullName;
                 if (element == typeof(ILTypeInstance))
                 {
-                    UnityEngine.Debug.LogError(element.FullName);
+                    wxb.L.LogError(element.FullName);
                 }
             }
             else
@@ -688,7 +688,7 @@
                 var constructor = GetOrCreate(type).GetCtor();
                 if (constructor == null)
                 {
-                    UnityEngine.Debug.LogErrorFormat("type:{0} not GetConstructor", type.Name);
+                    wxb.L.LogErrorFormat("type:{0} not GetConstructor", type.Name);
                     return null;
                 }
                 return constructor.Invoke(null);

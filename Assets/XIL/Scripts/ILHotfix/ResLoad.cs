@@ -32,7 +32,7 @@ namespace wxb
             }
             catch (System.Exception ex)
             {
-                UnityEngine.Debug.LogException(ex);
+                wxb.L.LogException(ex);
             }
 
             return null;

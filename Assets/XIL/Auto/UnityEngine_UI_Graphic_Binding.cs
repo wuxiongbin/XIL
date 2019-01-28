@@ -32,101 +32,83 @@ namespace ILRuntime.Runtime.Generated
             method = type.GetMethod("set_color", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, set_color_2);
             args = new Type[]{};
-            method = type.GetMethod("get_raycastTarget", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_raycastTarget_3);
-            args = new Type[]{typeof(System.Boolean)};
-            method = type.GetMethod("set_raycastTarget", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_raycastTarget_4);
-            args = new Type[]{};
             method = type.GetMethod("SetAllDirty", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetAllDirty_5);
+            app.RegisterCLRMethodRedirection(method, SetAllDirty_3);
             args = new Type[]{};
             method = type.GetMethod("SetLayoutDirty", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetLayoutDirty_6);
+            app.RegisterCLRMethodRedirection(method, SetLayoutDirty_4);
             args = new Type[]{};
             method = type.GetMethod("SetVerticesDirty", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetVerticesDirty_7);
+            app.RegisterCLRMethodRedirection(method, SetVerticesDirty_5);
             args = new Type[]{};
             method = type.GetMethod("SetMaterialDirty", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetMaterialDirty_8);
+            app.RegisterCLRMethodRedirection(method, SetMaterialDirty_6);
             args = new Type[]{};
             method = type.GetMethod("get_depth", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_depth_9);
+            app.RegisterCLRMethodRedirection(method, get_depth_7);
             args = new Type[]{};
             method = type.GetMethod("get_rectTransform", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_rectTransform_10);
+            app.RegisterCLRMethodRedirection(method, get_rectTransform_8);
             args = new Type[]{};
             method = type.GetMethod("get_canvas", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_canvas_11);
+            app.RegisterCLRMethodRedirection(method, get_canvas_9);
             args = new Type[]{};
             method = type.GetMethod("get_canvasRenderer", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_canvasRenderer_12);
+            app.RegisterCLRMethodRedirection(method, get_canvasRenderer_10);
             args = new Type[]{};
             method = type.GetMethod("get_defaultMaterial", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_defaultMaterial_13);
+            app.RegisterCLRMethodRedirection(method, get_defaultMaterial_11);
             args = new Type[]{};
             method = type.GetMethod("get_material", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_material_14);
+            app.RegisterCLRMethodRedirection(method, get_material_12);
             args = new Type[]{typeof(UnityEngine.Material)};
             method = type.GetMethod("set_material", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_material_15);
+            app.RegisterCLRMethodRedirection(method, set_material_13);
             args = new Type[]{};
             method = type.GetMethod("get_materialForRendering", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_materialForRendering_16);
+            app.RegisterCLRMethodRedirection(method, get_materialForRendering_14);
             args = new Type[]{};
             method = type.GetMethod("get_mainTexture", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_mainTexture_17);
-            args = new Type[]{};
-            method = type.GetMethod("OnCullingChanged", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, OnCullingChanged_18);
+            app.RegisterCLRMethodRedirection(method, get_mainTexture_15);
             args = new Type[]{typeof(UnityEngine.UI.CanvasUpdate)};
             method = type.GetMethod("Rebuild", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Rebuild_19);
-            args = new Type[]{};
-            method = type.GetMethod("LayoutComplete", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LayoutComplete_20);
-            args = new Type[]{};
-            method = type.GetMethod("GraphicUpdateComplete", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GraphicUpdateComplete_21);
+            app.RegisterCLRMethodRedirection(method, Rebuild_16);
             args = new Type[]{};
             method = type.GetMethod("SetNativeSize", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetNativeSize_22);
+            app.RegisterCLRMethodRedirection(method, SetNativeSize_17);
             args = new Type[]{typeof(UnityEngine.Vector2), typeof(UnityEngine.Camera)};
             method = type.GetMethod("Raycast", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Raycast_23);
+            app.RegisterCLRMethodRedirection(method, Raycast_18);
             args = new Type[]{typeof(UnityEngine.Vector2)};
             method = type.GetMethod("PixelAdjustPoint", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, PixelAdjustPoint_24);
+            app.RegisterCLRMethodRedirection(method, PixelAdjustPoint_19);
             args = new Type[]{};
             method = type.GetMethod("GetPixelAdjustedRect", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetPixelAdjustedRect_25);
+            app.RegisterCLRMethodRedirection(method, GetPixelAdjustedRect_20);
             args = new Type[]{typeof(UnityEngine.Color), typeof(System.Single), typeof(System.Boolean), typeof(System.Boolean)};
             method = type.GetMethod("CrossFadeColor", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, CrossFadeColor_26);
-            args = new Type[]{typeof(UnityEngine.Color), typeof(System.Single), typeof(System.Boolean), typeof(System.Boolean), typeof(System.Boolean)};
-            method = type.GetMethod("CrossFadeColor", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, CrossFadeColor_27);
+            app.RegisterCLRMethodRedirection(method, CrossFadeColor_21);
             args = new Type[]{typeof(System.Single), typeof(System.Single), typeof(System.Boolean)};
             method = type.GetMethod("CrossFadeAlpha", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, CrossFadeAlpha_28);
+            app.RegisterCLRMethodRedirection(method, CrossFadeAlpha_22);
             args = new Type[]{typeof(UnityEngine.Events.UnityAction)};
             method = type.GetMethod("RegisterDirtyLayoutCallback", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, RegisterDirtyLayoutCallback_29);
+            app.RegisterCLRMethodRedirection(method, RegisterDirtyLayoutCallback_23);
             args = new Type[]{typeof(UnityEngine.Events.UnityAction)};
             method = type.GetMethod("UnregisterDirtyLayoutCallback", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, UnregisterDirtyLayoutCallback_30);
+            app.RegisterCLRMethodRedirection(method, UnregisterDirtyLayoutCallback_24);
             args = new Type[]{typeof(UnityEngine.Events.UnityAction)};
             method = type.GetMethod("RegisterDirtyVerticesCallback", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, RegisterDirtyVerticesCallback_31);
+            app.RegisterCLRMethodRedirection(method, RegisterDirtyVerticesCallback_25);
             args = new Type[]{typeof(UnityEngine.Events.UnityAction)};
             method = type.GetMethod("UnregisterDirtyVerticesCallback", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, UnregisterDirtyVerticesCallback_32);
+            app.RegisterCLRMethodRedirection(method, UnregisterDirtyVerticesCallback_26);
             args = new Type[]{typeof(UnityEngine.Events.UnityAction)};
             method = type.GetMethod("RegisterDirtyMaterialCallback", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, RegisterDirtyMaterialCallback_33);
+            app.RegisterCLRMethodRedirection(method, RegisterDirtyMaterialCallback_27);
             args = new Type[]{typeof(UnityEngine.Events.UnityAction)};
             method = type.GetMethod("UnregisterDirtyMaterialCallback", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, UnregisterDirtyMaterialCallback_34);
+            app.RegisterCLRMethodRedirection(method, UnregisterDirtyMaterialCallback_28);
 
 
 
@@ -186,42 +168,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_raycastTarget_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.UI.Graphic instance_of_this_method = (UnityEngine.UI.Graphic)typeof(UnityEngine.UI.Graphic).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            var result_of_this_method = instance_of_this_method.raycastTarget;
-
-            __ret->ObjectType = ObjectTypes.Integer;
-            __ret->Value = result_of_this_method ? 1 : 0;
-            return __ret + 1;
-        }
-
-        static StackObject* set_raycastTarget_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Boolean @value = ptr_of_this_method->Value == 1;
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            UnityEngine.UI.Graphic instance_of_this_method = (UnityEngine.UI.Graphic)typeof(UnityEngine.UI.Graphic).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.raycastTarget = value;
-
-            return __ret;
-        }
-
-        static StackObject* SetAllDirty_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetAllDirty_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -236,7 +183,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SetLayoutDirty_6(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetLayoutDirty_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -251,7 +198,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SetVerticesDirty_7(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetVerticesDirty_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -266,7 +213,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SetMaterialDirty_8(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetMaterialDirty_6(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -281,7 +228,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_depth_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_depth_7(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -298,7 +245,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_rectTransform_10(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_rectTransform_8(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -313,7 +260,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_canvas_11(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_canvas_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -328,7 +275,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_canvasRenderer_12(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_canvasRenderer_10(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -343,7 +290,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_defaultMaterial_13(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_defaultMaterial_11(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -363,7 +310,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_material_14(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_material_12(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -383,7 +330,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* set_material_15(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_material_13(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -402,7 +349,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_materialForRendering_16(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_materialForRendering_14(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -422,7 +369,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_mainTexture_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_mainTexture_15(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -442,22 +389,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* OnCullingChanged_18(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.UI.Graphic instance_of_this_method = (UnityEngine.UI.Graphic)typeof(UnityEngine.UI.Graphic).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.OnCullingChanged();
-
-            return __ret;
-        }
-
-        static StackObject* Rebuild_19(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Rebuild_16(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -476,37 +408,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* LayoutComplete_20(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.UI.Graphic instance_of_this_method = (UnityEngine.UI.Graphic)typeof(UnityEngine.UI.Graphic).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.LayoutComplete();
-
-            return __ret;
-        }
-
-        static StackObject* GraphicUpdateComplete_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.UI.Graphic instance_of_this_method = (UnityEngine.UI.Graphic)typeof(UnityEngine.UI.Graphic).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.GraphicUpdateComplete();
-
-            return __ret;
-        }
-
-        static StackObject* SetNativeSize_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetNativeSize_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -521,7 +423,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* Raycast_23(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Raycast_18(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -546,7 +448,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* PixelAdjustPoint_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* PixelAdjustPoint_19(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -565,7 +467,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetPixelAdjustedRect_25(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetPixelAdjustedRect_20(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -580,7 +482,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* CrossFadeColor_26(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* CrossFadeColor_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -608,38 +510,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* CrossFadeColor_27(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 6);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Boolean @useRGB = ptr_of_this_method->Value == 1;
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Boolean @useAlpha = ptr_of_this_method->Value == 1;
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            System.Boolean @ignoreTimeScale = ptr_of_this_method->Value == 1;
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 4);
-            System.Single @duration = *(float*)&ptr_of_this_method->Value;
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 5);
-            UnityEngine.Color @targetColor = (UnityEngine.Color)typeof(UnityEngine.Color).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 6);
-            UnityEngine.UI.Graphic instance_of_this_method = (UnityEngine.UI.Graphic)typeof(UnityEngine.UI.Graphic).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.CrossFadeColor(@targetColor, @duration, @ignoreTimeScale, @useAlpha, @useRGB);
-
-            return __ret;
-        }
-
-        static StackObject* CrossFadeAlpha_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* CrossFadeAlpha_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -663,7 +534,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* RegisterDirtyLayoutCallback_29(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* RegisterDirtyLayoutCallback_23(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -682,7 +553,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* UnregisterDirtyLayoutCallback_30(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* UnregisterDirtyLayoutCallback_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -701,7 +572,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* RegisterDirtyVerticesCallback_31(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* RegisterDirtyVerticesCallback_25(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -720,7 +591,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* UnregisterDirtyVerticesCallback_32(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* UnregisterDirtyVerticesCallback_26(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -739,7 +610,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* RegisterDirtyMaterialCallback_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* RegisterDirtyMaterialCallback_27(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -758,7 +629,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* UnregisterDirtyMaterialCallback_34(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* UnregisterDirtyMaterialCallback_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

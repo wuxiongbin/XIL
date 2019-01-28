@@ -20,8 +20,19 @@ namespace ILRuntime.Runtime.Generated
         {
             var text = (objs == null || objs.Length == 0) ? format : string.Format(format, objs);
 
-            UnityEngine.Debug.unityLogger.Log(level,
-                string.Format("{0}\nStackTrance:{1}", text, __domain.DebugService.GetStackTrance(__intp)));
+            var t = string.Format("{0}\nStackTrance:{1}", text, __domain.DebugService.GetStackTrance(__intp));
+            switch (level)
+            {
+            case UnityEngine.LogType.Error:
+                UnityEngine.Debug.LogError(t);
+                break;
+            case UnityEngine.LogType.Log:
+                UnityEngine.Debug.Log(t);
+                break;
+            case UnityEngine.LogType.Warning:
+                UnityEngine.Debug.LogWarning(t);
+                break;
+            }
         }
     }
 }

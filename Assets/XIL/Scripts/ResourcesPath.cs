@@ -54,10 +54,10 @@ public static class ResourcesPath
 #endif
 
 #if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR
-        Debug.LogFormat("streamingAssetsPath:{0}", streamingAssetsPath);
-        Debug.LogFormat("LocalBasePath:{0}", LocalBasePath);
-        Debug.LogFormat("LocalDataPath:{0}", LocalDataPath);
-        Debug.LogFormat("LocalTempPath:{0}", LocalTempPath);
+        wxb.L.LogFormat("streamingAssetsPath:{0}", streamingAssetsPath);
+        wxb.L.LogFormat("LocalBasePath:{0}", LocalBasePath);
+        wxb.L.LogFormat("LocalDataPath:{0}", LocalDataPath);
+        wxb.L.LogFormat("LocalTempPath:{0}", LocalTempPath);
 #endif
     }
 

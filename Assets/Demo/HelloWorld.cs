@@ -64,12 +64,12 @@ public class HelloWorld : MonoBehaviour
 
     public void TestFunc()
     {
-        Debug.Log("TestFunc");
+        wxb.L.Log("TestFunc");
     }
 
     public void TestField()
     {
-        Debug.Log("TestField");
+        wxb.L.Log("TestField");
     }
 
     List<string> onTexts = new List<string>();
@@ -78,12 +78,12 @@ public class HelloWorld : MonoBehaviour
 #if USE_HOT
         wxb.hotMgr.Init();
 #endif
-        Debug.LogFormat("GetValue:{0}", GetValue);
+        wxb.L.LogFormat("GetValue:{0}", GetValue);
 
         int refValue = 0;
         int outValue = 0;
         Test(ref refValue, out outValue);
-        Debug.LogFormat("ref value:{0} out value:{1}", refValue, outValue);
+        wxb.L.LogFormat("ref value:{0} out value:{1}", refValue, outValue);
 
         TestFunc();
 

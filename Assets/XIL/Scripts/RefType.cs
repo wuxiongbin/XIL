@@ -63,7 +63,7 @@
             var field = IL.Help.GetField(type, name);
             if (field == null)
             {
-                UnityEngine.Debug.LogErrorFormat("type:{0} field:{1} not find!", fullType, name);
+                wxb.L.LogErrorFormat("type:{0} field:{1} not find!", fullType, name);
                 return ;
             }
 
@@ -73,8 +73,8 @@
             }
             catch (System.Exception ex)
             {
-                UnityEngine.Debug.LogErrorFormat("SetField type:{0} name:{1}", type.Name, name);
-                UnityEngine.Debug.LogException(ex);
+                wxb.L.LogErrorFormat("SetField type:{0} name:{1}", type.Name, name);
+                wxb.L.LogException(ex);
             }
         }
 
@@ -84,7 +84,7 @@
             var field = IL.Help.GetField(type, name);
             if (field == null)
             {
-                Debug.LogErrorFormat("type:{0} field:{1} not find!", fullType, name);
+                wxb.L.LogErrorFormat("type:{0} field:{1} not find!", fullType, name);
                 return null;
             }
 
@@ -94,8 +94,8 @@
             }
             catch (System.Exception ex)
             {
-                Debug.LogErrorFormat("GetField type:{0} name:{1}", type.Name, name);
-                Debug.LogException(ex);
+                wxb.L.LogErrorFormat("GetField type:{0} name:{1}", type.Name, name);
+                wxb.L.LogException(ex);
                 return null;
             }
         }
@@ -117,8 +117,8 @@
             }
             catch (System.Exception ex)
             {
-                Debug.LogErrorFormat("TryGetField type:{0} name:{1}", type.Name, name);
-                Debug.LogException(ex);
+                wxb.L.LogErrorFormat("TryGetField type:{0} name:{1}", type.Name, name);
+                wxb.L.LogException(ex);
                 return null;
             }
         }
@@ -135,8 +135,8 @@
             }
             catch (System.Exception ex)
             {
-                Debug.LogErrorFormat("TrySetField type:{0} name:{1}", type.Name, name);
-                Debug.LogException(ex);
+                wxb.L.LogErrorFormat("TrySetField type:{0} name:{1}", type.Name, name);
+                wxb.L.LogException(ex);
             }
         }
 
@@ -150,7 +150,7 @@
             var methodInfo = IL.Help.GetMethod(type, name);
             if (methodInfo == null)
             {
-                Debug.LogErrorFormat("type:{0} field:{1} not find!", fullType, name);
+                wxb.L.LogErrorFormat("type:{0} field:{1} not find!", fullType, name);
                 return null;
             }
 
@@ -160,8 +160,8 @@
             }
             catch(System.Exception ex)
             {
-                Debug.LogErrorFormat("InvokeMethodReturn type:{0} name:{1}", type.Name, name);
-                Debug.LogException(ex);
+                wxb.L.LogErrorFormat("InvokeMethodReturn type:{0} name:{1}", type.Name, name);
+                wxb.L.LogException(ex);
                 return null;
             }
         }
@@ -182,8 +182,8 @@
             }
             catch (System.Exception ex)
             {
-                Debug.LogErrorFormat("TryInvokeMethodReturn type:{0} name:{1}", type.Name, name);
-                Debug.LogException(ex);
+                wxb.L.LogErrorFormat("TryInvokeMethodReturn type:{0} name:{1}", type.Name, name);
+                wxb.L.LogException(ex);
                 return null;
             }
         }
@@ -193,7 +193,7 @@
             var propertyInfo = IL.Help.GetProperty(type, name);
             if (propertyInfo == null)
             {
-                Debug.LogErrorFormat("type:{0} Property:{1} not find!", fullType, name);
+                wxb.L.LogErrorFormat("type:{0} Property:{1} not find!", fullType, name);
                 return null;
             }
 
@@ -203,8 +203,8 @@
             }
             catch (System.Exception ex)
             {
-                Debug.LogErrorFormat("GetProperty type:{0} name:{1}", type.Name, name);
-                Debug.LogException(ex);
+                wxb.L.LogErrorFormat("GetProperty type:{0} name:{1}", type.Name, name);
+                wxb.L.LogException(ex);
                 return null;
             }
         }
@@ -219,7 +219,7 @@
             var propertyInfo = IL.Help.GetProperty(type, name);
             if (propertyInfo == null)
             {
-                Debug.LogErrorFormat("type:{0} Property:{1} not find!", fullType, name);
+                wxb.L.LogErrorFormat("type:{0} Property:{1} not find!", fullType, name);
                 return;
             }
 
@@ -229,8 +229,8 @@
             }
             catch (System.Exception ex)
             {
-                Debug.LogErrorFormat("SetProperty type:{0} name:{1}", type.Name, name);
-                Debug.LogException(ex);
+                wxb.L.LogErrorFormat("SetProperty type:{0} name:{1}", type.Name, name);
+                wxb.L.LogException(ex);
             }
         }
 
@@ -245,8 +245,8 @@
             }
             catch (System.Exception ex)
             {
-                Debug.LogErrorFormat("TryGetProperty type:{0} name:{1}", type.Name, name);
-                Debug.LogException(ex);
+                wxb.L.LogErrorFormat("TryGetProperty type:{0} name:{1}", type.Name, name);
+                wxb.L.LogException(ex);
                 return null;
             }
         }
@@ -268,8 +268,8 @@
             }
             catch (System.Exception ex)
             {
-                Debug.LogErrorFormat("TrySetProperty type:{0} name:{1}", type.Name, name);
-                Debug.LogException(ex);
+                wxb.L.LogErrorFormat("TrySetProperty type:{0} name:{1}", type.Name, name);
+                wxb.L.LogException(ex);
             }
         }
 

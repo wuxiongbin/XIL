@@ -185,7 +185,7 @@ namespace wxb.Editor
             }
             catch (System.Exception ex)
             {
-                UnityEngine.Debug.LogException(ex);
+                wxb.L.LogException(ex);
             }
         }
 
@@ -262,14 +262,14 @@ namespace wxb.Editor
                 var readerParameters = new ReaderParameters
                 {
                     ReadSymbols = true,
-                    InMemory = true,
+                    //InMemory = true,
                 };
 
-                string pdb = System.IO.Path.ChangeExtension(inject_assembly_path, ".pdb");
-                if (System.IO.File.Exists(pdb))
-                {
-                    readerParameters.SymbolReaderProvider = new PortablePdbReaderProvider();
-                }
+                //string pdb = System.IO.Path.ChangeExtension(inject_assembly_path, ".pdb");
+                //if (System.IO.File.Exists(pdb))
+                //{
+                //    readerParameters.SymbolReaderProvider = new PortablePdbReaderProvider();
+                //}
                 assembly = AssemblyDefinition.ReadAssembly(inject_assembly_path, readerParameters);
 
                 init(assembly);
@@ -313,12 +313,12 @@ namespace wxb.Editor
 
         static void Info(string info)
         {
-            UnityEngine.Debug.Log(info);
+            wxb.L.Log(info);
         }
 
         static void Error(string info)
         {
-            UnityEngine.Debug.LogError("Error:" + info);
+            wxb.L.LogError("Error:" + info);
         }
 
         static void Clean(AssemblyDefinition assembly)
@@ -328,7 +328,7 @@ namespace wxb.Editor
 				assembly.MainModule.SymbolReader.Dispose();
 			}
 
-            assembly.Dispose();
+            //assembly.Dispose();
         }
 
         static OpCode[] ldargs = new OpCode[] { OpCodes.Ldarg_0, OpCodes.Ldarg_1, OpCodes.Ldarg_2, OpCodes.Ldarg_3 };
@@ -378,7 +378,7 @@ namespace wxb.Editor
                     string kx = GetKey(x);
                     string ky = GetKey(y);
                     if (kx == ky)
-                        UnityEngine.Debug.LogError("key same! + " + x.Name);
+                        wxb.L.LogError("key same! + " + x.Name);
 
                     return kx.CompareTo(ky);
                 });
@@ -448,7 +448,7 @@ namespace wxb.Editor
                     return name + "_" + i;
             }
 
-            UnityEngine.Debug.LogErrorFormat("method:{0} not field name!", method.Name);
+            wxb.L.LogErrorFormat("method:{0} not field name!", method.Name);
             return "";
         }
 

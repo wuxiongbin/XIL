@@ -47,12 +47,15 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.Type), typeof(System.String)};
             method = type.GetMethod("GetBuiltinResource", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, GetBuiltinResource_7);
+            args = new Type[]{typeof(System.String), typeof(System.Type)};
+            method = type.GetMethod("LoadAssetAtPath", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, LoadAssetAtPath_8);
             args = new Type[]{typeof(UnityEngine.Object)};
             method = type.GetMethod("UnloadAsset", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, UnloadAsset_8);
+            app.RegisterCLRMethodRedirection(method, UnloadAsset_9);
             args = new Type[]{};
             method = type.GetMethod("UnloadUnusedAssets", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, UnloadUnusedAssets_9);
+            app.RegisterCLRMethodRedirection(method, UnloadUnusedAssets_10);
 
 
 
@@ -141,11 +144,6 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = UnityEngine.Resources.LoadAsync(@path);
 
-            object obj_result_of_this_method = result_of_this_method;
-            if(obj_result_of_this_method is CrossBindingAdaptorType)
-            {    
-                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
-            }
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
@@ -166,11 +164,6 @@ namespace ILRuntime.Runtime.Generated
 
             var result_of_this_method = UnityEngine.Resources.LoadAsync(@path, @type);
 
-            object obj_result_of_this_method = result_of_this_method;
-            if(obj_result_of_this_method is CrossBindingAdaptorType)
-            {    
-                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
-            }
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
@@ -235,7 +228,32 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* UnloadAsset_8(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* LoadAssetAtPath_8(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Type @type = (System.Type)typeof(System.Type).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            System.String @assetPath = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = UnityEngine.Resources.LoadAssetAtPath(@assetPath, @type);
+
+            object obj_result_of_this_method = result_of_this_method;
+            if(obj_result_of_this_method is CrossBindingAdaptorType)
+            {    
+                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
+            }
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* UnloadAsset_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -251,7 +269,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* UnloadUnusedAssets_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* UnloadUnusedAssets_10(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);

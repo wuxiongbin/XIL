@@ -7,7 +7,7 @@
     {
         static void TestLog()
         {
-            UnityEngine.Debug.LogFormat("TestLog");
+            wxb.L.Log("TestLog");
         }
 
         public static hotApp my { get; private set; }

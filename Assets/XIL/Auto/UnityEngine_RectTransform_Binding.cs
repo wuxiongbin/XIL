@@ -38,56 +38,53 @@ namespace ILRuntime.Runtime.Generated
             method = type.GetMethod("set_anchorMax", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, set_anchorMax_4);
             args = new Type[]{};
-            method = type.GetMethod("get_anchoredPosition", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_anchoredPosition_5);
-            args = new Type[]{typeof(UnityEngine.Vector2)};
-            method = type.GetMethod("set_anchoredPosition", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_anchoredPosition_6);
-            args = new Type[]{};
-            method = type.GetMethod("get_sizeDelta", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_sizeDelta_7);
-            args = new Type[]{typeof(UnityEngine.Vector2)};
-            method = type.GetMethod("set_sizeDelta", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_sizeDelta_8);
-            args = new Type[]{};
-            method = type.GetMethod("get_pivot", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_pivot_9);
-            args = new Type[]{typeof(UnityEngine.Vector2)};
-            method = type.GetMethod("set_pivot", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_pivot_10);
-            args = new Type[]{};
             method = type.GetMethod("get_anchoredPosition3D", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_anchoredPosition3D_11);
+            app.RegisterCLRMethodRedirection(method, get_anchoredPosition3D_5);
             args = new Type[]{typeof(UnityEngine.Vector3)};
             method = type.GetMethod("set_anchoredPosition3D", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_anchoredPosition3D_12);
+            app.RegisterCLRMethodRedirection(method, set_anchoredPosition3D_6);
             args = new Type[]{};
-            method = type.GetMethod("get_offsetMin", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_offsetMin_13);
+            method = type.GetMethod("get_anchoredPosition", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_anchoredPosition_7);
             args = new Type[]{typeof(UnityEngine.Vector2)};
-            method = type.GetMethod("set_offsetMin", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_offsetMin_14);
+            method = type.GetMethod("set_anchoredPosition", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, set_anchoredPosition_8);
             args = new Type[]{};
-            method = type.GetMethod("get_offsetMax", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_offsetMax_15);
+            method = type.GetMethod("get_sizeDelta", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_sizeDelta_9);
             args = new Type[]{typeof(UnityEngine.Vector2)};
-            method = type.GetMethod("set_offsetMax", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_offsetMax_16);
+            method = type.GetMethod("set_sizeDelta", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, set_sizeDelta_10);
             args = new Type[]{};
-            method = type.GetMethod("ForceUpdateRectTransforms", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, ForceUpdateRectTransforms_17);
+            method = type.GetMethod("get_pivot", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_pivot_11);
+            args = new Type[]{typeof(UnityEngine.Vector2)};
+            method = type.GetMethod("set_pivot", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, set_pivot_12);
             args = new Type[]{typeof(UnityEngine.Vector3[])};
             method = type.GetMethod("GetLocalCorners", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetLocalCorners_18);
+            app.RegisterCLRMethodRedirection(method, GetLocalCorners_13);
             args = new Type[]{typeof(UnityEngine.Vector3[])};
             method = type.GetMethod("GetWorldCorners", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetWorldCorners_19);
+            app.RegisterCLRMethodRedirection(method, GetWorldCorners_14);
+            args = new Type[]{};
+            method = type.GetMethod("get_offsetMin", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_offsetMin_15);
+            args = new Type[]{typeof(UnityEngine.Vector2)};
+            method = type.GetMethod("set_offsetMin", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, set_offsetMin_16);
+            args = new Type[]{};
+            method = type.GetMethod("get_offsetMax", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_offsetMax_17);
+            args = new Type[]{typeof(UnityEngine.Vector2)};
+            method = type.GetMethod("set_offsetMax", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, set_offsetMax_18);
             args = new Type[]{typeof(UnityEngine.RectTransform.Edge), typeof(System.Single), typeof(System.Single)};
             method = type.GetMethod("SetInsetAndSizeFromParentEdge", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetInsetAndSizeFromParentEdge_20);
+            app.RegisterCLRMethodRedirection(method, SetInsetAndSizeFromParentEdge_19);
             args = new Type[]{typeof(UnityEngine.RectTransform.Axis), typeof(System.Single)};
             method = type.GetMethod("SetSizeWithCurrentAnchors", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetSizeWithCurrentAnchors_21);
+            app.RegisterCLRMethodRedirection(method, SetSizeWithCurrentAnchors_20);
 
 
 
@@ -184,109 +181,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_anchoredPosition_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.RectTransform instance_of_this_method = (UnityEngine.RectTransform)typeof(UnityEngine.RectTransform).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            var result_of_this_method = instance_of_this_method.anchoredPosition;
-
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
-        static StackObject* set_anchoredPosition_6(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.Vector2 @value = (UnityEngine.Vector2)typeof(UnityEngine.Vector2).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            UnityEngine.RectTransform instance_of_this_method = (UnityEngine.RectTransform)typeof(UnityEngine.RectTransform).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.anchoredPosition = value;
-
-            return __ret;
-        }
-
-        static StackObject* get_sizeDelta_7(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.RectTransform instance_of_this_method = (UnityEngine.RectTransform)typeof(UnityEngine.RectTransform).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            var result_of_this_method = instance_of_this_method.sizeDelta;
-
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
-        static StackObject* set_sizeDelta_8(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.Vector2 @value = (UnityEngine.Vector2)typeof(UnityEngine.Vector2).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            UnityEngine.RectTransform instance_of_this_method = (UnityEngine.RectTransform)typeof(UnityEngine.RectTransform).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.sizeDelta = value;
-
-            return __ret;
-        }
-
-        static StackObject* get_pivot_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.RectTransform instance_of_this_method = (UnityEngine.RectTransform)typeof(UnityEngine.RectTransform).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            var result_of_this_method = instance_of_this_method.pivot;
-
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
-        static StackObject* set_pivot_10(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.Vector2 @value = (UnityEngine.Vector2)typeof(UnityEngine.Vector2).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            UnityEngine.RectTransform instance_of_this_method = (UnityEngine.RectTransform)typeof(UnityEngine.RectTransform).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.pivot = value;
-
-            return __ret;
-        }
-
-        static StackObject* get_anchoredPosition3D_11(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_anchoredPosition3D_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -301,7 +196,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* set_anchoredPosition3D_12(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_anchoredPosition3D_6(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -320,7 +215,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_offsetMin_13(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_anchoredPosition_7(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -330,12 +225,12 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine.RectTransform instance_of_this_method = (UnityEngine.RectTransform)typeof(UnityEngine.RectTransform).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            var result_of_this_method = instance_of_this_method.offsetMin;
+            var result_of_this_method = instance_of_this_method.anchoredPosition;
 
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* set_offsetMin_14(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_anchoredPosition_8(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -349,12 +244,12 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine.RectTransform instance_of_this_method = (UnityEngine.RectTransform)typeof(UnityEngine.RectTransform).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            instance_of_this_method.offsetMin = value;
+            instance_of_this_method.anchoredPosition = value;
 
             return __ret;
         }
 
-        static StackObject* get_offsetMax_15(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_sizeDelta_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -364,12 +259,12 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine.RectTransform instance_of_this_method = (UnityEngine.RectTransform)typeof(UnityEngine.RectTransform).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            var result_of_this_method = instance_of_this_method.offsetMax;
+            var result_of_this_method = instance_of_this_method.sizeDelta;
 
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* set_offsetMax_16(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_sizeDelta_10(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -383,12 +278,12 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine.RectTransform instance_of_this_method = (UnityEngine.RectTransform)typeof(UnityEngine.RectTransform).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            instance_of_this_method.offsetMax = value;
+            instance_of_this_method.sizeDelta = value;
 
             return __ret;
         }
 
-        static StackObject* ForceUpdateRectTransforms_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_pivot_11(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -398,12 +293,31 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine.RectTransform instance_of_this_method = (UnityEngine.RectTransform)typeof(UnityEngine.RectTransform).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            instance_of_this_method.ForceUpdateRectTransforms();
+            var result_of_this_method = instance_of_this_method.pivot;
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* set_pivot_12(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Vector2 @value = (UnityEngine.Vector2)typeof(UnityEngine.Vector2).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.RectTransform instance_of_this_method = (UnityEngine.RectTransform)typeof(UnityEngine.RectTransform).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.pivot = value;
 
             return __ret;
         }
 
-        static StackObject* GetLocalCorners_18(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetLocalCorners_13(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -422,7 +336,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* GetWorldCorners_19(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetWorldCorners_14(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -441,7 +355,75 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SetInsetAndSizeFromParentEdge_20(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_offsetMin_15(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.RectTransform instance_of_this_method = (UnityEngine.RectTransform)typeof(UnityEngine.RectTransform).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            var result_of_this_method = instance_of_this_method.offsetMin;
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* set_offsetMin_16(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Vector2 @value = (UnityEngine.Vector2)typeof(UnityEngine.Vector2).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.RectTransform instance_of_this_method = (UnityEngine.RectTransform)typeof(UnityEngine.RectTransform).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.offsetMin = value;
+
+            return __ret;
+        }
+
+        static StackObject* get_offsetMax_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.RectTransform instance_of_this_method = (UnityEngine.RectTransform)typeof(UnityEngine.RectTransform).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            var result_of_this_method = instance_of_this_method.offsetMax;
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* set_offsetMax_18(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Vector2 @value = (UnityEngine.Vector2)typeof(UnityEngine.Vector2).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.RectTransform instance_of_this_method = (UnityEngine.RectTransform)typeof(UnityEngine.RectTransform).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.offsetMax = value;
+
+            return __ret;
+        }
+
+        static StackObject* SetInsetAndSizeFromParentEdge_19(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -466,7 +448,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SetSizeWithCurrentAnchors_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetSizeWithCurrentAnchors_20(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

@@ -175,40 +175,40 @@ namespace wxb.Editor
         }
     }
 
-    class LongType : BaseType<long>
-    {
-        protected override long OnGUI(string label, long value, System.Type type, out bool isDirty)
-        {
-            long nv = EditorGUILayout.LongField(label, value);
-            if (nv != value)
-                isDirty = true;
-            else
-                isDirty = false;
+    //class LongType : BaseType<long>
+    //{
+    //    protected override long OnGUI(string label, long value, System.Type type, out bool isDirty)
+    //    {
+    //        long nv = EditorGUILayout.LongField(label, value);
+    //        if (nv != value)
+    //            isDirty = true;
+    //        else
+    //            isDirty = false;
 
-            return nv;
-        }
-    }
+    //        return nv;
+    //    }
+    //}
 
-    class ULongType : BaseType<ulong>
-    {
-        protected override ulong OnGUI(string label, ulong value, System.Type type, out bool isDirty)
-        {
-            ulong nv = 0;
-            {
-                long v = EditorGUILayout.LongField(label, (long)value);
-                if (v < 0)
-                    v = 0;
-                nv = (ulong)v;
-            }
+    //class ULongType : BaseType<ulong>
+    //{
+    //    protected override ulong OnGUI(string label, ulong value, System.Type type, out bool isDirty)
+    //    {
+    //        ulong nv = 0;
+    //        {
+    //            long v = EditorGUILayout.LongField(label, (long)value);
+    //            if (v < 0)
+    //                v = 0;
+    //            nv = (ulong)v;
+    //        }
 
-            if (nv != value)
-                isDirty = true;
-            else
-                isDirty = false;
+    //        if (nv != value)
+    //            isDirty = true;
+    //        else
+    //            isDirty = false;
 
-            return nv;
-        }
-    }
+    //        return nv;
+    //    }
+    //}
 
     class StrType : BaseType<string>
     {
@@ -238,20 +238,20 @@ namespace wxb.Editor
         }
     }
 
-    class DoubleType : BaseType<double>
-    {
-        protected override double OnGUI(string label, double value, System.Type type, out bool isDirty)
-        {
-            double nv = EditorGUILayout.DoubleField(label, value);
-            if (nv != value)
-                isDirty = true;
-            else
-                isDirty = false;
+    //class DoubleType : BaseType<double>
+    //{
+    //    protected override double OnGUI(string label, double value, System.Type type, out bool isDirty)
+    //    {
+    //        double nv = EditorGUILayout.DoubleField(label, value);
+    //        if (nv != value)
+    //            isDirty = true;
+    //        else
+    //            isDirty = false;
 
-            return nv;
-        }
+    //        return nv;
+    //    }
 
-    }
+    //}
 
     class ObjectType : BaseType<UnityEngine.Object>
     {

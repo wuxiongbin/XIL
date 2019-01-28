@@ -24,7 +24,7 @@ namespace hot
         [ReplaceFunction()]
         static void Start(HelloWorld world)
         {
-            UnityEngine.Debug.LogFormat("Hot Start(HelloWorld world)");
+            wxb.L.LogFormat("Hot Start(HelloWorld world)");
             RefType refType = new RefType((object)world);
             refType.GetField<List<string>>("onTexts").Add("HotHelloWorld Start");
             __Hotfix_Start.Invoke(world); // 调回HelloWorld.Start自身接口
@@ -46,7 +46,7 @@ namespace hot
         // 在热更初始化后自动调用
         public static void Init()
         {
-            UnityEngine.Debug.LogFormat("HotHelloWorld.Init by AutoInitAndRelease");
+            wxb.L.LogFormat("HotHelloWorld.Init by AutoInitAndRelease");
         }
 
         public static void Reg()
@@ -62,13 +62,13 @@ namespace hot
         // 手动注册，替换了HelloWorld.TestFunc
         static void TestFunc(HelloWorld world)
         {
-            UnityEngine.Debug.Log("HotHelloWorld.TestFunc");
+            wxb.L.Log("HotHelloWorld.TestFunc");
         }
 
         // 手动注册，替换了HelloWorld.TestField
         static void TestField(HelloWorld world)
         {
-            UnityEngine.Debug.Log("HotHelloWorld.TestField");
+            wxb.L.Log("HotHelloWorld.TestField");
         }
 
         static Hotfix __Hotfix_get_GetValue = null; // 保存回调自身数据
@@ -126,17 +126,17 @@ namespace hot
         [ReplaceFunction()]
         static void TestXX(int p1, int p2, int p3, int p4, string p5, string p6, string p7, string p8, Vector3 p9, Vector2 p10, Vector4 p11)
         {
-            Debug.LogFormat("p1:{0}", p1);
-            Debug.LogFormat("p2:{0}", p2);
-            Debug.LogFormat("p3:{0}", p3);
-            Debug.LogFormat("p4:{0}", p4);
-            Debug.LogFormat("p5:{0}", p5);
-            Debug.LogFormat("p6:{0}", p6);
-            Debug.LogFormat("p7:{0}", p7);
-            Debug.LogFormat("p8:{0}", p8);
-            Debug.LogFormat("p9:{0}", p9);
-            Debug.LogFormat("p10:{0}", p10);
-            Debug.LogFormat("p11:{0}", p11);
+            wxb.L.LogFormat("p1:{0}", p1);
+            wxb.L.LogFormat("p2:{0}", p2);
+            wxb.L.LogFormat("p3:{0}", p3);
+            wxb.L.LogFormat("p4:{0}", p4);
+            wxb.L.LogFormat("p5:{0}", p5);
+            wxb.L.LogFormat("p6:{0}", p6);
+            wxb.L.LogFormat("p7:{0}", p7);
+            wxb.L.LogFormat("p8:{0}", p8);
+            wxb.L.LogFormat("p9:{0}", p9);
+            wxb.L.LogFormat("p10:{0}", p10);
+            wxb.L.LogFormat("p11:{0}", p11);
         }
     }
 

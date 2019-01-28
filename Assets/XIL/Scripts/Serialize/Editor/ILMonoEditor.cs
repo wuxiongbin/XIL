@@ -56,7 +56,6 @@ namespace wxb.IL.Editor
                     customizeData = Help.Create(customizeDataField.FieldType);
                     customizeDataField.SetValue(behaviour, customizeData);
                     EditorUtility.SetDirty(behaviour);
-                    EditorApplication.QueuePlayerLoopUpdate();
                 }
 
                 var customizeData_sp = serializedObject.FindProperty("customizeData");

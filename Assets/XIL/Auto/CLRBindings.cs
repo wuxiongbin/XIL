@@ -70,10 +70,10 @@ namespace ILRuntime.Runtime.Generated
             System_Linq_Enumerable_Binding.Register(app);
             UnityEngine_Canvas_Binding.Register(app);
             UnityEngine_Matrix4x4_Binding.Register(app);
-            UnityEngine_Video_VideoPlayer_Binding.Register(app);
             System_Enum_Binding.Register(app);
             UnityEngine_Screen_Binding.Register(app);
             wxb_Hotfix_Binding.Register(app);
+            wxb_L_Binding.Register(app);
         }
 
         /// <summary>

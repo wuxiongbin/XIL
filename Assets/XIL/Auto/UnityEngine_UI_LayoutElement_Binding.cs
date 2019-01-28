@@ -73,9 +73,6 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{};
             method = type.GetMethod("get_layoutPriority", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, get_layoutPriority_16);
-            args = new Type[]{typeof(System.Int32)};
-            method = type.GetMethod("set_layoutPriority", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_layoutPriority_17);
 
 
 
@@ -375,24 +372,6 @@ namespace ILRuntime.Runtime.Generated
             __ret->ObjectType = ObjectTypes.Integer;
             __ret->Value = result_of_this_method;
             return __ret + 1;
-        }
-
-        static StackObject* set_layoutPriority_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Int32 @value = ptr_of_this_method->Value;
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            UnityEngine.UI.LayoutElement instance_of_this_method = (UnityEngine.UI.LayoutElement)typeof(UnityEngine.UI.LayoutElement).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.layoutPriority = value;
-
-            return __ret;
         }
 
 

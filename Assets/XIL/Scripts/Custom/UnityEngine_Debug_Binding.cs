@@ -22,9 +22,9 @@ namespace ILRuntime.Runtime.Generated
             MethodBase method;
             Type[] args;
             Type type = typeof(UnityEngine.Debug);
-            args = new Type[]{};
-            method = type.GetMethod("get_unityLogger", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_unityLogger_0);
+            args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(UnityEngine.Color), typeof(System.Single), typeof(System.Boolean)};
+            method = type.GetMethod("DrawLine", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, DrawLine_0);
             args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(UnityEngine.Color), typeof(System.Single)};
             method = type.GetMethod("DrawLine", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, DrawLine_1);
@@ -34,117 +34,60 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3)};
             method = type.GetMethod("DrawLine", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, DrawLine_3);
-            args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(UnityEngine.Color), typeof(System.Single), typeof(System.Boolean)};
-            method = type.GetMethod("DrawLine", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, DrawLine_4);
             args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(UnityEngine.Color), typeof(System.Single)};
             method = type.GetMethod("DrawRay", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, DrawRay_5);
+            app.RegisterCLRMethodRedirection(method, DrawRay_4);
             args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(UnityEngine.Color)};
             method = type.GetMethod("DrawRay", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, DrawRay_6);
+            app.RegisterCLRMethodRedirection(method, DrawRay_5);
             args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3)};
             method = type.GetMethod("DrawRay", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, DrawRay_7);
+            app.RegisterCLRMethodRedirection(method, DrawRay_6);
             args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(UnityEngine.Color), typeof(System.Single), typeof(System.Boolean)};
             method = type.GetMethod("DrawRay", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, DrawRay_8);
+            app.RegisterCLRMethodRedirection(method, DrawRay_7);
             args = new Type[]{};
             method = type.GetMethod("Break", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Break_9);
+            app.RegisterCLRMethodRedirection(method, Break_8);
             args = new Type[]{};
             method = type.GetMethod("DebugBreak", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, DebugBreak_10);
+            app.RegisterCLRMethodRedirection(method, DebugBreak_9);
             args = new Type[]{typeof(System.Object)};
+            method = type.GetMethod("Log", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Log_10);
+            args = new Type[]{typeof(System.Object), typeof(UnityEngine.Object)};
             method = type.GetMethod("Log", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Log_11);
-            args = new Type[]{typeof(System.Object), typeof(UnityEngine.Object)};
-            method = type.GetMethod("Log", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Log_12);
-            args = new Type[]{typeof(System.String), typeof(System.Object[])};
-            method = type.GetMethod("LogFormat", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LogFormat_13);
-            args = new Type[]{typeof(UnityEngine.Object), typeof(System.String), typeof(System.Object[])};
-            method = type.GetMethod("LogFormat", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LogFormat_14);
             args = new Type[]{typeof(System.Object)};
             method = type.GetMethod("LogError", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LogError_15);
+            app.RegisterCLRMethodRedirection(method, LogError_12);
             args = new Type[]{typeof(System.Object), typeof(UnityEngine.Object)};
             method = type.GetMethod("LogError", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LogError_16);
-            args = new Type[]{typeof(System.String), typeof(System.Object[])};
-            method = type.GetMethod("LogErrorFormat", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LogErrorFormat_17);
-            args = new Type[]{typeof(UnityEngine.Object), typeof(System.String), typeof(System.Object[])};
-            method = type.GetMethod("LogErrorFormat", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LogErrorFormat_18);
+            app.RegisterCLRMethodRedirection(method, LogError_13);
             args = new Type[]{};
             method = type.GetMethod("ClearDeveloperConsole", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, ClearDeveloperConsole_19);
+            app.RegisterCLRMethodRedirection(method, ClearDeveloperConsole_14);
             args = new Type[]{};
             method = type.GetMethod("get_developerConsoleVisible", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_developerConsoleVisible_20);
+            app.RegisterCLRMethodRedirection(method, get_developerConsoleVisible_15);
             args = new Type[]{typeof(System.Boolean)};
             method = type.GetMethod("set_developerConsoleVisible", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_developerConsoleVisible_21);
+            app.RegisterCLRMethodRedirection(method, set_developerConsoleVisible_16);
             args = new Type[]{typeof(System.Exception)};
             method = type.GetMethod("LogException", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LogException_22);
+            app.RegisterCLRMethodRedirection(method, LogException_17);
             args = new Type[]{typeof(System.Exception), typeof(UnityEngine.Object)};
             method = type.GetMethod("LogException", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LogException_23);
+            app.RegisterCLRMethodRedirection(method, LogException_18);
             args = new Type[]{typeof(System.Object)};
             method = type.GetMethod("LogWarning", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LogWarning_24);
+            app.RegisterCLRMethodRedirection(method, LogWarning_19);
             args = new Type[]{typeof(System.Object), typeof(UnityEngine.Object)};
             method = type.GetMethod("LogWarning", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LogWarning_25);
-            args = new Type[]{typeof(System.String), typeof(System.Object[])};
-            method = type.GetMethod("LogWarningFormat", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LogWarningFormat_26);
-            args = new Type[]{typeof(UnityEngine.Object), typeof(System.String), typeof(System.Object[])};
-            method = type.GetMethod("LogWarningFormat", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LogWarningFormat_27);
-            args = new Type[]{typeof(System.Boolean)};
-            method = type.GetMethod("Assert", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Assert_28);
-            args = new Type[]{typeof(System.Boolean), typeof(UnityEngine.Object)};
-            method = type.GetMethod("Assert", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Assert_29);
-            args = new Type[]{typeof(System.Boolean), typeof(System.Object)};
-            method = type.GetMethod("Assert", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Assert_30);
-            args = new Type[]{typeof(System.Boolean), typeof(System.String)};
-            method = type.GetMethod("Assert", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Assert_31);
-            args = new Type[]{typeof(System.Boolean), typeof(System.Object), typeof(UnityEngine.Object)};
-            method = type.GetMethod("Assert", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Assert_32);
-            args = new Type[]{typeof(System.Boolean), typeof(System.String), typeof(UnityEngine.Object)};
-            method = type.GetMethod("Assert", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Assert_33);
-            args = new Type[]{typeof(System.Boolean), typeof(System.String), typeof(System.Object[])};
-            method = type.GetMethod("AssertFormat", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, AssertFormat_34);
-            args = new Type[]{typeof(System.Boolean), typeof(UnityEngine.Object), typeof(System.String), typeof(System.Object[])};
-            method = type.GetMethod("AssertFormat", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, AssertFormat_35);
-            args = new Type[]{typeof(System.Object)};
-            method = type.GetMethod("LogAssertion", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LogAssertion_36);
-            args = new Type[]{typeof(System.Object), typeof(UnityEngine.Object)};
-            method = type.GetMethod("LogAssertion", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LogAssertion_37);
-            args = new Type[]{typeof(System.String), typeof(System.Object[])};
-            method = type.GetMethod("LogAssertionFormat", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LogAssertionFormat_38);
-            args = new Type[]{typeof(UnityEngine.Object), typeof(System.String), typeof(System.Object[])};
-            method = type.GetMethod("LogAssertionFormat", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LogAssertionFormat_39);
+            app.RegisterCLRMethodRedirection(method, LogWarning_20);
             args = new Type[]{};
             method = type.GetMethod("get_isDebugBuild", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_isDebugBuild_40);
+            app.RegisterCLRMethodRedirection(method, get_isDebugBuild_21);
 
 
 
@@ -158,20 +101,34 @@ namespace ILRuntime.Runtime.Generated
         }
 
 
-        static StackObject* get_unityLogger_0(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* DrawLine_0(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 5);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Boolean @depthTest = ptr_of_this_method->Value == 1;
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            System.Single @duration = *(float*)&ptr_of_this_method->Value;
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
+            UnityEngine.Color @color = (UnityEngine.Color)typeof(UnityEngine.Color).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 4);
+            UnityEngine.Vector3 @end = (UnityEngine.Vector3)typeof(UnityEngine.Vector3).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 5);
+            UnityEngine.Vector3 @start = (UnityEngine.Vector3)typeof(UnityEngine.Vector3).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
 
 
-            var result_of_this_method = UnityEngine.Debug.unityLogger;
+            UnityEngine.Debug.DrawLine(@start, @end, @color, @duration, @depthTest);
 
-            object obj_result_of_this_method = result_of_this_method;
-            if(obj_result_of_this_method is CrossBindingAdaptorType)
-            {    
-                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
-            }
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+            return __ret;
         }
 
         static StackObject* DrawLine_1(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
@@ -245,37 +202,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* DrawLine_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 5);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Boolean @depthTest = ptr_of_this_method->Value == 1;
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Single @duration = *(float*)&ptr_of_this_method->Value;
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            UnityEngine.Color @color = (UnityEngine.Color)typeof(UnityEngine.Color).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 4);
-            UnityEngine.Vector3 @end = (UnityEngine.Vector3)typeof(UnityEngine.Vector3).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 5);
-            UnityEngine.Vector3 @start = (UnityEngine.Vector3)typeof(UnityEngine.Vector3).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-
-            UnityEngine.Debug.DrawLine(@start, @end, @color, @duration, @depthTest);
-
-            return __ret;
-        }
-
-        static StackObject* DrawRay_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* DrawRay_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -302,7 +229,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* DrawRay_6(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* DrawRay_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -326,7 +253,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* DrawRay_7(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* DrawRay_6(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -346,7 +273,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* DrawRay_8(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* DrawRay_7(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -376,7 +303,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* Break_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Break_8(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -387,7 +314,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* DebugBreak_10(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* DebugBreak_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -398,7 +325,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* Log_11(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Log_10(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -415,7 +342,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* Log_12(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Log_11(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -430,59 +357,13 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
 
-            ILLog.Log(__intp, __domain, UnityEngine.LogType.Log, "message:{0} context:{1}", message, context);
+            ILLog.Log(__intp, __domain, UnityEngine.LogType.Log, @message.ToString());
             //UnityEngine.Debug.Log(@message, @context);
 
             return __ret;
         }
 
-        static StackObject* LogFormat_13(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Object[] @args = (System.Object[])typeof(System.Object[]).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.String @format = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-
-            ILLog.Log(__intp, __domain, UnityEngine.LogType.Log, @format, @args);
-            //UnityEngine.Debug.LogFormat(@format, @args);
-
-            return __ret;
-        }
-
-        static StackObject* LogFormat_14(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Object[] @args = (System.Object[])typeof(System.Object[]).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.String @format = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            UnityEngine.Object @context = (UnityEngine.Object)typeof(UnityEngine.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-
-            ILLog.Log(__intp, __domain, UnityEngine.LogType.Log, @format, @args);
-            //UnityEngine.Debug.LogFormat(@context, @format, @args);
-
-            return __ret;
-        }
-
-        static StackObject* LogError_15(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* LogError_12(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -499,7 +380,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* LogError_16(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* LogError_13(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -514,59 +395,13 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
 
-            ILLog.Log(__intp, __domain, UnityEngine.LogType.Error, "message:{0} context:{1}", @message, @context);
+            ILLog.Log(__intp, __domain, UnityEngine.LogType.Error, @message.ToString());
             //UnityEngine.Debug.LogError(@message, @context);
 
             return __ret;
         }
 
-        static StackObject* LogErrorFormat_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Object[] @args = (System.Object[])typeof(System.Object[]).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.String @format = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-
-            ILLog.Log(__intp, __domain, UnityEngine.LogType.Error, @format, @args);
-            //UnityEngine.Debug.LogErrorFormat(@format, @args);
-
-            return __ret;
-        }
-
-        static StackObject* LogErrorFormat_18(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Object[] @args = (System.Object[])typeof(System.Object[]).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.String @format = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            UnityEngine.Object @context = (UnityEngine.Object)typeof(UnityEngine.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-
-            ILLog.Log(__intp, __domain, UnityEngine.LogType.Error, @format, @args);
-            //UnityEngine.Debug.LogErrorFormat(@context, @format, @args);
-
-            return __ret;
-        }
-
-        static StackObject* ClearDeveloperConsole_19(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* ClearDeveloperConsole_14(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -577,7 +412,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_developerConsoleVisible_20(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_developerConsoleVisible_15(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -590,7 +425,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_developerConsoleVisible_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_developerConsoleVisible_16(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -605,7 +440,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* LogException_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* LogException_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -615,13 +450,14 @@ namespace ILRuntime.Runtime.Generated
             System.Exception @exception = (System.Exception)typeof(System.Exception).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
+
             ILLog.Log(__intp, __domain, UnityEngine.LogType.Error, @exception.ToString());
             UnityEngine.Debug.LogException(@exception);
 
             return __ret;
         }
 
-        static StackObject* LogException_23(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* LogException_18(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -642,7 +478,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* LogWarning_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* LogWarning_19(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -659,7 +495,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* LogWarning_25(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* LogWarning_20(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -674,307 +510,13 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
 
-            ILLog.Log(__intp, __domain, UnityEngine.LogType.Warning, "message:{0} context:{1}", @message, @context);
+            ILLog.Log(__intp, __domain, UnityEngine.LogType.Warning, @message.ToString());
             //UnityEngine.Debug.LogWarning(@message, @context);
 
             return __ret;
         }
 
-        static StackObject* LogWarningFormat_26(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Object[] @args = (System.Object[])typeof(System.Object[]).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.String @format = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-
-            ILLog.Log(__intp, __domain, UnityEngine.LogType.Warning, @format, @args);
-            //UnityEngine.Debug.LogWarningFormat(@format, @args);
-
-            return __ret;
-        }
-
-        static StackObject* LogWarningFormat_27(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Object[] @args = (System.Object[])typeof(System.Object[]).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.String @format = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            UnityEngine.Object @context = (UnityEngine.Object)typeof(UnityEngine.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-
-            ILLog.Log(__intp, __domain, UnityEngine.LogType.Warning, @format, @args);
-            //UnityEngine.Debug.LogWarningFormat(@context, @format, @args);
-
-            return __ret;
-        }
-
-        static StackObject* Assert_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Boolean @condition = ptr_of_this_method->Value == 1;
-
-
-            UnityEngine.Debug.Assert(@condition);
-
-            return __ret;
-        }
-
-        static StackObject* Assert_29(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.Object @context = (UnityEngine.Object)typeof(UnityEngine.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Boolean @condition = ptr_of_this_method->Value == 1;
-
-
-            UnityEngine.Debug.Assert(@condition, @context);
-
-            return __ret;
-        }
-
-        static StackObject* Assert_30(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Object @message = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Boolean @condition = ptr_of_this_method->Value == 1;
-
-
-            UnityEngine.Debug.Assert(@condition, @message);
-
-            return __ret;
-        }
-
-        static StackObject* Assert_31(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.String @message = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Boolean @condition = ptr_of_this_method->Value == 1;
-
-
-            UnityEngine.Debug.Assert(@condition, @message);
-
-            return __ret;
-        }
-
-        static StackObject* Assert_32(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.Object @context = (UnityEngine.Object)typeof(UnityEngine.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Object @message = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            System.Boolean @condition = ptr_of_this_method->Value == 1;
-
-
-            UnityEngine.Debug.Assert(@condition, @message, @context);
-
-            return __ret;
-        }
-
-        static StackObject* Assert_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.Object @context = (UnityEngine.Object)typeof(UnityEngine.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.String @message = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            System.Boolean @condition = ptr_of_this_method->Value == 1;
-
-
-            UnityEngine.Debug.Assert(@condition, @message, @context);
-
-            return __ret;
-        }
-
-        static StackObject* AssertFormat_34(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Object[] @args = (System.Object[])typeof(System.Object[]).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.String @format = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            System.Boolean @condition = ptr_of_this_method->Value == 1;
-
-
-            UnityEngine.Debug.AssertFormat(@condition, @format, @args);
-
-            return __ret;
-        }
-
-        static StackObject* AssertFormat_35(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 4);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Object[] @args = (System.Object[])typeof(System.Object[]).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.String @format = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            UnityEngine.Object @context = (UnityEngine.Object)typeof(UnityEngine.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 4);
-            System.Boolean @condition = ptr_of_this_method->Value == 1;
-
-
-            UnityEngine.Debug.AssertFormat(@condition, @context, @format, @args);
-
-            return __ret;
-        }
-
-        static StackObject* LogAssertion_36(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Object @message = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-
-            UnityEngine.Debug.LogAssertion(@message);
-
-            return __ret;
-        }
-
-        static StackObject* LogAssertion_37(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.Object @context = (UnityEngine.Object)typeof(UnityEngine.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Object @message = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-
-            UnityEngine.Debug.LogAssertion(@message, @context);
-
-            return __ret;
-        }
-
-        static StackObject* LogAssertionFormat_38(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Object[] @args = (System.Object[])typeof(System.Object[]).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.String @format = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-
-            UnityEngine.Debug.LogAssertionFormat(@format, @args);
-
-            return __ret;
-        }
-
-        static StackObject* LogAssertionFormat_39(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Object[] @args = (System.Object[])typeof(System.Object[]).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.String @format = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            UnityEngine.Object @context = (UnityEngine.Object)typeof(UnityEngine.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-
-            UnityEngine.Debug.LogAssertionFormat(@context, @format, @args);
-
-            return __ret;
-        }
-
-        static StackObject* get_isDebugBuild_40(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_isDebugBuild_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);

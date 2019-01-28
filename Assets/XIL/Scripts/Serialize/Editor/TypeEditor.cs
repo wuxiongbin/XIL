@@ -27,6 +27,15 @@ namespace wxb.Editor
         }
     }
 
+    [UnityEditor.InitializeOnLoad]
+    public static class TypeEditorInit
+    {
+        static TypeEditorInit()
+        {
+            wxb.IL.Help.on_release_all = TypeEditor.Release;
+        }
+    }
+
     public static class TypeEditor 
     {
         static TypeEditor()
@@ -45,12 +54,6 @@ namespace wxb.Editor
             Init();
         }
 
-        [UnityEditor.InitializeOnLoadMethod]
-        static void InitializeOnLoadMethod()
-        {
-            wxb.IL.Help.on_release_all = Release;
-        }
-
         static void Init()
         {
             AllTypes.Add(typeof(UnityEngine.Object), new ObjectType());
@@ -62,10 +65,10 @@ namespace wxb.Editor
             BaseTypes.Add(typeof(char).FullName, new CharType());
             BaseTypes.Add(typeof(short).FullName, new ShortType());
             BaseTypes.Add(typeof(ushort).FullName, new UShortType());
-            BaseTypes.Add(typeof(long).FullName, new LongType());
-            BaseTypes.Add(typeof(ulong).FullName, new ULongType());
+            //BaseTypes.Add(typeof(long).FullName, new LongType());
+            //BaseTypes.Add(typeof(ulong).FullName, new ULongType());
             BaseTypes.Add(typeof(float).FullName, new FloatType());
-            BaseTypes.Add(typeof(double).FullName, new DoubleType());
+            //BaseTypes.Add(typeof(double).FullName, new DoubleType());
             BaseTypes.Add(typeof(string).FullName, new StrType());
         }
 

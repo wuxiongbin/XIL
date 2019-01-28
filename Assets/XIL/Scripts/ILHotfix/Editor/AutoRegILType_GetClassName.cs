@@ -49,7 +49,7 @@
                 }
                 if (rt == type)
                 {
-                    UnityEngine.Debug.LogErrorFormat("type:{0} -> {1}", type.Name, rt.Name);
+                    wxb.L.LogErrorFormat("type:{0} -> {1}", type.Name, rt.Name);
                 }
 
                 GetClassName(rt, out bClsName, out bRealClsName, out tmp);
@@ -84,7 +84,7 @@
                     bool tmp;
                     if (type == j)
                     {
-                        UnityEngine.Debug.LogErrorFormat("type:{0} -> {1}", type.Name, j.Name);
+                        wxb.L.LogErrorFormat("type:{0} -> {1}", type.Name, j.Name);
                     }
 
                     GetClassName(j, out a, out b, out tmp, true);
