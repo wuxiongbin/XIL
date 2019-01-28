@@ -227,8 +227,8 @@
                     }
                     catch (System.Exception ex)
                     {
-                        UnityEngine.Debug.LogErrorFormat("type:{0}", instanceType.FullName);
-                        UnityEngine.Debug.LogException(ex);
+                        wxb.L.LogErrorFormat("type:{0}", instanceType.FullName);
+                        wxb.L.LogException(ex);
                         throw ex;
                     }
                     finally

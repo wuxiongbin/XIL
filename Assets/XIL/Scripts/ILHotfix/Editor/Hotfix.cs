@@ -185,7 +185,7 @@ namespace wxb.Editor
             }
             catch (System.Exception ex)
             {
-                UnityEngine.Debug.LogException(ex);
+                wxb.L.LogException(ex);
             }
         }
 
@@ -313,12 +313,12 @@ namespace wxb.Editor
 
         static void Info(string info)
         {
-            UnityEngine.Debug.Log(info);
+            wxb.L.Log(info);
         }
 
         static void Error(string info)
         {
-            UnityEngine.Debug.LogError("Error:" + info);
+            wxb.L.LogError("Error:" + info);
         }
 
         static void Clean(AssemblyDefinition assembly)
@@ -378,7 +378,7 @@ namespace wxb.Editor
                     string kx = GetKey(x);
                     string ky = GetKey(y);
                     if (kx == ky)
-                        UnityEngine.Debug.LogError("key same! + " + x.Name);
+                        wxb.L.LogError("key same! + " + x.Name);
 
                     return kx.CompareTo(ky);
                 });
@@ -448,7 +448,7 @@ namespace wxb.Editor
                     return name + "_" + i;
             }
 
-            UnityEngine.Debug.LogErrorFormat("method:{0} not field name!", method.Name);
+            wxb.L.LogErrorFormat("method:{0} not field name!", method.Name);
             return "";
         }
 

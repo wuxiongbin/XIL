@@ -327,7 +327,7 @@
             }
 
             // 先把C#层的委托注册到管理器当中
-            UnityEngine.Debug.LogFormat("csharpDelegate Count:{0} hotTDic:{1}", csharpDelegate.Count, hotTDic.Count);
+            wxb.L.LogFormat("csharpDelegate Count:{0} hotTDic:{1}", csharpDelegate.Count, hotTDic.Count);
             BuildDelegate(csharpDelegate, hotTDic);
         }
 
@@ -425,7 +425,7 @@
                     }
                     else
                     {
-                        UnityEngine.Debug.LogErrorFormat("info:{0}", info.GetType().FullName);
+                        wxb.L.LogErrorFormat("info:{0}", info.GetType().FullName);
                     }
                 }
             }
@@ -801,7 +801,7 @@
                 var method = d.GetMethod("Invoke");
                 if (method == null)
                 {
-                    UnityEngine.Debug.LogErrorFormat("method:{0}", d.FullName);
+                    wxb.L.LogErrorFormat("method:{0}", d.FullName);
                     continue;
                 }
 

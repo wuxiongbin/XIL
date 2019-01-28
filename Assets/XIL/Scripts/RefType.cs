@@ -63,7 +63,7 @@
             var field = IL.Help.GetField(type, name);
             if (field == null)
             {
-                UnityEngine.Debug.LogErrorFormat("type:{0} field:{1} not find!", fullType, name);
+                wxb.L.LogErrorFormat("type:{0} field:{1} not find!", fullType, name);
                 return ;
             }
 
@@ -73,8 +73,8 @@
             }
             catch (System.Exception ex)
             {
-                UnityEngine.Debug.LogErrorFormat("SetField type:{0} name:{1}", type.Name, name);
-                UnityEngine.Debug.LogException(ex);
+                wxb.L.LogErrorFormat("SetField type:{0} name:{1}", type.Name, name);
+                wxb.L.LogException(ex);
             }
         }
 

@@ -69,7 +69,7 @@ namespace wxb
 #if UNITY_EDITOR
                 if (stream.WritePos != write_pos + count)
                 {
-                    UnityEngine.Debug.LogErrorFormat("type:{0} CalculateSize error!", ts.GetType().Name);
+                    wxb.L.LogErrorFormat("type:{0} CalculateSize error!", ts.GetType().Name);
                 }
 #endif
             }
@@ -121,14 +121,14 @@ namespace wxb
                     }
                     catch (System.Exception ex)
                     {
-                        UnityEngine.Debug.LogException(ex);
+                        wxb.L.LogException(ex);
                     }
                     finally
                     {
 #if UNITY_EDITOR
                         if (stream.ReadSize != 0)
                         {
-                            UnityEngine.Debug.LogErrorFormat("type:{0} fieldName:{1} length:{2}", type.Name, fieldName, length);
+                            wxb.L.LogErrorFormat("type:{0} fieldName:{1} length:{2}", type.Name, fieldName, length);
                         }
 #endif
                         stream.WritePos = endPos;
