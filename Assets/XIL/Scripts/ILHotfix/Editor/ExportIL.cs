@@ -164,7 +164,7 @@ namespace wxb
             delegates.Sort();
             classes.Sort();
 
-            Debug.Log(string.Format("Find {0} Classes {1} Delegates.", classes.Count, delegates.Count));
+            wxb.L.Log(string.Format("Find {0} Classes {1} Delegates.", classes.Count, delegates.Count));
             return classes;
             //string file = gen_config_file;
             //var write = new StreamWriter(file);

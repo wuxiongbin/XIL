@@ -63,7 +63,7 @@ namespace PackTool
             {
                 isDirty = false;
                 string text = string.Join(";", MacroList.ToArray());
-                Debug.Log("重置宏:" + text);
+                wxb.L.Log("重置宏:" + text);
                 PlayerSettings.SetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup, text);
                 return true;
             }

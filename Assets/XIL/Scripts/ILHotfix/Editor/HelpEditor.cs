@@ -12,7 +12,7 @@ namespace wxb.IL.Editor
         {
             if (string.IsNullOrEmpty(path))
             {
-                Debug.Log("非法的目录:" + path);
+                wxb.L.Log("非法的目录:" + path);
                 return;
             }
 
@@ -85,7 +85,7 @@ namespace wxb.IL.Editor
         {
             if (string.IsNullOrEmpty(path))
             {
-                Debug.Log("非法的目录:" + path);
+                wxb.L.Log("非法的目录:" + path);
                 yield break;
             }
 

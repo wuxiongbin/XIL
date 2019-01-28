@@ -35,12 +35,12 @@ public class Template : MonoBehaviour
         string outValue;
         int outIntValue;
         string value = TestResult(ref refValue, out outValue, out outIntValue);
-        Debug.LogFormat("TestResult string:{0} refValue:{1} outValue:{2} outIntValue:{3}", value, refValue, outValue, outIntValue);
+        wxb.L.LogFormat("TestResult string:{0} refValue:{1} outValue:{2} outIntValue:{3}", value, refValue, outValue, outIntValue);
     }
 
     void Test<T>(T value)
     {
-        Debug.LogFormat("Test:{0} value:{1}", typeof(T).Name, value);
+        wxb.L.LogFormat("Test:{0} value:{1}", typeof(T).Name, value);
     }
 
     T TestResult<T>(ref T refValue, out T value, out int iV)

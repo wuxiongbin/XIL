@@ -175,7 +175,7 @@ namespace wxb.Editor
                             }
 
                             GUIUtility.systemCopyBuffer = sb.ToString();
-                            Debug.Log(sb.ToString());
+                            wxb.L.Log(sb.ToString());
                         }
                     }
                 }
@@ -209,7 +209,7 @@ namespace wxb.Editor
                 }
                 catch (System.Exception ex)
                 {
-                    Debug.LogException(ex);
+                    wxb.L.LogException(ex);
                 }
                 if (v == null && (!IL.Help.isType(field.FieldType, typeof(Object))))
                 {

@@ -83,7 +83,7 @@ namespace wxb
                     }
                     catch (System.Exception ex)
                     {
-                        Debug.LogException(ex);
+                        wxb.L.LogException(ex);
                     }
                     finally
                     {

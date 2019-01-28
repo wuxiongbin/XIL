@@ -41,7 +41,7 @@ namespace hot
 
         void Start()
         {
-            Debug.Log("Start");
+            wxb.L.Log("Start");
         }
     }
 }
