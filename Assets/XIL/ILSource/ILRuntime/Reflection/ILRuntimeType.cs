@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -570,6 +571,13 @@ namespace ILRuntime.Reflection
             }
         }
 
+        public override Type GetGenericTypeDefinition()
+        {
+            var def = type.GetGenericDefinition();
+
+            return def != null ? def.ReflectionType : null;
+        }
+
         public override bool IsGenericTypeDefinition
         {
             get
@@ -579,4 +587,5 @@ namespace ILRuntime.Reflection
         }
     }
 }
-#endif
+
+#endif
