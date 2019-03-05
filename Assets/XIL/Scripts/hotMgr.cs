@@ -8,8 +8,8 @@ namespace wxb
     using ILRuntime.Runtime.Intepreter;
     using System.Collections.Generic;
     using ILRuntime.CLR.TypeSystem;
-    using Mono.Cecil;
-    using Mono.Collections.Generic;
+    using ILRuntime.Mono.Cecil;
+    using ILRuntime.Mono.Collections.Generic;
     using ILRuntime.CLR.Method;
     using global::IL;
 
@@ -366,10 +366,10 @@ namespace wxb
                 {
 #if USE_PDB
                     SymbolStream = CopyStream(ResLoad.GetStream("Data/DyncDll.pdb"));
-                    appdomain.LoadAssembly(DllStream, SymbolStream, new Mono.Cecil.Pdb.PdbReaderProvider());
+                    appdomain.LoadAssembly(DllStream, SymbolStream, new ILRuntime.Mono.Cecil.Pdb.PdbReaderProvider());
 #elif USE_MDB
                     SymbolStream = CopyStream(ResLoad.GetStream("Data/DyncDll.mdb"));
-                    appdomain.LoadAssembly(DllStream, SymbolStream, new Mono.Cecil.Mdb.MdbReaderProvider());
+                    appdomain.LoadAssembly(DllStream, SymbolStream, new ILRuntime.Mono.Cecil.Mdb.MdbReaderProvider());
 #else
                     appdomain.LoadAssembly(DllStream);
 #endif

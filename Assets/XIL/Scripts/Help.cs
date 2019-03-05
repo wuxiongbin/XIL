@@ -2,7 +2,7 @@
 {
     using System.Reflection;
 #if USE_HOT
-    using Mono.Cecil;
+    using ILRuntime.Mono.Cecil;
     using ILRuntime.Reflection;
     using ILRuntime.CLR.TypeSystem;
     using ILRuntime.Runtime.Intepreter;

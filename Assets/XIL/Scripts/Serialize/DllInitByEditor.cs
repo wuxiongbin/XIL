@@ -68,10 +68,10 @@ namespace wxb
                 var fs = ReadFile("Data/DyncDll.dll");
 #if USE_PDB
                 var p = ReadFile("Data/DyncDll.pdb");
-                appdomain.LoadAssembly(fs, p, new Mono.Cecil.Pdb.PdbReaderProvider());
+                appdomain.LoadAssembly(fs, p, new ILRuntime.Mono.Cecil.Pdb.PdbReaderProvider());
 #elif USE_MDB
                 var p = ReadFile("Data/DyncDll.mdb");
-                appdomain.LoadAssembly(fs, p, new Mono.Cecil.Mdb.MdbReaderProvider());
+                appdomain.LoadAssembly(fs, p, new ILRuntime.Mono.Cecil.Mdb.MdbReaderProvider());
 #else
                 appdomain_.LoadAssembly(fs);
 #endif
