@@ -64,8 +64,12 @@ namespace wxb
             if (isByRef)
                 type = type.GetElementType();
             bool isArray = type.IsArray;
+            int arrayCount = 1;
             if (isArray)
+            {
+                arrayCount = type.GetArrayRank();
                 type = type.GetElementType();
+            }
             string realNamespace = null;
             bool isNestedGeneric = false;
             if (type.IsNested)
@@ -148,7 +152,19 @@ namespace wxb
                 realClsName += type.Name;
 
             if (isArray)
-                realClsName += "[]";
+            {
+                if (arrayCount == 1)
+                    realClsName += "[]";
+                else
+                {
+                    realClsName += "[";
+                    for (int i = 1; i < arrayCount; ++i)
+                    {
+                        realClsName += ",";
+                    }
+                    realClsName += "]";
+                }
+            }   
         }
 
         // 参数
@@ -295,10 +311,10 @@ namespace wxb
                 methods.Add(info);
             }
 
-            public Funs(System.Type delegat) : this(delegat.GetMethod("Invoke"), false)
-            {
+            //public Funs(System.Type delegat) : this(delegat.GetMethod("Invoke"), false)
+            //{
 
-            }
+            //}
 
             public string oid
             {

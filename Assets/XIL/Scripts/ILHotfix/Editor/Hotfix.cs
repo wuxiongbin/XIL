@@ -4,8 +4,8 @@ using System;
 using System.Reflection;
 using System.Linq;
 using System.IO;
-using MonoIL.Cecil;
-using MonoIL.Cecil.Cil;
+using Mono.Cecil;
+using Mono.Cecil.Cil;
 
 namespace wxb.Editor
 {
@@ -281,7 +281,7 @@ namespace wxb.Editor
                 }
 
                 var exports = fun();
-                assembly.MainModule.Types.Add(new TypeDefinition("__IL_GEN", "__IL_GEN_FLAG", MonoIL.Cecil.TypeAttributes.Class, objType));
+                assembly.MainModule.Types.Add(new TypeDefinition("__IL_GEN", "__IL_GEN_FLAG", Mono.Cecil.TypeAttributes.Class, objType));
 
                 hotfix_bridges = (from method in delegateBridgeType.Methods where method.Name.StartsWith("__Gen_Delegate_Imp") select method).ToList();
 
@@ -452,7 +452,7 @@ namespace wxb.Editor
             return "";
         }
 
-        static Instruction findNextRet(MonoIL.Collections.Generic.Collection<Instruction> instructions, Instruction pos)
+        static Instruction findNextRet(Mono.Collections.Generic.Collection<Instruction> instructions, Instruction pos)
         {
             bool posFound = false;
             for(int i = 0; i < instructions.Count; i++)
@@ -563,7 +563,7 @@ namespace wxb.Editor
                 return false;
             }
 
-            FieldDefinition fieldDefinition = new FieldDefinition(luaDelegateName, MonoIL.Cecil.FieldAttributes.Static | MonoIL.Cecil.FieldAttributes.Private,
+            FieldDefinition fieldDefinition = new FieldDefinition(luaDelegateName, Mono.Cecil.FieldAttributes.Static | Mono.Cecil.FieldAttributes.Private,
                 delegateBridgeType);
             type.Fields.Add(fieldDefinition);
             fieldReference = fieldDefinition.GetGeneric();
@@ -688,7 +688,7 @@ namespace wxb.Editor
                 return false;
             }
 
-            FieldDefinition fieldDefinition = new FieldDefinition(luaDelegateName, MonoIL.Cecil.FieldAttributes.Static | MonoIL.Cecil.FieldAttributes.Private, delegateBridgeType);
+            FieldDefinition fieldDefinition = new FieldDefinition(luaDelegateName, Mono.Cecil.FieldAttributes.Static | Mono.Cecil.FieldAttributes.Private, delegateBridgeType);
             type.Fields.Add(fieldDefinition);
 
             fieldReference = fieldDefinition.GetGeneric();
