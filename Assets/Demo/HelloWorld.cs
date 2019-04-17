@@ -73,9 +73,30 @@ public class HelloWorld : MonoBehaviour
     }
 
     List<string> onTexts = new List<string>();
+
+#if UNITY_EDITOR && USE_HOT
+    static bool Check()
+    {
+        var fields = typeof(HelloWorld).GetFields();
+        foreach (var field in fields)
+        {
+            if (field.FieldType == typeof(IL.DelegateBridge))
+            {
+                return true;
+            }
+        }
+
+        Debug.LogError("编辑器如果要测试，请点击\"XIL/Hotfix Inject In Editor\"!");
+        return false;
+    }
+#endif
+
     private void Awake()
     {
 #if USE_HOT
+#if UNITY_EDITOR
+        Check();
+#endif
         wxb.hotMgr.Init();
 #endif
         wxb.L.LogFormat("GetValue:{0}", GetValue);

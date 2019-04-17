@@ -33,7 +33,16 @@ namespace IL
                 return result;
             }
         }
-        public void __Gen_Delegate_Imp5(object p0, ref System.Int32 p1, out System.Int32 p2)
+        public bool __Gen_Delegate_Imp5()
+        {
+            using (var pObjs = new EmptyObjs())
+            {
+                bool result = default(bool);
+                result = (bool)methodInfo.Invoke(null, pObjs.objs);
+                return result;
+            }
+        }
+        public void __Gen_Delegate_Imp6(object p0, ref System.Int32 p1, out System.Int32 p2)
         {
             p2 = default(System.Int32);
             using (var pObjs = new Objects(p0, new RefOutParam<System.Int32>(p1), new RefOutParam<System.Int32>(p2)))
@@ -44,7 +53,7 @@ namespace IL
                 p2 = ((RefOutParam<System.Int32>)param[2]).value;
             }
         }
-        public int __Gen_Delegate_Imp6(object p0)
+        public int __Gen_Delegate_Imp7(object p0)
         {
             using (var pObjs = new Objects(p0))
             {
@@ -53,21 +62,21 @@ namespace IL
                 return result;
             }
         }
-        public void __Gen_Delegate_Imp7(object p0, object p1)
+        public void __Gen_Delegate_Imp8(object p0, object p1)
         {
             using (var pObjs = new Objects(p0, p1))
             {
                 methodInfo.Invoke(null, pObjs.objs);
             }
         }
-        public void __Gen_Delegate_Imp8(object p0, int p1, long p2)
+        public void __Gen_Delegate_Imp9(object p0, int p1, long p2)
         {
             using (var pObjs = new Objects(p0, p1, p2))
             {
                 methodInfo.Invoke(null, pObjs.objs);
             }
         }
-        public void __Gen_Delegate_Imp9(object p0, int p1, object p2)
+        public void __Gen_Delegate_Imp10(object p0, int p1, object p2)
         {
             using (var pObjs = new Objects(p0, p1, p2))
             {

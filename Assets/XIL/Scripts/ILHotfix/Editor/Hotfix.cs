@@ -541,7 +541,7 @@ namespace wxb.Editor
 
             if (!findHotfixDelegate(assembly, method, out invoke))
             {
-                Error("can not find delegate for " + method.DeclaringType + "." + method.ToString() + "! try re-genertate code.");
+                Error("查找委托代理失败，请确定是否点击过\"XIL /一键生成\"! can not find delegate for " + method.DeclaringType + "." + method.ToString() + "! try re-genertate code.");
                 return false;
             }
 
