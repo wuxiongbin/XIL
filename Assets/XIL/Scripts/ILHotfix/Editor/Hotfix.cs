@@ -179,6 +179,12 @@ namespace wxb.Editor
             if (UnityEngine.Application.isPlaying)
                 return;
 
+            if (UnityEditor.EditorApplication.isCompiling)
+            {
+                UnityEngine.Debug.LogError("正在编译中，请编译完之后再点击!");
+                return;
+            }
+
             try
             {
                 HotfixInject("./Library/ScriptAssemblies/Assembly-CSharp.dll", ()=> { return new HashSet<string>(GenAutoExport.FixMarkIL()); });
