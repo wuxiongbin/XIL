@@ -781,6 +781,12 @@
 #elif UNITY_WEBGL
             marc = "UNITY_WEBGL";
             suffix = "webgl";
+#elif UNITY_STANDALONE_OSX
+            marc = "UNITY_STANDALONE_OSX";
+            suffix = "mac";
+#elif UNITY_STANDALONE_LINUX
+            marc = "UNITY_STANDALONE_LINUX";
+            suffix = "linux";
 #else
             marc = "UNITY_STANDALONE_WIN";
             suffix = "pc";
