@@ -6,6 +6,7 @@
 下图为Demo截图
 ![Demo截图](http://www.wxbxy.top:55555/xil2.png)
 
+**请使用Unity2019.1.1f1版本打开，其他版本问题，请自行修复报错提示！Unity3D 5.x版本以下可以使用Unity4.7.2分支~**
 和XLUA一样的地方  
 和XLUA原理类似，注入和XLUA基本一致。
 
