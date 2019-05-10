@@ -261,7 +261,7 @@ namespace AutoIL
 }}
 " + "#endif";
 
-        static void DelegateAdapter(DelegateKey key, SB SB, string suffix)
+        static void DelegateAdapter(DelegateKey key, SB SB, string suffix, System.Action<System.Text.StringBuilder> onfun)
         {
             System.Text.StringBuilder sb = null;
             bool isVoid = key.returnType.Name == "Void";
@@ -269,12 +269,18 @@ namespace AutoIL
             if (isVoid)
             {
                 sb = SB.RegisterMethodDelegate;
+                if (onfun != null)
+                    onfun(sb);
+
                 sb.Append(suffix);
                 sb.Append("appdomain.DelegateManager.RegisterMethodDelegate<");
             }
             else
             {
                 sb = SB.RegisterFunctionDelegate;
+                if (onfun != null)
+                    onfun(sb);
+
                 sb.Append(suffix);
                 sb.Append("appdomain.DelegateManager.RegisterFunctionDelegate<");
             }

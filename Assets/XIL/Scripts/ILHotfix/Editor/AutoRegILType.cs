@@ -15,25 +15,58 @@
 //#endif
     static partial class AutoRegILType
     {
+        static Dictionary<System.Type, bool> HotTypes = new Dictionary<System.Type, bool>();
+
         // 是否热更当中的类型
         static bool IsHotType(System.Type type)
         {
+            bool has = false;
+            if (HotTypes.TryGetValue(type, out has))
+                return has;
+
             if (type.Assembly.ManifestModule.Name == "DyncDll.dll")
+            {
+                HotTypes.Add(type, true);
                 return true;
+            }
+
+            if (type.IsGenericType)
+            {
+                var types = type.GetGenericArguments();
+                for (int i = 0; i < types.Length; ++i)
+                {
+                    bool v = IsHotType(types[i]);
+                    if (v == true)
+                    {
+                        HotTypes.Add(type, true);
+                        return true;
+                    }
+                }
+            }
 
             string ns = type.FullName;
             if (string.IsNullOrEmpty(ns))
+            {
+                HotTypes.Add(type, false);
                 return false;
+            }
             if (ns.Contains("hot."))
+            {
+                HotTypes.Add(type, true);
                 return true;
+            }
 
             if (IsDelegate(type))
             {
                 var method = type.GetMethod("Invoke");
                 if (IsHotMethod(method))
+                {
+                    HotTypes.Add(type, true);
                     return true;
+                }
             }
 
+            HotTypes.Add(type, false);
             return false;
         }
 
@@ -781,6 +814,12 @@
 #elif UNITY_WEBGL
             marc = "UNITY_WEBGL";
             suffix = "webgl";
+#elif UNITY_STANDALONE_OSX
+            marc = "UNITY_STANDALONE_OSX";
+            suffix = "mac";
+#elif UNITY_STANDALONE_LINUX
+            marc = "UNITY_STANDALONE_LINUX";
+            suffix = "linux";
 #else
             marc = "UNITY_STANDALONE_WIN";
             suffix = "pc";
@@ -822,26 +861,28 @@
             //System.Text.StringBuilder RegisterMethodDelegate = new System.Text.StringBuilder();
             foreach (var ator in keys)
             {
-                //foreach (var v in ator.Value)
-                //{
-                //    sb.Append(suffix);
-                //    sb.Append("// ");
-                //    sb.AppendLine(GetClassRealClsName(v));
-
-                //    UseTypeInfo info = null;
-                //    if (csharpDelegate.TryGetValue(v, out info))
-                //    {
-                //        if (info.infos.Count == 0)
-                //            continue;
-
-                //        info.To(sb, suffix);
-                //    }
-                //}
-
                 if (ator.Key.isReg)
                 {
                     //sb.Append(suffix);
-                    DelegateAdapter(ator.Key, sb, suffix);
+                    DelegateAdapter(ator.Key, sb, suffix, (ssb)=> 
+                    {
+                        //foreach (var v in ator.Value)
+                        //{
+                        //    ssb.Append(suffix);
+                        //    ssb.Append("// ");
+                        //    ssb.AppendLine(GetClassRealClsName(v));
+
+                        //    UseTypeInfo info = null;
+                        //    if (csharpDelegate.TryGetValue(v, out info))
+                        //    {
+                        //        if (info.infos.Count == 0)
+                        //            continue;
+
+                        //        info.To(ssb, suffix);
+                        //    }
+                        //}
+
+                    });
                     //sb.AppendLine();
                 }
 
