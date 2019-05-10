@@ -5,6 +5,25 @@ using System.Collections.Generic;
 #pragma warning disable 169
 #pragma warning disable 649
 
+class XXXX
+{
+    public static System.Action<XXXX> xxx;
+    public static System.Action<XXXX, bool> xxx1;
+    public static System.Func<XXXX, bool> xxx2;
+
+    public static List<XXXX> xxxxxx;
+
+    public bool GetV(System.Func<XXXX, bool> xxx2)
+    {
+        return xxx2(this);
+    }
+
+    public bool GetV()
+    {
+        return false;
+    }
+}
+
 namespace hot
 {
     // AutoInitAndRelease，热更模块初始化后会自动调用Init,在卸载热更模块时会调用Release
@@ -15,6 +34,7 @@ namespace hot
     [ReplaceType(typeof(HelloWorld))] 
     public static class HotHelloWorld
     {
+
         // 在实际使用补丁方式热更时，经常遇到一些，只是需要在原有函数之前或之后添加一些代码的情况，
         // 这时，你可以通过Hotfix来执行原先代码
         // 类似以下定义的Hotfix字段，会自动赋值
