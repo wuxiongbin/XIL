@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -613,10 +614,10 @@ namespace ILRuntime.CLR.Method
                 else
                     type = appdomain.GetType(pt, declaringType, this);
 
-                if (isByRef)
-                    type = type.MakeByRefType();
                 if (isArray)
                     type = type.MakeArrayType(rank);
+                if (isByRef)
+                    type = type.MakeByRefType();
                 parameters.Add(type);
             }
         }
@@ -678,4 +679,5 @@ namespace ILRuntime.CLR.Method
         }
     }
 }
-#endif
+
+#endif

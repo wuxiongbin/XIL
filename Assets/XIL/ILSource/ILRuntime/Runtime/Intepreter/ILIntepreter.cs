@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -177,7 +178,8 @@ namespace ILRuntime.Runtime.Intepreter
             for (int i = 0; i < method.LocalVariableCount; i++)
             {
                 var v = method.Variables[i];
-                if (v.VariableType.IsValueType && !v.VariableType.IsPrimitive)
+                bool isEnum = (v.VariableType is Mono.Cecil.TypeDefinition td) ? td.IsEnum : false;
+                if (v.VariableType.IsValueType && !v.VariableType.IsPrimitive && !isEnum)
                 {
                     var t = AppDomain.GetType(v.VariableType, method.DeclearingType, method);
                     if (t is ILType)
@@ -210,7 +212,7 @@ namespace ILRuntime.Runtime.Intepreter
                 }
                 else
                 {
-                    if (v.VariableType.IsPrimitive)
+                    if (v.VariableType.IsPrimitive || isEnum)
                     {
                         var t = AppDomain.GetType(v.VariableType, method.DeclearingType, method);
                         var loc = Add(v1, i);
@@ -5245,4 +5247,5 @@ namespace ILRuntime.Runtime.Intepreter
         }
     }
 }
-#endif
+
+#endif

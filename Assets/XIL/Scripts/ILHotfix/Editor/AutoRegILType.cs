@@ -322,8 +322,12 @@
             HashSet<System.Type> types = new HashSet<System.Type>(); 
             var assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
 #if USE_HOT
-            Assembly assembly = Assembly.LoadFile(ResourcesPath.dataPath + "/../Data/DyncDll.dll");
-            types.UnionWith(assembly.GetTypes());
+            string dll = ResourcesPath.dataPath + "/../Data/DyncDll.dll";
+            if (System.IO.File.Exists(dll))
+            {
+                Assembly assembly = Assembly.LoadFile(dll);
+                types.UnionWith(assembly.GetTypes());
+            }
 #endif
             foreach (var assemblie in assemblies)
             {

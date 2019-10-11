@@ -13,6 +13,11 @@ public abstract class TestABS
 }
 public class TestABST : TestABS
 {
+    public TestABST()
+    {
+
+    }
+
     public override void Test()
     {
 
