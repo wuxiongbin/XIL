@@ -187,7 +187,16 @@ namespace wxb.Editor
 
             try
             {
-                HotfixInject("./Library/ScriptAssemblies/Assembly-CSharp.dll", ()=> { return new HashSet<string>(GenAutoExport.FixMarkIL()); });
+                Func<HashSet<string>> fun = () => { return new HashSet<string>(GenAutoExport.FixMarkIL()); };
+                HotfixInject("./Library/ScriptAssemblies/Assembly-CSharp.dll", fun);
+
+                string file = "./Library/PlayerScriptAssemblies/Assembly-CSharp.dll";
+                if (System.IO.File.Exists(file))
+                {
+                    //Log.Debug("PlayerScriptAssemblies begin");
+                    HotfixInject(file, fun);
+                    //Log.Debug("PlayerScriptAssemblies end");
+                }
             }
             catch (System.Exception ex)
             {
