@@ -55,6 +55,17 @@ namespace wxb.Editor
 
                 }
             }
+
+            shortToLong.Clear();
+            var nameToOpcodes = typeof(OpCodes).GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
+    .ToDictionary(f => f.Name, f => ((OpCode)f.GetValue(null)));
+            foreach (var kv in nameToOpcodes)
+            {
+                if (kv.Key.EndsWith("_S"))
+                {
+                    shortToLong[kv.Value] = nameToOpcodes[kv.Key.Substring(0, kv.Key.Length - 2)];
+                }
+            }
         }
 
         static List<MethodDefinition> hotfix_bridges = null;
@@ -187,14 +198,13 @@ namespace wxb.Editor
 
             try
             {
-                Func<HashSet<string>> fun = () => { return new HashSet<string>(GenAutoExport.FixMarkIL()); };
-                HotfixInject("./Library/ScriptAssemblies/Assembly-CSharp.dll", fun);
-
+                System.Func<HashSet<string>> func = () => { return new HashSet<string>(GenAutoExport.FixMarkIL()); };
+                HotfixInject("./Library/ScriptAssemblies/Assembly-CSharp.dll", func);
                 string file = "./Library/PlayerScriptAssemblies/Assembly-CSharp.dll";
                 if (System.IO.File.Exists(file))
                 {
                     //Log.Debug("PlayerScriptAssemblies begin");
-                    HotfixInject(file, fun);
+                    HotfixInject(file, func);
                     //Log.Debug("PlayerScriptAssemblies end");
                 }
             }
@@ -202,6 +212,18 @@ namespace wxb.Editor
             {
                 wxb.L.LogException(ex);
             }
+        }
+
+        static bool IsContainEditor(CustomAttribute att)
+        {
+            switch (att.AttributeType.FullName)
+            {
+            case "EditorClass":
+            case "EditorField":
+                return true;
+            }
+
+            return false;
         }
 
         static bool injectType(AssemblyDefinition assembly, TypeReference hotfixAttributeType, TypeDefinition type, HashSet<string> exports)
@@ -226,10 +248,40 @@ namespace wxb.Editor
             List<MethodDefinition> methods = new List<MethodDefinition>(type.Methods);
             foreach (var method in methods)
             {
-                //if (method.IsSpecialName && (method.Name.StartsWith("get_") || method.Name.StartsWith("set_")))
-                //{
-                //    continue;
-                //}
+                bool isEditorCall = false;
+                if (method.IsSpecialName && (method.Name.StartsWith("get_") || method.Name.StartsWith("set_")))
+                {
+                    string propertyName = method.Name.Substring(4);
+                    foreach (var ator in type.Properties)
+                    {
+                        if (ator.Name == propertyName)
+                        {
+                            foreach (var att in ator.CustomAttributes)
+                            {
+                                if (IsContainEditor(att))
+                                {
+                                    isEditorCall = true;
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var att in method.CustomAttributes)
+                    {
+                        if (IsContainEditor(att))
+                        {
+                            isEditorCall = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (isEditorCall)
+                    continue;
 
                 if (method.Name != ".cctor" && !method.IsAbstract && !method.IsPInvokeImpl && method.Body != null && !method.Name.Contains("<"))
                 {
@@ -565,10 +617,12 @@ namespace wxb.Editor
                 throw new Exception("unknow exception!");
             }
 
+            invoke = assembly.MainModule.ImportReference(invoke);
+
             FieldReference fieldReference = null;
             VariableDefinition injection = null;
 
-            injection = new VariableDefinition(delegateBridgeType);
+            injection = new VariableDefinition(invoke.DeclaringType);
             method.Body.Variables.Add(injection);
 
             var luaDelegateName = getDelegateName(method);
@@ -579,7 +633,7 @@ namespace wxb.Editor
             }
 
             FieldDefinition fieldDefinition = new FieldDefinition(luaDelegateName, Mono.Cecil.FieldAttributes.Static | Mono.Cecil.FieldAttributes.Private,
-                delegateBridgeType);
+                invoke.DeclaringType);
             type.Fields.Add(fieldDefinition);
             fieldReference = fieldDefinition.GetGeneric();
 
@@ -591,12 +645,20 @@ namespace wxb.Editor
                 insertPoint = findNextRet(method.Body.Instructions, insertPoint);
             }
 
+            Dictionary<Instruction, Instruction> originToNewTarget = new Dictionary<Instruction, Instruction>();
+            HashSet<Instruction> noCheck = new HashSet<Instruction>();
+
             while (insertPoint != null)
             {
-                processor.InsertBefore(insertPoint, processor.Create(OpCodes.Ldsfld, fieldReference));
+                Instruction firstInstruction;
+                firstInstruction = processor.Create(OpCodes.Ldsfld, fieldReference);
+                processor.InsertBefore(insertPoint, firstInstruction);
                 processor.InsertBefore(insertPoint, processor.Create(OpCodes.Stloc, injection));
                 processor.InsertBefore(insertPoint, processor.Create(OpCodes.Ldloc, injection));
-                processor.InsertBefore(insertPoint, processor.Create(OpCodes.Brfalse, insertPoint));
+
+                var jmpInstruction = processor.Create(OpCodes.Brfalse, insertPoint);
+                processor.InsertBefore(insertPoint, jmpInstruction);
+
                 processor.InsertBefore(insertPoint, processor.Create(OpCodes.Ldloc, injection));
 
                 for (int i = 0; i < param_count; i++)
@@ -613,14 +675,14 @@ namespace wxb.Editor
                     {
                         processor.InsertBefore(insertPoint, processor.Create(OpCodes.Ldarg, (short)i));
                     }
+                    if (i == 0 && !method.IsStatic && type.IsValueType)
+                    {
+                        processor.InsertBefore(insertPoint, processor.Create(OpCodes.Ldobj, type));
+
+                    }
                 }
 
                 processor.InsertBefore(insertPoint, processor.Create(OpCodes.Call, invoke));
-                if (isFinalize)
-                {
-                    processor.InsertBefore(insertPoint, processor.Create(OpCodes.Ldarg_0));
-                    processor.InsertBefore(insertPoint, processor.Create(OpCodes.Ldnull));
-                }
 
                 if (!method.IsConstructor && !isFinalize)
                 {
@@ -631,7 +693,17 @@ namespace wxb.Editor
                 {
                     break;
                 }
+                else
+                {
+                    originToNewTarget[insertPoint] = firstInstruction;
+                    noCheck.Add(jmpInstruction);
+                }
                 insertPoint = findNextRet(method.Body.Instructions, insertPoint);
+            }
+
+            if (method.IsConstructor)
+            {
+                fixBranch(processor, method.Body.Instructions, originToNewTarget, noCheck);
             }
 
             if (isFinalize)
@@ -644,6 +716,37 @@ namespace wxb.Editor
             }
 
             return true;
+        }
+
+        static Dictionary<OpCode, OpCode> shortToLong = new Dictionary<OpCode, OpCode>();
+
+        static void fixBranch(ILProcessor processor, Mono.Collections.Generic.Collection<Instruction> instructions, Dictionary<Instruction, Instruction> originToNewTarget, HashSet<Instruction> noCheck)
+        {
+            foreach (var instruction in instructions)
+            {
+                Instruction target = instruction.Operand as Instruction;
+                if (target != null && !noCheck.Contains(instruction))
+                {
+                    if (originToNewTarget.ContainsKey(target))
+                    {
+                        instruction.Operand = originToNewTarget[target];
+                    }
+                }
+            }
+            for (int i = 0; i < instructions.Count; i++)
+            {
+                var instruction = instructions[i];
+                Instruction target = instruction.Operand as Instruction;
+
+                if (target != null)
+                {
+                    int diff = target.Offset - instruction.Offset;
+                    if ((diff > sbyte.MaxValue || diff < sbyte.MinValue) && shortToLong.ContainsKey(instruction.OpCode))
+                    {
+                        instructions[i] = processor.Create(shortToLong[instruction.OpCode], target);
+                    }
+                }
+            }
         }
 
         static MethodReference MakeGenericMethod(this MethodReference self, params TypeReference[] arguments)
