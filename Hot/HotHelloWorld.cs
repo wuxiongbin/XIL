@@ -29,7 +29,7 @@ namespace hot
     // AutoInitAndRelease，热更模块初始化后会自动调用Init,在卸载热更模块时会调用Release
     [AutoInitAndRelease]
     // Platform属性可以只在特定平台下才会生效，默认不加是全平台生效
-    //[wxb.Platform(UnityEngine.RuntimePlatform.WindowsPlayer)]    
+    //[wxb.Platform("Android")]
     // 默认替换HeloWorld类下的方法
     [ReplaceType(typeof(HelloWorld))] 
     public static class HotHelloWorld

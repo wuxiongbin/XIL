@@ -210,7 +210,7 @@ namespace wxb
     [System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Method)]
     public class Platform : System.Attribute
     {
-        public Platform(UnityEngine.RuntimePlatform platform)
+        public Platform(string platform)
         {
 
         }
@@ -510,7 +510,7 @@ namespace wxb
                     continue;
 
                 var param = custom.ConstructorArguments[0];
-                UnityEngine.RuntimePlatform platform = (UnityEngine.RuntimePlatform)param.Value;
+                UnityEngine.RuntimePlatform platform = (UnityEngine.RuntimePlatform)System.Enum.Parse(typeof(UnityEngine.RuntimePlatform), (string)param.Value);
                 action(platform);
             }
         }
