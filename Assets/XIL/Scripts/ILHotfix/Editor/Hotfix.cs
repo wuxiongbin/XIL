@@ -378,6 +378,91 @@ namespace wxb.Editor
             }
         }
 
+        static void ResetInstruction(Mono.Cecil.Cil.MethodBody body)
+        {
+            int offset = 0;
+            var instructions = body.Instructions;
+
+            wxb.RefType refType = new RefType(instructions);
+            var items = (Instruction[])refType.GetField("items");
+            var count = instructions.Count;
+            var stack_size = 0;
+            var max_stack = 0;
+            Dictionary<Instruction, int> stack_sizes = null;
+
+            if (body.HasExceptionHandlers)
+                ComputeExceptionHandlerStackSize(body, ref stack_sizes);
+
+            for (int i = 0; i < count; i++)
+            {
+                var instruction = items[i];
+                instruction.Offset = offset;
+                offset += instruction.GetSize();
+
+                ComputeStackSize(instruction, ref stack_sizes, ref stack_size, ref max_stack);
+            }
+
+            wxb.RefType body_refType = new RefType(body);
+            body_refType.SetField("code_size", offset);
+            body_refType.SetField("max_stack_size", max_stack);
+        }
+
+        static MethodInfo _ComputeStackSize;
+        static void ComputeStackSize(Instruction instruction, ref Dictionary<Instruction, int> stack_sizes, ref int stack_size, ref int max_stack)
+        {
+            if (_ComputeStackSize == null)
+            {
+                var CodeWriter = typeof(Instruction).Assembly.GetType("Mono.Cecil.Cil.CodeWriter");
+                _ComputeStackSize = CodeWriter.GetMethod(
+                    "ComputeStackSize",
+                    BindingFlags.Static | BindingFlags.NonPublic,
+                    null,
+                    new Type[] { instruction.GetType(), 
+                        typeof(Dictionary<Instruction, int>).MakeByRefType(), 
+                        typeof(int).MakeByRefType(),
+                        typeof(int).MakeByRefType()},
+                    null);
+            }
+
+            var ps = new object[] { instruction, stack_sizes, stack_size, max_stack };
+            object value = _ComputeStackSize.Invoke(null, ps);
+            stack_sizes = (Dictionary<Instruction, int>)ps[1];
+            stack_size = (int)ps[2];
+            max_stack = (int)ps[3];
+        }
+
+        static void AddExceptionStackSize(Instruction handler_start, ref Dictionary<Instruction, int> stack_sizes)
+        {
+            if (handler_start == null)
+                return;
+
+            if (stack_sizes == null)
+                stack_sizes = new Dictionary<Instruction, int>();
+
+            stack_sizes[handler_start] = 1;
+        }
+
+        static void ComputeExceptionHandlerStackSize(Mono.Cecil.Cil.MethodBody body, ref Dictionary<Instruction, int> stack_sizes)
+        {
+            var exception_handlers = body.ExceptionHandlers;
+
+            for (int i = 0; i < exception_handlers.Count; i++)
+            {
+                var exception_handler = exception_handlers[i];
+
+                switch (exception_handler.HandlerType)
+                {
+                case ExceptionHandlerType.Catch:
+                    AddExceptionStackSize(exception_handler.HandlerStart, ref stack_sizes);
+                    break;
+                case ExceptionHandlerType.Filter:
+                    AddExceptionStackSize(exception_handler.FilterStart, ref stack_sizes);
+                    AddExceptionStackSize(exception_handler.HandlerStart, ref stack_sizes);
+                    break;
+                }
+            }
+        }
+
         static void Info(string info)
         {
             wxb.L.Log(info);
@@ -596,6 +681,17 @@ namespace wxb.Editor
             return false;
         }
 
+        public static void LogInfo(string key, Mono.Collections.Generic.Collection<Instruction> Instructions)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.AppendFormatLine("{0} Total:{1}", key, Instructions.Count);
+            for (int i = 0; i < Instructions.Count; ++i)
+            {
+                sb.AppendFormatLine("{0}){1}", i, Instructions[i].ToString());
+            }
+            UnityEngine.Debug.Log(sb.ToString());
+        }
+
         static bool injectMethod(AssemblyDefinition assembly, MethodDefinition method)
         {
             var type = method.DeclaringType;
@@ -703,6 +799,7 @@ namespace wxb.Editor
 
             if (method.IsConstructor)
             {
+                ResetInstruction(method.Body);
                 fixBranch(processor, method.Body.Instructions, originToNewTarget, noCheck);
             }
 

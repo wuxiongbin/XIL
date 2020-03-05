@@ -34,7 +34,6 @@ namespace hot
     [ReplaceType(typeof(HelloWorld))] 
     public static class HotHelloWorld
     {
-
         // 在实际使用补丁方式热更时，经常遇到一些，只是需要在原有函数之前或之后添加一些代码的情况，
         // 这时，你可以通过Hotfix来执行原先代码
         // 类似以下定义的Hotfix字段，会自动赋值

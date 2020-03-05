@@ -22,8 +22,20 @@ namespace ILRuntime.Runtime.CLRBinding
             if (i.GetCustomAttributes(typeof(ObsoleteAttribute), true).Length > 0)
                 return true;
 
-            if (i.GetCustomAttributes(typeof(EditorField), true).Length > 0)
+            if (IsHasAttribute(i, "EditorField"))
                 return true;
+
+            return false;
+        }
+
+        static bool IsHasAttribute(ICustomAttributeProvider i, string attType)
+        {
+            object[] atts = i.GetCustomAttributes(true);
+            for (int m = 0; m < atts.Length; ++m)
+            {
+                if (atts[m].GetType().FullName.Contains("EditorField"))
+                    return true;
+            }
 
             return false;
         }
@@ -71,8 +83,10 @@ namespace ILRuntime.Runtime.CLRBinding
             }
             if (i.GetCustomAttributes(typeof(ObsoleteAttribute), true).Length > 0)
                 return true;
-            if (i.GetCustomAttributes(typeof(EditorField), true).Length > 0)
+
+            if (IsHasAttribute(i, "EditorField"))
                 return true;
+
             foreach (var j in param)
             {
                 if (j.ParameterType.IsPointer || j.ParameterType == typeof(IntPtr) || j.ParameterType == typeof(System.TypedReference))

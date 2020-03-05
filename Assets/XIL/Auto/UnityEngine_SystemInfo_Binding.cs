@@ -105,113 +105,167 @@ namespace ILRuntime.Runtime.Generated
             method = type.GetMethod("get_graphicsMultiThreaded", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, get_graphicsMultiThreaded_26);
             args = new Type[]{};
+            method = type.GetMethod("get_renderingThreadingMode", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_renderingThreadingMode_27);
+            args = new Type[]{};
             method = type.GetMethod("get_hasHiddenSurfaceRemovalOnGPU", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_hasHiddenSurfaceRemovalOnGPU_27);
+            app.RegisterCLRMethodRedirection(method, get_hasHiddenSurfaceRemovalOnGPU_28);
             args = new Type[]{};
             method = type.GetMethod("get_hasDynamicUniformArrayIndexingInFragmentShaders", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_hasDynamicUniformArrayIndexingInFragmentShaders_28);
+            app.RegisterCLRMethodRedirection(method, get_hasDynamicUniformArrayIndexingInFragmentShaders_29);
             args = new Type[]{};
             method = type.GetMethod("get_supportsShadows", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supportsShadows_29);
+            app.RegisterCLRMethodRedirection(method, get_supportsShadows_30);
             args = new Type[]{};
             method = type.GetMethod("get_supportsRawShadowDepthSampling", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supportsRawShadowDepthSampling_30);
+            app.RegisterCLRMethodRedirection(method, get_supportsRawShadowDepthSampling_31);
             args = new Type[]{};
             method = type.GetMethod("get_supportsMotionVectors", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supportsMotionVectors_31);
+            app.RegisterCLRMethodRedirection(method, get_supportsMotionVectors_32);
             args = new Type[]{};
             method = type.GetMethod("get_supports3DTextures", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supports3DTextures_32);
+            app.RegisterCLRMethodRedirection(method, get_supports3DTextures_33);
             args = new Type[]{};
             method = type.GetMethod("get_supports2DArrayTextures", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supports2DArrayTextures_33);
+            app.RegisterCLRMethodRedirection(method, get_supports2DArrayTextures_34);
             args = new Type[]{};
             method = type.GetMethod("get_supports3DRenderTextures", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supports3DRenderTextures_34);
+            app.RegisterCLRMethodRedirection(method, get_supports3DRenderTextures_35);
             args = new Type[]{};
             method = type.GetMethod("get_supportsCubemapArrayTextures", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supportsCubemapArrayTextures_35);
+            app.RegisterCLRMethodRedirection(method, get_supportsCubemapArrayTextures_36);
             args = new Type[]{};
             method = type.GetMethod("get_copyTextureSupport", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_copyTextureSupport_36);
+            app.RegisterCLRMethodRedirection(method, get_copyTextureSupport_37);
             args = new Type[]{};
             method = type.GetMethod("get_supportsComputeShaders", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supportsComputeShaders_37);
+            app.RegisterCLRMethodRedirection(method, get_supportsComputeShaders_38);
+            args = new Type[]{};
+            method = type.GetMethod("get_supportsGeometryShaders", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_supportsGeometryShaders_39);
+            args = new Type[]{};
+            method = type.GetMethod("get_supportsTessellationShaders", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_supportsTessellationShaders_40);
             args = new Type[]{};
             method = type.GetMethod("get_supportsInstancing", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supportsInstancing_38);
+            app.RegisterCLRMethodRedirection(method, get_supportsInstancing_41);
             args = new Type[]{};
             method = type.GetMethod("get_supportsHardwareQuadTopology", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supportsHardwareQuadTopology_39);
+            app.RegisterCLRMethodRedirection(method, get_supportsHardwareQuadTopology_42);
             args = new Type[]{};
             method = type.GetMethod("get_supports32bitsIndexBuffer", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supports32bitsIndexBuffer_40);
+            app.RegisterCLRMethodRedirection(method, get_supports32bitsIndexBuffer_43);
             args = new Type[]{};
             method = type.GetMethod("get_supportsSparseTextures", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supportsSparseTextures_41);
+            app.RegisterCLRMethodRedirection(method, get_supportsSparseTextures_44);
             args = new Type[]{};
             method = type.GetMethod("get_supportedRenderTargetCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supportedRenderTargetCount_42);
+            app.RegisterCLRMethodRedirection(method, get_supportedRenderTargetCount_45);
             args = new Type[]{};
             method = type.GetMethod("get_supportsSeparatedRenderTargetsBlend", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supportsSeparatedRenderTargetsBlend_43);
+            app.RegisterCLRMethodRedirection(method, get_supportsSeparatedRenderTargetsBlend_46);
+            args = new Type[]{};
+            method = type.GetMethod("get_supportedRandomWriteTargetCount", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_supportedRandomWriteTargetCount_47);
             args = new Type[]{};
             method = type.GetMethod("get_supportsMultisampledTextures", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supportsMultisampledTextures_44);
+            app.RegisterCLRMethodRedirection(method, get_supportsMultisampledTextures_48);
             args = new Type[]{};
             method = type.GetMethod("get_supportsMultisampleAutoResolve", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supportsMultisampleAutoResolve_45);
+            app.RegisterCLRMethodRedirection(method, get_supportsMultisampleAutoResolve_49);
             args = new Type[]{};
             method = type.GetMethod("get_supportsTextureWrapMirrorOnce", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supportsTextureWrapMirrorOnce_46);
+            app.RegisterCLRMethodRedirection(method, get_supportsTextureWrapMirrorOnce_50);
             args = new Type[]{};
             method = type.GetMethod("get_usesReversedZBuffer", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_usesReversedZBuffer_47);
+            app.RegisterCLRMethodRedirection(method, get_usesReversedZBuffer_51);
             args = new Type[]{typeof(UnityEngine.RenderTextureFormat)};
             method = type.GetMethod("SupportsRenderTextureFormat", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SupportsRenderTextureFormat_48);
+            app.RegisterCLRMethodRedirection(method, SupportsRenderTextureFormat_52);
             args = new Type[]{typeof(UnityEngine.RenderTextureFormat)};
             method = type.GetMethod("SupportsBlendingOnRenderTextureFormat", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SupportsBlendingOnRenderTextureFormat_49);
+            app.RegisterCLRMethodRedirection(method, SupportsBlendingOnRenderTextureFormat_53);
             args = new Type[]{typeof(UnityEngine.TextureFormat)};
             method = type.GetMethod("SupportsTextureFormat", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SupportsTextureFormat_50);
+            app.RegisterCLRMethodRedirection(method, SupportsTextureFormat_54);
+            args = new Type[]{typeof(UnityEngine.Rendering.VertexAttributeFormat), typeof(System.Int32)};
+            method = type.GetMethod("SupportsVertexAttributeFormat", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, SupportsVertexAttributeFormat_55);
             args = new Type[]{};
             method = type.GetMethod("get_npotSupport", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_npotSupport_51);
+            app.RegisterCLRMethodRedirection(method, get_npotSupport_56);
             args = new Type[]{};
             method = type.GetMethod("get_maxTextureSize", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_maxTextureSize_52);
+            app.RegisterCLRMethodRedirection(method, get_maxTextureSize_57);
             args = new Type[]{};
             method = type.GetMethod("get_maxCubemapSize", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_maxCubemapSize_53);
+            app.RegisterCLRMethodRedirection(method, get_maxCubemapSize_58);
+            args = new Type[]{};
+            method = type.GetMethod("get_maxComputeBufferInputsVertex", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_maxComputeBufferInputsVertex_59);
+            args = new Type[]{};
+            method = type.GetMethod("get_maxComputeBufferInputsFragment", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_maxComputeBufferInputsFragment_60);
+            args = new Type[]{};
+            method = type.GetMethod("get_maxComputeBufferInputsGeometry", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_maxComputeBufferInputsGeometry_61);
+            args = new Type[]{};
+            method = type.GetMethod("get_maxComputeBufferInputsDomain", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_maxComputeBufferInputsDomain_62);
+            args = new Type[]{};
+            method = type.GetMethod("get_maxComputeBufferInputsHull", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_maxComputeBufferInputsHull_63);
+            args = new Type[]{};
+            method = type.GetMethod("get_maxComputeBufferInputsCompute", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_maxComputeBufferInputsCompute_64);
+            args = new Type[]{};
+            method = type.GetMethod("get_maxComputeWorkGroupSize", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_maxComputeWorkGroupSize_65);
+            args = new Type[]{};
+            method = type.GetMethod("get_maxComputeWorkGroupSizeX", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_maxComputeWorkGroupSizeX_66);
+            args = new Type[]{};
+            method = type.GetMethod("get_maxComputeWorkGroupSizeY", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_maxComputeWorkGroupSizeY_67);
+            args = new Type[]{};
+            method = type.GetMethod("get_maxComputeWorkGroupSizeZ", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_maxComputeWorkGroupSizeZ_68);
             args = new Type[]{};
             method = type.GetMethod("get_supportsAsyncCompute", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supportsAsyncCompute_54);
+            app.RegisterCLRMethodRedirection(method, get_supportsAsyncCompute_69);
             args = new Type[]{};
             method = type.GetMethod("get_supportsGraphicsFence", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supportsGraphicsFence_55);
+            app.RegisterCLRMethodRedirection(method, get_supportsGraphicsFence_70);
             args = new Type[]{};
             method = type.GetMethod("get_supportsAsyncGPUReadback", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supportsAsyncGPUReadback_56);
+            app.RegisterCLRMethodRedirection(method, get_supportsAsyncGPUReadback_71);
+            args = new Type[]{};
+            method = type.GetMethod("get_supportsRayTracing", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_supportsRayTracing_72);
             args = new Type[]{};
             method = type.GetMethod("get_supportsSetConstantBuffer", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supportsSetConstantBuffer_57);
+            app.RegisterCLRMethodRedirection(method, get_supportsSetConstantBuffer_73);
             args = new Type[]{};
             method = type.GetMethod("get_minConstantBufferOffsetAlignment", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_minConstantBufferOffsetAlignment_58);
+            app.RegisterCLRMethodRedirection(method, get_minConstantBufferOffsetAlignment_74);
+            args = new Type[]{};
+            method = type.GetMethod("get_hasMipMaxLevel", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_hasMipMaxLevel_75);
             args = new Type[]{};
             method = type.GetMethod("get_supportsMipStreaming", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_supportsMipStreaming_59);
+            app.RegisterCLRMethodRedirection(method, get_supportsMipStreaming_76);
+            args = new Type[]{};
+            method = type.GetMethod("get_usesLoadStoreActions", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_usesLoadStoreActions_77);
             args = new Type[]{typeof(UnityEngine.Experimental.Rendering.GraphicsFormat), typeof(UnityEngine.Experimental.Rendering.FormatUsage)};
             method = type.GetMethod("IsFormatSupported", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, IsFormatSupported_60);
+            app.RegisterCLRMethodRedirection(method, IsFormatSupported_78);
             args = new Type[]{typeof(UnityEngine.Experimental.Rendering.GraphicsFormat), typeof(UnityEngine.Experimental.Rendering.FormatUsage)};
             method = type.GetMethod("GetCompatibleFormat", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetCompatibleFormat_61);
+            app.RegisterCLRMethodRedirection(method, GetCompatibleFormat_79);
             args = new Type[]{typeof(UnityEngine.Experimental.Rendering.DefaultFormat)};
             method = type.GetMethod("GetGraphicsFormat", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGraphicsFormat_62);
+            app.RegisterCLRMethodRedirection(method, GetGraphicsFormat_80);
 
             field = type.GetField("unsupportedIdentifier", flag);
             app.RegisterCLRFieldGetter(field, get_unsupportedIdentifier_0);
@@ -554,7 +608,18 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_hasHiddenSurfaceRemovalOnGPU_27(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_renderingThreadingMode_27(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.SystemInfo.renderingThreadingMode;
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* get_hasHiddenSurfaceRemovalOnGPU_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -567,7 +632,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_hasDynamicUniformArrayIndexingInFragmentShaders_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_hasDynamicUniformArrayIndexingInFragmentShaders_29(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -580,7 +645,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_supportsShadows_29(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_supportsShadows_30(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -593,7 +658,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_supportsRawShadowDepthSampling_30(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_supportsRawShadowDepthSampling_31(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -606,7 +671,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_supportsMotionVectors_31(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_supportsMotionVectors_32(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -619,7 +684,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_supports3DTextures_32(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_supports3DTextures_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -632,7 +697,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_supports2DArrayTextures_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_supports2DArrayTextures_34(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -645,7 +710,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_supports3DRenderTextures_34(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_supports3DRenderTextures_35(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -658,7 +723,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_supportsCubemapArrayTextures_35(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_supportsCubemapArrayTextures_36(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -671,7 +736,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_copyTextureSupport_36(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_copyTextureSupport_37(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -682,7 +747,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_supportsComputeShaders_37(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_supportsComputeShaders_38(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -695,7 +760,33 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_supportsInstancing_38(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_supportsGeometryShaders_39(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.SystemInfo.supportsGeometryShaders;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method ? 1 : 0;
+            return __ret + 1;
+        }
+
+        static StackObject* get_supportsTessellationShaders_40(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.SystemInfo.supportsTessellationShaders;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method ? 1 : 0;
+            return __ret + 1;
+        }
+
+        static StackObject* get_supportsInstancing_41(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -708,7 +799,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_supportsHardwareQuadTopology_39(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_supportsHardwareQuadTopology_42(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -721,7 +812,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_supports32bitsIndexBuffer_40(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_supports32bitsIndexBuffer_43(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -734,7 +825,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_supportsSparseTextures_41(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_supportsSparseTextures_44(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -747,7 +838,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_supportedRenderTargetCount_42(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_supportedRenderTargetCount_45(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -760,7 +851,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_supportsSeparatedRenderTargetsBlend_43(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_supportsSeparatedRenderTargetsBlend_46(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -773,7 +864,20 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_supportsMultisampledTextures_44(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_supportedRandomWriteTargetCount_47(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.SystemInfo.supportedRandomWriteTargetCount;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_supportsMultisampledTextures_48(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -786,7 +890,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_supportsMultisampleAutoResolve_45(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_supportsMultisampleAutoResolve_49(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -799,7 +903,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_supportsTextureWrapMirrorOnce_46(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_supportsTextureWrapMirrorOnce_50(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -812,7 +916,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_usesReversedZBuffer_47(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_usesReversedZBuffer_51(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -825,7 +929,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* SupportsRenderTextureFormat_48(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SupportsRenderTextureFormat_52(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -843,7 +947,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* SupportsBlendingOnRenderTextureFormat_49(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SupportsBlendingOnRenderTextureFormat_53(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -861,7 +965,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* SupportsTextureFormat_50(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SupportsTextureFormat_54(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -879,7 +983,28 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_npotSupport_51(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SupportsVertexAttributeFormat_55(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Int32 @dimension = ptr_of_this_method->Value;
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.Rendering.VertexAttributeFormat @format = (UnityEngine.Rendering.VertexAttributeFormat)typeof(UnityEngine.Rendering.VertexAttributeFormat).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = UnityEngine.SystemInfo.SupportsVertexAttributeFormat(@format, @dimension);
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method ? 1 : 0;
+            return __ret + 1;
+        }
+
+        static StackObject* get_npotSupport_56(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -890,7 +1015,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_maxTextureSize_52(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_maxTextureSize_57(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -903,7 +1028,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_maxCubemapSize_53(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_maxCubemapSize_58(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -916,7 +1041,137 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_supportsAsyncCompute_54(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_maxComputeBufferInputsVertex_59(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.SystemInfo.maxComputeBufferInputsVertex;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_maxComputeBufferInputsFragment_60(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.SystemInfo.maxComputeBufferInputsFragment;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_maxComputeBufferInputsGeometry_61(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.SystemInfo.maxComputeBufferInputsGeometry;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_maxComputeBufferInputsDomain_62(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.SystemInfo.maxComputeBufferInputsDomain;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_maxComputeBufferInputsHull_63(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.SystemInfo.maxComputeBufferInputsHull;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_maxComputeBufferInputsCompute_64(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.SystemInfo.maxComputeBufferInputsCompute;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_maxComputeWorkGroupSize_65(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.SystemInfo.maxComputeWorkGroupSize;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_maxComputeWorkGroupSizeX_66(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.SystemInfo.maxComputeWorkGroupSizeX;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_maxComputeWorkGroupSizeY_67(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.SystemInfo.maxComputeWorkGroupSizeY;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_maxComputeWorkGroupSizeZ_68(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.SystemInfo.maxComputeWorkGroupSizeZ;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_supportsAsyncCompute_69(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -929,7 +1184,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_supportsGraphicsFence_55(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_supportsGraphicsFence_70(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -942,7 +1197,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_supportsAsyncGPUReadback_56(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_supportsAsyncGPUReadback_71(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -955,7 +1210,20 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_supportsSetConstantBuffer_57(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_supportsRayTracing_72(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.SystemInfo.supportsRayTracing;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method ? 1 : 0;
+            return __ret + 1;
+        }
+
+        static StackObject* get_supportsSetConstantBuffer_73(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -968,7 +1236,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_minConstantBufferOffsetAlignment_58(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_minConstantBufferOffsetAlignment_74(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -981,7 +1249,20 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_supportsMipStreaming_59(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_hasMipMaxLevel_75(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.SystemInfo.hasMipMaxLevel;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method ? 1 : 0;
+            return __ret + 1;
+        }
+
+        static StackObject* get_supportsMipStreaming_76(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -994,7 +1275,20 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* IsFormatSupported_60(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_usesLoadStoreActions_77(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.SystemInfo.usesLoadStoreActions;
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method ? 1 : 0;
+            return __ret + 1;
+        }
+
+        static StackObject* IsFormatSupported_78(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1016,7 +1310,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* GetCompatibleFormat_61(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetCompatibleFormat_79(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1036,7 +1330,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetGraphicsFormat_62(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGraphicsFormat_80(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

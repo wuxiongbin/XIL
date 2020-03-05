@@ -83,14 +83,20 @@ namespace ILRuntime.Runtime.Generated
             method = type.GetMethod("get_realtimeSinceStartup", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, get_realtimeSinceStartup_19);
             args = new Type[]{};
+            method = type.GetMethod("get_captureDeltaTime", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_captureDeltaTime_20);
+            args = new Type[]{typeof(System.Single)};
+            method = type.GetMethod("set_captureDeltaTime", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, set_captureDeltaTime_21);
+            args = new Type[]{};
             method = type.GetMethod("get_captureFramerate", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_captureFramerate_20);
+            app.RegisterCLRMethodRedirection(method, get_captureFramerate_22);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("set_captureFramerate", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_captureFramerate_21);
+            app.RegisterCLRMethodRedirection(method, set_captureFramerate_23);
             args = new Type[]{};
             method = type.GetMethod("get_inFixedTimeStep", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_inFixedTimeStep_22);
+            app.RegisterCLRMethodRedirection(method, get_inFixedTimeStep_24);
 
 
 
@@ -372,7 +378,35 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_captureFramerate_20(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_captureDeltaTime_20(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.Time.captureDeltaTime;
+
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* set_captureDeltaTime_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Single @value = *(float*)&ptr_of_this_method->Value;
+
+
+            UnityEngine.Time.captureDeltaTime = value;
+
+            return __ret;
+        }
+
+        static StackObject* get_captureFramerate_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -385,7 +419,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_captureFramerate_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_captureFramerate_23(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -400,7 +434,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_inFixedTimeStep_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_inFixedTimeStep_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
