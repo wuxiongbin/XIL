@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -141,6 +142,10 @@ namespace ILRuntime.Runtime.Enviorment
                 if(i.Name == "GetName")
                 {
                     RegisterCLRMethodRedirection(i, CLRRedirections.EnumGetName);
+                }
+                if(i.Name == "HasFlag")
+                {
+                    RegisterCLRMethodRedirection(i, CLRRedirections.EnumHasFlag);
                 }
                 if (i.Name == "ToObject" && i.GetParameters()[1].ParameterType == typeof(int))
                 {
@@ -726,6 +731,11 @@ namespace ILRuntime.Runtime.Enviorment
                     {
                         t = ((ILMethod)contextMethod).FindGenericArgument(_ref.Name);
                     }
+                    if (t != null)
+                    {
+                        mapTypeToken[t.GetHashCode()] = t;
+                        mapType[t.FullName] = t;
+                    }
                     return t;
                 }
                 if (_ref.IsByReference)
@@ -1266,7 +1276,7 @@ namespace ILRuntime.Runtime.Enviorment
 
         internal long CacheString(object token)
         {
-            long oriHash = token.GetHashCode();
+            long oriHash = token.GetHashCode() & 0xFFFFFFFF;
             long hashCode = oriHash;
             string str = (string)token;
             lock (mapString)
@@ -1373,4 +1383,5 @@ namespace ILRuntime.Runtime.Enviorment
         }
     }
 }
-#endif
+
+#endif
