@@ -71,7 +71,7 @@
                         objs = new List<Object>();
                     refType_ = null;
                     instance = null;
-                }                
+                }
             }
             else
             {

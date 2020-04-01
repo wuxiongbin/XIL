@@ -147,8 +147,7 @@ namespace wxb.IL.Editor
             object instance = instanceField.GetValue(customizeData);
             if (instance == null)
             {
-                instance = IL.Help.Create(type);
-                instanceField.SetValue(customizeData, instance);
+                ((CustomizeData)customizeData).OnAfterDeserialize(behaviour);
                 return;
             }
 

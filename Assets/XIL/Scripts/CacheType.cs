@@ -32,7 +32,15 @@
                 return default_ctor;
 
             is_default_ctor = true;
-            default_ctor = type.GetConstructor(Flags, null, IL.Help.EmptyType, null);
+            try
+            {
+                default_ctor = type.GetConstructor(Flags, null, IL.Help.EmptyType, null);
+            }
+            catch (System.Exception ex)
+            {
+                L.LogErrorFormat("type:{0} ctor error!", type.FullName);
+                L.LogException(ex);
+            }
             return default_ctor;
         }
 

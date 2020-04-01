@@ -290,9 +290,10 @@
             var assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
             foreach (var assembly in assemblies)
             {
+#if UNITY_EDITOR
                 if (assembly.FullName.StartsWith("Assembly-CSharp-Editor"))
                     continue;
-
+#endif
                 if (assembly.FullName.StartsWith("Assembly-CSharp"))
                 {
                     var types = assembly.GetTypes();
@@ -360,6 +361,34 @@
 #if UNITY_EDITOR
         [EditorField]
         public static System.Action on_release_all;
+
+        [EditorField]
+        public static bool IsEditorAttribute(MemberInfo minfo)
+        {
+            if (minfo.GetCustomAttributes(typeof(EditorField), true).Length != 0)
+                return true;
+
+            if (minfo is MethodBase)
+            {
+                var info = minfo as MethodBase;
+                if (info.IsSpecialName && (info.Name.StartsWith("get_") || info.Name.StartsWith("set_")))
+                {
+                    var flag = BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
+                    var propertys = info.ReflectedType.GetProperties(flag);
+                    string name = info.Name.Substring(4);
+                    foreach (var ator in propertys)
+                    {
+                        if (ator.Name == name)
+                        {
+                            if (ator.GetCustomAttributes(typeof(EditorField), true).Length != 0)
+                                return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
 #endif
         static HashSet<System.Type> BaseTypes = new HashSet<System.Type>();
 
@@ -683,7 +712,12 @@
             {
                 return string.Empty;
             }
-            else
+            else if (type.Name == "Int32")
+            {
+                return 0;
+            }
+#if USE_HOT
+            else if (type is ILRuntimeType)
             {
                 var constructor = GetOrCreate(type).GetCtor();
                 if (constructor == null)
@@ -692,6 +726,21 @@
                     return null;
                 }
                 return constructor.Invoke(null);
+            }
+            else if (type is ILRuntimeWrapperType)
+            {
+                ILRuntimeWrapperType rwt = type as ILRuntimeWrapperType;
+                return Create(rwt.RealType);
+            }
+            else if (type == typeof(ILTypeInstance))
+            {
+                L.LogError("type error is ILTypeInstance!");
+                return null;
+            }
+#endif
+            else
+            {
+                return System.Activator.CreateInstance(type);
             }
         }
     }

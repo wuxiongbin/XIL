@@ -6,6 +6,13 @@
 
     public partial class RefType
     {
+        public RefType(bool isStatic, System.Type type)
+        {
+            this.type = type;
+            this.fullType = type.FullName;
+            instance = null;
+        }
+
         public RefType(string fullType, object param)
         {
             this.fullType = fullType;
@@ -29,6 +36,13 @@
             this.type = type;
             this.fullType = type.FullName;
             instance = IL.Help.CreateInstaince(type, null);
+        }
+
+        public RefType(System.Type type, object param)
+        {
+            this.type = type;
+            this.fullType = type.FullName;
+            instance = IL.Help.CreateInstaince(type, param);
         }
 
         public RefType(object instance)
