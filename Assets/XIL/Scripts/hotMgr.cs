@@ -363,6 +363,7 @@ namespace wxb
             try
             {
                 DllStream = CopyStream(ResLoad.GetStream("Data/DyncDll.dll"));
+                if (DllStream != null)
                 {
 #if USE_PDB
                     SymbolStream = CopyStream(ResLoad.GetStream("Data/DyncDll.pdb"));
@@ -402,6 +403,14 @@ namespace wxb
                 });
             }
 
+            appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction>((act) =>
+            {
+                return new UnityEngine.Events.UnityAction(() =>
+                {
+                    ((System.Action)act)();
+                });
+            });
+
             appdomain.DelegateManager.RegisterMethodDelegate<object>();
             appdomain.DelegateManager.RegisterMethodDelegate<object[]>();
             appdomain.DelegateManager.RegisterMethodDelegate<long>();
@@ -416,6 +425,10 @@ namespace wxb
             appdomain.DelegateManager.RegisterMethodDelegate<int, object>();
             appdomain.DelegateManager.RegisterMethodDelegate<long, object>();
             appdomain.DelegateManager.RegisterMethodDelegate<string, object>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<bool>();
+
+
+            appdomain.DelegateManager.RegisterFunctionDelegate<object, object>();
 
 #if UNITY_EDITOR
             var clrType = System.Type.GetType("AutoIL.ILRegType");

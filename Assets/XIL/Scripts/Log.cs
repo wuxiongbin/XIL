@@ -58,7 +58,7 @@ namespace wxb
             active.Log(obj);
         }
 
-        [System.Diagnostics.Conditional("DEBUGLOG")]
+        //[System.Diagnostics.Conditional("DEBUGLOG")]
         static public void LogFormat(string format, params object[] objs)
         {
             if (active == null)

@@ -473,31 +473,9 @@ namespace IL
             return IsUnityObjectType(type.BaseType);
         }
 
-        static bool IsEditorAttribute(MemberInfo minfo)
+        public static bool IsEditorAttribute(MemberInfo minfo)
         {
-            if (minfo.GetCustomAttributes(typeof(EditorField), true).Length != 0)
-                return true;
-
-            if (minfo is MethodBase)
-            {
-                var info = minfo as MethodBase;
-                if (info.IsSpecialName && (info.Name.StartsWith("get_") || info.Name.StartsWith("set_")))
-                {
-                    var flag = BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
-                    var propertys = info.ReflectedType.GetProperties(flag);
-                    string name = info.Name.Substring(4);
-                    foreach (var ator in propertys)
-                    {
-                        if (ator.Name == name)
-                        {
-                            if (ator.GetCustomAttributes(typeof(EditorField), true).Length != 0)
-                                return true;
-                        }
-                    }
-                }
-            }
-
-            return false;
+            return IL.Help.IsEditorAttribute(minfo);
         }
 
         public static void AutoCode(List<string> classes)
@@ -510,12 +488,10 @@ namespace IL
 
             HashSet<int> ObjectsParamCount = new HashSet<int>();
             HashSet<string> exports = new HashSet<string>(classes);
-            foreach (var ator in System.AppDomain.CurrentDomain.GetAssemblies())
             {
-                if (ator.FullName.StartsWith("System"))
-                    continue;
-
-                foreach (var type in ator.GetTypes())
+                var assembly = Assembly.Load("Assembly-CSharp");
+                var types = assembly.GetTypes();
+                foreach (var type in types)
                 {
                     if (exports.Contains(type.FullName.Replace('+', '/')) || type.GetCustomAttributes(typeof(HotfixAttribute), false).Length != 0)
                     {
