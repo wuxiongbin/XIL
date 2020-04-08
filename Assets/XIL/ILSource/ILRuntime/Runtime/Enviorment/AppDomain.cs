@@ -426,7 +426,7 @@ namespace ILRuntime.Runtime.Enviorment
                 doubleType = GetType("System.Double");
                 objectType = GetType("System.Object");
             }
-#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
             debugService.NotifyModuleLoaded(module.Name);
 #endif
         }
@@ -1052,7 +1052,7 @@ namespace ILRuntime.Runtime.Enviorment
                 else
                 {
                     inteptreter = new ILIntepreter(this);
-#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
                     intepreters[inteptreter.GetHashCode()] = inteptreter;
                     debugService.ThreadStarted(inteptreter);
 #endif
@@ -1066,7 +1066,7 @@ namespace ILRuntime.Runtime.Enviorment
         {
             lock (freeIntepreters)
             {
-#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
                 if (inteptreter.CurrentStepType != StepTypes.None)
                 {
                     //We should resume all other threads if we are currently doing stepping operation
@@ -1084,7 +1084,7 @@ namespace ILRuntime.Runtime.Enviorment
                 inteptreter.Stack.ManagedStack.Clear();
                 inteptreter.Stack.Frames.Clear();
                 freeIntepreters.Enqueue(inteptreter);
-#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
                 //debugService.ThreadEnded(inteptreter);
 #endif
 

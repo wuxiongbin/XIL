@@ -116,4 +116,42 @@ namespace PackTool
             SetEnable(true, marco, path);
         }
     }
+
+    public class OpenHotDEBUGMacro : TemplatesMarco
+    {
+        const string marco = "HOT_DEBUG";
+        const string path = "";
+
+        const string MenuItemOpen = "XIL/插件/调试/VS开启";
+        const string MenuItemClose = "XIL/插件/调试/VS关闭";
+
+        [MenuItem(MenuItemClose, true)]
+        public static bool BufCannelToggle()
+        {
+            MacroDefine macroDefine = new MacroDefine();
+            return macroDefine.has(marco);
+        }
+
+        [MenuItem(MenuItemOpen, true)]
+        public static bool BufOpenToggle()
+        {
+            MacroDefine macroDefine = new MacroDefine();
+            return !macroDefine.has(marco);
+        }
+
+        [MenuItem(MenuItemClose)]
+        public static void BufCannel()
+        {
+            SetEnable(false, marco, path);
+        }
+
+        [MenuItem(MenuItemOpen)]
+        public static void BufOpen()
+        {
+            OpenHotMacro.BufOpen();
+            OpenHotPDBMacro.BufCannel();
+            SetEnable(true, marco, path);
+        }
+    }
+
 }
