@@ -1894,6 +1894,7 @@ namespace ILRuntime.Runtime.Intepreter
                                                         switch (objRef->ObjectType)
                                                         {
                                                             case ObjectTypes.Object:
+                                                                mStack[objRef->Value] = obj;
                                                                 break;
                                                             case ObjectTypes.FieldReference:
                                                                 {
@@ -3176,7 +3177,7 @@ namespace ILRuntime.Runtime.Intepreter
                                         }
                                         else
                                         {
-                                            //PushNull(esp);
+                                            PushNull(esp);
                                             switch (objRef->ObjectType)
                                             {
                                                 case ObjectTypes.StaticFieldReference:
