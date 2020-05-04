@@ -145,10 +145,12 @@ namespace ILRuntime.Runtime.Enviorment
                 {
                     RegisterCLRMethodRedirection(i, CLRRedirections.EnumGetName);
                 }
+#if NET_4_6 || NET_STANDARD_2_0
                 if(i.Name == "HasFlag")
                 {
                     RegisterCLRMethodRedirection(i, CLRRedirections.EnumHasFlag);
                 }
+#endif
                 if (i.Name == "ToObject" && i.GetParameters()[1].ParameterType == typeof(int))
                 {
                     RegisterCLRMethodRedirection(i, CLRRedirections.EnumToObject);
@@ -426,7 +428,7 @@ namespace ILRuntime.Runtime.Enviorment
                 doubleType = GetType("System.Double");
                 objectType = GetType("System.Object");
             }
-#if HOT_DEBUG
+#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
             debugService.NotifyModuleLoaded(module.Name);
 #endif
         }
@@ -1052,7 +1054,7 @@ namespace ILRuntime.Runtime.Enviorment
                 else
                 {
                     inteptreter = new ILIntepreter(this);
-#if HOT_DEBUG
+#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
                     intepreters[inteptreter.GetHashCode()] = inteptreter;
                     debugService.ThreadStarted(inteptreter);
 #endif
@@ -1066,7 +1068,7 @@ namespace ILRuntime.Runtime.Enviorment
         {
             lock (freeIntepreters)
             {
-#if HOT_DEBUG
+#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
                 if (inteptreter.CurrentStepType != StepTypes.None)
                 {
                     //We should resume all other threads if we are currently doing stepping operation
@@ -1084,7 +1086,7 @@ namespace ILRuntime.Runtime.Enviorment
                 inteptreter.Stack.ManagedStack.Clear();
                 inteptreter.Stack.Frames.Clear();
                 freeIntepreters.Enqueue(inteptreter);
-#if HOT_DEBUG
+#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
                 //debugService.ThreadEnded(inteptreter);
 #endif
 

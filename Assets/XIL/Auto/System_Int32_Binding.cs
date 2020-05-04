@@ -74,8 +74,10 @@ namespace ILRuntime.Runtime.Generated
 
             field = type.GetField("MaxValue", flag);
             app.RegisterCLRFieldGetter(field, get_MaxValue_0);
+            app.RegisterCLRFieldBinding(field, CopyToStack_MaxValue_0, null);
             field = type.GetField("MinValue", flag);
             app.RegisterCLRFieldGetter(field, get_MinValue_1);
+            app.RegisterCLRFieldBinding(field, CopyToStack_MinValue_1, null);
 
 
             app.RegisterCLRCreateArrayInstance(type, s => new System.Int32[s]);
@@ -549,10 +551,28 @@ namespace ILRuntime.Runtime.Generated
         {
             return System.Int32.MaxValue;
         }
+
+        static StackObject* CopyToStack_MaxValue_0(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.Int32.MaxValue;
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static object get_MinValue_1(ref object o)
         {
             return System.Int32.MinValue;
         }
+
+        static StackObject* CopyToStack_MinValue_1(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.Int32.MinValue;
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
 
 
 

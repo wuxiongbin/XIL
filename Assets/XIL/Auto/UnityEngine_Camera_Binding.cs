@@ -522,12 +522,15 @@ namespace ILRuntime.Runtime.Generated
             field = type.GetField("onPreCull", flag);
             app.RegisterCLRFieldGetter(field, get_onPreCull_0);
             app.RegisterCLRFieldSetter(field, set_onPreCull_0);
+            app.RegisterCLRFieldBinding(field, CopyToStack_onPreCull_0, AssignFromStack_onPreCull_0);
             field = type.GetField("onPreRender", flag);
             app.RegisterCLRFieldGetter(field, get_onPreRender_1);
             app.RegisterCLRFieldSetter(field, set_onPreRender_1);
+            app.RegisterCLRFieldBinding(field, CopyToStack_onPreRender_1, AssignFromStack_onPreRender_1);
             field = type.GetField("onPostRender", flag);
             app.RegisterCLRFieldGetter(field, get_onPostRender_2);
             app.RegisterCLRFieldSetter(field, set_onPostRender_2);
+            app.RegisterCLRFieldBinding(field, CopyToStack_onPostRender_2, AssignFromStack_onPostRender_2);
 
 
             app.RegisterCLRCreateDefaultInstance(type, () => new UnityEngine.Camera());
@@ -3716,26 +3719,74 @@ namespace ILRuntime.Runtime.Generated
         {
             return UnityEngine.Camera.onPreCull;
         }
+
+        static StackObject* CopyToStack_onPreCull_0(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = UnityEngine.Camera.onPreCull;
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
         static void set_onPreCull_0(ref object o, object v)
         {
             UnityEngine.Camera.onPreCull = (UnityEngine.Camera.CameraCallback)v;
         }
+
+        static StackObject* AssignFromStack_onPreCull_0(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            UnityEngine.Camera.CameraCallback @onPreCull = (UnityEngine.Camera.CameraCallback)typeof(UnityEngine.Camera.CameraCallback).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            UnityEngine.Camera.onPreCull = @onPreCull;
+            return ptr_of_this_method;
+        }
+
         static object get_onPreRender_1(ref object o)
         {
             return UnityEngine.Camera.onPreRender;
         }
+
+        static StackObject* CopyToStack_onPreRender_1(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = UnityEngine.Camera.onPreRender;
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
         static void set_onPreRender_1(ref object o, object v)
         {
             UnityEngine.Camera.onPreRender = (UnityEngine.Camera.CameraCallback)v;
         }
+
+        static StackObject* AssignFromStack_onPreRender_1(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            UnityEngine.Camera.CameraCallback @onPreRender = (UnityEngine.Camera.CameraCallback)typeof(UnityEngine.Camera.CameraCallback).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            UnityEngine.Camera.onPreRender = @onPreRender;
+            return ptr_of_this_method;
+        }
+
         static object get_onPostRender_2(ref object o)
         {
             return UnityEngine.Camera.onPostRender;
         }
+
+        static StackObject* CopyToStack_onPostRender_2(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = UnityEngine.Camera.onPostRender;
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
         static void set_onPostRender_2(ref object o, object v)
         {
             UnityEngine.Camera.onPostRender = (UnityEngine.Camera.CameraCallback)v;
         }
+
+        static StackObject* AssignFromStack_onPostRender_2(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            UnityEngine.Camera.CameraCallback @onPostRender = (UnityEngine.Camera.CameraCallback)typeof(UnityEngine.Camera.CameraCallback).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            UnityEngine.Camera.onPostRender = @onPostRender;
+            return ptr_of_this_method;
+        }
+
 
 
         static StackObject* Ctor_0(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)

@@ -86,12 +86,16 @@ namespace ILRuntime.Runtime.Generated
 
             field = type.GetField("EmptyObj", flag);
             app.RegisterCLRFieldGetter(field, get_EmptyObj_0);
+            app.RegisterCLRFieldBinding(field, CopyToStack_EmptyObj_0, null);
             field = type.GetField("OneObj", flag);
             app.RegisterCLRFieldGetter(field, get_OneObj_1);
+            app.RegisterCLRFieldBinding(field, CopyToStack_OneObj_1, null);
             field = type.GetField("OneType", flag);
             app.RegisterCLRFieldGetter(field, get_OneType_2);
+            app.RegisterCLRFieldBinding(field, CopyToStack_OneType_2, null);
             field = type.GetField("EmptyType", flag);
             app.RegisterCLRFieldGetter(field, get_EmptyType_3);
+            app.RegisterCLRFieldBinding(field, CopyToStack_EmptyType_3, null);
 
 
 
@@ -565,18 +569,46 @@ namespace ILRuntime.Runtime.Generated
         {
             return wxb.IL.Help.EmptyObj;
         }
+
+        static StackObject* CopyToStack_EmptyObj_0(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = wxb.IL.Help.EmptyObj;
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
         static object get_OneObj_1(ref object o)
         {
             return wxb.IL.Help.OneObj;
         }
+
+        static StackObject* CopyToStack_OneObj_1(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = wxb.IL.Help.OneObj;
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
         static object get_OneType_2(ref object o)
         {
             return wxb.IL.Help.OneType;
         }
+
+        static StackObject* CopyToStack_OneType_2(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = wxb.IL.Help.OneType;
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
         static object get_EmptyType_3(ref object o)
         {
             return wxb.IL.Help.EmptyType;
         }
+
+        static StackObject* CopyToStack_EmptyType_3(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = wxb.IL.Help.EmptyType;
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
 
 
 

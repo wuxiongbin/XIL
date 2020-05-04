@@ -182,20 +182,28 @@ namespace ILRuntime.Runtime.Generated
 
             field = type.GetField("TicksPerMillisecond", flag);
             app.RegisterCLRFieldGetter(field, get_TicksPerMillisecond_0);
+            app.RegisterCLRFieldBinding(field, CopyToStack_TicksPerMillisecond_0, null);
             field = type.GetField("TicksPerSecond", flag);
             app.RegisterCLRFieldGetter(field, get_TicksPerSecond_1);
+            app.RegisterCLRFieldBinding(field, CopyToStack_TicksPerSecond_1, null);
             field = type.GetField("TicksPerMinute", flag);
             app.RegisterCLRFieldGetter(field, get_TicksPerMinute_2);
+            app.RegisterCLRFieldBinding(field, CopyToStack_TicksPerMinute_2, null);
             field = type.GetField("TicksPerHour", flag);
             app.RegisterCLRFieldGetter(field, get_TicksPerHour_3);
+            app.RegisterCLRFieldBinding(field, CopyToStack_TicksPerHour_3, null);
             field = type.GetField("TicksPerDay", flag);
             app.RegisterCLRFieldGetter(field, get_TicksPerDay_4);
+            app.RegisterCLRFieldBinding(field, CopyToStack_TicksPerDay_4, null);
             field = type.GetField("Zero", flag);
             app.RegisterCLRFieldGetter(field, get_Zero_5);
+            app.RegisterCLRFieldBinding(field, CopyToStack_Zero_5, null);
             field = type.GetField("MaxValue", flag);
             app.RegisterCLRFieldGetter(field, get_MaxValue_6);
+            app.RegisterCLRFieldBinding(field, CopyToStack_MaxValue_6, null);
             field = type.GetField("MinValue", flag);
             app.RegisterCLRFieldGetter(field, get_MinValue_7);
+            app.RegisterCLRFieldBinding(field, CopyToStack_MinValue_7, null);
 
             app.RegisterCLRMemberwiseClone(type, PerformMemberwiseClone);
 
@@ -1754,34 +1762,100 @@ namespace ILRuntime.Runtime.Generated
         {
             return System.TimeSpan.TicksPerMillisecond;
         }
+
+        static StackObject* CopyToStack_TicksPerMillisecond_0(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.TimeSpan.TicksPerMillisecond;
+            __ret->ObjectType = ObjectTypes.Long;
+            *(long*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static object get_TicksPerSecond_1(ref object o)
         {
             return System.TimeSpan.TicksPerSecond;
         }
+
+        static StackObject* CopyToStack_TicksPerSecond_1(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.TimeSpan.TicksPerSecond;
+            __ret->ObjectType = ObjectTypes.Long;
+            *(long*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static object get_TicksPerMinute_2(ref object o)
         {
             return System.TimeSpan.TicksPerMinute;
         }
+
+        static StackObject* CopyToStack_TicksPerMinute_2(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.TimeSpan.TicksPerMinute;
+            __ret->ObjectType = ObjectTypes.Long;
+            *(long*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static object get_TicksPerHour_3(ref object o)
         {
             return System.TimeSpan.TicksPerHour;
         }
+
+        static StackObject* CopyToStack_TicksPerHour_3(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.TimeSpan.TicksPerHour;
+            __ret->ObjectType = ObjectTypes.Long;
+            *(long*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static object get_TicksPerDay_4(ref object o)
         {
             return System.TimeSpan.TicksPerDay;
         }
+
+        static StackObject* CopyToStack_TicksPerDay_4(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.TimeSpan.TicksPerDay;
+            __ret->ObjectType = ObjectTypes.Long;
+            *(long*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static object get_Zero_5(ref object o)
         {
             return System.TimeSpan.Zero;
         }
+
+        static StackObject* CopyToStack_Zero_5(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.TimeSpan.Zero;
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
         static object get_MaxValue_6(ref object o)
         {
             return System.TimeSpan.MaxValue;
         }
+
+        static StackObject* CopyToStack_MaxValue_6(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.TimeSpan.MaxValue;
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
         static object get_MinValue_7(ref object o)
         {
             return System.TimeSpan.MinValue;
         }
+
+        static StackObject* CopyToStack_MinValue_7(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.TimeSpan.MinValue;
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
 
         static object PerformMemberwiseClone(ref object o)
         {

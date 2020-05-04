@@ -65,6 +65,7 @@ namespace ILRuntime.Runtime.Generated
 
             field = type.GetField("bindingFlags", flag);
             app.RegisterCLRFieldGetter(field, get_bindingFlags_0);
+            app.RegisterCLRFieldBinding(field, CopyToStack_bindingFlags_0, null);
 
 
 
@@ -314,6 +315,13 @@ namespace ILRuntime.Runtime.Generated
         {
             return wxb.hotMgr.bindingFlags;
         }
+
+        static StackObject* CopyToStack_bindingFlags_0(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = wxb.hotMgr.bindingFlags;
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
 
 
 

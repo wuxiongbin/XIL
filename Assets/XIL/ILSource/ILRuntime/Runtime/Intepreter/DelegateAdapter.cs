@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,7 @@ namespace ILRuntime.Runtime.Intepreter
         {
             pTypes = new InvocationTypes[]
             {
-                GetInvocationType<TResult>(),
+                InvocationContext.GetInvocationType<TResult>(),
             };
         }
         public FunctionDelegateAdapter()
@@ -52,7 +53,7 @@ namespace ILRuntime.Runtime.Intepreter
                     ctx.PushObject(instance);
 
                 ctx.Invoke();
-                return ReadResult<TResult>(ref ctx, pTypes[0]);
+                return ctx.ReadResult<TResult>(pTypes[0]);
             }
         }
 
@@ -88,8 +89,8 @@ namespace ILRuntime.Runtime.Intepreter
         {
             pTypes = new InvocationTypes[]
             {
-                GetInvocationType<T1>(),
-                GetInvocationType<TResult>(),
+                InvocationContext.GetInvocationType<T1>(),
+                InvocationContext.GetInvocationType<TResult>(),
             };
         }
         public FunctionDelegateAdapter()
@@ -118,10 +119,10 @@ namespace ILRuntime.Runtime.Intepreter
                 var ctx = c;
                 if (method.HasThis)
                     ctx.PushObject(instance);
-                PushParameter(ref ctx, pTypes[0], p1);
+                ctx.PushParameter(pTypes[0], p1);
 
                 ctx.Invoke();
-                return ReadResult<TResult>(ref ctx, pTypes[1]);
+                return ctx.ReadResult<TResult>(pTypes[1]);
             }
         }
 
@@ -157,9 +158,9 @@ namespace ILRuntime.Runtime.Intepreter
         {
             pTypes = new InvocationTypes[]
             {
-                GetInvocationType<T1>(),
-                GetInvocationType<T2>(),
-                GetInvocationType<TResult>(),
+                InvocationContext.GetInvocationType<T1>(),
+                InvocationContext.GetInvocationType<T2>(),
+                InvocationContext.GetInvocationType<TResult>(),
             };
         }
         public FunctionDelegateAdapter()
@@ -188,11 +189,11 @@ namespace ILRuntime.Runtime.Intepreter
                 var ctx = c;
                 if (method.HasThis)
                     ctx.PushObject(instance);
-                PushParameter(ref ctx, pTypes[0], p1);
-                PushParameter(ref ctx, pTypes[1], p2);
+                ctx.PushParameter(pTypes[0], p1);
+                ctx.PushParameter(pTypes[1], p2);
 
                 ctx.Invoke();
-                return ReadResult<TResult>(ref ctx, pTypes[2]);
+                return ctx.ReadResult<TResult>(pTypes[2]);
             }
         }
 
@@ -229,10 +230,10 @@ namespace ILRuntime.Runtime.Intepreter
         {
             pTypes = new InvocationTypes[]
             {
-                GetInvocationType<T1>(),
-                GetInvocationType<T2>(),
-                GetInvocationType<T3>(),
-                GetInvocationType<TResult>(),
+                InvocationContext.GetInvocationType<T1>(),
+                InvocationContext.GetInvocationType<T2>(),
+                InvocationContext.GetInvocationType<T3>(),
+                InvocationContext.GetInvocationType<TResult>(),
             };
         }
         public FunctionDelegateAdapter()
@@ -261,12 +262,12 @@ namespace ILRuntime.Runtime.Intepreter
                 var ctx = c;
                 if (method.HasThis)
                     ctx.PushObject(instance);
-                PushParameter(ref ctx, pTypes[0], p1);
-                PushParameter(ref ctx, pTypes[1], p2);
-                PushParameter(ref ctx, pTypes[2], p3);
+                ctx.PushParameter(pTypes[0], p1);
+                ctx.PushParameter(pTypes[1], p2);
+                ctx.PushParameter(pTypes[2], p3);
 
                 ctx.Invoke();
-                return ReadResult<TResult>(ref ctx, pTypes[3]);
+                return ctx.ReadResult<TResult>(pTypes[3]);
             }
         }
 
@@ -302,11 +303,11 @@ namespace ILRuntime.Runtime.Intepreter
         {
             pTypes = new InvocationTypes[]
             {
-                GetInvocationType<T1>(),
-                GetInvocationType<T2>(),
-                GetInvocationType<T3>(),
-                GetInvocationType<T4>(),
-                GetInvocationType<TResult>(),
+                InvocationContext.GetInvocationType<T1>(),
+                InvocationContext.GetInvocationType<T2>(),
+                InvocationContext.GetInvocationType<T3>(),
+                InvocationContext.GetInvocationType<T4>(),
+                InvocationContext.GetInvocationType<TResult>(),
             };
         }
         public FunctionDelegateAdapter()
@@ -335,13 +336,13 @@ namespace ILRuntime.Runtime.Intepreter
                 var ctx = c;
                 if (method.HasThis)
                     ctx.PushObject(instance);
-                PushParameter(ref ctx, pTypes[0], p1);
-                PushParameter(ref ctx, pTypes[1], p2);
-                PushParameter(ref ctx, pTypes[2], p3);
-                PushParameter(ref ctx, pTypes[3], p4);
+                ctx.PushParameter(pTypes[0], p1);
+                ctx.PushParameter(pTypes[1], p2);
+                ctx.PushParameter(pTypes[2], p3);
+                ctx.PushParameter(pTypes[3], p4);
 
                 ctx.Invoke();
-                return ReadResult<TResult>(ref ctx, pTypes[4]);
+                return ctx.ReadResult<TResult>(pTypes[4]);
             }
         }
 
@@ -377,7 +378,7 @@ namespace ILRuntime.Runtime.Intepreter
 
         static MethodDelegateAdapter()
         {
-            pType = GetInvocationType<T1>();
+            pType = InvocationContext.GetInvocationType<T1>();
         }
 
         public MethodDelegateAdapter()
@@ -406,7 +407,7 @@ namespace ILRuntime.Runtime.Intepreter
                 var ctx = c;
                 if (method.HasThis)
                     ctx.PushObject(instance);
-                PushParameter(ref ctx, pType, p1);
+                ctx.PushParameter(pType, p1);
                 ctx.Invoke();
             }
         }
@@ -444,8 +445,8 @@ namespace ILRuntime.Runtime.Intepreter
         {
             pTypes = new InvocationTypes[]
             {
-                GetInvocationType<T1>(),
-                GetInvocationType<T2>(),
+                InvocationContext.GetInvocationType<T1>(),
+                InvocationContext.GetInvocationType<T2>(),
             };
         }
         public MethodDelegateAdapter()
@@ -474,8 +475,8 @@ namespace ILRuntime.Runtime.Intepreter
                 var ctx = c;
                 if (method.HasThis)
                     ctx.PushObject(instance);
-                PushParameter(ref ctx, pTypes[0], p1);
-                PushParameter(ref ctx, pTypes[1], p2);
+                ctx.PushParameter(pTypes[0], p1);
+                ctx.PushParameter(pTypes[1], p2);
                 ctx.Invoke();
             }
         }
@@ -513,9 +514,9 @@ namespace ILRuntime.Runtime.Intepreter
         {
             pTypes = new InvocationTypes[]
             {
-                GetInvocationType<T1>(),
-                GetInvocationType<T2>(),
-                GetInvocationType<T3>(),
+                InvocationContext.GetInvocationType<T1>(),
+                InvocationContext.GetInvocationType<T2>(),
+                InvocationContext.GetInvocationType<T3>(),
             };
         }
         public MethodDelegateAdapter()
@@ -544,9 +545,9 @@ namespace ILRuntime.Runtime.Intepreter
                 var ctx = c;
                 if (method.HasThis)
                     ctx.PushObject(instance);
-                PushParameter(ref ctx, pTypes[0], p1);
-                PushParameter(ref ctx, pTypes[1], p2);
-                PushParameter(ref ctx, pTypes[2], p3);
+                ctx.PushParameter(pTypes[0], p1);
+                ctx.PushParameter(pTypes[1], p2);
+                ctx.PushParameter(pTypes[2], p3);
                 ctx.Invoke();
             }
         }
@@ -584,10 +585,10 @@ namespace ILRuntime.Runtime.Intepreter
         {
             pTypes = new InvocationTypes[]
             {
-                GetInvocationType<T1>(),
-                GetInvocationType<T2>(),
-                GetInvocationType<T3>(),
-                GetInvocationType<T4>(),
+                InvocationContext.GetInvocationType<T1>(),
+                InvocationContext.GetInvocationType<T2>(),
+                InvocationContext.GetInvocationType<T3>(),
+                InvocationContext.GetInvocationType<T4>(),
             };
         }
         public MethodDelegateAdapter()
@@ -616,10 +617,10 @@ namespace ILRuntime.Runtime.Intepreter
                 var ctx = c;
                 if (method.HasThis)
                     ctx.PushObject(instance);
-                PushParameter(ref ctx, pTypes[0], p1);
-                PushParameter(ref ctx, pTypes[1], p2);
-                PushParameter(ref ctx, pTypes[2], p3);
-                PushParameter(ref ctx, pTypes[3], p4);
+                ctx.PushParameter(pTypes[0], p1);
+                ctx.PushParameter(pTypes[1], p2);
+                ctx.PushParameter(pTypes[2], p3);
+                ctx.PushParameter(pTypes[3], p4);
                 ctx.Invoke();
             }
         }
@@ -755,16 +756,6 @@ namespace ILRuntime.Runtime.Intepreter
     }
     #endregion
 
-    enum InvocationTypes
-    {
-        Integer,
-        Long,
-        Float,
-        Double,
-        Enum,
-        Object,
-    }
-
     abstract class DelegateAdapter : ILTypeInstance, IDelegateAdapter
     {
         protected ILMethod method;
@@ -797,92 +788,6 @@ namespace ILRuntime.Runtime.Intepreter
             get
             {
                 return false;
-            }
-        }
-
-        protected static InvocationTypes GetInvocationType<T>()
-        {
-            var type = typeof(T);
-            if (type.IsPrimitive)
-            {
-                if (type == typeof(int))
-                    return InvocationTypes.Integer;
-                if (type == typeof(short))
-                    return InvocationTypes.Integer;
-                if (type == typeof(bool))
-                    return InvocationTypes.Integer;
-                if (type == typeof(long))
-                    return InvocationTypes.Long;
-                if (type == typeof(float))
-                    return InvocationTypes.Float;
-                if (type == typeof(double))
-                    return InvocationTypes.Double;
-                if (type == typeof(char))
-                    return InvocationTypes.Integer;
-                if (type == typeof(ushort))
-                    return InvocationTypes.Integer;
-                if (type == typeof(uint))
-                    return InvocationTypes.Integer;
-                if (type == typeof(ulong))
-                    return InvocationTypes.Long;
-                if (type == typeof(byte))
-                    return InvocationTypes.Integer;
-                if (type == typeof(sbyte))
-                    return InvocationTypes.Integer;
-                else
-                    throw new NotImplementedException(string.Format("Not supported type:{0}", type.FullName));
-            }
-            else if (type.IsEnum)
-            {
-                if (PrimitiveConverter<T>.ToInteger != null && PrimitiveConverter<T>.FromInteger != null)
-                    return InvocationTypes.Integer;
-                if (PrimitiveConverter<T>.ToLong != null && PrimitiveConverter<T>.FromLong != null)
-                    return InvocationTypes.Long;
-                return InvocationTypes.Enum;
-            }
-            else
-                return InvocationTypes.Object;
-        }
-
-        protected static void PushParameter<T>(ref InvocationContext ctx, InvocationTypes type, T val)
-        {
-            switch (type)
-            {
-                case InvocationTypes.Integer:
-                    ctx.PushInteger(val);
-                    break;
-                case InvocationTypes.Long:
-                    ctx.PushLong(val);
-                    break;
-                case InvocationTypes.Float:
-                    ctx.PushFloat(val);
-                    break;
-                case InvocationTypes.Double:
-                    ctx.PushDouble(val);
-                    break;
-                case InvocationTypes.Enum:
-                    ctx.PushObject(val, false);
-                    break;
-                default:
-                    ctx.PushObject(val);
-                    break;
-            }
-        }
-
-        protected static T ReadResult<T>(ref InvocationContext ctx, InvocationTypes type)
-        {
-            switch (type)
-            {
-                case InvocationTypes.Integer:
-                    return ctx.ReadInteger<T>();
-                case InvocationTypes.Long:
-                    return ctx.ReadLong<T>();
-                case InvocationTypes.Float:
-                    return ctx.ReadFloat<T>();
-                case InvocationTypes.Double:
-                    return ctx.ReadDouble<T>();
-                default:
-                    return ctx.ReadObject<T>();
             }
         }
 
@@ -1124,4 +1029,4 @@ namespace ILRuntime.Runtime.Intepreter
         bool Equals(Delegate dele);
     }
 }
-#endif
+#endif

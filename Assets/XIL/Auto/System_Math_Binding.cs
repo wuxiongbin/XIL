@@ -236,8 +236,10 @@ namespace ILRuntime.Runtime.Generated
 
             field = type.GetField("PI", flag);
             app.RegisterCLRFieldGetter(field, get_PI_0);
+            app.RegisterCLRFieldBinding(field, CopyToStack_PI_0, null);
             field = type.GetField("E", flag);
             app.RegisterCLRFieldGetter(field, get_E_1);
+            app.RegisterCLRFieldBinding(field, CopyToStack_E_1, null);
 
 
 
@@ -1654,10 +1656,28 @@ namespace ILRuntime.Runtime.Generated
         {
             return System.Math.PI;
         }
+
+        static StackObject* CopyToStack_PI_0(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.Math.PI;
+            __ret->ObjectType = ObjectTypes.Double;
+            *(double*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static object get_E_1(ref object o)
         {
             return System.Math.E;
         }
+
+        static StackObject* CopyToStack_E_1(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.Math.E;
+            __ret->ObjectType = ObjectTypes.Double;
+            *(double*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
 
 
 

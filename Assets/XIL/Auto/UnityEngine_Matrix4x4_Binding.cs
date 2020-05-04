@@ -162,51 +162,67 @@ namespace ILRuntime.Runtime.Generated
             field = type.GetField("m00", flag);
             app.RegisterCLRFieldGetter(field, get_m00_0);
             app.RegisterCLRFieldSetter(field, set_m00_0);
+            app.RegisterCLRFieldBinding(field, CopyToStack_m00_0, AssignFromStack_m00_0);
             field = type.GetField("m10", flag);
             app.RegisterCLRFieldGetter(field, get_m10_1);
             app.RegisterCLRFieldSetter(field, set_m10_1);
+            app.RegisterCLRFieldBinding(field, CopyToStack_m10_1, AssignFromStack_m10_1);
             field = type.GetField("m20", flag);
             app.RegisterCLRFieldGetter(field, get_m20_2);
             app.RegisterCLRFieldSetter(field, set_m20_2);
+            app.RegisterCLRFieldBinding(field, CopyToStack_m20_2, AssignFromStack_m20_2);
             field = type.GetField("m30", flag);
             app.RegisterCLRFieldGetter(field, get_m30_3);
             app.RegisterCLRFieldSetter(field, set_m30_3);
+            app.RegisterCLRFieldBinding(field, CopyToStack_m30_3, AssignFromStack_m30_3);
             field = type.GetField("m01", flag);
             app.RegisterCLRFieldGetter(field, get_m01_4);
             app.RegisterCLRFieldSetter(field, set_m01_4);
+            app.RegisterCLRFieldBinding(field, CopyToStack_m01_4, AssignFromStack_m01_4);
             field = type.GetField("m11", flag);
             app.RegisterCLRFieldGetter(field, get_m11_5);
             app.RegisterCLRFieldSetter(field, set_m11_5);
+            app.RegisterCLRFieldBinding(field, CopyToStack_m11_5, AssignFromStack_m11_5);
             field = type.GetField("m21", flag);
             app.RegisterCLRFieldGetter(field, get_m21_6);
             app.RegisterCLRFieldSetter(field, set_m21_6);
+            app.RegisterCLRFieldBinding(field, CopyToStack_m21_6, AssignFromStack_m21_6);
             field = type.GetField("m31", flag);
             app.RegisterCLRFieldGetter(field, get_m31_7);
             app.RegisterCLRFieldSetter(field, set_m31_7);
+            app.RegisterCLRFieldBinding(field, CopyToStack_m31_7, AssignFromStack_m31_7);
             field = type.GetField("m02", flag);
             app.RegisterCLRFieldGetter(field, get_m02_8);
             app.RegisterCLRFieldSetter(field, set_m02_8);
+            app.RegisterCLRFieldBinding(field, CopyToStack_m02_8, AssignFromStack_m02_8);
             field = type.GetField("m12", flag);
             app.RegisterCLRFieldGetter(field, get_m12_9);
             app.RegisterCLRFieldSetter(field, set_m12_9);
+            app.RegisterCLRFieldBinding(field, CopyToStack_m12_9, AssignFromStack_m12_9);
             field = type.GetField("m22", flag);
             app.RegisterCLRFieldGetter(field, get_m22_10);
             app.RegisterCLRFieldSetter(field, set_m22_10);
+            app.RegisterCLRFieldBinding(field, CopyToStack_m22_10, AssignFromStack_m22_10);
             field = type.GetField("m32", flag);
             app.RegisterCLRFieldGetter(field, get_m32_11);
             app.RegisterCLRFieldSetter(field, set_m32_11);
+            app.RegisterCLRFieldBinding(field, CopyToStack_m32_11, AssignFromStack_m32_11);
             field = type.GetField("m03", flag);
             app.RegisterCLRFieldGetter(field, get_m03_12);
             app.RegisterCLRFieldSetter(field, set_m03_12);
+            app.RegisterCLRFieldBinding(field, CopyToStack_m03_12, AssignFromStack_m03_12);
             field = type.GetField("m13", flag);
             app.RegisterCLRFieldGetter(field, get_m13_13);
             app.RegisterCLRFieldSetter(field, set_m13_13);
+            app.RegisterCLRFieldBinding(field, CopyToStack_m13_13, AssignFromStack_m13_13);
             field = type.GetField("m23", flag);
             app.RegisterCLRFieldGetter(field, get_m23_14);
             app.RegisterCLRFieldSetter(field, set_m23_14);
+            app.RegisterCLRFieldBinding(field, CopyToStack_m23_14, AssignFromStack_m23_14);
             field = type.GetField("m33", flag);
             app.RegisterCLRFieldGetter(field, get_m33_15);
             app.RegisterCLRFieldSetter(field, set_m33_15);
+            app.RegisterCLRFieldBinding(field, CopyToStack_m33_15, AssignFromStack_m33_15);
 
             app.RegisterCLRMemberwiseClone(type, PerformMemberwiseClone);
 
@@ -1294,178 +1310,482 @@ namespace ILRuntime.Runtime.Generated
         {
             return ((UnityEngine.Matrix4x4)o).m00;
         }
+
+        static StackObject* CopyToStack_m00_0(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((UnityEngine.Matrix4x4)o).m00;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static void set_m00_0(ref object o, object v)
         {
-            var h = GCHandle.Alloc(o, GCHandleType.Pinned);
-            UnityEngine.Matrix4x4* p = (UnityEngine.Matrix4x4 *)(void *)h.AddrOfPinnedObject();
-            p->m00 = (System.Single)v;
-            h.Free();
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m00 = (System.Single)v;
+            o = ins;
         }
+
+        static StackObject* AssignFromStack_m00_0(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            System.Single @m00 = *(float*)&ptr_of_this_method->Value;
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m00 = @m00;
+            o = ins;
+            return ptr_of_this_method;
+        }
+
         static object get_m10_1(ref object o)
         {
             return ((UnityEngine.Matrix4x4)o).m10;
         }
+
+        static StackObject* CopyToStack_m10_1(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((UnityEngine.Matrix4x4)o).m10;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static void set_m10_1(ref object o, object v)
         {
-            var h = GCHandle.Alloc(o, GCHandleType.Pinned);
-            UnityEngine.Matrix4x4* p = (UnityEngine.Matrix4x4 *)(void *)h.AddrOfPinnedObject();
-            p->m10 = (System.Single)v;
-            h.Free();
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m10 = (System.Single)v;
+            o = ins;
         }
+
+        static StackObject* AssignFromStack_m10_1(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            System.Single @m10 = *(float*)&ptr_of_this_method->Value;
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m10 = @m10;
+            o = ins;
+            return ptr_of_this_method;
+        }
+
         static object get_m20_2(ref object o)
         {
             return ((UnityEngine.Matrix4x4)o).m20;
         }
+
+        static StackObject* CopyToStack_m20_2(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((UnityEngine.Matrix4x4)o).m20;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static void set_m20_2(ref object o, object v)
         {
-            var h = GCHandle.Alloc(o, GCHandleType.Pinned);
-            UnityEngine.Matrix4x4* p = (UnityEngine.Matrix4x4 *)(void *)h.AddrOfPinnedObject();
-            p->m20 = (System.Single)v;
-            h.Free();
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m20 = (System.Single)v;
+            o = ins;
         }
+
+        static StackObject* AssignFromStack_m20_2(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            System.Single @m20 = *(float*)&ptr_of_this_method->Value;
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m20 = @m20;
+            o = ins;
+            return ptr_of_this_method;
+        }
+
         static object get_m30_3(ref object o)
         {
             return ((UnityEngine.Matrix4x4)o).m30;
         }
+
+        static StackObject* CopyToStack_m30_3(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((UnityEngine.Matrix4x4)o).m30;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static void set_m30_3(ref object o, object v)
         {
-            var h = GCHandle.Alloc(o, GCHandleType.Pinned);
-            UnityEngine.Matrix4x4* p = (UnityEngine.Matrix4x4 *)(void *)h.AddrOfPinnedObject();
-            p->m30 = (System.Single)v;
-            h.Free();
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m30 = (System.Single)v;
+            o = ins;
         }
+
+        static StackObject* AssignFromStack_m30_3(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            System.Single @m30 = *(float*)&ptr_of_this_method->Value;
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m30 = @m30;
+            o = ins;
+            return ptr_of_this_method;
+        }
+
         static object get_m01_4(ref object o)
         {
             return ((UnityEngine.Matrix4x4)o).m01;
         }
+
+        static StackObject* CopyToStack_m01_4(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((UnityEngine.Matrix4x4)o).m01;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static void set_m01_4(ref object o, object v)
         {
-            var h = GCHandle.Alloc(o, GCHandleType.Pinned);
-            UnityEngine.Matrix4x4* p = (UnityEngine.Matrix4x4 *)(void *)h.AddrOfPinnedObject();
-            p->m01 = (System.Single)v;
-            h.Free();
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m01 = (System.Single)v;
+            o = ins;
         }
+
+        static StackObject* AssignFromStack_m01_4(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            System.Single @m01 = *(float*)&ptr_of_this_method->Value;
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m01 = @m01;
+            o = ins;
+            return ptr_of_this_method;
+        }
+
         static object get_m11_5(ref object o)
         {
             return ((UnityEngine.Matrix4x4)o).m11;
         }
+
+        static StackObject* CopyToStack_m11_5(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((UnityEngine.Matrix4x4)o).m11;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static void set_m11_5(ref object o, object v)
         {
-            var h = GCHandle.Alloc(o, GCHandleType.Pinned);
-            UnityEngine.Matrix4x4* p = (UnityEngine.Matrix4x4 *)(void *)h.AddrOfPinnedObject();
-            p->m11 = (System.Single)v;
-            h.Free();
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m11 = (System.Single)v;
+            o = ins;
         }
+
+        static StackObject* AssignFromStack_m11_5(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            System.Single @m11 = *(float*)&ptr_of_this_method->Value;
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m11 = @m11;
+            o = ins;
+            return ptr_of_this_method;
+        }
+
         static object get_m21_6(ref object o)
         {
             return ((UnityEngine.Matrix4x4)o).m21;
         }
+
+        static StackObject* CopyToStack_m21_6(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((UnityEngine.Matrix4x4)o).m21;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static void set_m21_6(ref object o, object v)
         {
-            var h = GCHandle.Alloc(o, GCHandleType.Pinned);
-            UnityEngine.Matrix4x4* p = (UnityEngine.Matrix4x4 *)(void *)h.AddrOfPinnedObject();
-            p->m21 = (System.Single)v;
-            h.Free();
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m21 = (System.Single)v;
+            o = ins;
         }
+
+        static StackObject* AssignFromStack_m21_6(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            System.Single @m21 = *(float*)&ptr_of_this_method->Value;
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m21 = @m21;
+            o = ins;
+            return ptr_of_this_method;
+        }
+
         static object get_m31_7(ref object o)
         {
             return ((UnityEngine.Matrix4x4)o).m31;
         }
+
+        static StackObject* CopyToStack_m31_7(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((UnityEngine.Matrix4x4)o).m31;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static void set_m31_7(ref object o, object v)
         {
-            var h = GCHandle.Alloc(o, GCHandleType.Pinned);
-            UnityEngine.Matrix4x4* p = (UnityEngine.Matrix4x4 *)(void *)h.AddrOfPinnedObject();
-            p->m31 = (System.Single)v;
-            h.Free();
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m31 = (System.Single)v;
+            o = ins;
         }
+
+        static StackObject* AssignFromStack_m31_7(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            System.Single @m31 = *(float*)&ptr_of_this_method->Value;
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m31 = @m31;
+            o = ins;
+            return ptr_of_this_method;
+        }
+
         static object get_m02_8(ref object o)
         {
             return ((UnityEngine.Matrix4x4)o).m02;
         }
+
+        static StackObject* CopyToStack_m02_8(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((UnityEngine.Matrix4x4)o).m02;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static void set_m02_8(ref object o, object v)
         {
-            var h = GCHandle.Alloc(o, GCHandleType.Pinned);
-            UnityEngine.Matrix4x4* p = (UnityEngine.Matrix4x4 *)(void *)h.AddrOfPinnedObject();
-            p->m02 = (System.Single)v;
-            h.Free();
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m02 = (System.Single)v;
+            o = ins;
         }
+
+        static StackObject* AssignFromStack_m02_8(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            System.Single @m02 = *(float*)&ptr_of_this_method->Value;
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m02 = @m02;
+            o = ins;
+            return ptr_of_this_method;
+        }
+
         static object get_m12_9(ref object o)
         {
             return ((UnityEngine.Matrix4x4)o).m12;
         }
+
+        static StackObject* CopyToStack_m12_9(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((UnityEngine.Matrix4x4)o).m12;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static void set_m12_9(ref object o, object v)
         {
-            var h = GCHandle.Alloc(o, GCHandleType.Pinned);
-            UnityEngine.Matrix4x4* p = (UnityEngine.Matrix4x4 *)(void *)h.AddrOfPinnedObject();
-            p->m12 = (System.Single)v;
-            h.Free();
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m12 = (System.Single)v;
+            o = ins;
         }
+
+        static StackObject* AssignFromStack_m12_9(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            System.Single @m12 = *(float*)&ptr_of_this_method->Value;
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m12 = @m12;
+            o = ins;
+            return ptr_of_this_method;
+        }
+
         static object get_m22_10(ref object o)
         {
             return ((UnityEngine.Matrix4x4)o).m22;
         }
+
+        static StackObject* CopyToStack_m22_10(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((UnityEngine.Matrix4x4)o).m22;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static void set_m22_10(ref object o, object v)
         {
-            var h = GCHandle.Alloc(o, GCHandleType.Pinned);
-            UnityEngine.Matrix4x4* p = (UnityEngine.Matrix4x4 *)(void *)h.AddrOfPinnedObject();
-            p->m22 = (System.Single)v;
-            h.Free();
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m22 = (System.Single)v;
+            o = ins;
         }
+
+        static StackObject* AssignFromStack_m22_10(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            System.Single @m22 = *(float*)&ptr_of_this_method->Value;
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m22 = @m22;
+            o = ins;
+            return ptr_of_this_method;
+        }
+
         static object get_m32_11(ref object o)
         {
             return ((UnityEngine.Matrix4x4)o).m32;
         }
+
+        static StackObject* CopyToStack_m32_11(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((UnityEngine.Matrix4x4)o).m32;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static void set_m32_11(ref object o, object v)
         {
-            var h = GCHandle.Alloc(o, GCHandleType.Pinned);
-            UnityEngine.Matrix4x4* p = (UnityEngine.Matrix4x4 *)(void *)h.AddrOfPinnedObject();
-            p->m32 = (System.Single)v;
-            h.Free();
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m32 = (System.Single)v;
+            o = ins;
         }
+
+        static StackObject* AssignFromStack_m32_11(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            System.Single @m32 = *(float*)&ptr_of_this_method->Value;
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m32 = @m32;
+            o = ins;
+            return ptr_of_this_method;
+        }
+
         static object get_m03_12(ref object o)
         {
             return ((UnityEngine.Matrix4x4)o).m03;
         }
+
+        static StackObject* CopyToStack_m03_12(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((UnityEngine.Matrix4x4)o).m03;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static void set_m03_12(ref object o, object v)
         {
-            var h = GCHandle.Alloc(o, GCHandleType.Pinned);
-            UnityEngine.Matrix4x4* p = (UnityEngine.Matrix4x4 *)(void *)h.AddrOfPinnedObject();
-            p->m03 = (System.Single)v;
-            h.Free();
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m03 = (System.Single)v;
+            o = ins;
         }
+
+        static StackObject* AssignFromStack_m03_12(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            System.Single @m03 = *(float*)&ptr_of_this_method->Value;
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m03 = @m03;
+            o = ins;
+            return ptr_of_this_method;
+        }
+
         static object get_m13_13(ref object o)
         {
             return ((UnityEngine.Matrix4x4)o).m13;
         }
+
+        static StackObject* CopyToStack_m13_13(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((UnityEngine.Matrix4x4)o).m13;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static void set_m13_13(ref object o, object v)
         {
-            var h = GCHandle.Alloc(o, GCHandleType.Pinned);
-            UnityEngine.Matrix4x4* p = (UnityEngine.Matrix4x4 *)(void *)h.AddrOfPinnedObject();
-            p->m13 = (System.Single)v;
-            h.Free();
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m13 = (System.Single)v;
+            o = ins;
         }
+
+        static StackObject* AssignFromStack_m13_13(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            System.Single @m13 = *(float*)&ptr_of_this_method->Value;
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m13 = @m13;
+            o = ins;
+            return ptr_of_this_method;
+        }
+
         static object get_m23_14(ref object o)
         {
             return ((UnityEngine.Matrix4x4)o).m23;
         }
+
+        static StackObject* CopyToStack_m23_14(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((UnityEngine.Matrix4x4)o).m23;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static void set_m23_14(ref object o, object v)
         {
-            var h = GCHandle.Alloc(o, GCHandleType.Pinned);
-            UnityEngine.Matrix4x4* p = (UnityEngine.Matrix4x4 *)(void *)h.AddrOfPinnedObject();
-            p->m23 = (System.Single)v;
-            h.Free();
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m23 = (System.Single)v;
+            o = ins;
         }
+
+        static StackObject* AssignFromStack_m23_14(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            System.Single @m23 = *(float*)&ptr_of_this_method->Value;
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m23 = @m23;
+            o = ins;
+            return ptr_of_this_method;
+        }
+
         static object get_m33_15(ref object o)
         {
             return ((UnityEngine.Matrix4x4)o).m33;
         }
+
+        static StackObject* CopyToStack_m33_15(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((UnityEngine.Matrix4x4)o).m33;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static void set_m33_15(ref object o, object v)
         {
-            var h = GCHandle.Alloc(o, GCHandleType.Pinned);
-            UnityEngine.Matrix4x4* p = (UnityEngine.Matrix4x4 *)(void *)h.AddrOfPinnedObject();
-            p->m33 = (System.Single)v;
-            h.Free();
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m33 = (System.Single)v;
+            o = ins;
         }
+
+        static StackObject* AssignFromStack_m33_15(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            System.Single @m33 = *(float*)&ptr_of_this_method->Value;
+            UnityEngine.Matrix4x4 ins =(UnityEngine.Matrix4x4)o;
+            ins.m33 = @m33;
+            o = ins;
+            return ptr_of_this_method;
+        }
+
 
         static object PerformMemberwiseClone(ref object o)
         {
