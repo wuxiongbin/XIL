@@ -33,7 +33,7 @@ namespace ILRuntime.Runtime.CLRBinding
             object[] atts = i.GetCustomAttributes(true);
             for (int m = 0; m < atts.Length; ++m)
             {
-                if (atts[m].GetType().FullName.Contains("EditorField"))
+                if (atts[m].GetType().FullName.Contains(attType))
                     return true;
             }
 
@@ -79,8 +79,12 @@ namespace ILRuntime.Runtime.CLRBinding
                     }
                     if (prop.GetCustomAttributes(typeof(ObsoleteAttribute), true).Length > 0)
                         return true;
+
+                    if (IsHasAttribute(prop, "EditorField"))
+                        return true;
                 }
             }
+
             if (i.GetCustomAttributes(typeof(ObsoleteAttribute), true).Length > 0)
                 return true;
 
@@ -105,6 +109,26 @@ namespace ILRuntime.Runtime.CLRBinding
                 switch (i.Name)
                 {
                 case "IsJoystickPreconfigured":
+                    return true;
+                }
+            }
+
+            if (type == typeof(UnityEngine.MeshRenderer))
+            {
+                switch (i.Name)
+                {
+                case "set_receiveGI":
+                case "get_receiveGI":
+                    return true;
+                }
+            }
+
+            if (type == typeof(UnityEngine.QualitySettings))
+            {
+                switch (i.Name)
+                {
+                case "set_streamingMipmapsRenderersPerFrame":
+                case "get_streamingMipmapsRenderersPerFrame":
                     return true;
                 }
             }
@@ -211,6 +235,35 @@ namespace ILRuntime.Runtime.CLRBinding
                 case "SetAccessControl":
                 case "GetAccessControl":
                     return true;
+                }
+            }
+
+            if (type == typeof(System.IO.Stream))
+            {
+                switch (i.Name)
+                {
+                case "Read":
+                case "Write":
+                    {
+                        var ps = i.GetParameters();
+                        if (ps.Length == 1 &&
+                            (ps[0].ParameterType.FullName.StartsWith("System.ReadOnlySpan") ||
+                            ps[0].ParameterType.FullName.StartsWith("System.Span"))
+                            )
+                            return true;
+                    }
+                    break;
+                case "ReadAsync":
+                case "WriteAsync":
+                    {
+                        var ps = i.GetParameters();
+                        if (ps.Length == 2 && (
+                            ps[0].ParameterType.FullName.StartsWith("Memory.ReadOnlySpan") ||
+                            ps[0].ParameterType.FullName.StartsWith("System.ReadOnlyMemory") ||
+                            ps[0].ParameterType.FullName.StartsWith("System.Memory")))
+                            return true;
+                    }
+                    break;
                 }
             }
 

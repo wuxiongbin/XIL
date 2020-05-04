@@ -12,6 +12,14 @@ namespace xys
         static void Generate()
         {
             HashSet<System.Type> types = new HashSet<System.Type>();
+            types.Add(typeof(wxb.Array<int>));
+            types.Add(typeof(wxb.Array<float>));
+            types.Add(typeof(wxb.Array<long>));
+            types.Add(typeof(wxb.Array<object>));
+            types.Add(typeof(wxb.Array<string>));
+            types.Add(typeof(wxb.Array<byte>));
+            types.Add(typeof(byte[,]));
+
             types.Add(typeof(int));
             types.Add(typeof(float));
             types.Add(typeof(long));

@@ -16,10 +16,8 @@ namespace ILRuntime.Runtime.Generated
 {
     unsafe class ILLog
     {
-        public static void Log(ILIntepreter __intp, Enviorment.AppDomain __domain, UnityEngine.LogType level, string format, params object[] objs)
+        public static void Log(ILIntepreter __intp, Enviorment.AppDomain __domain, UnityEngine.LogType level, string text)
         {
-            var text = (objs == null || objs.Length == 0) ? format : string.Format(format, objs);
-
             UnityEngine.Debug.unityLogger.Log(level,
                 string.Format("{0}\nStackTrance:{1}", text, __domain.DebugService.GetStackTrace(__intp)));
         }

@@ -102,8 +102,8 @@ namespace ");
                     return instance.ToString();
                 }
                 else
-                    return instance.Type.FullName;
-            }
+                    return instance.Type.FullName;");
+            sb.AppendLine(@"            }
         }
     }
 }");

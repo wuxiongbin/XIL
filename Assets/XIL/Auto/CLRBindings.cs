@@ -12,6 +12,13 @@ namespace ILRuntime.Runtime.Generated
         /// </summary>
         public static void Initialize(ILRuntime.Runtime.Enviorment.AppDomain app)
         {
+            wxb_Array_1_Int32_Binding.Register(app);
+            wxb_Array_1_Single_Binding.Register(app);
+            wxb_Array_1_Int64_Binding.Register(app);
+            wxb_Array_1_Object_Binding.Register(app);
+            wxb_Array_1_String_Binding.Register(app);
+            wxb_Array_1_Byte_Binding.Register(app);
+            System_Byte_Array2_Binding.Register(app);
             System_Int32_Binding.Register(app);
             System_Single_Binding.Register(app);
             System_Int64_Binding.Register(app);

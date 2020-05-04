@@ -280,6 +280,24 @@ namespace wxb
             return sb.AppendLine();
         }
 
+        public static System.Text.StringBuilder AppendFormatLine(this System.Text.StringBuilder sb, string format, object p0)
+        {
+            sb.AppendFormat(format, p0);
+            return sb.AppendLine();
+        }
+
+        public static System.Text.StringBuilder AppendFormatLine(this System.Text.StringBuilder sb, string format, object p0, object p1)
+        {
+            sb.AppendFormat(format, p0, p1);
+            return sb.AppendLine();
+        }
+
+        public static System.Text.StringBuilder AppendFormatLine(this System.Text.StringBuilder sb, string format, object p0, object p1, object p2)
+        {
+            sb.AppendFormat(format, p0, p1, p2);
+            return sb.AppendLine();
+        }
+
         public static AppDomain appdomain { get; private set; }
 
         static RefType refType;
