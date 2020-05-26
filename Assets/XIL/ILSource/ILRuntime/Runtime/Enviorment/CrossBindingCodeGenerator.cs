@@ -108,7 +108,8 @@ namespace ");
         }
     }
 }
-#endif");
+");
+            sb.AppendLine(@"#endif");
             return sb.ToString();
         }
 
