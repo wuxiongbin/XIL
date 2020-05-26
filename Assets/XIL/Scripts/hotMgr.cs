@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_HOT
 namespace wxb
 {
     using System.Reflection;
@@ -979,8 +979,7 @@ namespace wxb
         }
         public static void RegisterAdaptor(AppDomain appdomain)
         {
-            ///<<RegisterAdaptor BEGIN
-            appdomain.RegisterCrossBindingAdaptor(new CoroutineAdapter());
+            ///<<RegisterAdaptor BEGIN            appdomain.RegisterCrossBindingAdaptor(new CoroutineAdapter());
             ///>>RegisterAdaptor END
         }
     }

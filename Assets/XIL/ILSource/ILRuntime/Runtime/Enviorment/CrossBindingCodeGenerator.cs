@@ -36,7 +36,8 @@ namespace ILRuntime.Runtime.Enviorment
             string clsName, realClsName;
             bool isByRef;
             baseType.GetClassName(out clsName, out realClsName, out isByRef, true);
-            sb.Append(@"using System;
+            sb.Append(@"#if USE_HOT
+using System;
 using ILRuntime.CLR.Method;
 using ILRuntime.Runtime.Enviorment;
 using ILRuntime.Runtime.Intepreter;
@@ -106,7 +107,8 @@ namespace ");
             sb.AppendLine(@"            }
         }
     }
-}");
+}
+#endif");
             return sb.ToString();
         }
 
