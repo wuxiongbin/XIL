@@ -287,10 +287,13 @@
                 //fullName.Contains("UnityEngine.LineRenderer") ||
                 fullName.Contains("BendingSegment") ||
                 fullName.Contains("PackTool.MagicThreadParamUpdate") ||
-                fullName.Contains("UIWidgetsSamples."))
+                fullName.Contains("UIWidgetsSamples.") ||
+                fullName.Contains("System.IntPtr") ||
+                fullName.Contains("FLAC."))
             {
                 return false;
             }
+            
 
             return true;
         }
