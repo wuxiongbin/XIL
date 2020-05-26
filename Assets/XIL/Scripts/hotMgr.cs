@@ -403,7 +403,7 @@ namespace wxb
         static public void InitHotModule()
         {
             appdomain = new AppDomain();
-            appdomain.RegisterCrossBindingAdaptor(new CoroutineAdapter());
+            RegisterAdaptor(appdomain);
 
 #if UNITY_EDITOR
             System.Type clrType = System.Type.GetType("ILRuntime.Runtime.Generated.CLRBindings");
@@ -976,6 +976,12 @@ namespace wxb
             }
 #endif
             System.GC.Collect();
+        }
+        public static void RegisterAdaptor(AppDomain appdomain)
+        {
+            ///<<RegisterAdaptor BEGIN
+            appdomain.RegisterCrossBindingAdaptor(new CoroutineAdapter());
+            ///>>RegisterAdaptor END
         }
     }
 }

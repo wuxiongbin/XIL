@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Reflection;
+using System;
+using System.IO;
 
 namespace wxb
 {
@@ -462,7 +464,48 @@ namespace IL
         {
             AutoCode(new List<string>());
         }
+        [MenuItem("XIL/ILRuntime/Generate Cross Binding Adapter")]
+        public static void GenerateCrossbindAdapter()
+        {
+            //由于跨域继承特殊性太多，自动生成无法实现完全无副作用生成，所以这里提供的代码自动生成主要是给大家生成个初始模版，简化大家的工作
+            //大多数情况直接使用自动生成的模版即可，如果遇到问题可以手动去修改生成后的文件，因此这里需要大家自行处理是否覆盖的问题 E:/gitlabSourceCode/game2/client/roguelike/Assets/XIL/Scripts/ILHotfix/Adapter
+            List<Type> adpters = new List<Type>
+            {
+                typeof(Coroutine),
 
+            };
+            var dir = "Assets/XIL/Scripts/ILHotfix/Adapter/";
+            foreach (var type in adpters)
+            {
+                var file = dir + type.Name + "Adapter.cs";
+                if (!File.Exists(file))
+                {
+                    using (System.IO.StreamWriter sw = new System.IO.StreamWriter(file))
+                    {
+                        sw.WriteLine(ILRuntime.Runtime.Enviorment.CrossBindingCodeGenerator.GenerateCrossBindingAdapterCode(type, "wxb"));
+                    }
+
+                }
+
+            }
+            var hotMgrPath = "Assets/XIL/Scripts/hotMgr.cs";
+            var hotMgrContent = File.ReadAllText(hotMgrPath);
+            var begin = "            ///<<RegisterAdaptor BEGIN";
+            var beginPos = hotMgrContent.IndexOf(begin) + begin.Length + 1;
+            var endPos = hotMgrContent.IndexOf("            ///>>RegisterAdaptor END");
+
+            var old = hotMgrContent.Substring(beginPos, endPos - beginPos);
+            var newChars = new System.Text.StringBuilder();
+            var reg = "            appdomain.RegisterCrossBindingAdaptor(new {0}Adapter());";
+            foreach (var type in adpters)
+            {
+                var ret = string.Format(reg, type.Name);
+                newChars.AppendLine(ret);
+            }
+            hotMgrContent = hotMgrContent.Replace(old, newChars.ToString());
+            File.WriteAllText(hotMgrPath, hotMgrContent);
+            AssetDatabase.Refresh();
+        }
         static bool IsUnityObjectType(System.Type type)
         {
             if (type == typeof(UnityEngine.Object))
