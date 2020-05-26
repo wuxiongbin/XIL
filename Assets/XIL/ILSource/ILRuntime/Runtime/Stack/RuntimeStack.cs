@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ namespace ILRuntime.Runtime.Stack
 
         IntPtr nativePointer;
 
-#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
         IList<object> managedStack = new List<object>(32);
 #else
         IList<object> managedStack = new UncheckedList<object>(32);
@@ -57,6 +58,12 @@ namespace ILRuntime.Runtime.Stack
             {
                 return valueTypePtr;
             }
+            private set
+            {
+                if (value > ValueTypeStackBase)
+                    throw new StackOverflowException();
+                valueTypePtr = value;
+            }
         }
 
         public StackObject* ValueTypeStackBase
@@ -83,7 +90,7 @@ namespace ILRuntime.Runtime.Stack
             res = new StackFrame();
             res.LocalVarPointer = esp;
             res.Method = method;
-#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
             res.Address = new IntegerReference();
             for (int i = 0; i < method.LocalVariableCount; i++)
             {
@@ -113,6 +120,24 @@ namespace ILRuntime.Runtime.Stack
             int mStackBase = frame.ManagedStackBase;
             if (method.HasThis)
                 ret--;
+            for (StackObject* ptr = ret; ptr < frame.LocalVarPointer; ptr++)
+            {
+                if (ptr->ObjectType == ObjectTypes.ValueTypeObjectReference)
+                {
+                    var addr = ILIntepreter.ResolveReference(ptr);
+                    int start = int.MaxValue;
+                    int end = int.MaxValue;
+                    var tmp = addr;
+                    CountValueTypeManaged(ptr, ref start, ref end, &tmp);
+
+                    if (addr > frame.ValueTypeBasePointer)
+                    {
+                        frame.ValueTypeBasePointer = addr;
+                    }
+                    if (start < mStackBase)
+                        mStackBase = start;
+                }
+            }
             if(method.ReturnType != intepreter.AppDomain.VoidType)
             {
                 *ret = *returnVal;
@@ -130,13 +155,26 @@ namespace ILRuntime.Runtime.Stack
                 }
                 ret++;
             }
-#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
             ((List<object>)managedStack).RemoveRange(mStackBase, managedStack.Count - mStackBase);
 #else
             ((UncheckedList<object>)managedStack).RemoveRange(mStackBase, managedStack.Count - mStackBase);
 #endif
             valueTypePtr = frame.ValueTypeBasePointer;
             return ret;
+        }
+
+        public void RelocateValueTypeAndFreeAfterDst(StackObject* src, StackObject* dst)
+        {
+            var objRef2 = dst;
+            dst = ILIntepreter.ResolveReference(dst);
+            int start = int.MaxValue;
+            int end = int.MaxValue;
+            CountValueTypeManaged(objRef2, ref start, ref end, &objRef2);
+            RelocateValueType(src, ref dst, ref start);
+            ValueTypeStackPointer = dst;
+            if (start <= end)
+                RemoveManagedStackRange(start, end);
         }
 
         void RelocateValueType(StackObject* src, ref StackObject* dst, ref int mStackBase)
@@ -345,6 +383,23 @@ namespace ILRuntime.Runtime.Stack
             }
         }
 
+        void RemoveManagedStackRange(int start, int end)
+        {
+            if (start != int.MaxValue)
+            {
+                if (end == managedStack.Count - 1)
+                {
+#if HOT_DEBUG
+                    ((List<object>)managedStack).RemoveRange(start, managedStack.Count - start);
+#else
+                    ((UncheckedList<object>)managedStack).RemoveRange(start, managedStack.Count - start);
+#endif
+                }
+                else
+                    throw new NotSupportedException();
+            }
+        }
+
         public void FreeValueTypeObject(StackObject* esp)
         {
             if (esp->ObjectType != ObjectTypes.ValueTypeObjectReference)
@@ -358,19 +413,7 @@ namespace ILRuntime.Runtime.Stack
                 valueTypePtr = ILIntepreter.ResolveReference(esp);
             else
                 throw new NotSupportedException();
-            if (start != int.MaxValue)
-            {
-                if (end == managedStack.Count - 1)
-                {
-#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
-                    ((List<object>)managedStack).RemoveRange(start, managedStack.Count - start);
-#else
-                    ((UncheckedList<object>)managedStack).RemoveRange(start, managedStack.Count - start);
-#endif
-                }
-                else
-                    throw new NotSupportedException();
-            }
+            RemoveManagedStackRange(start, end);
         }
 
         void CountValueTypeManaged(StackObject* esp, ref int start, ref int end, StackObject** endAddr)
@@ -421,4 +464,5 @@ namespace ILRuntime.Runtime.Stack
         }
     }
 }
-#endif
+
+#endif

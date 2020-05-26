@@ -266,8 +266,10 @@ namespace ILRuntime.Runtime.Generated
 
             field = type.GetField("MinValue", flag);
             app.RegisterCLRFieldGetter(field, get_MinValue_0);
+            app.RegisterCLRFieldBinding(field, CopyToStack_MinValue_0, null);
             field = type.GetField("MaxValue", flag);
             app.RegisterCLRFieldGetter(field, get_MaxValue_1);
+            app.RegisterCLRFieldBinding(field, CopyToStack_MaxValue_1, null);
 
             app.RegisterCLRMemberwiseClone(type, PerformMemberwiseClone);
 
@@ -2289,10 +2291,24 @@ namespace ILRuntime.Runtime.Generated
         {
             return System.DateTime.MinValue;
         }
+
+        static StackObject* CopyToStack_MinValue_0(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.DateTime.MinValue;
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
         static object get_MaxValue_1(ref object o)
         {
             return System.DateTime.MaxValue;
         }
+
+        static StackObject* CopyToStack_MaxValue_1(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.DateTime.MaxValue;
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
 
         static object PerformMemberwiseClone(ref object o)
         {

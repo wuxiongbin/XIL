@@ -104,16 +104,22 @@ namespace ILRuntime.Runtime.Generated
 
             field = type.GetField("MinValue", flag);
             app.RegisterCLRFieldGetter(field, get_MinValue_0);
+            app.RegisterCLRFieldBinding(field, CopyToStack_MinValue_0, null);
             field = type.GetField("Epsilon", flag);
             app.RegisterCLRFieldGetter(field, get_Epsilon_1);
+            app.RegisterCLRFieldBinding(field, CopyToStack_Epsilon_1, null);
             field = type.GetField("MaxValue", flag);
             app.RegisterCLRFieldGetter(field, get_MaxValue_2);
+            app.RegisterCLRFieldBinding(field, CopyToStack_MaxValue_2, null);
             field = type.GetField("PositiveInfinity", flag);
             app.RegisterCLRFieldGetter(field, get_PositiveInfinity_3);
+            app.RegisterCLRFieldBinding(field, CopyToStack_PositiveInfinity_3, null);
             field = type.GetField("NegativeInfinity", flag);
             app.RegisterCLRFieldGetter(field, get_NegativeInfinity_4);
+            app.RegisterCLRFieldBinding(field, CopyToStack_NegativeInfinity_4, null);
             field = type.GetField("NaN", flag);
             app.RegisterCLRFieldGetter(field, get_NaN_5);
+            app.RegisterCLRFieldBinding(field, CopyToStack_NaN_5, null);
 
 
             app.RegisterCLRCreateArrayInstance(type, s => new System.Single[s]);
@@ -775,26 +781,80 @@ namespace ILRuntime.Runtime.Generated
         {
             return System.Single.MinValue;
         }
+
+        static StackObject* CopyToStack_MinValue_0(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.Single.MinValue;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static object get_Epsilon_1(ref object o)
         {
             return System.Single.Epsilon;
         }
+
+        static StackObject* CopyToStack_Epsilon_1(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.Single.Epsilon;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static object get_MaxValue_2(ref object o)
         {
             return System.Single.MaxValue;
         }
+
+        static StackObject* CopyToStack_MaxValue_2(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.Single.MaxValue;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static object get_PositiveInfinity_3(ref object o)
         {
             return System.Single.PositiveInfinity;
         }
+
+        static StackObject* CopyToStack_PositiveInfinity_3(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.Single.PositiveInfinity;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static object get_NegativeInfinity_4(ref object o)
         {
             return System.Single.NegativeInfinity;
         }
+
+        static StackObject* CopyToStack_NegativeInfinity_4(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.Single.NegativeInfinity;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static object get_NaN_5(ref object o)
         {
             return System.Single.NaN;
         }
+
+        static StackObject* CopyToStack_NaN_5(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.Single.NaN;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
 
 
 

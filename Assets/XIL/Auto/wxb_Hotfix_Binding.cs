@@ -72,12 +72,15 @@ namespace ILRuntime.Runtime.Generated
             field = type.GetField("field", flag);
             app.RegisterCLRFieldGetter(field, get_field_0);
             app.RegisterCLRFieldSetter(field, set_field_0);
+            app.RegisterCLRFieldBinding(field, CopyToStack_field_0, AssignFromStack_field_0);
             field = type.GetField("method", flag);
             app.RegisterCLRFieldGetter(field, get_method_1);
             app.RegisterCLRFieldSetter(field, set_method_1);
+            app.RegisterCLRFieldBinding(field, CopyToStack_method_1, AssignFromStack_method_1);
             field = type.GetField("bridge", flag);
             app.RegisterCLRFieldGetter(field, get_bridge_2);
             app.RegisterCLRFieldSetter(field, set_bridge_2);
+            app.RegisterCLRFieldBinding(field, CopyToStack_bridge_2, AssignFromStack_bridge_2);
 
 
             app.RegisterCLRCreateArrayInstance(type, s => new wxb.Hotfix[s]);
@@ -670,26 +673,89 @@ namespace ILRuntime.Runtime.Generated
         {
             return ((wxb.Hotfix)o).field;
         }
+
+        static StackObject* CopyToStack_field_0(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((wxb.Hotfix)o).field;
+            object obj_result_of_this_method = result_of_this_method;
+            if(obj_result_of_this_method is CrossBindingAdaptorType)
+            {    
+                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
+            }
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
         static void set_field_0(ref object o, object v)
         {
             ((wxb.Hotfix)o).field = (System.Reflection.FieldInfo)v;
         }
+
+        static StackObject* AssignFromStack_field_0(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            System.Reflection.FieldInfo @field = (System.Reflection.FieldInfo)typeof(System.Reflection.FieldInfo).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            ((wxb.Hotfix)o).field = @field;
+            return ptr_of_this_method;
+        }
+
         static object get_method_1(ref object o)
         {
             return ((wxb.Hotfix)o).method;
         }
+
+        static StackObject* CopyToStack_method_1(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((wxb.Hotfix)o).method;
+            object obj_result_of_this_method = result_of_this_method;
+            if(obj_result_of_this_method is CrossBindingAdaptorType)
+            {    
+                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
+            }
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
         static void set_method_1(ref object o, object v)
         {
             ((wxb.Hotfix)o).method = (System.Reflection.MethodInfo)v;
         }
+
+        static StackObject* AssignFromStack_method_1(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            System.Reflection.MethodInfo @method = (System.Reflection.MethodInfo)typeof(System.Reflection.MethodInfo).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            ((wxb.Hotfix)o).method = @method;
+            return ptr_of_this_method;
+        }
+
         static object get_bridge_2(ref object o)
         {
             return ((wxb.Hotfix)o).bridge;
         }
+
+        static StackObject* CopyToStack_bridge_2(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((wxb.Hotfix)o).bridge;
+            object obj_result_of_this_method = result_of_this_method;
+            if(obj_result_of_this_method is CrossBindingAdaptorType)
+            {    
+                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
+            }
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
         static void set_bridge_2(ref object o, object v)
         {
             ((wxb.Hotfix)o).bridge = (IL.DelegateBridge)v;
         }
+
+        static StackObject* AssignFromStack_bridge_2(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            IL.DelegateBridge @bridge = (IL.DelegateBridge)typeof(IL.DelegateBridge).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            ((wxb.Hotfix)o).bridge = @bridge;
+            return ptr_of_this_method;
+        }
+
 
 
         static StackObject* Ctor_0(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)

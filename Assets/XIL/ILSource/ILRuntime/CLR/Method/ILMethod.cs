@@ -140,7 +140,7 @@ namespace ILRuntime.CLR.Method
                 isDelegateInvoke = true;
             this.appdomain = domain;
             paramCnt = def.HasParameters ? def.Parameters.Count : 0;
-#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
             if (def.HasBody)
             {
                 var sp = GetValidSequence(0, 1);
@@ -422,6 +422,12 @@ namespace ILRuntime.CLR.Method
                         var m = appdomain.GetMethod(token, declaringType, this, out invalidToken);
                         if (m != null)
                         {
+                            if(code.Code == OpCodeEnum.Callvirt && m is ILMethod)
+                            {
+                                ILMethod ilm = (ILMethod)m;
+                                if (!ilm.def.IsAbstract && !ilm.def.IsVirtual && !ilm.DeclearingType.IsInterface)
+                                    code.Code = OpCodeEnum.Call;
+                            }
                             if (invalidToken)
                                 code.TokenInteger = m.GetHashCode();
                             else

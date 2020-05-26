@@ -389,6 +389,7 @@ namespace ILRuntime.Runtime.Generated
 
             field = type.GetField("Empty", flag);
             app.RegisterCLRFieldGetter(field, get_Empty_0);
+            app.RegisterCLRFieldBinding(field, CopyToStack_Empty_0, null);
 
 
             app.RegisterCLRCreateArrayInstance(type, s => new System.String[s]);
@@ -3120,6 +3121,13 @@ namespace ILRuntime.Runtime.Generated
         {
             return System.String.Empty;
         }
+
+        static StackObject* CopyToStack_Empty_0(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.String.Empty;
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
 
 
         static StackObject* Ctor_0(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)

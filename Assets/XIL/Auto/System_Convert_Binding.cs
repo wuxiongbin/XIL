@@ -956,6 +956,7 @@ namespace ILRuntime.Runtime.Generated
 
             field = type.GetField("DBNull", flag);
             app.RegisterCLRFieldGetter(field, get_DBNull_0);
+            app.RegisterCLRFieldBinding(field, CopyToStack_DBNull_0, null);
 
 
 
@@ -6498,6 +6499,18 @@ namespace ILRuntime.Runtime.Generated
         {
             return System.Convert.DBNull;
         }
+
+        static StackObject* CopyToStack_DBNull_0(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.Convert.DBNull;
+            object obj_result_of_this_method = result_of_this_method;
+            if(obj_result_of_this_method is CrossBindingAdaptorType)
+            {    
+                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance, true);
+            }
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
+        }
+
 
 
 

@@ -491,16 +491,22 @@ namespace ILRuntime.Runtime.Generated
 
             field = type.GetField("FilterAttribute", flag);
             app.RegisterCLRFieldGetter(field, get_FilterAttribute_0);
+            app.RegisterCLRFieldBinding(field, CopyToStack_FilterAttribute_0, null);
             field = type.GetField("FilterName", flag);
             app.RegisterCLRFieldGetter(field, get_FilterName_1);
+            app.RegisterCLRFieldBinding(field, CopyToStack_FilterName_1, null);
             field = type.GetField("FilterNameIgnoreCase", flag);
             app.RegisterCLRFieldGetter(field, get_FilterNameIgnoreCase_2);
+            app.RegisterCLRFieldBinding(field, CopyToStack_FilterNameIgnoreCase_2, null);
             field = type.GetField("Missing", flag);
             app.RegisterCLRFieldGetter(field, get_Missing_3);
+            app.RegisterCLRFieldBinding(field, CopyToStack_Missing_3, null);
             field = type.GetField("Delimiter", flag);
             app.RegisterCLRFieldGetter(field, get_Delimiter_4);
+            app.RegisterCLRFieldBinding(field, CopyToStack_Delimiter_4, null);
             field = type.GetField("EmptyTypes", flag);
             app.RegisterCLRFieldGetter(field, get_EmptyTypes_5);
+            app.RegisterCLRFieldBinding(field, CopyToStack_EmptyTypes_5, null);
 
 
             app.RegisterCLRCreateArrayInstance(type, s => new System.Type[s]);
@@ -3794,26 +3800,75 @@ namespace ILRuntime.Runtime.Generated
         {
             return System.Type.FilterAttribute;
         }
+
+        static StackObject* CopyToStack_FilterAttribute_0(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.Type.FilterAttribute;
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
         static object get_FilterName_1(ref object o)
         {
             return System.Type.FilterName;
         }
+
+        static StackObject* CopyToStack_FilterName_1(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.Type.FilterName;
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
         static object get_FilterNameIgnoreCase_2(ref object o)
         {
             return System.Type.FilterNameIgnoreCase;
         }
+
+        static StackObject* CopyToStack_FilterNameIgnoreCase_2(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.Type.FilterNameIgnoreCase;
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
         static object get_Missing_3(ref object o)
         {
             return System.Type.Missing;
         }
+
+        static StackObject* CopyToStack_Missing_3(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.Type.Missing;
+            object obj_result_of_this_method = result_of_this_method;
+            if(obj_result_of_this_method is CrossBindingAdaptorType)
+            {    
+                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance, true);
+            }
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
+        }
+
         static object get_Delimiter_4(ref object o)
         {
             return System.Type.Delimiter;
         }
+
+        static StackObject* CopyToStack_Delimiter_4(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.Type.Delimiter;
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = (int)result_of_this_method;
+            return __ret + 1;
+        }
+
         static object get_EmptyTypes_5(ref object o)
         {
             return System.Type.EmptyTypes;
         }
+
+        static StackObject* CopyToStack_EmptyTypes_5(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = System.Type.EmptyTypes;
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
 
 
 

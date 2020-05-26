@@ -181,13 +181,17 @@ namespace ILRuntime.Runtime.Generated
             field = type.GetField("x", flag);
             app.RegisterCLRFieldGetter(field, get_x_0);
             app.RegisterCLRFieldSetter(field, set_x_0);
+            app.RegisterCLRFieldBinding(field, CopyToStack_x_0, AssignFromStack_x_0);
             field = type.GetField("y", flag);
             app.RegisterCLRFieldGetter(field, get_y_1);
             app.RegisterCLRFieldSetter(field, set_y_1);
+            app.RegisterCLRFieldBinding(field, CopyToStack_y_1, AssignFromStack_y_1);
             field = type.GetField("kEpsilon", flag);
             app.RegisterCLRFieldGetter(field, get_kEpsilon_2);
+            app.RegisterCLRFieldBinding(field, CopyToStack_kEpsilon_2, null);
             field = type.GetField("kEpsilonNormalSqrt", flag);
             app.RegisterCLRFieldGetter(field, get_kEpsilonNormalSqrt_3);
+            app.RegisterCLRFieldBinding(field, CopyToStack_kEpsilonNormalSqrt_3, null);
 
             app.RegisterCLRMemberwiseClone(type, PerformMemberwiseClone);
 
@@ -1445,32 +1449,88 @@ namespace ILRuntime.Runtime.Generated
         {
             return ((UnityEngine.Vector2)o).x;
         }
+
+        static StackObject* CopyToStack_x_0(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((UnityEngine.Vector2)o).x;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static void set_x_0(ref object o, object v)
         {
-            var h = GCHandle.Alloc(o, GCHandleType.Pinned);
-            UnityEngine.Vector2* p = (UnityEngine.Vector2 *)(void *)h.AddrOfPinnedObject();
-            p->x = (System.Single)v;
-            h.Free();
+            UnityEngine.Vector2 ins =(UnityEngine.Vector2)o;
+            ins.x = (System.Single)v;
+            o = ins;
         }
+
+        static StackObject* AssignFromStack_x_0(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            System.Single @x = *(float*)&ptr_of_this_method->Value;
+            UnityEngine.Vector2 ins =(UnityEngine.Vector2)o;
+            ins.x = @x;
+            o = ins;
+            return ptr_of_this_method;
+        }
+
         static object get_y_1(ref object o)
         {
             return ((UnityEngine.Vector2)o).y;
         }
+
+        static StackObject* CopyToStack_y_1(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = ((UnityEngine.Vector2)o).y;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static void set_y_1(ref object o, object v)
         {
-            var h = GCHandle.Alloc(o, GCHandleType.Pinned);
-            UnityEngine.Vector2* p = (UnityEngine.Vector2 *)(void *)h.AddrOfPinnedObject();
-            p->y = (System.Single)v;
-            h.Free();
+            UnityEngine.Vector2 ins =(UnityEngine.Vector2)o;
+            ins.y = (System.Single)v;
+            o = ins;
         }
+
+        static StackObject* AssignFromStack_y_1(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            System.Single @y = *(float*)&ptr_of_this_method->Value;
+            UnityEngine.Vector2 ins =(UnityEngine.Vector2)o;
+            ins.y = @y;
+            o = ins;
+            return ptr_of_this_method;
+        }
+
         static object get_kEpsilon_2(ref object o)
         {
             return UnityEngine.Vector2.kEpsilon;
         }
+
+        static StackObject* CopyToStack_kEpsilon_2(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = UnityEngine.Vector2.kEpsilon;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
         static object get_kEpsilonNormalSqrt_3(ref object o)
         {
             return UnityEngine.Vector2.kEpsilonNormalSqrt;
         }
+
+        static StackObject* CopyToStack_kEpsilonNormalSqrt_3(ref object o, ILIntepreter __intp, StackObject* __ret, IList<object> __mStack)
+        {
+            var result_of_this_method = UnityEngine.Vector2.kEpsilonNormalSqrt;
+            __ret->ObjectType = ObjectTypes.Float;
+            *(float*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
 
         static object PerformMemberwiseClone(ref object o)
         {

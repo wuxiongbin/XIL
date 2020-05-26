@@ -280,6 +280,24 @@ namespace wxb
             return sb.AppendLine();
         }
 
+        public static System.Text.StringBuilder AppendFormatLine(this System.Text.StringBuilder sb, string format, object p0)
+        {
+            sb.AppendFormat(format, p0);
+            return sb.AppendLine();
+        }
+
+        public static System.Text.StringBuilder AppendFormatLine(this System.Text.StringBuilder sb, string format, object p0, object p1)
+        {
+            sb.AppendFormat(format, p0, p1);
+            return sb.AppendLine();
+        }
+
+        public static System.Text.StringBuilder AppendFormatLine(this System.Text.StringBuilder sb, string format, object p0, object p1, object p2)
+        {
+            sb.AppendFormat(format, p0, p1, p2);
+            return sb.AppendLine();
+        }
+
         public static AppDomain appdomain { get; private set; }
 
         static RefType refType;
@@ -309,6 +327,43 @@ namespace wxb
 
             InitHotModule();
 
+#if HOT_DEBUG
+            if (UnityEngine.Application.isPlaying)
+            {
+                System.Type debugger_type;
+                if (IL.Help.TryGetTypeByFullName("hot.Debugger", out debugger_type))
+                {
+                    var debugger = new RefType(true, debugger_type);
+                    object port = debugger.TryGetField("port");
+                    if (port != null)
+                    {
+                        var ds = appdomain.DebugService;
+                        ds.StartDebugService((int)port);
+                        object vsWaitTimeoutTime = debugger.TryGetField("vsWaitTimeoutTime");
+                        if (vsWaitTimeoutTime != null)
+                        {
+                            int wt = (int)vsWaitTimeoutTime;
+                            if (wt > 0)
+                            {
+                                L.Log("vsWait begin!");
+                                int count = 0;
+                                while (!ds.IsDebuggerAttached)
+                                {
+                                    System.Threading.Thread.Sleep(1000);
+                                    ++count;
+                                    if (count >= wt)
+                                    {
+                                        L.Log("vsWait timeout!");
+                                        break;
+                                    }
+                                }
+                                L.Log("vsWait end!");
+                            }
+                        }
+                    }
+                }
+            }
+#endif
             refType = new RefType("hot.hotApp");
             refType.TryInvokeMethod("Init");
 

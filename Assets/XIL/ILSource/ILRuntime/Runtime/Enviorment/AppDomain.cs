@@ -19,6 +19,7 @@ namespace ILRuntime.Runtime.Enviorment
 {
     public unsafe delegate StackObject* CLRRedirectionDelegate(ILIntepreter intp, StackObject* esp, IList<object> mStack, CLRMethod method, bool isNewObj);
     public delegate object CLRFieldGetterDelegate(ref object target);
+    public unsafe delegate StackObject* CLRFieldBindingDelegate(ref object target, ILIntepreter __intp, StackObject* __esp, IList<object> __mStack);
     public delegate void CLRFieldSetterDelegate(ref object target, object value);
     public delegate object CLRMemberwiseCloneDelegate(ref object target);
     public delegate object CLRCreateDefaultInstanceDelegate();
@@ -45,6 +46,7 @@ namespace ILRuntime.Runtime.Enviorment
         Dictionary<System.Reflection.MethodBase, CLRRedirectionDelegate> redirectMap = new Dictionary<System.Reflection.MethodBase, CLRRedirectionDelegate>();
         Dictionary<System.Reflection.FieldInfo, CLRFieldGetterDelegate> fieldGetterMap = new Dictionary<System.Reflection.FieldInfo, CLRFieldGetterDelegate>();
         Dictionary<System.Reflection.FieldInfo, CLRFieldSetterDelegate> fieldSetterMap = new Dictionary<System.Reflection.FieldInfo, CLRFieldSetterDelegate>();
+        Dictionary<System.Reflection.FieldInfo, KeyValuePair<CLRFieldBindingDelegate, CLRFieldBindingDelegate>> fieldBindingMap = new Dictionary<FieldInfo, KeyValuePair<CLRFieldBindingDelegate, CLRFieldBindingDelegate>>();
         Dictionary<Type, CLRMemberwiseCloneDelegate> memberwiseCloneMap = new Dictionary<Type, CLRMemberwiseCloneDelegate>(new ByReferenceKeyComparer<Type>());
         Dictionary<Type, CLRCreateDefaultInstanceDelegate> createDefaultInstanceMap = new Dictionary<Type, CLRCreateDefaultInstanceDelegate>(new ByReferenceKeyComparer<Type>());
         Dictionary<Type, CLRCreateArrayInstanceDelegate> createArrayInstanceMap = new Dictionary<Type, CLRCreateArrayInstanceDelegate>(new ByReferenceKeyComparer<Type>());
@@ -143,10 +145,12 @@ namespace ILRuntime.Runtime.Enviorment
                 {
                     RegisterCLRMethodRedirection(i, CLRRedirections.EnumGetName);
                 }
+#if NET_4_6 || NET_STANDARD_2_0
                 if(i.Name == "HasFlag")
                 {
                     RegisterCLRMethodRedirection(i, CLRRedirections.EnumHasFlag);
                 }
+#endif
                 if (i.Name == "ToObject" && i.GetParameters()[1].ParameterType == typeof(int))
                 {
                     RegisterCLRMethodRedirection(i, CLRRedirections.EnumToObject);
@@ -182,6 +186,7 @@ namespace ILRuntime.Runtime.Enviorment
         internal Dictionary<MethodBase, CLRRedirectionDelegate> RedirectMap { get { return redirectMap; } }
         internal Dictionary<FieldInfo, CLRFieldGetterDelegate> FieldGetterMap { get { return fieldGetterMap; } }
         internal Dictionary<FieldInfo, CLRFieldSetterDelegate> FieldSetterMap { get { return fieldSetterMap; } }
+        internal Dictionary<FieldInfo, KeyValuePair<CLRFieldBindingDelegate, CLRFieldBindingDelegate>> FieldBindingMap { get { return fieldBindingMap; } }
         internal Dictionary<Type, CLRMemberwiseCloneDelegate> MemberwiseCloneMap { get { return memberwiseCloneMap; } }
         internal Dictionary<Type, CLRCreateDefaultInstanceDelegate> CreateDefaultInstanceMap { get { return createDefaultInstanceMap; } }
         internal Dictionary<Type, CLRCreateArrayInstanceDelegate> CreateArrayInstanceMap { get { return createArrayInstanceMap; } }
@@ -423,7 +428,7 @@ namespace ILRuntime.Runtime.Enviorment
                 doubleType = GetType("System.Double");
                 objectType = GetType("System.Object");
             }
-#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
             debugService.NotifyModuleLoaded(module.Name);
 #endif
         }
@@ -456,6 +461,12 @@ namespace ILRuntime.Runtime.Enviorment
         {
             if (!fieldSetterMap.ContainsKey(f))
                 fieldSetterMap[f] = setter;
+        }
+
+        public void RegisterCLRFieldBinding(FieldInfo f, CLRFieldBindingDelegate copyToStack, CLRFieldBindingDelegate assignFromStack)
+        {
+            if (!fieldBindingMap.ContainsKey(f))
+                fieldBindingMap[f] = new KeyValuePair<CLRFieldBindingDelegate, CLRFieldBindingDelegate>(copyToStack, assignFromStack);
         }
 
         public void RegisterCLRMemberwiseClone(Type t, CLRMemberwiseCloneDelegate memberwiseClone)
@@ -1043,7 +1054,7 @@ namespace ILRuntime.Runtime.Enviorment
                 else
                 {
                     inteptreter = new ILIntepreter(this);
-#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
                     intepreters[inteptreter.GetHashCode()] = inteptreter;
                     debugService.ThreadStarted(inteptreter);
 #endif
@@ -1057,7 +1068,7 @@ namespace ILRuntime.Runtime.Enviorment
         {
             lock (freeIntepreters)
             {
-#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
                 if (inteptreter.CurrentStepType != StepTypes.None)
                 {
                     //We should resume all other threads if we are currently doing stepping operation
@@ -1075,7 +1086,7 @@ namespace ILRuntime.Runtime.Enviorment
                 inteptreter.Stack.ManagedStack.Clear();
                 inteptreter.Stack.Frames.Clear();
                 freeIntepreters.Enqueue(inteptreter);
-#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
                 //debugService.ThreadEnded(inteptreter);
 #endif
 

@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
@@ -35,7 +36,7 @@ namespace ILRuntime.Runtime.Debugger
         {
             get
             {
-#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
                 return (server != null && server.IsAttached);
 #else
                 return false;
@@ -54,7 +55,7 @@ namespace ILRuntime.Runtime.Debugger
         /// <param name="port">Port to listen on</param>
         public void StartDebugService(int port)
         {
-#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
             server = new Debugger.DebuggerServer(this);
             server.Port = port;
             server.Start();
@@ -66,7 +67,7 @@ namespace ILRuntime.Runtime.Debugger
         /// </summary>
         public void StopDebugService()
         {
-#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
             server.Stop();
             server = null;
 #endif
@@ -1148,7 +1149,14 @@ namespace ILRuntime.Runtime.Debugger
                     }
                 }
                 sb.Append(string.Format("(0x{0:X8}) Type:{1} ", (long)i, i->ObjectType));
-                GetStackObjectText(sb, i, mStack, valuePointerEnd);
+                try
+                {
+                    GetStackObjectText(sb, i, mStack, valuePointerEnd);
+                }
+                catch
+                {
+                    sb.Append(" Cannot Fetch Object Info");
+                }
                 if (i < esp)
                 {
                     if (i->ObjectType == ObjectTypes.ValueTypeObjectReference)
@@ -1216,11 +1224,17 @@ namespace ILRuntime.Runtime.Debugger
                     {
                         object obj = null;
                         var dst = ILIntepreter.ResolveReference(esp);
-                        if (dst > valueTypeEnd)
-                            obj = StackObject.ToObject(esp, domain, mStack);
-                        if (obj != null)
-                            text = obj.ToString();
-
+                        try
+                        {
+                            if (dst > valueTypeEnd)
+                                obj = StackObject.ToObject(esp, domain, mStack);
+                            if (obj != null)
+                                text = obj.ToString();
+                        }
+                        catch
+                        {
+                            text = "Invalid Object";
+                        }
                         text += string.Format("({0})", domain.GetType(dst->Value));
                     }
                     sb.Append(string.Format("Value:0x{0:X8} Text:{1} ", (long)ILIntepreter.ResolveReference(esp), text));
@@ -1258,4 +1272,5 @@ namespace ILRuntime.Runtime.Debugger
         }
     }
 }
-#endif
+
+#endif
