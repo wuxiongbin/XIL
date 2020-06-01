@@ -183,114 +183,9 @@
             if (NoExports.Contains(type))
                 return false;
 
-            string fullName = type.FullName;
-            if (/*fullName.StartsWith("Config.") ||*/
-                fullName.StartsWith("ParamList.") ||
-                fullName.StartsWith("ParamList+") ||
-                fullName.StartsWith("XLua.") ||
-                fullName.StartsWith("ILRuntime.") ||
-                fullName.StartsWith("Mono.") ||
-                fullName.Contains("SharpNav.") ||
-                fullName.Contains("FMOD") ||
-                fullName.Contains("ParticlePlayground.") ||
-                fullName.Contains("ICSharpCode.") ||
-                fullName.Contains("xys.gm") ||
-                fullName.StartsWith("Msdk") ||
-                fullName.StartsWith("Candlelight") ||
-                fullName.Contains("UnityEngine.WSA.") ||
-                fullName.Contains("UnityEngineInternal.") ||
-                fullName.Contains("UnityEngine.Material") ||
-                //fullName.Contains("UnityEngine.Texture") ||
-                //fullName.Contains("UnityEngine.Texture2D") ||
-                fullName.Contains("UnityEngine.Shader") ||
-                fullName.Contains("PackTool.SceneLoad") ||
-                fullName.Contains("System.AsyncCallback") ||
-                fullName.Contains("ModelPart") ||
-                fullName.Contains("xys.IModleFactory") ||
-                fullName.Contains("UnityEngine.AndroidJavaRunnable.") ||
-                fullName.Contains("UnityEngine.VR.") ||
-                fullName.Contains("UnityEngine.Audio") ||
-                fullName.Contains("UnityEngine.SceneManagement") ||
-                //fullName.Contains("UnityEngine.Video.") ||
-                //fullName.Contains("UnityEngine.ParticleSystem") ||
-                fullName.Contains("UnityEngine.Windows.") ||
-                fullName.Contains("UnityEngine.Android") ||
-                fullName.Contains("UnityEngine.Networking") ||
-                fullName.Contains("Eyesblack") ||
-                fullName.Contains("TinyXML") ||
-                //fullName.Contains("UnityEngine.Gradient") ||
-                //fullName.Contains("UnityEngine.AnimationCurve") ||
-                fullName.Contains("Xft.") ||
-                fullName.Contains("UI.Point") ||
-                fullName.Contains("MeshSimplify") ||
-                fullName.Contains("AutomaticLOD") ||
-                fullName.Contains("EditorExtensions") ||
-                //fullName.Contains("UnityEngine.CanvasRenderer") ||
-                fullName.Contains("AnimateTiledTexture") ||
-                //fullName.Contains("UnityEngine.Canvas") ||
-                //fullName.Contains("UnityEngine.Font") ||
-                fullName.Contains("UnityEngine.AI") ||
-                //fullName.Contains("UnityEngine.RectTransform") ||
-                fullName.Contains("UnityEngine.Apple.") ||
-                fullName.Contains("UnityEngine.Display") ||
-                fullName.Contains("PackTool.DTATask") ||
-                fullName.Contains("behaviac") ||
-                fullName.Contains("PackTool.DTATask.") ||
-                //fullName.Contains("UnityEngine.Application") ||
-                fullName.Contains("GUITextShow") ||
-                fullName.Contains("Pathfinding") ||
-                fullName.Contains("WellFired.") ||
-                //fullName.Contains("UnityEngine.Camera") ||
-                fullName.Contains("UltimateGameTools") ||
-                //fullName.Contains("XTools.Utility") ||
-                fullName.Contains("UnityEngine.CullingGroup") ||
-                fullName.Contains("UltimateGameTools.") ||
-                fullName.Contains("UnityEngine.GUI") ||
-                fullName.Contains("System.Reflection") ||
-                //fullName.Contains("System.Type") ||
-                fullName.Contains("UnityEngine.iOS") ||
-                fullName.Contains("UnityEngine.SocialPlatforms") ||
-                //fullName.Contains("WXB.Draw") ||
-                //fullName.Contains("WXB.RenderCache") ||
-                //fullName.Contains("WXB.Line") ||
-                //fullName.Contains("UnityEngine.AnimationClip") ||
-                //fullName.Contains("UnityEngine.Animator") ||
-                //fullName.Contains("UnityEngine.UICharInfo") ||
-                //fullName.Contains("UnityEngine.UILineInfo") ||
-                //fullName.Contains("UnityEngine.UIVertex") ||
-                //fullName.Contains("UnityEngine.UI.RectMask2D") ||
-                //fullName.Contains("UnityEngine.BoneWeight") ||
-                //fullName.Contains("UnityEngine.Rendering") ||
-                //fullName.Contains("EffectDelayPlayItem") ||
-                //fullName.Contains("RoleSkinUnitData") ||
-                //fullName.Contains("RoleFaceBaseSet") ||
-                //fullName.Contains("RoleShapePartUnit") ||
-                //fullName.Contains("RoleShapeSubPart") ||
-                //fullName.Contains("RoleShapePart") ||
-                //fullName.Contains("RoleShapeUnitData") ||
-                //fullName.Contains("RoleSkinTexStyle") ||
-                //fullName.Contains("RoleSkinColorStyle") ||
-                //fullName.Contains("RoleSkinUnit") ||
-                //fullName.Contains("RoleDisguiseItem") ||
-                //fullName.Contains("RoleDisguiseType") ||
-                //fullName.Contains("xys.ClothHandle") ||
-                //fullName.Contains("xys.ClothConfig") ||
-                //fullName.Contains("xys.HairItem") ||
-                //fullName.Contains("xys.ClothItem") ||
-                //fullName.Contains("xys.WeaponItem") ||
-                //fullName.Contains("xys.RideItem") ||
-                fullName.Contains("Tentacle3D") ||
-                fullName.Contains("RoleDisguiseCareer") ||
-                //fullName.Contains("UnityEngine.Rect") ||
-                //fullName.Contains("UnityEngine.Renderer") ||
-                fullName.Contains("Combine") ||
-                //fullName.Contains("UnityEngine.LineRenderer") ||
-                fullName.Contains("BendingSegment") ||
-                fullName.Contains("PackTool.MagicThreadParamUpdate") ||
-                fullName.Contains("UIWidgetsSamples."))
-            {
+            var ns = type.Namespace;
+            if (!string.IsNullOrEmpty(ns) && ns.StartsWith("ILRuntime"))
                 return false;
-            }
 
             return true;
         }
@@ -373,16 +268,7 @@
         {
             var tests = new HashSet<System.Type>(new System.Type[]
             {
-                //typeof(System.Func<wProtobuf.RPC.Error, NetProto.Hot.ActivityRemindRespone>),
-                //typeof(ParamList),
-                //typeof(MikuArtTech.EditorTools.ColorSchemeAsset),
-                //typeof(List<MikuArtTech.EditorTools.ColorSchemeAsset.ColorScheme>),
-                //typeof(System.Action<wProtobuf.RPC.Error, NetProto.Hot.DemonplotRespone>),
-                //IL.Help.GetTypeByFullName("hot.ChatUtil"),
-                //IL.Help.GetTypeByFullName("xys.ClothConfig"),                
-                //IL.Help.GetTypeByFullName("hot.UI.HotObtainItemShowMgr"),
-                //IL.Help.GetTypeByFullName("hot.UI.HotObtainItemShowMgr"),
-                //typeof(AssetRequest),
+
             });
 
             Export(tests);
@@ -573,8 +459,8 @@
                     foreach (var p in method.GetParameters())
                         BuildType(p.ParameterType, hotTypes, csharpDelegate, Checks);
 
-                    //foreach (var t in GetMethodBodyType(method))
-                    //    BuildType(t, hotTypes, csharpDelegate, Checks);
+                    foreach (var t in GetMethodBodyType(method))
+                        BuildType(t, hotTypes, csharpDelegate, Checks);
                 }
 
                 foreach (var field in type.GetFields(flags))
@@ -726,6 +612,7 @@
                     parameters.Add(p.ParameterType);
 
                 cache_reg = 0;
+                error = null;
             }
 
             public System.Type returnType;
@@ -733,21 +620,20 @@
 
             int cache_reg;
 
-            public bool isReg
+            string error;
+            public bool isReg(out string error)
             {
-                get
+                switch (cache_reg)
                 {
-                    switch (cache_reg)
+                case 0:
                     {
-                    case 0:
-                        {
-                            cache_reg = IsReg() ? 1 : 2;
-                        }
-                        break;
+                        cache_reg = IsReg() ? 1 : 2;
                     }
-
-                    return cache_reg == 1 ? true : false;
+                    break;
                 }
+
+                error = this.error;
+                return cache_reg == 1 ? true : false;
             }
 
             bool IsReg()
@@ -756,14 +642,20 @@
                 if (isVoid && parameters.Count == 0)
                     return false;
                 if (parameters.Count >= 5)
+                {
+                    error = "参数超5个，不能生成委托转换器!";
                     return false;
+                }
 
                 if (!IsHotUsed(returnType))
                     return false;
                 foreach (var t in parameters)
                 {
                     if (t.IsByRef)
+                    {
+                        error = "参数含有out或者ref关键字，不能生成此类型的委托转换器!";
                         return false;
+                    }
 
                     if (!IsHotUsed(t))
                         return false;
@@ -841,6 +733,9 @@
             foreach (var ator in csharpDelegate)
             {
                 var d = ator.Key;
+                if (d.IsAbstract)
+                    continue;
+
                 var method = d.GetMethod("Invoke");
                 if (method == null)
                 {
@@ -865,10 +760,11 @@
             //System.Text.StringBuilder RegisterMethodDelegate = new System.Text.StringBuilder();
             foreach (var ator in keys)
             {
-                if (ator.Key.isReg)
+                string error;
+                if (ator.Key.isReg(out error))
                 {
                     //sb.Append(suffix);
-                    DelegateAdapter(ator.Key, sb, suffix, (ssb)=> 
+                    DelegateAdapter(ator.Key, sb, suffix, (ssb) =>
                     {
                         //foreach (var v in ator.Value)
                         //{
@@ -888,6 +784,22 @@
 
                     });
                     //sb.AppendLine();
+                }
+                else
+                {
+                    if (error != null)
+                    {
+                        System.Text.StringBuilder esb = new System.Text.StringBuilder();
+                        esb.AppendLine(error);
+                        foreach (var v in ator.Value)
+                        {
+                            esb.AppendLine(v.FullName);
+                        }
+
+                        L.LogErrorFormat(esb.ToString());
+                    }
+
+                    continue;
                 }
 
                 foreach (var v in ator.Value)

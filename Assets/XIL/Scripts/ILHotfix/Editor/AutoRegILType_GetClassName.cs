@@ -121,14 +121,14 @@
         {
             var mi = type.GetMethod("Invoke");
             var ps = mi.GetParameters();
-            for (int i = 0; i < ps.Length; ++i)
-            {
-                if (ps[i].IsOut || ps[i].ParameterType.IsByRef)
-                    return;
-            }
+            //for (int i = 0; i < ps.Length; ++i)
+            //{
+            //    if (ps[i].IsOut || ps[i].ParameterType.IsByRef)
+            //        return;
+            //}
 
-            if (ps.Length >= 5)
-                return;
+            //if (ps.Length >= 5)
+            //    return;
 
             string clsName, rName;
             bool isByRef;
