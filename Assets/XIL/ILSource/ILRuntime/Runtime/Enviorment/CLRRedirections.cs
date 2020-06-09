@@ -1181,8 +1181,9 @@ namespace ILRuntime.Runtime.Enviorment
             intp.Free(p);
 
             bool res = false;
-            if(ins is ILEnumTypeInstance enumIns)
+            if(ins is ILEnumTypeInstance)
             {
+                ILEnumTypeInstance enumIns = (ILEnumTypeInstance)ins;
                 int num = enumIns.Fields[0].Value;
                 int valNum = ((ILEnumTypeInstance)val).Fields[0].Value;
                 res = (num & valNum) == valNum;
