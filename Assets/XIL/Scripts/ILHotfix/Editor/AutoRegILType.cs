@@ -636,14 +636,15 @@
                 return cache_reg == 1 ? true : false;
             }
 
+            const int maxParamCount = 5;
             bool IsReg()
             {
                 bool isVoid = returnType.Name == "Void";
                 if (isVoid && parameters.Count == 0)
                     return false;
-                if (parameters.Count >= 5)
+                if (parameters.Count >= maxParamCount)
                 {
-                    error = "参数超5个，不能生成委托转换器!";
+                    error = $"委托参数{parameters.Count}大于最大委托参数数量{maxParamCount-1}个，不能生成委托转换器,热更当中不能使用此委托!";
                     return false;
                 }
 
@@ -653,7 +654,7 @@
                 {
                     if (t.IsByRef)
                     {
-                        error = "参数含有out或者ref关键字，不能生成此类型的委托转换器!";
+                        error = "参数含有out或者ref关键字，不能生成此类型的委托转换器,热更当中不能使用此委托!";
                         return false;
                     }
 
@@ -793,7 +794,8 @@
                         esb.AppendLine(error);
                         foreach (var v in ator.Value)
                         {
-                            esb.AppendLine(v.FullName);
+                            esb.AppendLine(GetClassRealClsName(v));
+                            csharpDelegate[v].To(esb, "");
                         }
 
                         L.LogErrorFormat(esb.ToString());

@@ -373,6 +373,11 @@ namespace wxb
             public void toInfo(string suffix, System.Text.StringBuilder sb)
             {
                 return;
+                GetInfo(suffix, sb);
+            }
+
+            public void GetInfo(string suffix, System.Text.StringBuilder sb)
+            {
                 if (methods.Count > 30)
                     sb.AppendLine(string.Format("{0}//{1}", suffix, methods.Count));
                 foreach (var ator in methods)
@@ -481,7 +486,7 @@ namespace IL
         public static void AutoCode(List<string> classes)
         {
             // 自动生成所有需要委托
-            Dictionary<string, Funs> allfuns = new Dictionary<string, Funs>(); // 所有的需要导出的函数原形列表
+            SortedDictionary<string, Funs> allfuns = new SortedDictionary<string, Funs>(); // 所有的需要导出的函数原形列表
 
             var flag = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static | BindingFlags.IgnoreCase | BindingFlags.DeclaredOnly;
             var alls = new List<System.Type>();
