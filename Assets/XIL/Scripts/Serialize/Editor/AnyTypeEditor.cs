@@ -113,18 +113,27 @@ namespace wxb.Editor
         System.Type type;
         List<FieldInfo> infos;
 
-        Dictionary<object, bool> isFoldouts = new Dictionary<object, bool>();
+        Dictionary<int, bool> isFoldouts = new Dictionary<int, bool>();
+
+        public void SetFoldout(object obj, bool value)
+        {
+            isFoldouts[obj.GetHashCode()] = value;
+        }
+
+        public bool GetFoldout(object obj)
+        {
+            if (isFoldouts.TryGetValue(obj.GetHashCode(), out var isFoldout))
+                return isFoldout;
+
+            return false;
+        }
 
         public object OnGUI(string label, object value, System.Type type, out bool isDirty)
         {
             var current = value;
             if (current != null)
             {
-                int hashcode = current.GetHashCode();
-                var isFoldout = false;
-                if (!isFoldouts.TryGetValue(hashcode, out isFoldout))
-                    isFoldouts.Add(hashcode, isFoldout);
-
+                var isFoldout = GetFoldout(value);
                 try
                 {
                     UnityEditor.EditorGUILayout.BeginHorizontal();
@@ -184,7 +193,7 @@ namespace wxb.Editor
                     UnityEditor.EditorGUILayout.EndHorizontal();
                 }
 
-                isFoldouts[hashcode] = isFoldout;
+                SetFoldout(value, isFoldout);
                 if (!isFoldout)
                 {
                     isDirty = false;

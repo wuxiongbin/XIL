@@ -69,6 +69,8 @@ namespace wxb.Editor
 
                         info.SetValue(parent, newInstance);
                         isDirty = true;
+
+                        ((AnyType)TypeEditor.Get(newInstance.GetType(), null)).SetFoldout(newInstance, true);
                     }
                 }
 
