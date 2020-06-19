@@ -38,20 +38,52 @@ namespace wxb.Editor
             return epb;
         }
 
+        static string GetTypeNameSpace(System.Type type)
+        {
+#if USE_HOT
+            if (type is ILRuntime.Reflection.ILRuntimeType)
+            {
+                var ilRT = ((ILRuntime.Reflection.ILRuntimeType)type);
+                if (ilRT.ILType.TypeReference.IsNested)
+                {
+                    return GetTypeNameSpace(IL.Help.GetTypeByFullName(ilRT.ILType.TypeReference.DeclaringType.FullName));
+                }
+            }
+            else if (type is ILRuntime.Reflection.ILRuntimeWrapperType)
+                type = ((ILRuntime.Reflection.ILRuntimeWrapperType)type).RealType;
+#endif
+            if (!type.IsNested)
+                return type.Namespace;
+
+            return GetTypeNameSpace(type.DeclaringType);
+        }
+
         public object OnGUI(string label, object value, System.Type type, out bool isDirty)
         {
             IList current = value as IList;
             isDirty = false;
+            if (current == null)
+                return current;
 
             int hashcode = current.GetHashCode();
             var isFoldout = false;
             if (!isFoldouts.TryGetValue(hashcode, out isFoldout))
                 isFoldouts.Add(hashcode, isFoldout);
 
+            var elementName = elementType.FullName;
+            {
+                var ns = GetTypeNameSpace(elementType);
+                if (!string.IsNullOrEmpty(ns))
+                    elementName = elementName.Substring(ns.Length + 1);
+
+                if (elementName.IndexOf('/') != -1)
+                    elementName = elementName.Replace("/", ".");
+            }
+
             isFoldout = EditorGUILayout.Foldout(isFoldout, 
                 current is System.Array ?
-                string.Format("{1}[] {0}", label, elementType.Name) :
-                string.Format("List<{1}> {0}", label, elementType.Name));
+                string.Format("{1}[] {0}", label, elementName) :
+                string.Format("List<{1}> {0}", label, elementName));
             isFoldouts[hashcode] = isFoldout;
             if (isFoldout)
             {
@@ -59,16 +91,23 @@ namespace wxb.Editor
                 int ns = EditorGUILayout.IntField("Size", size);
                 if (size != ns)
                 {
-                    var newV = CreateList(elementType, ns);
-                    int minV = System.Math.Min(size, ns);
-                    for (int i = 0; i < minV; ++i)
-                        newV[i] = current[i];
+                    bool isSet = true;
+                    if (ns >= 1000)
+                        isSet = EditorUtility.DisplayDialog("数组过多!", $"确定要创建这么多({ns})的数组吗?", "确定", "取消");
 
-                    current = newV;
-                    isFoldouts[newV.GetHashCode()] = isFoldout;
-                    isFoldouts.Remove(hashcode);
-                    size = ns;
-                    isDirty = true;
+                    if (isSet)
+                    {
+                        var newV = CreateList(elementType, ns);
+                        int minV = System.Math.Min(size, ns);
+                        for (int i = 0; i < minV; ++i)
+                            newV[i] = current[i];
+
+                        current = newV;
+                        isFoldouts[newV.GetHashCode()] = isFoldout;
+                        isFoldouts.Remove(hashcode);
+                        size = ns;
+                        isDirty = true;
+                    }
                 }
 
                 using (new IndentLevel())

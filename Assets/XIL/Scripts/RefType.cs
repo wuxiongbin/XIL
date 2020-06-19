@@ -71,6 +71,11 @@
         public object Instance { get { return instance; } }
         public System.Type Type { get { return type; } }
 
+        public void SetInstance(object instance)
+        {
+            this.instance = instance;
+        }
+
         //public T GetField<T>(string name) { return (T)GetField(name); }
         public void SetField(string name, object value)
         {

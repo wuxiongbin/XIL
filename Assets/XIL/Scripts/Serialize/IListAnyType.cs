@@ -1,6 +1,4 @@
 using System.Collections;
-using TMPro;
-using UnityEngine;
 
 namespace wxb
 {
@@ -95,7 +93,7 @@ namespace wxb
                     }
                     catch (System.Exception ex)
                     {
-                        UnityEngine.Debug.LogException(ex);
+                        wxb.L.LogException(ex);
                     }
                     finally
                     {

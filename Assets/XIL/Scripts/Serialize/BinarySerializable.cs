@@ -11,10 +11,23 @@ using ILRuntime.Runtime.Intepreter;
 
 namespace wxb
 {
+    public class ILSerializable : System.Attribute
+    {
+        // ¿‡–Õ√˚
+        public ILSerializable(string typeName)
+        {
+            this.typeName = typeName;
+        }
+
+        public string typeName;
+    }
+
     public static class BinarySerializable
     {
         static Dictionary<string, ITypeSerialize> AllTypes = new Dictionary<string, ITypeSerialize>();
         static ITypeSerialize unityObjectSerialize = null;
+
+        static Dictionary<FieldInfo, ITypeSerialize> RefTypes = new Dictionary<FieldInfo, ITypeSerialize>();
 
 #if USE_HOT
         static Dictionary<ILRuntimeFieldInfo, ITypeSerialize> FieldInfoTypes = new Dictionary<ILRuntimeFieldInfo, ITypeSerialize>();
@@ -71,6 +84,7 @@ namespace wxb
 #if USE_HOT
             FieldInfoTypes.Clear();
 #endif
+            RefTypes.Clear();
             AllTypes.Clear();
             Init();
         }
@@ -97,7 +111,7 @@ namespace wxb
                 else
                 {
                     List<FieldInfo> fieldinfos = Help.GetSerializeField(type);
-                    ts = new AnyType(type, fieldinfos);
+                    ts = new AnyTypeSerialize(type, fieldinfos);
                 }
             }
 
@@ -148,6 +162,16 @@ namespace wxb
                 return GetByType(fieldInfo as ILRuntimeFieldInfo);
             }
 #endif
+            if (fieldInfo.FieldType == typeof(RefType))
+            {
+                if (RefTypes.TryGetValue(fieldInfo, out var ts))
+                    return ts;
+
+                ts = new RefTypeSerialize(IL.Help.GetTypeByFullName(fieldInfo.GetCustomAttribute<ILSerializable>().typeName));
+                RefTypes.Add(fieldInfo, ts);
+                return ts;
+            }
+
             return GetByType(fieldInfo.FieldType);
         }
 

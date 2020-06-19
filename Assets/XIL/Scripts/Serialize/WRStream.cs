@@ -83,7 +83,7 @@ namespace wxb
                 }
                 catch (System.OutOfMemoryException ex)
                 {
-                    UnityEngine.Debug.LogErrorFormat("size:{0} newSize:{1}", mSize, newsize);
+                    wxb.L.LogErrorFormat("size:{0} newSize:{1}", mSize, newsize);
                     throw ex;
                 }
             }

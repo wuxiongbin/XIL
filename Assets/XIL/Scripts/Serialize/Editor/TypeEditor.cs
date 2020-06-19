@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
 using System.Collections.Generic;
+using System;
+using UnityEditor;
 #if USE_HOT
 using ILRuntime.Runtime.Intepreter;
 using ILRuntime.Reflection;
@@ -35,12 +37,16 @@ namespace wxb.Editor
         }
 
         // 基础类型
-        static Dictionary<System.Type, ITypeGUI> AllTypes = new Dictionary<System.Type, ITypeGUI>();
         static Dictionary<string, ITypeGUI> BaseTypes = new Dictionary<string, ITypeGUI>();
+        static Dictionary<System.Type, ITypeGUI> AllTypes = new Dictionary<System.Type, ITypeGUI>();
+        static Dictionary<FieldInfo, ITypeGUI> FieldInfoTypes = new Dictionary<FieldInfo, ITypeGUI>();
+        static ITypeGUI unityObjectGUI;
+        static ITypeGUI emptyTypeGUI;
 
         public static void Release()
         {
             AllTypes.Clear();
+            FieldInfoTypes.Clear();
             BaseTypes.Clear();
             Init();
         }
@@ -53,7 +59,8 @@ namespace wxb.Editor
 
         static void Init()
         {
-            AllTypes.Add(typeof(UnityEngine.Object), new ObjectType());
+            emptyTypeGUI = new EmptyTypeGUI();
+            unityObjectGUI = new ObjectType();
 
             BaseTypes.Add(typeof(int).FullName, new IntType());
             BaseTypes.Add(typeof(uint).FullName, new UIntType());
@@ -75,34 +82,56 @@ namespace wxb.Editor
             if (BaseTypes.TryGetValue(type.FullName, out typeGUI))
                 return typeGUI;
 
-            if (AllTypes.TryGetValue(type, out typeGUI))
-                return typeGUI;
-
-            if (IL.Help.isType(type, typeof(UnityEngine.Object)))
+            if (fieldInfo == null)
             {
-                return AllTypes[typeof(UnityEngine.Object)];
+                if (AllTypes.TryGetValue(type, out typeGUI))
+                    return typeGUI;
+
+                typeGUI = GetTypeGUI(type, null);
+                AllTypes.Add(type, typeGUI);
+                return typeGUI;
+            }
+            else
+            {
+                if (FieldInfoTypes.TryGetValue(fieldInfo, out typeGUI))
+                    return typeGUI;
+
+                typeGUI = GetTypeGUI(type, fieldInfo);
+                FieldInfoTypes.Add(fieldInfo, typeGUI);
+                return typeGUI;
+            }
+        }
+
+        static ITypeGUI GetTypeGUI(System.Type type, FieldInfo fieldInfo)
+        {
+            if (IL.Help.isType(type, typeof(UnityEngine.Object)))
+                return unityObjectGUI;
+
+            if (type == typeof(RefType))
+            {
+                if (fieldInfo == null)
+                    return emptyTypeGUI;
+
+                var ils = fieldInfo.GetCustomAttribute<ILSerializable>();
+                return new RefTypeEditor(IL.Help.GetTypeByFullName(ils.typeName));
             }
 
             if (type.IsArray)
             {
                 var elementType = type.GetElementType();
                 var arrayGUI = new ArrayTypeEditor(type, elementType, Get(elementType, null));
-                AllTypes.Add(type, arrayGUI);
-
                 return arrayGUI;
             }
             else if (IL.Help.isListType(type))
             {
                 var elementType = IL.Help.GetElementByList(fieldInfo);
                 var arrayGUI = new ListTypeEditor(type, elementType, Get(elementType, null));
-                AllTypes.Add(type, arrayGUI);
-
                 return arrayGUI;
             }
 #if USE_HOT
             if (type is ILRuntimeType && (type.Name.EndsWith("[]")))
             {
-                return new EmptyTypeGUI();
+                return emptyTypeGUI;
             }
 #endif
             if (!type.IsSerializable
@@ -111,12 +140,10 @@ namespace wxb.Editor
 #endif
                 )
             {
-                return new EmptyTypeGUI();
+                return emptyTypeGUI;
             }
-            List<FieldInfo> fieldinfos = IL.Help.GetSerializeField(type);
-            var gui = new AnyType(type, fieldinfos);
-            AllTypes.Add(type, gui);
-            return gui;
+
+            return new AnyType(type, IL.Help.GetSerializeField(type));
         }
 
         public static bool OnGUI(object parent)

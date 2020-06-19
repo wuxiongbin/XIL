@@ -440,8 +440,6 @@
             return GetTypeByFullName(name);
         }
 
-#if UNITY_EDITOR
-        [EditorField]
         public static List<System.Type> GetCustomAttributesType(System.Type type)
         {
             List<System.Type> types = new List<System.Type>();
@@ -462,7 +460,6 @@
         }
       
         // 得到继承type的类型
-        [EditorField]
         public static List<System.Type> GetBaseType(string baseTypeFullName)
         {
             List<System.Type> types = new List<System.Type>();
@@ -479,7 +476,6 @@
             return types;
         }
 
-        [EditorField]
         static bool HasCustomAttributes(System.Type type, System.Type customAtt)
         {
             if (type == null)
@@ -507,7 +503,7 @@
             return has;
 #endif
         }
-#endif
+
         public static List<FieldInfo> GetSerializeField(System.Type type)
         {
             return GetOrCreate(type).GetSerializeField();
@@ -515,10 +511,8 @@
 
         static public void GetSerializeField(System.Type type, List<FieldInfo> fieldinfos)
         {
-            if (type.IsGenericType && type.FullName.StartsWith("System.Collections.Generic.List`1[["))
-            {
+            if (type.IsArray || type.GetInterface("System.Collections.Generic.IList") != null)
                 return;
-            }
 
 #if USE_HOT
             bool isILType = false;
@@ -563,64 +557,90 @@
 #endif
                     if (isPublic || (field.GetCustomAttributes(typeof(UnityEngine.SerializeField), false).Length != 0))
                     {
-                        if (fieldType.IsArray)
+                        if (fieldType == typeof(RefType))
                         {
-                            var element = fieldType.GetElementType();
-                            if (element.IsArray || isListType(element)) // 不支持2D数组类型
-                                continue;
-
-                            if (IsBaseType(element) || isType(element, typeof(UnityEngine.Object)))
+                            var att = field.GetCustomAttribute<wxb.ILSerializable>();
+                            if (att != null)
                             {
-                                fieldinfos.Add(field);
-                            }
-                            else
-                            {
-                                if (element.IsSerializable)
+                                if (!TryGetTypeByFullName(att.typeName, out var refType))
                                 {
-                                    fieldinfos.Add(field);
+                                    L.LogErrorFormat("class:{0} field:{1} {2}不存在此类型!", fieldType.DeclaringType.Name, field.Name, att.typeName);
+                                    continue;
                                 }
                             }
-                        }
-                        else if (BaseTypes.Contains(fieldType))
-                        {
-                            // 基础类型
+
                             fieldinfos.Add(field);
-                        }
-                        else if (isListType(fieldType))
-                        {
-                            System.Type element = GetElementByList(field);
-                            if (element.IsArray || isListType(element)) // 不支持2D数组类型
-                                continue;
-
-                            if (IsBaseType(element) || isType(element, typeof(UnityEngine.Object)))
-                            {
-                                fieldinfos.Add(field);
-                            }
-                            else
-                            {
-                                if (element.IsSerializable)
-                                {
-                                    fieldinfos.Add(field);
-                                }
-                            }
                         }
                         else
                         {
-                            if (
-#if USE_HOT
-                                (field.FieldType is ILRuntimeType && ((ILRuntimeType)field.FieldType).ILType.TypeDefinition.IsSerializable) ||
-#endif
-                                field.FieldType.IsSerializable || isType(field.FieldType, typeof(UnityEngine.Object)))
+                            if (IsSerializableType(field))
+                            {
                                 fieldinfos.Add(field);
+                            }
                         }
                     }
                 }
             }
         }
 
+        static bool IsSerializableType(FieldInfo fieldInfo)
+        {
+#if USE_HOT
+            if (fieldInfo is ILRuntimeFieldInfo)
+            {
+                return IsSerializableType(fieldInfo.FieldType, fieldInfo);
+            }
+#endif
+            return IsSerializableType(fieldInfo.FieldType, null);
+        }
+
+        // 是否是可序列化的类型
+        static bool IsSerializableType(System.Type type, FieldInfo fieldInfo)
+        {
+#if USE_HOT
+            if (type is ILRuntimeWrapperType)
+            {
+                type = ((ILRuntimeWrapperType)type).RealType;
+                return IsSerializableType(type, fieldInfo);
+            }
+#endif
+            if (IsBaseType(type))
+                return true;
+
+            if (isType(type, typeof(UnityEngine.Object)))
+                return true;
+
+            if (type.IsArray)
+            {
+                return IsSerializableType(type.GetElementType(), null);
+            }
+            else if (type.GetInterface("System.Collections.IList") != null)
+            {
+                var element = type.GetGenericArguments()[0];
+#if USE_HOT
+                if (fieldInfo != null)
+                {
+                    if (element == typeof(ILTypeInstance))
+                    {
+                        ILRuntimeFieldInfo ilField = fieldInfo as ILRuntimeFieldInfo;
+
+                        var vv = ilField.ILFieldType.GenericArguments;
+                        element = vv[0].Value.ReflectionType;
+                    }
+                }
+#endif
+                return IsSerializableType(element, null);
+            }
+
+            if (type.IsSerializable)
+                return true;
+
+            return false;
+        }
+
         public static bool isListType(System.Type type)
         {
-            if (type.IsGenericType && type.FullName.StartsWith("System.Collections.Generic.List`1[["))
+            if (type.IsGenericType && type.GetInterface("System.Collections.IList") != null)
                 return true;
             return false;
         }
@@ -709,11 +729,11 @@
             {
                 return System.Array.CreateInstance(type.GetElementType(), 0);
             }
-            else if (type.Name == "String")
+            else if (type == typeof(string))
             {
                 return string.Empty;
             }
-            else if (type.Name == "Int32")
+            else if (type == typeof(int))
             {
                 return 0;
             }

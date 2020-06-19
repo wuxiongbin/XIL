@@ -61,6 +61,9 @@ namespace wxb
 
         public static void MergeFrom(object obj, byte[] bytes, List<Object> objs)
         {
+            if (bytes == null)
+                return;
+
             var ms = new MonoStream(bytes, objs);
             ms.WritePos = bytes.Length;
             BinarySerializable.MergeFrom(obj, ms);

@@ -40,8 +40,16 @@ namespace wxb.Editor
         protected override IList CreateList(System.Type elementType, int count)
         {
             IList list = ctor_info.Invoke(new object[] { }) as IList;
-            for (int i = 0; i < count; ++i)
-                list.Add(elementTypeDefaultValue);
+            if (elementTypeDefaultValue == null)
+            {
+                for (int i = 0; i < count; ++i)
+                    list.Add(IL.Help.Create(elementType));
+            }
+            else
+            {
+                for (int i = 0; i < count; ++i)
+                    list.Add(elementTypeDefaultValue);
+            }
 
             return list;
         }

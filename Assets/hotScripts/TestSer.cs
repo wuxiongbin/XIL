@@ -92,6 +92,17 @@ namespace hot
     }
 
     [wxb.AutoILMono]
+    class TestSer2
+    {
+        [SerializeField]
+        List<List<TEEE1>> teee;
+
+        [SerializeField]
+        List<TestSer> teee1;
+    }
+
+    [System.Serializable]
+    [wxb.AutoILMono]
     class TestSer
     {
         [SerializeField]
