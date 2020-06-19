@@ -352,7 +352,7 @@
             BaseTypes.Clear();
             Caches.Clear();
 #if UNITY_EDITOR
-            MonoSerialize.Release();
+            BinarySerializable.Release();
             if (on_release_all != null)
                 on_release_all();
 #endif
@@ -637,6 +637,7 @@
                 if (element == typeof(ILTypeInstance))
                 {
                     ILRuntimeFieldInfo ilField = fieldInfo as ILRuntimeFieldInfo;
+
                     var vv = ilField.ILFieldType.GenericArguments;
                     return vv[0].Value.ReflectionType;
                 }

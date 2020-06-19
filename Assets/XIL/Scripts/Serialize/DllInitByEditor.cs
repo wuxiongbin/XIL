@@ -53,8 +53,7 @@ namespace wxb
         [MenuItem("Assets/LoadHotDLL")]
         static void LoadDLL()
         {
-            if (appdomain_ != null)
-                return;
+            Release();
 
             appdomain_ = new AppDomain();
             appdomain.RegisterCrossBindingAdaptor(new CoroutineAdapter());

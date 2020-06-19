@@ -1,7 +1,6 @@
-锘縰sing UnityEngine;
-using System.Reflection;
 using System.Collections;
-using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 
 namespace wxb
 {
@@ -15,8 +14,10 @@ namespace wxb
         {
             this.arrayType = arrayType;
             this.elementType = elementType;
-            elementTypeSerialize = MonoSerialize.GetByType(elementType);
+            elementTypeSerialize = BinarySerializable.GetByType(elementType);
         }
+
+        byte ITypeSerialize.typeFlag { get { return 0; } } // 类型标识
 
         int ITypeSerialize.CalculateSize(object value)
         {
@@ -25,7 +26,9 @@ namespace wxb
 
             IList array = value as IList;
             int total = WRStream.ComputeLengthSize(array.Count);
-            // 闀垮害+鍚勪釜鍏冪礌鍐呭
+            total += 1; // 元素类型
+
+            // 长度+各个元素内容
             for (int i = 0; i < array.Count; ++i)
             {
                 int s = elementTypeSerialize.CalculateSize(array[i]);
@@ -36,13 +39,13 @@ namespace wxb
             return total;
         }
 
-        void ITypeSerialize.WriteTo(object value, MonoStream ms)
+        void ITypeSerialize.WriteTo(object value, IStream stream)
         {
             IList array = (IList)value;
             if (array == null)
                 return;
 
-            var stream = ms.Stream;
+            stream.WriteByte(elementTypeSerialize.typeFlag);
             stream.WriteLength(array.Count);
             for (int i = 0; i < array.Count; ++i)
             {
@@ -50,19 +53,21 @@ namespace wxb
                 stream.WriteLength(count);
                 if (count != 0)
                 {
-                    elementTypeSerialize.WriteTo(array[i], ms);
+                    elementTypeSerialize.WriteTo(array[i], stream);
                 }
             }
         }
 
         protected abstract IList Create(int lenght);
 
-        void ITypeSerialize.MergeFrom(ref object value, MonoStream ms)
+        void ITypeSerialize.MergeFrom(ref object value, IStream stream)
         {
-            var stream = ms.Stream;
+            int flagType = stream.ReadByte();
             int lenght = stream.ReadLength();
+            bool isTypeTrue = flagType == elementTypeSerialize.typeFlag; // 类型是否一致
+
             var array = value as IList;
-            if (array == null || array.Count != lenght)
+            if (isTypeTrue && (array == null || array.Count != lenght))
             {
                 array = Create(lenght);
                 value = array;
@@ -70,7 +75,6 @@ namespace wxb
 
             for (int i = 0; i < lenght; ++i)
             {
-                object v = array[i];
                 int count = stream.ReadLength();
                 if (count != 0)
                 {
@@ -78,12 +82,20 @@ namespace wxb
                     stream.WritePos = stream.ReadPos + count;
                     try
                     {
-                        elementTypeSerialize.MergeFrom(ref v, ms);
-                        array[i] = v;
+                        if (isTypeTrue)
+                        {
+                            object v = array[i];
+                            elementTypeSerialize.MergeFrom(ref v, stream);
+                            array[i] = v;
+                        }
+                        else
+                        {
+                            stream.ReadPos += count;
+                        }
                     }
                     catch (System.Exception ex)
                     {
-                        wxb.L.LogException(ex);
+                        UnityEngine.Debug.LogException(ex);
                     }
                     finally
                     {
@@ -92,7 +104,8 @@ namespace wxb
                 }
                 else
                 {
-                    array[i] = null;
+                    if (isTypeTrue)
+                        array[i] = null;
                 }
             }
         }

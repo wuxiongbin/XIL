@@ -78,7 +78,7 @@
                 if (!isDllChange())
                 {
                     var ms = MonoSerialize.WriteTo(instance);
-                    bytes = ms.Stream.GetBytes();
+                    bytes = ms.GetBytes();
                     objs = ms.objs;
                 }
                 else

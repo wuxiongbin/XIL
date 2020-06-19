@@ -1,6 +1,6 @@
 namespace wxb
 {
-    public class WRStream
+    public class WRStream : IStream
     {
         public static int ComputeLengthSize(int length)
         {
@@ -83,7 +83,7 @@ namespace wxb
                 }
                 catch (System.OutOfMemoryException ex)
                 {
-                    wxb.L.LogErrorFormat("size:{0} newSize:{1}", mSize, newsize);
+                    UnityEngine.Debug.LogErrorFormat("size:{0} newSize:{1}", mSize, newsize);
                     throw ex;
                 }
             }
@@ -326,14 +326,14 @@ namespace wxb
             return (char)(b1 | (b2 << 8));
         }
 
-        public void WriteInt16(short value)
+        public void WriteShort(short value)
         {
             ensureCapacity(2);
             mBuffer[mWritePos++] = ((byte)value);
             mBuffer[mWritePos++] = ((byte)(value >> 8));
         }
 
-        public short ReadInt16()
+        public short ReadShort()
         {
             CheckReadSize(2);
             byte b1 = mBuffer[mReadPos++];
@@ -341,14 +341,14 @@ namespace wxb
             return (short)(b1 | (b2 << 8));
         }
 
-        public void WriteInt16(ushort value)
+        public void WriteUShort(ushort value)
         {
             ensureCapacity(2);
             mBuffer[mWritePos++] = ((byte)value);
             mBuffer[mWritePos++] = ((byte)(value >> 8));
         }
 
-        public ushort ReadUInt16()
+        public ushort ReadUShort()
         {
             CheckReadSize(2);
             byte b1 = mBuffer[mReadPos++];
@@ -376,7 +376,7 @@ namespace wxb
             return b1 | (b2 << 8) | (b3 << 16) | (b4 << 24);
         }
 
-        public void WriteInt32(uint value)
+        public void WriteUInt32(uint value)
         {
             ensureCapacity(4);
 
@@ -396,7 +396,7 @@ namespace wxb
             return b1 | (b2 << 8) | (b3 << 16) | (b4 << 24);
         }
 
-        public void WriteInt64(long value)
+        public void WriteLong(long value)
         {
             ensureCapacity(8);
 
@@ -410,7 +410,7 @@ namespace wxb
             mBuffer[mWritePos++] = ((byte)(value >> 56));
         }
 
-        public long ReadInt64()
+        public long ReadLong()
         {
             CheckReadSize(8);
 
@@ -427,7 +427,7 @@ namespace wxb
                    | (b5 << 32) | (b6 << 40) | (b7 << 48) | (b8 << 56);
         }
 
-        public void WriteInt64(ulong value)
+        public void WriteULong(ulong value)
         {
             ensureCapacity(8);
 
@@ -441,7 +441,7 @@ namespace wxb
             mBuffer[mWritePos++] = ((byte)(value >> 56));
         }
 
-        public ulong ReadUInt64()
+        public ulong ReadULong()
         {
             CheckReadSize(8);
 
@@ -544,12 +544,22 @@ namespace wxb
 
         public void WriteDouble(double value)
         {
-            WriteInt64(System.BitConverter.DoubleToInt64Bits(value));
+            WriteLong(System.BitConverter.DoubleToInt64Bits(value));
         }
 
         public double ReadDouble()
         {
-            return System.BitConverter.Int64BitsToDouble((long)ReadInt64());
+            return System.BitConverter.Int64BitsToDouble(ReadLong());
+        }
+
+        public virtual void WriteUnityObject(UnityEngine.Object obj)
+        {
+            throw new System.Exception("WriteUnityObject");
+        }
+
+        public virtual UnityEngine.Object ReadUnityObject()
+        {
+            throw new System.Exception("ReadUnityObject");
         }
     }
 }

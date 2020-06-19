@@ -22,7 +22,7 @@ namespace wxb
     {
         ConstructorInfo ctor_info;
         object elementDefaultValue = null;
-        static System.Type[] ctor_type_param= new System.Type[1] { typeof(int) };
+        static System.Type[] ctor_type_param = new System.Type[1] { typeof(int) };
         static object[] ctor_param = new object[1] { 0 };
 
         public ListAnyType(System.Type listType) : base(listType, IL.Help.GetElementByList(listType))
@@ -45,7 +45,7 @@ namespace wxb
             }
             catch (System.Exception ex)
             {
-                wxb.L.LogException(ex);
+                UnityEngine.Debug.LogException(ex);
             }
         }
 
@@ -61,7 +61,7 @@ namespace wxb
             }
             catch (System.Exception ex)
             {
-                wxb.L.LogException(ex);
+                UnityEngine.Debug.LogException(ex);
                 return null;
             }
         }

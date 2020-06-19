@@ -12,10 +12,39 @@ namespace wxb
         {
             this.type = type;
             this.fieldInfos = fieldInfos;
+            if (fieldInfos.Count > 4)
+            {
+                NamesByFields = new Dictionary<string, FieldInfo>();
+                foreach (var ator in fieldInfos)
+                    NamesByFields.Add(ator.Name, ator);
+            }
         }
+
+        byte ITypeSerialize.typeFlag { get { return 0; } } // 类型标识
 
         System.Type type;
         List<FieldInfo> fieldInfos;
+        Dictionary<string, FieldInfo> NamesByFields = null;
+
+        FieldInfo FindFieldInfo(string name)
+        {
+            if (NamesByFields != null)
+            {
+                if (NamesByFields.TryGetValue(name, out var fieldInfo))
+                    return fieldInfo;
+            }
+            else
+            {
+                int count = fieldInfos.Count;
+                for (int i = 0; i < count; ++i)
+                {
+                    if (fieldInfos[i].Name == name)
+                        return fieldInfos[i];
+                }
+            }
+
+            return null;
+        }
 
         int ITypeSerialize.CalculateSize(object value)
         {
@@ -31,8 +60,9 @@ namespace wxb
                     continue;
 
                 var fieldType = fieldInfo.FieldType;
+                total += 1; // 类型标识
                 total += WRStream.ComputeStringSize(fieldInfo.Name);
-                int size = MonoSerialize.GetByType(fieldInfo).CalculateSize(cv);
+                int size = BinarySerializable.GetByFieldInfo(fieldInfo).CalculateSize(cv);
                 total += WRStream.ComputeLengthSize(size);
                 total += size;
             }
@@ -40,12 +70,11 @@ namespace wxb
             return total;
         }
 
-        void ITypeSerialize.WriteTo(object value, MonoStream ms)
+        void ITypeSerialize.WriteTo(object value, IStream stream)
         {
             if (value == null)
                 return;
 
-            var stream = ms.Stream;
             ITypeSerialize ts = this;
             for (int i = 0; i < fieldInfos.Count; ++i)
             {
@@ -54,8 +83,9 @@ namespace wxb
                 if (cv == null)
                     continue;
 
-                ts = MonoSerialize.GetByType(field);
+                ts = BinarySerializable.GetByFieldInfo(field);
 
+                stream.WriteByte(ts.typeFlag); // 类型标识
                 stream.WriteString(field.Name);
                 int count = ts.CalculateSize(cv);
                 if (count == 0)
@@ -65,26 +95,26 @@ namespace wxb
 #if UNITY_EDITOR
                 int write_pos = stream.WritePos;
 #endif
-                ts.WriteTo(cv, ms);
+                ts.WriteTo(cv, stream);
 #if UNITY_EDITOR
                 if (stream.WritePos != write_pos + count)
                 {
-                    wxb.L.LogErrorFormat("type:{0} CalculateSize error!", ts.GetType().Name);
+                    UnityEngine.Debug.LogErrorFormat("type:{0} CalculateSize error!", ts.GetType().Name);
                 }
 #endif
             }
         }
 
-        public void MergeFrom(ref object value, MonoStream ms)
+        public void MergeFrom(ref object value, IStream stream)
         {
             if (value == null)
             {
                 value = IL.Help.Create(type);
             }
 
-            WRStream stream = ms.Stream;
             while (stream.ReadSize != 0)
             {
+                byte typeFlag = stream.ReadByte();
                 var fieldName = stream.ReadString();
                 var length = stream.ReadLength();
                 if (length == 0)
@@ -97,38 +127,36 @@ namespace wxb
                     stream.WritePos = stream.ReadPos + length;
                     try
                     {
-                        var fieldInfo = fieldInfos.Find((field) => { return fieldName == field.Name; });
-                        if (fieldInfo == null)
+                        var fieldInfo = FindFieldInfo(fieldName);
+                        ITypeSerialize bs;
+
+                        if (fieldInfo == null || 
+                            ((bs = BinarySerializable.GetByFieldInfo(fieldInfo)).typeFlag != typeFlag)) // 类型与之前的有变化了
                         {
                             stream.ReadPos += length;
                         }
                         else
                         {
                             object cv = fieldInfo.GetValue(value);
-                            //bool isSet = false;
-                            //if (cv == null)
-                            //{
-                            //    cv = IL.Help.Create(fieldInfo.FieldType);
-                            //    //isSet = true;
-                            //}
-
-                            MonoSerialize.GetByType(fieldInfo).MergeFrom(ref cv, ms);
-                            //if (isSet || !cv.GetType().IsClass || cv.GetType().FullName == "System.String")
+                            bs.MergeFrom(ref cv, stream);
+                            if (typeFlag == UnityObjectSerialize.type)
                             {
-                                fieldInfo.SetValue(value, cv);
+                                cv = UnityObjectSerialize.To((UnityEngine.Object)cv, fieldInfo.FieldType);
                             }
+
+                            fieldInfo.SetValue(value, cv);
                         }
                     }
                     catch (System.Exception ex)
                     {
-                        wxb.L.LogException(ex);
+                        UnityEngine.Debug.LogException(ex);
                     }
                     finally
                     {
 #if UNITY_EDITOR
                         if (stream.ReadSize != 0)
                         {
-                            wxb.L.LogErrorFormat("type:{0} fieldName:{1} length:{2}", type.Name, fieldName, length);
+                            UnityEngine.Debug.LogErrorFormat("type:{0} fieldName:{1} length:{2}", type.Name, fieldName, length);
                         }
 #endif
                         stream.WritePos = endPos;
