@@ -173,8 +173,11 @@
 
                 IL.Help.GetSerializeField(type, serializes);
 #if USE_HOT
-                if (type.BaseType != null)
-                    IL.Help.GetSerializeField(type.BaseType, serializes);
+                if (type is ILRuntime.Reflection.ILRuntimeType)
+                {
+                    if (type.BaseType != null)
+                        IL.Help.GetSerializeField(type.BaseType, serializes);
+                }
 #endif
             }
 

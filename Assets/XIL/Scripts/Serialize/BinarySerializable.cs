@@ -22,6 +22,12 @@ namespace wxb
         public string typeName;
     }
 
+    // ÷«ƒ‹¿‡–Õ
+    public class SmartAttribute : System.Attribute
+    {
+
+    }
+
     public static class BinarySerializable
     {
         static Dictionary<string, ITypeSerialize> AllTypes = new Dictionary<string, ITypeSerialize>();
@@ -110,8 +116,15 @@ namespace wxb
                 }
                 else
                 {
-                    List<FieldInfo> fieldinfos = Help.GetSerializeField(type);
-                    ts = new AnyTypeSerialize(type, fieldinfos);
+                    if (type.GetCustomAttribute(typeof(SmartAttribute), false) != null)
+                    {
+                        ts = new SmartSerializer();
+                    }
+                    else
+                    {
+                        List<FieldInfo> fieldinfos = Help.GetSerializeField(type);
+                        ts = new AnyTypeSerialize(type, fieldinfos);
+                    }
                 }
             }
 

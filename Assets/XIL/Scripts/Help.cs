@@ -476,7 +476,7 @@
             return types;
         }
 
-        static bool HasCustomAttributes(System.Type type, System.Type customAtt)
+        public static bool HasCustomAttributes(System.Type type, System.Type customAtt)
         {
             if (type == null)
                 return false;

@@ -116,6 +116,11 @@ namespace wxb.Editor
                 return new RefTypeEditor(IL.Help.GetTypeByFullName(ils.typeName));
             }
 
+            if (type.GetCustomAttribute(typeof(SmartAttribute), false) != null)
+            {
+                return new SmartEditor(type, new AnyType(type, IL.Help.GetSerializeField(type)));
+            }
+
             if (type.IsArray)
             {
                 var elementType = type.GetElementType();
@@ -129,18 +134,19 @@ namespace wxb.Editor
                 return arrayGUI;
             }
 #if USE_HOT
-            if (type is ILRuntimeType && (type.Name.EndsWith("[]")))
+            if (type is ILRuntimeType)
             {
-                return emptyTypeGUI;
+                if ((type.Name.EndsWith("[]")))
+                    return emptyTypeGUI;
+
+                if (!((ILRuntimeType)type).ILType.TypeDefinition.IsSerializable)
+                    return emptyTypeGUI;
             }
+            else
 #endif
-            if (!type.IsSerializable
-#if USE_HOT
-                && (type.GetType() != typeof(ILRuntimeType) && !((ILRuntimeType)type).ILType.TypeDefinition.IsSerializable)
-#endif
-                )
             {
-                return emptyTypeGUI;
+                if (!type.IsSerializable)
+                    return emptyTypeGUI;
             }
 
             return new AnyType(type, IL.Help.GetSerializeField(type));
