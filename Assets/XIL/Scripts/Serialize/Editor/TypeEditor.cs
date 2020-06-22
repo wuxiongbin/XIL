@@ -134,7 +134,21 @@ namespace wxb.Editor
                     elementType = IL.Help.GetElementByList(fieldInfo);
                 else
                     elementType = type.GetGenericArguments()[0];
-                var arrayGUI = new ListTypeEditor(type, elementType, Get(elementType, null));
+
+                ITypeGUI arrayGUI = null;
+#if USE_HOT
+                if (IL.Help.isListType(elementType))
+                {
+                    arrayGUI = new HotArrayList(type, fieldInfo);
+                }
+                else
+                {
+#endif
+                    arrayGUI = new ListTypeEditor(type, elementType, Get(elementType, null));
+#if USE_HOT
+                }
+#endif
+
                 return arrayGUI;
             }
 #if USE_HOT

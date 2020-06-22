@@ -2,6 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class TestClass
+{
+    public int value1;
+}
+
+public class TestClass1 : TestClass
+{
+    public string value;
+}
+
+public class TestClass2 : TestClass
+{
+    public string[] value;
+}
+
 [wxb.AutoILMono]
 public class TestSerial
 {
@@ -11,11 +26,12 @@ public class TestSerial
     //[wxb.ILSerializable("hot.TestListVV")]
     //public wxb.RefType hotValue;
 
-    public List<float[]> vvv;
-    public List<My[]> my2l;
-    public My[][] my2;
+    //public List<float[]> vvv;
+    //public List<My[]> my2l;
+    //public My[][] my2;
 
-    public SeriaBase value;
+    public SeriaBase[] values;
+    public NoSmartSeriaBase[] nosmart;
 }
 
 [wxb.Smart]
@@ -24,6 +40,26 @@ public class SeriaBase
 {
     public int value;
 }
+
+[wxb.Smart]
+[System.Serializable]
+public class NoSmartSeriaBase
+{
+    public int value;
+}
+
+[System.Serializable]
+public class NoSmartSeria1 : NoSmartSeriaBase
+{
+    public string value2;
+}
+
+[System.Serializable]
+public class NoSmartSeria2 : NoSmartSeriaBase
+{
+    public string[] value3;
+}
+
 
 [System.Serializable]
 public class TestSeria : SeriaBase

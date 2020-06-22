@@ -5,6 +5,7 @@ using UnityEngine;
 using wxb.IL;
 using UnityEngine.UIElements;
 #if USE_HOT
+using ILRuntime.Mono.Cecil;
 using ILRuntime.Reflection;
 using ILRuntime.Runtime.Intepreter;
 #endif
@@ -118,7 +119,7 @@ namespace wxb
                 {
                     if (type.GetCustomAttribute(typeof(SmartAttribute), false) != null)
                     {
-                        ts = new SmartSerializer();
+                        ts = new SmartSerializer(type, new AnyTypeSerialize(type, Help.GetSerializeField(type)));
                     }
                     else
                     {
@@ -148,13 +149,9 @@ namespace wxb
             }
             else
             {
-                if (fieldType.IsArray)
+                if (fieldType.IsArray || Help.isListType(fieldType))
                 {
-                    ts = new ArrayAnyType(fieldType);
-                }
-                else if (Help.isListType(fieldType))
-                {
-                    ts = new ListAnyType(fieldInfo);
+                    ts = new HotArrayAnyType(fieldType, fieldInfo);
                 }
                 else
                 {
@@ -226,5 +223,30 @@ namespace wxb
                 UnityEngine.Debug.LogException(ex);
             }
         }
+
+#if USE_HOT
+        public static void GetElementType(TypeReference type, ref int arrayCount, out string elementType)
+        {
+            if (type.IsArray)
+            {
+                ++arrayCount;
+                ILRuntime.Mono.Cecil.ArrayType arrayType = (ILRuntime.Mono.Cecil.ArrayType)type;
+                GetElementType(arrayType.ElementType, ref arrayCount, out elementType);
+            }
+            else
+            {
+                if (type.FullName.StartsWith("System.Collections.Generic.List`1"))
+                {
+                    ++arrayCount;
+                    GenericInstanceType git = type as GenericInstanceType;
+                    GetElementType(git.GenericArguments[0], ref arrayCount, out elementType);
+                }
+                else
+                {
+                    elementType = type.FullName;
+                }
+            }
+        }
+#endif
     }
 }

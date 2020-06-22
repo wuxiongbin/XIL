@@ -630,6 +630,19 @@
             return type.IsArray || (type.GetInterface("System.Collections.IList") != null);
         }
 
+#if USE_HOT
+        static bool IsSerializableType(TypeReference typeReference)
+        {
+            var typeDefinition = typeReference.Resolve();
+            if (typeDefinition.IsArray)
+                return IsSerializableType(typeDefinition.GetElementType());
+
+            if (typeDefinition.FullName == "System.Collections.List<")
+                return IsSerializableType(typeDefinition.GenericParameters[0]);
+
+            return typeDefinition.IsSerializable;
+        }
+#endif
         // 是否是可序列化的类型
         static bool IsSerializableType(System.Type type, FieldInfo fieldInfo)
         {
@@ -644,34 +657,18 @@
             {
                 var element = GetRealType(type).GetElementType();
 #if USE_HOT
-                if (IsILType(element) && IsArrayOrList(element))
-                {
-                    ErrorInfo(element, fieldInfo);
-                    return false; // 热更当中的类型
-                }
+                if (fieldInfo is ILRuntimeFieldInfo)
+                    return IsSerializableType(((ILRuntimeFieldInfo)fieldInfo).Definition.FieldType);
 #endif
-
                 return IsSerializableType(element, null);
             }
             else if (type.GetInterface("System.Collections.IList") != null)
             {
                 var element = type.GetGenericArguments()[0];
-#if USE_HOT
-                if (fieldInfo != null)
-                {
-                    if (element == typeof(ILTypeInstance))
-                    {
-                        ILRuntimeFieldInfo ilField = fieldInfo as ILRuntimeFieldInfo;
 
-                        var vv = ilField.ILFieldType.GenericArguments;
-                        element = vv[0].Value.ReflectionType;
-                    }
-                }
-                if (IsILType(element) && IsArrayOrList(element))
-                {
-                    ErrorInfo(element, fieldInfo);
-                    return false; // 热更当中的类型
-                }
+#if USE_HOT
+                if (fieldInfo is ILRuntimeFieldInfo)
+                    return IsSerializableType(((ILRuntimeFieldInfo)fieldInfo).Definition.FieldType);
 #endif
 
                 return IsSerializableType(element, null);

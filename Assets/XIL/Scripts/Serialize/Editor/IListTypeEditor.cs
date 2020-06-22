@@ -77,6 +77,22 @@ namespace wxb.Editor
             return GetTypeNameSpace(type.DeclaringType);
         }
 
+        static string GetTypeName(System.Type type)
+        {
+            if (type.IsArray)
+                return $"{GetTypeName(type.GetElementType())}[]";
+
+            if (IL.Help.isListType(type))
+            {
+                var element = type.GenericTypeArguments[0];
+                return $"List<{GetTypeName(element)}>";
+            }
+            else
+            {
+                return type.FullName;
+            }
+        }
+
         public object OnGUI(string label, object value, System.Type type, out bool isDirty)
         {
             IList current = value as IList;
@@ -96,10 +112,7 @@ namespace wxb.Editor
                     elementName = elementName.Replace("/", ".");
             }
 
-            isFoldout = EditorGUILayout.Foldout(isFoldout, 
-                current is System.Array ?
-                string.Format("{1}[] {0}", label, elementName) :
-                string.Format("List<{1}> {0}", label, elementName));
+            isFoldout = EditorGUILayout.Foldout(isFoldout, $"{GetTypeName(type)} {label}");
             isFoldouts[hashcode] = isFoldout;
             if (isFoldout)
             {
