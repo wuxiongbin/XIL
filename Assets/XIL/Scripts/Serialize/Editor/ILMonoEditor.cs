@@ -37,6 +37,7 @@ namespace wxb.IL.Editor
             Init(serializedObject, target);
 
             allTypes = Help.GetBaseType(baseTypeFullName);
+            allTypes.Insert(0, null);
         }
 
         SerializedObject serializedObject;
@@ -114,6 +115,7 @@ namespace wxb.IL.Editor
             Init(serializedObject, target);
 
             allTypes = Help.GetCustomAttributesType(attributeType);
+            allTypes.Insert(0, null);
         }
 
         void RegisterCompleteObjectUndo()
@@ -205,7 +207,9 @@ namespace wxb.IL.Editor
             if (!string.IsNullOrEmpty(typeName) && typeName.StartsWith("xys.hot"))
                 typeName = typeName.Substring(4);
 
-            string newTypename = StringPopupT("typeName", typeName, allTypes, (System.Type t) => { return t.FullName; }, m_searchName);
+            string newTypename = StringPopupT("typeName", typeName, allTypes, (System.Type t) => { return t == null ? "null" : t.FullName; }, m_searchName);
+            if (newTypename == "null")
+                newTypename = null;
 
             OnGUI(newTypename);
         }

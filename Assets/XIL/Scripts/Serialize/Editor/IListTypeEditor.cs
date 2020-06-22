@@ -16,15 +16,30 @@ namespace wxb.Editor
             this.listType = listType;
             this.element = element;
             this.elementType = elementType;
+
+            if (elementType.IsClass)
+                elementTypeDefaultValue = null;
+            else
+                elementTypeDefaultValue = elementType.Assembly.CreateInstance(elementType.FullName);
         }
 
+        protected object elementTypeDefaultValue;
         protected ITypeGUI element;
         protected System.Type elementType;
         protected System.Type listType;
 
         Dictionary<int, bool> isFoldouts = new Dictionary<int, bool>();
 
-        protected abstract IList CreateList(System.Type elementType, int count);
+        protected abstract IList Create(System.Type elementType, int count);
+        protected abstract void SetDefault(IList list, int count);
+
+        protected IList CreateList(System.Type elementType, int count)
+        {
+            var list = Create(elementType, count);
+            SetDefault(list, count);
+            return list;
+        }
+
         Dictionary<int, EditorPageBtn> EditorPageBtns = new Dictionary<int, EditorPageBtn>();
 
         EditorPageBtn GetOrCreate(int hashcode)
@@ -48,6 +63,10 @@ namespace wxb.Editor
                 {
                     return GetTypeNameSpace(IL.Help.GetTypeByFullName(ilRT.ILType.TypeReference.DeclaringType.FullName));
                 }
+                else
+                {
+                    return ilRT.ILType.TypeReference.Namespace;
+                }
             }
             else if (type is ILRuntime.Reflection.ILRuntimeWrapperType)
                 type = ((ILRuntime.Reflection.ILRuntimeWrapperType)type).RealType;
@@ -62,9 +81,6 @@ namespace wxb.Editor
         {
             IList current = value as IList;
             isDirty = false;
-            if (current == null)
-                return current;
-
             int hashcode = current.GetHashCode();
             var isFoldout = false;
             if (!isFoldouts.TryGetValue(hashcode, out isFoldout))

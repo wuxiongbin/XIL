@@ -129,7 +129,11 @@ namespace wxb.Editor
             }
             else if (IL.Help.isListType(type))
             {
-                var elementType = IL.Help.GetElementByList(fieldInfo);
+                System.Type elementType = null;
+                if (fieldInfo != null)
+                    elementType = IL.Help.GetElementByList(fieldInfo);
+                else
+                    elementType = type.GetGenericArguments()[0];
                 var arrayGUI = new ListTypeEditor(type, elementType, Get(elementType, null));
                 return arrayGUI;
             }

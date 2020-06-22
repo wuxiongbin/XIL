@@ -30,6 +30,7 @@ namespace ILRuntime.Reflection
         Type[] attributeTypes;
 
         public IType ILFieldType { get { return fieldType; } }
+        public FieldDefinition Definition { get { return definition; } }
 
         public ILRuntimeFieldInfo(FieldDefinition def, ILRuntimeType declaredType, bool isStatic, int fieldIdx)
         {

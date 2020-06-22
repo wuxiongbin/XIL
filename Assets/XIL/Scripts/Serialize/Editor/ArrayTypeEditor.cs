@@ -15,10 +15,28 @@ namespace wxb.Editor
         {
 
         }
-        
-        protected override IList CreateList(System.Type elementType, int count)
+
+        protected override void SetDefault(IList list, int count)
         {
-            return System.Array.CreateInstance(elementType, count);
+            if (elementTypeDefaultValue == null)
+            {
+                for (int i = 0; i < count; ++i)
+                {
+                    var value = IL.Help.Create(elementType);
+                    list[i] = value;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < count; ++i)
+                    list[i] = elementTypeDefaultValue;
+            }
+        }
+
+        protected override IList Create(System.Type elementType, int count)
+        {
+            IList list = System.Array.CreateInstance(elementType, count);
+            return list;
         }
     }
 
@@ -26,20 +44,13 @@ namespace wxb.Editor
     {
         ConstructorInfo ctor_info;
 
-        object elementTypeDefaultValue;
-
         public ListTypeEditor(System.Type listType, System.Type elementType, ITypeGUI element) : base(listType, elementType, element)
         {
             ctor_info = listType.GetConstructor(new System.Type[] { });
-            if (elementType.IsClass)
-                elementTypeDefaultValue = null;
-            else
-                elementTypeDefaultValue = elementType.Assembly.CreateInstance(elementType.FullName);
         }
 
-        protected override IList CreateList(System.Type elementType, int count)
+        protected override void SetDefault(IList list, int count)
         {
-            IList list = ctor_info.Invoke(new object[] { }) as IList;
             if (elementTypeDefaultValue == null)
             {
                 for (int i = 0; i < count; ++i)
@@ -50,7 +61,11 @@ namespace wxb.Editor
                 for (int i = 0; i < count; ++i)
                     list.Add(elementTypeDefaultValue);
             }
+        }
 
+        protected override IList Create(System.Type elementType, int count)
+        {
+            IList list = ctor_info.Invoke(new object[] { }) as IList;
             return list;
         }
     }

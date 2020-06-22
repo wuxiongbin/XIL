@@ -594,16 +594,46 @@
             return IsSerializableType(fieldInfo.FieldType, null);
         }
 
-        // 是否是可序列化的类型
-        static bool IsSerializableType(System.Type type, FieldInfo fieldInfo)
+        static System.Type GetRealType(System.Type type)
         {
 #if USE_HOT
             if (type is ILRuntimeWrapperType)
             {
                 type = ((ILRuntimeWrapperType)type).RealType;
-                return IsSerializableType(type, fieldInfo);
+                return type;
+            }
+            else if (type is ILRuntimeType)
+            {
+
             }
 #endif
+            return type;
+        }
+
+        static bool IsILType(System.Type type)
+        {
+#if USE_HOT
+            type = GetRealType(type);
+            if (type is ILRuntimeType || type == typeof(ILTypeInstance))
+                return true;
+
+            if (type.IsArray)
+                return IsILType(type.GetElementType());
+            else if (type.GetInterface("System.Collections.IList") != null)
+                return IsILType(type.GetGenericArguments()[0]);
+#endif
+            return false;
+        }
+
+        static bool IsArrayOrList(System.Type type)
+        {
+            return type.IsArray || (type.GetInterface("System.Collections.IList") != null);
+        }
+
+        // 是否是可序列化的类型
+        static bool IsSerializableType(System.Type type, FieldInfo fieldInfo)
+        {
+            type = GetRealType(type);
             if (IsBaseType(type))
                 return true;
 
@@ -612,7 +642,16 @@
 
             if (type.IsArray)
             {
-                return IsSerializableType(type.GetElementType(), null);
+                var element = GetRealType(type).GetElementType();
+#if USE_HOT
+                if (IsILType(element) && IsArrayOrList(element))
+                {
+                    ErrorInfo(element, fieldInfo);
+                    return false; // 热更当中的类型
+                }
+#endif
+
+                return IsSerializableType(element, null);
             }
             else if (type.GetInterface("System.Collections.IList") != null)
             {
@@ -628,7 +667,13 @@
                         element = vv[0].Value.ReflectionType;
                     }
                 }
+                if (IsILType(element) && IsArrayOrList(element))
+                {
+                    ErrorInfo(element, fieldInfo);
+                    return false; // 热更当中的类型
+                }
 #endif
+
                 return IsSerializableType(element, null);
             }
 
@@ -637,6 +682,32 @@
 
             return false;
         }
+
+#if USE_HOT
+        static void ErrorInfo(System.Type element, FieldInfo fieldInfo)
+        {
+            ILRuntimeFieldInfo ilField = fieldInfo as ILRuntimeFieldInfo;
+
+            // 不支持热更当中的二维数组
+            string className;
+            string fieldName;
+            string typeName;
+            if (fieldInfo == null)
+            {
+                className = "null";
+                fieldName = "null";
+                typeName = element.FullName;
+            }
+            else
+            {
+                className = fieldInfo.DeclaringType.Name;
+                fieldName = fieldInfo.Name;
+                typeName = ilField.Definition.FieldType.FullName;
+            }
+
+            L.LogErrorFormat("class:{0} field:{1} {2} 不支持二维数组!", className, fieldName, ilField.Definition.FieldType.FullName);
+        }
+#endif
 
         public static bool isListType(System.Type type)
         {

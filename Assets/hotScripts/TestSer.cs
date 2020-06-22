@@ -98,7 +98,10 @@ namespace hot
         List<List<TEEE1>> teee;
 
         [SerializeField]
-        List<TestSer> teee1;
+        TEEE1[][] teee1;
+
+        //[SerializeField]
+        //List<TestSer> teee1;
     }
 
     [System.Serializable]
