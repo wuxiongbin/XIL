@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 #if USE_HOT
+using ILRuntime.Mono.Cecil;
 using ILRuntime.Reflection;
 using ILRuntime.Runtime.Intepreter;
 #endif
@@ -47,6 +48,92 @@ namespace wxb.Editor
                 isDirty = false;
 
             return v;
+        }
+    }
+
+    class EnumType : ITypeGUI
+    {
+        public EnumType(System.Type enumType)
+        {
+            this.enumType = enumType;
+#if USE_HOT
+            if (enumType is ILRuntimeType)
+            {
+                enumStrings = new List<string>();
+                enumValues = new List<int>();
+                var ilRT = ((ILRuntimeType)enumType).ILType;
+                var staticFieldDefinitions = ilRT.StaticFieldDefinitions;
+                FieldDefinition sfd;
+                for (int i = 0; i < staticFieldDefinitions.Length; ++i)
+                {
+                    sfd = staticFieldDefinitions[i];
+                    enumStrings.Add(sfd.Name);
+                    enumValues.Add((int)sfd.Constant);
+                }
+            }
+#endif
+        }
+
+        System.Type enumType;
+#if USE_HOT
+        List<string> enumStrings;
+        List<int> enumValues;
+#endif
+
+        public bool OnGUI(object parent, FieldInfo info)
+        {
+            using (new IndentLevel())
+            {
+                bool isDirty = false;
+                object ov = info.GetValue(parent);
+                object nv = OnGUI(info.Name, ov, info.FieldType, out isDirty);
+                if (isDirty)
+                {
+                    info.SetValue(parent, nv);
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        public object OnGUI(string label, object value, System.Type type, out bool isDirty)
+        {
+#if USE_HOT
+            if (type is ILRuntimeType)
+            {
+                int index = 0;
+                {
+                    int intValue = (int)value;
+                    for (int i = 0; i < enumValues.Count; ++i)
+                    {
+                        if (enumValues[i] == intValue)
+                        {
+                            index = i;
+                            break;
+                        }
+                    }
+                }
+
+                isDirty = false;
+                var newIndex = IL.Editor.ILMonoEditor.StringPopup(label, index, enumStrings);
+                if (newIndex != index)
+                    isDirty = true;
+
+                return enumValues[newIndex];
+            }
+#endif
+            System.Enum nv;
+            {
+                nv = EditorGUILayout.EnumPopup(label, (System.Enum)value);
+            }
+
+            if (nv != (System.Enum)value)
+                isDirty = true;
+            else
+                isDirty = false;
+
+            return nv;
         }
     }
 

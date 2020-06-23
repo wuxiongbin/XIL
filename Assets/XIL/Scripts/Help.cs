@@ -662,6 +662,9 @@
             if (IsBaseType(type))
                 return true;
 
+            if (type.IsEnum)
+                return true;
+
             if (isType(type, typeof(UnityEngine.Object)))
                 return true;
 

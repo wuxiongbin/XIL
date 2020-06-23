@@ -110,7 +110,22 @@ namespace wxb
                 ts = unityObjectSerialize;
             else
             {
-                if (type.IsArray)
+                if (type.IsEnum)
+                {
+#if USE_HOT
+                    if (type is ILRuntimeType)
+                    {
+                        ts = new HotEnumTypeSerialize((ILRuntimeType)type);
+                    }
+                    else
+                    {
+#endif
+                        ts = new EnumTypeSerialize(type);
+#if USE_HOT
+                    }
+#endif
+                }
+                else if (type.IsArray)
                 {
                     ts = new ArrayAnyType(type);
                 }

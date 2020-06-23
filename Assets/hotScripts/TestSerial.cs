@@ -18,6 +18,15 @@ public class TestClass2 : TestClass
     public string[] value;
 }
 
+public enum TestEnum
+{
+    TE1,
+    TE2,
+    TE2_2 = TE2,
+    TE3,
+    TE4,
+}
+
 [wxb.AutoILMono]
 public class TestSerial
 {
@@ -31,9 +40,10 @@ public class TestSerial
     //public List<My[]> my2l;
     //public My[][] my2;
 
-    public SeriaBase value;
-    public SeriaBase[][] values;
-    public NoSmartSeriaBase[][] nosmart;
+    public TestEnum testEnum;
+    //public SeriaBase value;
+    //public SeriaBase[][] values;
+    //public NoSmartSeriaBase[][] nosmart;
 }
 
 [wxb.Smart]

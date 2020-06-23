@@ -97,8 +97,15 @@ namespace hot
         //[SerializeField]
         //List<List<List<TEEE1>>> teee;
 
+        //         [SerializeField]
+        //         TEEE1[][][] teee1;
+
         [SerializeField]
-        TEEE1[][][] teee1;
+        bool testBool;
+
+        [SerializeField]
+        List<List<List<TEEE1>>> teee1;
+
         //List<List<TEEE1>> teee;
 
         //         [SerializeField]

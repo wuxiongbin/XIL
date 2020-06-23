@@ -2,6 +2,8 @@ namespace wxb
 {
     public static class TypeFlags
     {
+        public const byte classType = 0; // 类型
+
         public const byte intType = 1;
         public const byte uintType = 2;
         public const byte sbyteType = 3;
@@ -16,10 +18,10 @@ namespace wxb
         public const byte DateTimeType = 12;
         public const byte stringType = 13;
         public const byte boolType = 14;
-        public const byte arrayType = 100; // 数组标识
+        public const byte enumType = 15; // 枚举类型
         public const byte unityObjectType = 20; // unity类型
 
-        public const byte classType = 0; // 类型
+        public const byte arrayType = 100; // 数组标识
         public const byte smartType = 200; // 智能类型
     }
 }

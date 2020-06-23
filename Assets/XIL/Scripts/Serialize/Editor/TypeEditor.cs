@@ -108,6 +108,9 @@ namespace wxb.Editor
             if (IL.Help.isType(type, typeof(UnityEngine.Object)))
                 return unityObjectGUI;
 
+            if (type.IsEnum)
+                return new EnumType(type);
+
             if (type == typeof(RefType))
             {
                 if (fieldInfo == null)
