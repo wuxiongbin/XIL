@@ -55,34 +55,37 @@ namespace wxb
             unityObjectSerialize = new UnityObjectSerialize();
 
             // int,uint
-            Reg(1, (value)=> { return 4; }, (value, ms) => { ms.WriteInt32(value); }, (ms) => { return ms.ReadInt32(); });
-            Reg(2, (value) => { return 4; }, (value, ms) => { ms.WriteUInt32(value); }, (ms) => { return ms.ReadUInt32(); });
+            Reg(TypeFlags.intType, (value)=> { return 4; }, (value, ms) => { ms.WriteInt32(value); }, (ms) => { return ms.ReadInt32(); });
+            Reg(TypeFlags.uintType, (value) => { return 4; }, (value, ms) => { ms.WriteUInt32(value); }, (ms) => { return ms.ReadUInt32(); });
 
             // sbyte,byte
-            Reg(3, (value) => { return 1; }, (value, ms) => { ms.WriteSByte(value); }, (ms) => { return ms.ReadSByte(); });
-            Reg(4, (value) => { return 1; }, (value, ms) => { ms.WriteByte(value); }, (ms) => { return ms.ReadByte(); });
+            Reg(TypeFlags.sbyteType, (value) => { return 1; }, (value, ms) => { ms.WriteSByte(value); }, (ms) => { return ms.ReadSByte(); });
+            Reg(TypeFlags.byteType, (value) => { return 1; }, (value, ms) => { ms.WriteByte(value); }, (ms) => { return ms.ReadByte(); });
 
             // char
-            Reg(5, (value) => { return 2; }, (value, ms) => { ms.WriteChar(value); }, (ms) => { return ms.ReadChar(); });
+            Reg(TypeFlags.charType, (value) => { return 2; }, (value, ms) => { ms.WriteChar(value); }, (ms) => { return ms.ReadChar(); });
 
             // long,ulong
-            Reg(6, (value) => { return 8; }, (value, ms) => { ms.WriteLong(value); }, (ms) => { return ms.ReadLong(); });
-            Reg(7, (value) => { return 8; }, (value, ms) => { ms.WriteULong(value); }, (ms) => { return ms.ReadULong(); });
+            Reg(TypeFlags.longType, (value) => { return 8; }, (value, ms) => { ms.WriteLong(value); }, (ms) => { return ms.ReadLong(); });
+            Reg(TypeFlags.ulongType, (value) => { return 8; }, (value, ms) => { ms.WriteULong(value); }, (ms) => { return ms.ReadULong(); });
 
             // short,ushort
-            Reg(8, (value) => { return 2; }, (value, ms) => { ms.WriteShort(value); }, (ms) => { return ms.ReadShort(); });
-            Reg(9, (value) => { return 2; }, (value, ms) => { ms.WriteUShort(value); }, (ms) => { return ms.ReadUShort(); });
+            Reg(TypeFlags.shortType, (value) => { return 2; }, (value, ms) => { ms.WriteShort(value); }, (ms) => { return ms.ReadShort(); });
+            Reg(TypeFlags.ushortType, (value) => { return 2; }, (value, ms) => { ms.WriteUShort(value); }, (ms) => { return ms.ReadUShort(); });
 
             // float
-            Reg(10, (value) => { return 4; }, (value, ms) => { ms.WriteFloat(value); }, (ms) => { return ms.ReadFloat(); });
+            Reg(TypeFlags.floatType, (value) => { return 4; }, (value, ms) => { ms.WriteFloat(value); }, (ms) => { return ms.ReadFloat(); });
             // double
-            Reg(11, (value) => { return 8; }, (value, ms) => { ms.WriteDouble(value); }, (ms) => { return ms.ReadDouble(); });
+            Reg(TypeFlags.doubleType, (value) => { return 8; }, (value, ms) => { ms.WriteDouble(value); }, (ms) => { return ms.ReadDouble(); });
 
             // DateTime
-            Reg(12, (value) => { return 8; }, (value, ms) => { ms.WriteLong(value.Ticks); }, (ms) => { return new DateTime(ms.ReadLong()); });
+            Reg(TypeFlags.DateTimeType, (value) => { return 8; }, (value, ms) => { ms.WriteLong(value.Ticks); }, (ms) => { return new DateTime(ms.ReadLong()); });
 
             // string
-            Reg(13, WRStream.ComputeStringSize, (value, ms) => { ms.WriteString(value); }, (ms) => { return ms.ReadString(); });
+            Reg(TypeFlags.stringType, WRStream.ComputeStringSize, (value, ms) => { ms.WriteString(value); }, (ms) => { return ms.ReadString(); });
+
+            // bool
+            Reg<bool>(TypeFlags.boolType, (value) => { return 1; }, (value, ms) => { ms.WriteByte(value ? (byte)1 : (byte)0); }, (ms) => { return ms.ReadByte() == 0 ? false : true; });
         }
 
         public static void Release()
@@ -117,7 +120,8 @@ namespace wxb
                 }
                 else
                 {
-                    if (type.GetCustomAttribute(typeof(SmartAttribute), false) != null)
+                    var atts = type.GetCustomAttributes(typeof(SmartAttribute), false);
+                    if (atts != null && atts.Length > 0)
                     {
                         ts = new SmartSerializer(type, new AnyTypeSerialize(type, Help.GetSerializeField(type)));
                     }
@@ -149,9 +153,22 @@ namespace wxb
             }
             else
             {
-                if (fieldType.IsArray || Help.isListType(fieldType))
+                bool isListType = false;
+                if (fieldType.IsArray || (isListType = Help.isListType(fieldType)))
                 {
-                    ts = new HotArrayAnyType(fieldType, fieldInfo);
+                    int arrayCount = 0;
+                    string elementType = null;
+
+                    ILRuntimeFieldInfo ilFieldInfo = (ILRuntimeFieldInfo)fieldInfo;
+                    GetElementType(ilFieldInfo.Definition.FieldType, ref arrayCount, out elementType);
+                    if (arrayCount >= 2)
+                    {
+                        ts = new HotArrayAnyType(IL.Help.GetType(elementType), isListType, arrayCount);
+                    }
+                    else
+                    {
+                        ts = GetByType(fieldType);
+                    }
                 }
                 else
                 {
@@ -187,13 +204,7 @@ namespace wxb
 
         public static ITypeSerialize GetByInstance(object obj)
         {
-            System.Type type = obj.GetType();
-#if USE_HOT
-            if (obj is ILTypeInstance)
-            {
-                type = ((ILTypeInstance)obj).Type.ReflectionType;
-            }
-#endif
+            Type type = Help.GetInstanceType(obj);
             return GetByType(type);
         }
 

@@ -332,6 +332,7 @@
             BaseTypes.Add(typeof(string));
             BaseTypes.Add(typeof(float));
             BaseTypes.Add(typeof(double));
+            BaseTypes.Add(typeof(bool));
 
             AllTypesByFullName.Add("int", typeof(int));
             AllTypesByFullName.Add("uint", typeof(uint));
@@ -344,6 +345,7 @@
             AllTypesByFullName.Add("string", typeof(string));
             AllTypesByFullName.Add("float", typeof(float));
             AllTypesByFullName.Add("double", typeof(double));
+            AllTypesByFullName.Add("bool", typeof(bool));
         }
 
         public static void ReleaseAll()
@@ -474,6 +476,16 @@
             }
 
             return types;
+        }
+
+        public static System.Type GetInstanceType(object instance)
+        {
+            var type = instance.GetType();
+#if USE_HOT
+            if (type == typeof(ILTypeInstance))
+                return ((ILTypeInstance)instance).Type.ReflectionType;
+#endif
+            return type;
         }
 
         public static bool HasCustomAttributes(System.Type type, System.Type customAtt)
@@ -680,32 +692,6 @@
             return false;
         }
 
-#if USE_HOT
-        static void ErrorInfo(System.Type element, FieldInfo fieldInfo)
-        {
-            ILRuntimeFieldInfo ilField = fieldInfo as ILRuntimeFieldInfo;
-
-            // 不支持热更当中的二维数组
-            string className;
-            string fieldName;
-            string typeName;
-            if (fieldInfo == null)
-            {
-                className = "null";
-                fieldName = "null";
-                typeName = element.FullName;
-            }
-            else
-            {
-                className = fieldInfo.DeclaringType.Name;
-                fieldName = fieldInfo.Name;
-                typeName = ilField.Definition.FieldType.FullName;
-            }
-
-            L.LogErrorFormat("class:{0} field:{1} {2} 不支持二维数组!", className, fieldName, ilField.Definition.FieldType.FullName);
-        }
-#endif
-
         public static bool isListType(System.Type type)
         {
             if (type.IsGenericType && type.GetInterface("System.Collections.IList") != null)
@@ -832,6 +818,113 @@
                 return System.Activator.CreateInstance(type);
             }
         }
+
+#if USE_HOT
+        static System.Collections.IList CreateIList(int arrayCount, int count)
+        {
+            System.Collections.IList list = null;
+            switch (arrayCount)
+            {
+            case 2:
+                list = new List<List<ILTypeInstance>>(count);
+                for (int i = 0; i < count; ++i)
+                    list.Add(new List<ILTypeInstance>());
+                break;
+
+            case 3:
+                list = new List<List<List<ILTypeInstance>>>(count);
+                for (int i = 0; i < count; ++i)
+                    list.Add(new List<List<ILTypeInstance>>());
+                break;
+
+            case 4:
+                list = new List<List<List<List<ILTypeInstance>>>>(count);
+                for (int i = 0; i < count; ++i)
+                    list.Add(new List<List<List<ILTypeInstance>>>());
+                break;
+
+            case 5:
+                list = new List<List<List<List<List<ILTypeInstance>>>>>(count);
+                for (int i = 0; i < count; ++i)
+                    list.Add(new List<List<List<List<ILTypeInstance>>>>());
+                break;
+
+            default:
+                UnityEngine.Debug.LogErrorFormat("CreateList {0} type arrayCount:{1}", typeof(ILTypeInstance).Name, arrayCount);
+                break;
+            }
+
+            return list;
+        }
+
+        static System.Collections.IList CreateArray(int arrayCount, int count)
+        {
+            System.Collections.IList list = null;
+            switch (arrayCount)
+            {
+            case 2:
+                list = new ILTypeInstance[count][];
+                for (int i = 0; i < count; ++i)
+                    list[i] = new ILTypeInstance[0];
+                break;
+
+            case 3:
+                list = new ILTypeInstance[count][][];
+                for (int i = 0; i < count; ++i)
+                    list[i] = new ILTypeInstance[0][];
+                break;
+
+            case 4:
+                list = new ILTypeInstance[count][][][];
+                for (int i = 0; i < count; ++i)
+                    list[i] = new ILTypeInstance[0][][];
+                break;
+
+            case 5:
+                list = new ILTypeInstance[count][][][][];
+                for (int i = 0; i < count; ++i)
+                    list[i] = new ILTypeInstance[0][][][];
+                break;
+            default:
+                UnityEngine.Debug.LogErrorFormat("CreateArray {0} type arrayCount:{1}", typeof(ILTypeInstance).Name, arrayCount);
+                break;
+            }
+
+            return list;
+        }
+
+        public static System.Collections.IList CreateIList(System.Type elementType, int arrayCount, int count)
+        {
+            if (arrayCount == 1)
+            {
+                ILRuntimeType ilrt = elementType as ILRuntimeType;
+                List<ILTypeInstance> list = new List<ILTypeInstance>(count);
+                for (int i = 0; i < count; ++i)
+                    list.Add(new ILTypeInstance(ilrt.ILType));
+                return list;
+            }
+            else
+            {
+                return CreateIList(arrayCount, count);
+            }
+        }
+
+        public static System.Collections.IList CreateArray(System.Type elementType, int arrayCount, int count)
+        {
+            if (arrayCount == 1)
+            {
+                ILRuntimeType ilrt = elementType as ILRuntimeType;
+                ILTypeInstance[] list = new ILTypeInstance[count];
+                for (int i = 0; i < count; ++i)
+                    list[i] = new ILTypeInstance(ilrt.ILType);
+                return list;
+            }
+            else
+            {
+                return CreateArray(arrayCount, count);
+            }
+        }
+#endif
     }
 }
 

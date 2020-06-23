@@ -18,7 +18,7 @@ namespace wxb.Editor
         public object OnGUI(string label, object value, System.Type type, out bool isDirty)
         {
             AnyType anyType;
-            var currentType = value == null ? baseType : value.GetType();
+            var currentType = value == null ? baseType : IL.Help.GetInstanceType(value);
             if (currentType == baseType)
             {
                 anyType = (AnyType)selfTypeGUI;
@@ -39,7 +39,6 @@ namespace wxb.Editor
             }
 
             return value;
-
         }
 
         Dictionary<string, string> keys = new Dictionary<string, string>();
@@ -92,12 +91,12 @@ namespace wxb.Editor
             {
                 var typeName = GetKey(key);
                 if (string.IsNullOrEmpty(typeName) && value != null)
-                    typeName = value.GetType().FullName;
+                    typeName = IL.Help.GetInstanceType(value).FullName;
                 UnityEditor.EditorGUILayout.BeginHorizontal();
                 newTypename = IL.Editor.ILMonoEditor.StringPopupT($"设置{label}类型", typeName, allTypes, (System.Type t) => { return t == null ? "null" : t.FullName; }, "");
+                SetKey(key, newTypename);
                 if (newTypename == "null")
                     newTypename = string.Empty;
-                SetKey(key, newTypename);
                 isSet = GUILayout.Button("设置");
                 UnityEditor.EditorGUILayout.EndHorizontal();
             }
@@ -113,7 +112,7 @@ namespace wxb.Editor
 
                 if (newInstance != null)
                 {
-                    var te = TypeEditor.Get(newInstance.GetType(), null);
+                    var te = TypeEditor.Get(IL.Help.GetInstanceType(newInstance), null);
                     if (te is AnyType)
                         ((AnyType)te).SetFoldout(newInstance, true);
                 }
@@ -131,24 +130,32 @@ namespace wxb.Editor
             {
                 bool isDirty = false;
                 object current = info.GetValue(parent);
+                if (current == null)
                 {
                     string key = parent.GetHashCode().ToString() + (info == null ? "" : info.GetHashCode().ToString());
                     if (ShowTypeSelect(ref current, info.Name, key))
                     {
                         info.SetValue(parent, current);
                         isDirty = true;
+                        return isDirty;
                     }
                 }
 
                 if (current == null)
-                    return false;
+                    return isDirty;
 
+                var type = IL.Help.GetInstanceType(current);
                 bool isd = false;
-                if (current.GetType() == baseType)
-                    selfTypeGUI.OnGUI(string.Format("{1} {0}", info.Name, current.GetType().Name), current, current.GetType(), out isd);
+                if (type == baseType)
+                    current = selfTypeGUI.OnGUI(string.Format("{1} {0}", info.Name, type.Name), current, type, out isd);
                 else
                 {
-                    OnGUI(string.Format("{1} {0}", info.Name, current.GetType().Name), current, current.GetType(), out isd);
+                    current = OnGUI(string.Format("{1} {0}", info.Name, type.Name), current, type, out isd);
+                }
+
+                if (isd)
+                {
+                    info.SetValue(parent, current);
                 }
 
                 return isDirty | isd;

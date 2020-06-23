@@ -20,7 +20,7 @@ namespace wxb
             }
         }
 
-        byte ITypeSerialize.typeFlag { get { return 0; } } // 类型标识
+        byte ITypeSerialize.typeFlag { get { return TypeFlags.classType; } } // 类型标识
 
         System.Type type;
         List<FieldInfo> fieldInfos;
@@ -99,7 +99,13 @@ namespace wxb
 #if UNITY_EDITOR
                 if (stream.WritePos != write_pos + count)
                 {
-                    wxb.L.LogErrorFormat("type:{0} CalculateSize error!", ts.GetType().Name);
+                    L.LogErrorFormat("type:{0} type:{1}.{2} WritePos:{3} != write_pos({4}) + count({5}) CalculateSize error!", 
+                        ts.GetType().Name, 
+                        IL.Help.GetInstanceType(value).Name, 
+                        field.Name,
+                        stream.WritePos,
+                        write_pos,
+                        count);
                 }
 #endif
             }
@@ -130,16 +136,22 @@ namespace wxb
                         var fieldInfo = FindFieldInfo(fieldName);
                         ITypeSerialize bs;
 
-                        if (fieldInfo == null || 
-                            ((bs = BinarySerializable.GetByFieldInfo(fieldInfo)).typeFlag != typeFlag)) // 类型与之前的有变化了
+                        if (fieldInfo == null)
                         {
+                            L.LogFormat("type:{0} field:{1} typeFlag:{2} 字段不存在!", IL.Help.GetInstanceType(value).FullName, fieldName, typeFlag);
+                            stream.ReadPos += length;
+                        }
+                        else if ((bs = BinarySerializable.GetByFieldInfo(fieldInfo)).typeFlag != typeFlag)
+                        {
+                            // 类型与之前的有变化了
+                            L.LogFormat("type:{0} field:{1} typeFlag {2}->{3} 有变化!", IL.Help.GetInstanceType(value).FullName, fieldName, typeFlag, bs.typeFlag);
                             stream.ReadPos += length;
                         }
                         else
                         {
                             object cv = fieldInfo.GetValue(value);
                             bs.MergeFrom(ref cv, stream);
-                            if (typeFlag == UnityObjectSerialize.type)
+                            if (typeFlag == TypeFlags.unityObjectType)
                             {
                                 cv = UnityObjectSerialize.To((UnityEngine.Object)cv, fieldInfo.FieldType);
                             }

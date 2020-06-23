@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if !USE_HOT
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ public class TestClass1 : TestClass
 {
     public string value;
 }
-
+ 
 public class TestClass2 : TestClass
 {
     public string[] value;
@@ -30,8 +31,9 @@ public class TestSerial
     //public List<My[]> my2l;
     //public My[][] my2;
 
-    public SeriaBase[] values;
-    public NoSmartSeriaBase[] nosmart;
+    public SeriaBase value;
+    public SeriaBase[][] values;
+    public NoSmartSeriaBase[][] nosmart;
 }
 
 [wxb.Smart]
@@ -80,3 +82,4 @@ public class My
     public float xxx;
     public string xxx1;
 }
+#endif

@@ -10,7 +10,7 @@ namespace wxb
 
         System.Type baseType;
         ITypeSerialize baseTypeSerialize;
-        byte ITypeSerialize.typeFlag { get { return 0; } } // 类型标识
+        byte ITypeSerialize.typeFlag { get { return TypeFlags.smartType; } } // 类型标识
 
         void ITypeSerialize.WriteTo(object value, IStream ms)
         {
@@ -20,7 +20,7 @@ namespace wxb
                 return;
             }
 
-            var type = value.GetType();
+            var type = IL.Help.GetInstanceType(value);
             var serial = type == baseType ? baseTypeSerialize : BinarySerializable.GetByType(type);
             ms.WriteString(type.FullName);
             serial.WriteTo(value, ms);
@@ -33,10 +33,10 @@ namespace wxb
                 return;
 
             System.Type type;
-            if (value == null || ((type = value.GetType()).FullName != fullName))
+            if (value == null || ((type = IL.Help.GetInstanceType(value)).FullName != fullName))
             {
-                type = IL.Help.GetTypeByFullName(fullName);
-                value = IL.Help.Create(type);
+                if (IL.Help.TryGetTypeByFullName(fullName, out type))
+                    value = IL.Help.Create(type);
             }
 
             var serial = type == baseType ? baseTypeSerialize : BinarySerializable.GetByType(type);
@@ -48,7 +48,7 @@ namespace wxb
             if (value == null)
                 return WRStream.ComputeStringSize(string.Empty);
 
-            var type = value.GetType();
+            var type = IL.Help.GetInstanceType(value);
             var serial = type == baseType ? baseTypeSerialize : BinarySerializable.GetByType(type);
 
             var fullName = type.FullName;

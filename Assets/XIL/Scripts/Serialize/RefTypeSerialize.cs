@@ -15,7 +15,7 @@ namespace wxb
         System.Type type;
         ITypeSerialize typeSerialize;
 
-        byte ITypeSerialize.typeFlag { get { return 0; } } // 类型标识
+        byte ITypeSerialize.typeFlag { get { return TypeFlags.classType; } } // 类型标识
 
         int ITypeSerialize.CalculateSize(object value)
         {

@@ -74,6 +74,7 @@ namespace wxb.Editor
             BaseTypes.Add(typeof(float).FullName, new FloatType());
             BaseTypes.Add(typeof(double).FullName, new DoubleType());
             BaseTypes.Add(typeof(string).FullName, new StrType());
+            BaseTypes.Add(typeof(bool).FullName, new BoolType());
         }
 
         public static ITypeGUI Get(System.Type type, FieldInfo fieldInfo)
@@ -116,11 +117,27 @@ namespace wxb.Editor
                 return new RefTypeEditor(IL.Help.GetTypeByFullName(ils.typeName));
             }
 
-            if (type.GetCustomAttribute(typeof(SmartAttribute), false) != null)
+            var atts = type.GetCustomAttributes(typeof(SmartAttribute), false);
+            if (atts != null && atts.Length > 0) 
             {
                 return new SmartEditor(type, new AnyType(type, IL.Help.GetSerializeField(type)));
             }
 
+#if USE_HOT
+            ILRuntimeFieldInfo ilFieldInfo = (ILRuntimeFieldInfo)fieldInfo;
+            if (ilFieldInfo != null && (type.IsArray || IL.Help.isListType(type)))
+            {
+                var isListType = type.IsArray ? false : true;
+                int arrayCount = 0;
+                string elementType;
+                BinarySerializable.GetElementType(ilFieldInfo.Definition.FieldType, ref arrayCount, out elementType);
+                if (arrayCount >= 2)
+                {
+                    // 2维数组
+                    return new ArrayListHot(elementType, arrayCount, isListType);
+                }
+            }
+#endif
             if (type.IsArray)
             {
                 var elementType = type.GetElementType();
@@ -135,21 +152,7 @@ namespace wxb.Editor
                 else
                     elementType = type.GetGenericArguments()[0];
 
-                ITypeGUI arrayGUI = null;
-#if USE_HOT
-                if (IL.Help.isListType(elementType))
-                {
-                    arrayGUI = new HotArrayList(type, fieldInfo);
-                }
-                else
-                {
-#endif
-                    arrayGUI = new ListTypeEditor(type, elementType, Get(elementType, null));
-#if USE_HOT
-                }
-#endif
-
-                return arrayGUI;
+                return new ListTypeEditor(type, elementType, Get(elementType, null));
             }
 #if USE_HOT
             if (type is ILRuntimeType)
@@ -177,7 +180,8 @@ namespace wxb.Editor
             for (int i = 0; i < fieldinfos.Count; ++i)
             {
                 var field = fieldinfos[i];
-                isDirty |= Get(field.FieldType, field).OnGUI(parent, field);
+                if (Get(field.FieldType, field).OnGUI(parent, field))
+                    isDirty = true;
             }
 
             return isDirty;

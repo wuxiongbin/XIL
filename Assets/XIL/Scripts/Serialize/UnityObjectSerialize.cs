@@ -2,9 +2,7 @@ namespace wxb
 {
     class UnityObjectSerialize : ITypeSerialize
     {
-        public static byte type { get { return 20; } }
-
-        byte ITypeSerialize.typeFlag { get { return type; } } // 类型标识
+        byte ITypeSerialize.typeFlag { get { return TypeFlags.unityObjectType; } } // 类型标识
 
         int ITypeSerialize.CalculateSize(object value)
         {

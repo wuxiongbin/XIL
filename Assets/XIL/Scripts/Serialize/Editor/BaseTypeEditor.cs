@@ -224,6 +224,20 @@ namespace wxb.Editor
         }
     }
 
+    class BoolType : BaseType<bool>
+    {
+        protected override bool OnGUI(string label, bool value, System.Type type, out bool isDirty)
+        {
+            bool nv = EditorGUILayout.Toggle(label, value);
+            if (nv != value)
+                isDirty = true;
+            else
+                isDirty = false;
+
+            return nv;
+        }
+    }
+
     class FloatType : BaseType<float>
     {
         protected override float OnGUI(string label, float value, System.Type type, out bool isDirty)

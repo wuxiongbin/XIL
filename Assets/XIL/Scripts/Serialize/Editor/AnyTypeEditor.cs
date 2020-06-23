@@ -248,7 +248,9 @@ namespace wxb.Editor
                 }
 
                 bool isd = false;
-                OnGUI(string.Format("{1} {0}", info.Name, info.FieldType.Name), current, info.FieldType, out isd);
+                object value  = OnGUI(string.Format("{1} {0}", info.Name, info.FieldType.Name), current, info.FieldType, out isd);
+                if (isd)
+                    info.SetValue(parent, value);
                 return isDirty | isd;
             }
         }

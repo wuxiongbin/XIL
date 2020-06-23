@@ -35,7 +35,7 @@ namespace wxb.Editor
             else
             {
                 fullTypeName = elementType;
-                for (int i = 0; i < arrayCount - 1; ++i)
+                for (int i = 0; i < arrayCount; ++i)
                     fullTypeName += "[]";
             }
 
@@ -57,12 +57,18 @@ namespace wxb.Editor
 
         int arrayCount; // 数组维数
         string elementType; // 元素类型
-        static RefType refType { get { return new RefType(true, IL.Help.GetTypeByFullName("hot.RegArrayType")); } }
 
-        protected IList CreateList(int count)
+        protected IList CreateList(int lenght)
         {
-            string name = !isListType ? "CreateArray" : "CreateList";
-            return (IList)refType.InvokeMethodReturn(name, elementType, arrayCount, count);
+            var et = IL.Help.GetTypeByFullName(elementType);
+            if (isListType)
+            {
+                return IL.Help.CreateIList(et, arrayCount, lenght);
+            }
+            else
+            {
+                return IL.Help.CreateArray(et, arrayCount, lenght);
+            }
         }
 
         bool ITypeGUI.OnGUI(object parent, FieldInfo info)
@@ -169,19 +175,19 @@ namespace wxb.Editor
         }
     }
 
-    class HotArrayList : ArrayListHot
-    {
-        public HotArrayList(System.Type listType, FieldInfo fieldInfo)
-        {
-            var isListType = listType.IsArray ? false : true;
-            int arrayCount = 0;
-            string elementType = null;
+    //class HotArrayList : ArrayListHot
+    //{
+    //    public HotArrayList(System.Type listType, FieldInfo fieldInfo)
+    //    {
+    //        var isListType = listType.IsArray ? false : true;
+    //        int arrayCount = 0;
+    //        string elementType = null;
 
-            ILRuntimeFieldInfo ilFieldInfo = (ILRuntimeFieldInfo)fieldInfo;
-            BinarySerializable.GetElementType(ilFieldInfo.Definition.FieldType, ref arrayCount, out elementType);
+    //        ILRuntimeFieldInfo ilFieldInfo = (ILRuntimeFieldInfo)fieldInfo;
+    //        BinarySerializable.GetElementType(ilFieldInfo.Definition.FieldType, ref arrayCount, out elementType);
 
-            Reset(elementType, arrayCount, isListType);
-        }
-    }
+    //        Reset(elementType, arrayCount, isListType);
+    //    }
+    //}
 }
 #endif
