@@ -17,15 +17,6 @@ namespace wxb
 
         byte ITypeSerialize.typeFlag { get { return TypeFlags.classType; } } // 类型标识
 
-        int ITypeSerialize.CalculateSize(object value)
-        {
-            RefType refType = (RefType)value;
-            if (refType == null || refType.Instance == null)
-                return 0;
-
-            return typeSerialize.CalculateSize(refType.Instance);
-        }
-
         void ITypeSerialize.WriteTo(object value, IStream stream)
         {
             RefType refType = (RefType)value;

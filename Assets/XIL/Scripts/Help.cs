@@ -286,6 +286,7 @@
             Reg<string>();
             Reg<float>();
             Reg<double>();
+            Reg<char>();
 #endif
             var assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
             foreach (var assembly in assemblies)
@@ -333,6 +334,7 @@
             BaseTypes.Add(typeof(float));
             BaseTypes.Add(typeof(double));
             BaseTypes.Add(typeof(bool));
+            BaseTypes.Add(typeof(char));
 
             AllTypesByFullName.Add("int", typeof(int));
             AllTypesByFullName.Add("uint", typeof(uint));
@@ -346,6 +348,7 @@
             AllTypesByFullName.Add("float", typeof(float));
             AllTypesByFullName.Add("double", typeof(double));
             AllTypesByFullName.Add("bool", typeof(bool));
+            AllTypesByFullName.Add("char", typeof(char));
         }
 
         public static void ReleaseAll()
@@ -471,8 +474,18 @@
                     continue;
                 if (itor.Value.IsInterface)
                     continue;
-                if (itor.Value.BaseType != null && itor.Value.BaseType.FullName == baseTypeFullName)
-                    types.Add(itor.Value);
+
+                var bt = itor.Value.BaseType;
+                while (bt != null)
+                {
+                    if (bt.FullName == baseTypeFullName)
+                    {
+                        types.Add(itor.Value);
+                        break;
+                    }
+                    else
+                        bt = bt.BaseType;
+                }
             }
 
             return types;
@@ -521,7 +534,28 @@
             return GetOrCreate(type).GetSerializeField();
         }
 
-        static public void GetSerializeField(System.Type type, List<FieldInfo> fieldinfos)
+        static void GetFieldsByType(System.Type type, List<FieldInfo> fieldInfos)
+        {
+            GetFieldsByType(type, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, fieldInfos);
+            var bt = type.BaseType;
+            while (bt != null && bt != typeof(object))
+            {
+                GetFieldsByType(bt, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.DeclaredOnly, fieldInfos);
+                bt = bt.BaseType;
+            }
+        }
+
+        static void GetFieldsByType(System.Type type, BindingFlags flags, List<FieldInfo> fieldInfos)
+        {
+            var fields = type.GetFields(flags);
+            foreach (var ator in fields)
+            {
+                //if (!fieldInfos.Contains(ator))
+                    fieldInfos.Add(ator);
+            }
+        }
+
+        static public void GetSerializeField(System.Type type, List<FieldInfo> fieldinfos, BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
         {
             if (type.IsArray || type.GetInterface("System.Collections.Generic.IList") != null)
                 return;
@@ -546,8 +580,9 @@
             }
 #endif
             {
-                var fields = type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-                for (int i = 0; i < fields.Length; ++i)
+                List<FieldInfo> fields = new List<FieldInfo>();
+                GetFieldsByType(type, fields);
+                for (int i = 0; i < fields.Count; ++i)
                 {
                     var field = fields[i];
                     var fieldType = field.FieldType;

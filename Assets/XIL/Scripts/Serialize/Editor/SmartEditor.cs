@@ -92,6 +92,12 @@ namespace wxb.Editor
                 var typeName = GetKey(key);
                 if (string.IsNullOrEmpty(typeName) && value != null)
                     typeName = IL.Help.GetInstanceType(value).FullName;
+
+                if (value != null)
+                {
+                    UnityEditor.EditorGUILayout.LabelField("当前类型:" + IL.Help.GetInstanceType(value).FullName);
+                }
+
                 UnityEditor.EditorGUILayout.BeginHorizontal();
                 newTypename = IL.Editor.ILMonoEditor.StringPopupT($"设置{label}类型", typeName, allTypes, (System.Type t) => { return t == null ? "null" : t.FullName; }, "");
                 SetKey(key, newTypename);

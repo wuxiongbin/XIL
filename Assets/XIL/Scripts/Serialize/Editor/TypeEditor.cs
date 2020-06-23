@@ -134,11 +134,7 @@ namespace wxb.Editor
                 int arrayCount = 0;
                 string elementType;
                 BinarySerializable.GetElementType(ilFieldInfo.Definition.FieldType, ref arrayCount, out elementType);
-                if (arrayCount >= 2)
-                {
-                    // 2维数组
-                    return new ArrayListHot(elementType, arrayCount, isListType);
-                }
+                return new ArrayListHot(elementType, arrayCount, isListType);
             }
 #endif
             if (type.IsArray)

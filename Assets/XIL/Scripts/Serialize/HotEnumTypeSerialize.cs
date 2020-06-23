@@ -17,11 +17,6 @@ namespace wxb
 
         byte ITypeSerialize.typeFlag { get { return TypeFlags.enumType; } } // 类型标识
 
-        int ITypeSerialize.CalculateSize(object value)
-        {
-            return 4;
-        }
-
         void ITypeSerialize.WriteTo(object obj, IStream ms)
         {
             ms.WriteInt32((int)obj);

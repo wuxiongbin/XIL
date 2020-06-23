@@ -46,135 +46,99 @@ namespace wxb
             return null;
         }
 
-        int ITypeSerialize.CalculateSize(object value)
-        {
-            if (value == null)
-                return 0;
-
-            int total = 0;
-            for (int i = 0; i < fieldInfos.Count; ++i)
-            {
-                var fieldInfo = fieldInfos[i];
-                var cv = fieldInfo.GetValue(value);
-                if (cv == null)
-                    continue;
-
-                var fieldType = fieldInfo.FieldType;
-                total += 1; // 类型标识
-                total += WRStream.ComputeStringSize(fieldInfo.Name);
-                int size = BinarySerializable.GetByFieldInfo(fieldInfo).CalculateSize(cv);
-                total += WRStream.ComputeLengthSize(size);
-                total += size;
-            }
-
-            return total;
-        }
-
         void ITypeSerialize.WriteTo(object value, IStream stream)
         {
             if (value == null)
+            {
+                stream.WriteByte(0);
                 return;
+            }
 
+            stream.WriteByte(1);
             ITypeSerialize ts = this;
             for (int i = 0; i < fieldInfos.Count; ++i)
             {
                 var field = fieldInfos[i];
                 object cv = field.GetValue(value);
-                if (cv == null)
-                    continue;
 
                 ts = BinarySerializable.GetByFieldInfo(field);
 
                 stream.WriteByte(ts.typeFlag); // 类型标识
                 stream.WriteString(field.Name);
-                int count = ts.CalculateSize(cv);
-                if (count == 0)
-                    continue;
 
-                stream.WriteLength(count);
-#if UNITY_EDITOR
-                int write_pos = stream.WritePos;
-#endif
-                ts.WriteTo(cv, stream);
-#if UNITY_EDITOR
-                if (stream.WritePos != write_pos + count)
+                using (new RLStream(stream))
                 {
-                    L.LogErrorFormat("type:{0} type:{1}.{2} WritePos:{3} != write_pos({4}) + count({5}) CalculateSize error!", 
-                        ts.GetType().Name, 
-                        IL.Help.GetInstanceType(value).Name, 
-                        field.Name,
-                        stream.WritePos,
-                        write_pos,
-                        count);
+                    ts.WriteTo(cv, stream);
                 }
-#endif
             }
         }
 
         public void MergeFrom(ref object value, IStream stream)
         {
+            byte flag = stream.ReadByte();
+            if (flag == 0)
+            {
+                value = null;
+                return;
+            }
+
             if (value == null)
             {
                 value = IL.Help.Create(type);
             }
 
-            while (stream.ReadSize != 0)
+            do
             {
                 byte typeFlag = stream.ReadByte();
                 var fieldName = stream.ReadString();
-                var length = stream.ReadLength();
-                if (length == 0)
-                {
+                var length = RLStream.ReadLength(stream);
 
+                int endPos = stream.WritePos;
+                stream.WritePos = stream.ReadPos + length;
+                try
+                {
+                    var fieldInfo = FindFieldInfo(fieldName);
+                    ITypeSerialize bs;
+
+                    if (fieldInfo == null)
+                    {
+                        //L.LogFormat("type:{0} field:{1} typeFlag:{2} 字段不存在!", IL.Help.GetInstanceType(value).FullName, fieldName, typeFlag);
+                        stream.ReadPos += length;
+                    }
+                    else if ((bs = BinarySerializable.GetByFieldInfo(fieldInfo)).typeFlag != typeFlag)
+                    {
+                        // 类型与之前的有变化了
+                        //L.LogFormat("type:{0} field:{1} typeFlag {2}->{3} 有变化!", IL.Help.GetInstanceType(value).FullName, fieldName, typeFlag, bs.typeFlag);
+                        stream.ReadPos += length;
+                    }
+                    else
+                    {
+                        object cv = fieldInfo.GetValue(value);
+                        bs.MergeFrom(ref cv, stream);
+                        if (typeFlag == TypeFlags.unityObjectType)
+                        {
+                            cv = UnityObjectSerialize.To((UnityEngine.Object)cv, fieldInfo.FieldType);
+                        }
+
+                        fieldInfo.SetValue(value, cv);
+                    }
                 }
-                else
+                catch (System.Exception ex)
                 {
-                    int endPos = stream.WritePos;
-                    stream.WritePos = stream.ReadPos + length;
-                    try
-                    {
-                        var fieldInfo = FindFieldInfo(fieldName);
-                        ITypeSerialize bs;
-
-                        if (fieldInfo == null)
-                        {
-                            L.LogFormat("type:{0} field:{1} typeFlag:{2} 字段不存在!", IL.Help.GetInstanceType(value).FullName, fieldName, typeFlag);
-                            stream.ReadPos += length;
-                        }
-                        else if ((bs = BinarySerializable.GetByFieldInfo(fieldInfo)).typeFlag != typeFlag)
-                        {
-                            // 类型与之前的有变化了
-                            L.LogFormat("type:{0} field:{1} typeFlag {2}->{3} 有变化!", IL.Help.GetInstanceType(value).FullName, fieldName, typeFlag, bs.typeFlag);
-                            stream.ReadPos += length;
-                        }
-                        else
-                        {
-                            object cv = fieldInfo.GetValue(value);
-                            bs.MergeFrom(ref cv, stream);
-                            if (typeFlag == TypeFlags.unityObjectType)
-                            {
-                                cv = UnityObjectSerialize.To((UnityEngine.Object)cv, fieldInfo.FieldType);
-                            }
-
-                            fieldInfo.SetValue(value, cv);
-                        }
-                    }
-                    catch (System.Exception ex)
-                    {
-                        wxb.L.LogException(ex);
-                    }
-                    finally
-                    {
+                    wxb.L.LogException(ex);
+                }
+                finally
+                {
 #if UNITY_EDITOR
-                        if (stream.ReadSize != 0)
-                        {
-                            wxb.L.LogErrorFormat("type:{0} fieldName:{1} length:{2}", type.Name, fieldName, length);
-                        }
-#endif
-                        stream.WritePos = endPos;
+                    if (stream.ReadSize != 0)
+                    {
+                        wxb.L.LogErrorFormat("type:{0} fieldName:{1} length:{2}", type.Name, fieldName, length);
                     }
+#endif
+                    stream.WritePos = endPos;
                 }
             }
+            while (stream.ReadSize != 0);
         }
     }
 }

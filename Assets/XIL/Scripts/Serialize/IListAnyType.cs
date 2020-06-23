@@ -20,42 +20,23 @@ namespace wxb
 
         byte ITypeSerialize.typeFlag { get { return TypeFlags.arrayType; } } // 数组标识
 
-        int ITypeSerialize.CalculateSize(object value)
-        {
-            if (value == null)
-                return 0;
-
-            IList array = value as IList;
-
-            int Count = array.Count;
-            int total = WRStream.ComputeLengthSize(Count);
-            total += 1;
-
-            // 长度+各个元素内容
-            for (int i = 0; i < Count; ++i)
-            {
-                int s = elementTypeSerialize.CalculateSize(array[i]);
-                total += WRStream.ComputeLengthSize(s);
-                total += s;
-            }
-            return total;
-        }
-
         void ITypeSerialize.WriteTo(object value, IStream stream)
         {
             IList array = (IList)value;
             if (array == null)
+            {
+                stream.WriteByte(0);
                 return;
+            }
 
+            stream.WriteByte(1);
             stream.WriteByte(elementTypeSerialize.typeFlag);
             stream.WriteLength(array.Count);
             object elementObj;
             for (int i = 0; i < array.Count; ++i)
             {
                 elementObj = array[i];
-                int count = elementTypeSerialize.CalculateSize(elementObj);
-                stream.WriteLength(count);
-                if (count != 0)
+                using (new RLStream(stream))
                 {
                     elementTypeSerialize.WriteTo(elementObj, stream);
                 }
@@ -66,7 +47,14 @@ namespace wxb
 
         void ITypeSerialize.MergeFrom(ref object value, IStream stream)
         {
-            int flagType = stream.ReadByte();
+            byte flag = stream.ReadByte();
+            if (flag == 0)
+            {
+                value = null;
+                return;
+            }
+
+            byte flagType = stream.ReadByte();
             int lenght = stream.ReadLength();
 
             bool isTypeTrue = flagType == elementTypeSerialize.typeFlag; // 类型是否一致
@@ -79,37 +67,35 @@ namespace wxb
 
             for (int i = 0; i < lenght; ++i)
             {
-                int count = stream.ReadLength();
-                if (count != 0)
-                {
-                    int endpos = stream.WritePos;
-                    stream.WritePos = stream.ReadPos + count;
-                    try
-                    {
-                        if (isTypeTrue)
-                        {
-                            object v = array[i];
-                            elementTypeSerialize.MergeFrom(ref v, stream);
-                            array[i] = v;
-                        }
-                        else
-                        {
-                            stream.ReadPos += count;
-                        }
-                    }
-                    catch (System.Exception ex)
-                    {
-                        wxb.L.LogException(ex);
-                    }
-                    finally
-                    {
-                        stream.WritePos = endpos;
-                    }
-                }
-                else
+                int count = RLStream.ReadLength(stream);
+                int endpos = stream.WritePos;
+                stream.WritePos = stream.ReadPos + count;
+                try
                 {
                     if (isTypeTrue)
-                        array[i] = null;
+                    {
+                        object v = array[i];
+                        elementTypeSerialize.MergeFrom(ref v, stream);
+                        array[i] = v;
+                    }
+                    else
+                    {
+#if UNITY_EDITOR
+                        if (stream.ReadSize != 0)
+                        {
+                            L.LogErrorFormat("IListAnyType stream.ReadSize != 0");
+                        }
+#endif
+                        stream.ReadPos += count;
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    L.LogException(ex);
+                }
+                finally
+                {
+                    stream.WritePos = endpos;
                 }
             }
         }

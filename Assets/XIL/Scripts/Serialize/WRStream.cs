@@ -1,5 +1,42 @@
 namespace wxb
 {
+    public struct RLStream : System.IDisposable
+    {
+        public RLStream(IStream stream)
+        {
+            this.stream = stream;
+            write_pos = stream.WritePos;
+            stream.WritePos = write_pos + 1;
+        }
+
+        IStream stream;
+        int write_pos;
+
+        void System.IDisposable.Dispose()
+        {
+            int end_pos = stream.WritePos;
+            stream.WritePos = write_pos;
+            int length = end_pos - write_pos - 1;
+
+            int size = WRStream.ComputeLengthSize(length);
+            if (size != 1)
+            {
+                stream.WritePos = write_pos + 1;
+                stream.MoveWritePos(size - 1, length);
+                end_pos += (size - 1);
+                stream.WritePos = write_pos;
+            }
+
+            stream.WriteLength(length);
+            stream.WritePos = end_pos;
+        }
+
+        public static int ReadLength(IStream stream)
+        {
+            return stream.ReadLength();
+        }
+    }
+
     public class WRStream : IStream
     {
         public static int ComputeLengthSize(int length)
@@ -560,6 +597,12 @@ namespace wxb
         public virtual UnityEngine.Object ReadUnityObject()
         {
             throw new System.Exception("ReadUnityObject");
+        }
+
+        // 以WritePos位置为参数，移动当前数据块
+        public void MoveWritePos(int offset, int count)
+        {
+            System.Array.Copy(mBuffer, WritePos, mBuffer, WritePos + offset, count);
         }
     }
 }

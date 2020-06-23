@@ -152,9 +152,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customizeData:
-    typeName: TestSerial
+    typeName: TestClass2
     objs: []
-    bytes: 0f0874657374456e756d0402000000
+    bytes: 01640576616c75650f010d02040333323306053233333333010676616c75653104fb0c0000010676616c7565320435563100
 --- !u!108 &267203926
 Light:
   m_ObjectHideFlags: 0

@@ -49,5 +49,8 @@ namespace wxb
         UnityEngine.Object ReadUnityObject();
 
         byte[] GetBytes();
+
+        // 以WritePos位置为参数，移动当前数据块
+        void MoveWritePos(int offset, int count);
     }
 }

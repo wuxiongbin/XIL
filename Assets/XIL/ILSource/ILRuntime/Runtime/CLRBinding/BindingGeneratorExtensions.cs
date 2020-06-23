@@ -119,6 +119,10 @@ namespace ILRuntime.Runtime.CLRBinding
                 {
                 case "set_receiveGI":
                 case "get_receiveGI":
+                case "get_scaleInLightmap":
+                case "set_scaleInLightmap":
+                case "get_stitchLightmapSeams":
+                case "set_stitchLightmapSeams":
                     return true;
                 }
             }

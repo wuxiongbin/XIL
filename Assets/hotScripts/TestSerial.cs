@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class TestClass
 {
+    [SerializeField]
+    int value2;
     public int value1;
 }
 
@@ -13,6 +15,7 @@ public class TestClass1 : TestClass
     public string value;
 }
  
+[wxb.AutoILMono]
 public class TestClass2 : TestClass
 {
     public string[] value;

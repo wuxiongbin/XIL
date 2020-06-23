@@ -42,18 +42,5 @@ namespace wxb
             var serial = type == baseType ? baseTypeSerialize : BinarySerializable.GetByType(type);
             serial.MergeFrom(ref value, ms);
         }
-
-        int ITypeSerialize.CalculateSize(object value)
-        {
-            if (value == null)
-                return WRStream.ComputeStringSize(string.Empty);
-
-            var type = IL.Help.GetInstanceType(value);
-            var serial = type == baseType ? baseTypeSerialize : BinarySerializable.GetByType(type);
-
-            var fullName = type.FullName;
-            int total = WRStream.ComputeStringSize(fullName);
-            return total + serial.CalculateSize(value);
-        }
     }
 }

@@ -4,14 +4,6 @@ namespace wxb
     {
         byte ITypeSerialize.typeFlag { get { return TypeFlags.unityObjectType; } } // 类型标识
 
-        int ITypeSerialize.CalculateSize(object value)
-        {
-            if (value == null)
-                return 0;
-
-            return 2;
-        }
-
         void ITypeSerialize.WriteTo(object value, IStream stream)
         {
             if (value == null)
