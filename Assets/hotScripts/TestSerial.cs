@@ -44,9 +44,10 @@ public class TestSerial
     //public My[][] my2;
 
     public TestEnum testEnum;
-    //public SeriaBase value;
-    //public SeriaBase[][] values;
-    //public NoSmartSeriaBase[][] nosmart;
+    public SeriaBase value;
+    public NoSmartSeriaBase nosmart;
+    public string[] strings;
+    public string[][] stringss;
 }
 
 [wxb.Smart]
@@ -56,7 +57,6 @@ public class SeriaBase
     public int value;
 }
 
-[wxb.Smart]
 [System.Serializable]
 public class NoSmartSeriaBase
 {

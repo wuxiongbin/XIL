@@ -134,7 +134,9 @@ namespace wxb.Editor
                 int arrayCount = 0;
                 string elementType;
                 BinarySerializable.GetElementType(ilFieldInfo.Definition.FieldType, ref arrayCount, out elementType);
-                return new ArrayListHot(elementType, arrayCount, isListType);
+                var et = IL.Help.GetType(elementType);
+                if (et is ILRuntimeType)
+                    return new ArrayListHot(elementType, arrayCount, isListType);
             }
 #endif
             if (type.IsArray)
