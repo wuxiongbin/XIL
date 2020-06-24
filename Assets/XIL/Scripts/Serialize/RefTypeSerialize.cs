@@ -26,7 +26,7 @@ namespace wxb
             typeSerialize.WriteTo(refType.Instance, stream);
         }
 
-        public void MergeFrom(ref object value, IStream stream)
+        void ITypeSerialize.MergeFrom(ref object value, IStream stream)
         {
             RefType refType = (RefType)value;
             if (refType == null)
@@ -38,6 +38,15 @@ namespace wxb
             var instance = refType.Instance;
             typeSerialize.MergeFrom(ref instance, stream);
             refType.SetInstance(instance);
+        }
+
+        // 判断两个值是否相等
+        bool ITypeSerialize.IsEquals(object x, object y)
+        {
+            RefType xValue = (RefType)x;
+            RefType yValue = (RefType)y;
+
+            return BinarySerializable.IsEquip(xValue.Instance, yValue.Instance);
         }
     }
 }

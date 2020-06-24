@@ -17,6 +17,12 @@ namespace wxb
             parent = stream.ReadUnityObject();
         }
 
+        // 判断两个值是否相等
+        bool ITypeSerialize.IsEquals(object x, object y)
+        {
+            return (UnityEngine.Object)x == (UnityEngine.Object)y;
+        }
+
         // 类型转换
         public static UnityEngine.Object To(UnityEngine.Object src, System.Type type)
         {

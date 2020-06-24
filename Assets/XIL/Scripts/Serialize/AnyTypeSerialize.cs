@@ -140,5 +140,22 @@ namespace wxb
             }
             while (stream.ReadSize != 0);
         }
+
+        // 判断两个值是否相等
+        public bool IsEquals(object x, object y)
+        {
+            for (int i = 0; i < fieldInfos.Count; ++i)
+            {
+                var field = fieldInfos[i];
+
+                var xv = field.GetValue(x);
+                var yv = field.GetValue(y);
+
+                if (!BinarySerializable.IsEquip(xv, yv))
+                    return false;
+            }
+
+            return true;
+        }
     }
 }

@@ -42,5 +42,20 @@ namespace wxb
             var serial = type == baseType ? baseTypeSerialize : BinarySerializable.GetByType(type);
             serial.MergeFrom(ref value, ms);
         }
+
+        // 判断两个值是否相等
+        bool ITypeSerialize.IsEquals(object x, object y)
+        {
+            System.Type xType = IL.Help.GetInstanceType(x);
+            System.Type yType = IL.Help.GetInstanceType(y);
+
+            if (xType != yType)
+                return false;
+
+            if (xType == baseType)
+                return baseTypeSerialize.IsEquals(x, y);
+
+            return BinarySerializable.IsEquip(x, y);
+        }
     }
 }

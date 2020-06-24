@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace wxb
 {
-    class Serialize<T> : ITypeSerialize
+    class Serialize<T> : ITypeSerialize where T : System.IEquatable<T>
     {
         public Serialize(byte typeFlag, System.Action<T, IStream> writeTo, System.Func<IStream, T> mergeFrom)
         {
@@ -27,6 +27,12 @@ namespace wxb
         void ITypeSerialize.MergeFrom(ref object value, IStream ms)
         {
             value = mergeFrom(ms);
+        }
+
+        // 判断两个值是否相等
+        bool ITypeSerialize.IsEquals(object x, object y)
+        {
+            return ((System.IEquatable<T>)x).Equals((System.IEquatable<T>)y);
         }
     }
 }

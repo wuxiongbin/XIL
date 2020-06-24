@@ -27,6 +27,12 @@ namespace wxb
             int id = ms.ReadInt32();
             value = id;
         }
+
+        // 判断两个值是否相等
+        bool ITypeSerialize.IsEquals(object x, object y)
+        {
+            return ((int)x) == ((int)y);
+        }
     }
 }
 #endif

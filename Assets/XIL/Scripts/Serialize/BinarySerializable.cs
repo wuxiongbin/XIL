@@ -40,7 +40,7 @@ namespace wxb
         static Dictionary<ILRuntimeFieldInfo, ITypeSerialize> FieldInfoTypes = new Dictionary<ILRuntimeFieldInfo, ITypeSerialize>();
 #endif
 
-        static void Reg<T>(byte typeFlag, System.Action<T, IStream> writeTo, System.Func<IStream, T> mergeFrom)
+        static void Reg<T>(byte typeFlag, System.Action<T, IStream> writeTo, System.Func<IStream, T> mergeFrom) where T : System.IEquatable<T>
         {
             AllTypes.Add(typeof(T).FullName, new Serialize<T>(typeFlag, writeTo, mergeFrom));
         }
@@ -272,5 +272,22 @@ namespace wxb
             }
         }
 #endif
+
+        // 判断两个值是否相等
+        public static bool IsEquip(object x, object y)
+        {
+            if (x == null && y == null)
+                return true;
+            if (x != null && y != null)
+            {
+                Type type = Help.GetInstanceType(x);
+                if (type != Help.GetInstanceType(y))
+                    return false;
+
+                return GetByType(type).IsEquals(x, y);
+            }
+
+            return true;
+        }
     }
 }

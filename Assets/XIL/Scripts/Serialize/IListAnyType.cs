@@ -99,5 +99,23 @@ namespace wxb
                 }
             }
         }
+
+        // 判断两个值是否相等
+        bool ITypeSerialize.IsEquals(object x, object y)
+        {
+            var xlist = (IList)x;
+            var ylist = (IList)y;
+            int count = xlist.Count;
+            if (count != ylist.Count)
+                return false;
+
+            for (int i = 0; i < count; ++i)
+            {
+                if (!BinarySerializable.IsEquip(xlist[i], ylist[i]))
+                    return false;
+            }
+
+            return true;
+        }
     }
 }

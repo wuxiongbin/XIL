@@ -48,6 +48,15 @@ public class TestSerial
     public NoSmartSeriaBase nosmart;
     public string[] strings;
     public string[][] stringss;
+
+    public int[] ints;
+    public int[][] intss;
+
+    public List<string> strList;
+    public List<List<string>> strLists;
+
+    public List<int> intList;
+    public List<List<int>> intLists;
 }
 
 [wxb.Smart]
