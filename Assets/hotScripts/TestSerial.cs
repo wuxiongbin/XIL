@@ -43,9 +43,15 @@ public class TestSerial
     //public List<My[]> my2l;
     //public My[][] my2;
 
+    public GameObject go;
+    public Camera camera;
+    public Light light;
     public TestEnum testEnum;
     public SeriaBase value;
+    public SeriaBase[] values;
     public NoSmartSeriaBase nosmart;
+    public NoSmartSeriaBase[] nosmarts;
+
     public string[] strings;
     public string[][] stringss;
 

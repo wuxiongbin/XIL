@@ -40,12 +40,12 @@ namespace wxb
                 pos = objs.Count - 1;
             }
 
-            WriteShort((short)pos);
+            WriteVarInt32(pos);
         }
 
         public override UnityEngine.Object ReadUnityObject()
         {
-            var pos = ReadShort();
+            var pos = ReadVarInt32();
             return objs[pos];
         }
     }
