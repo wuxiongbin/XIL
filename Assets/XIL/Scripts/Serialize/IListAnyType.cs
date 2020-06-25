@@ -31,7 +31,7 @@ namespace wxb
 
             stream.WriteByte(1);
             stream.WriteByte(elementTypeSerialize.typeFlag);
-            stream.WriteLength(array.Count);
+            stream.WriteVarInt32(array.Count);
             object elementObj;
             for (int i = 0; i < array.Count; ++i)
             {
@@ -55,7 +55,7 @@ namespace wxb
             }
 
             byte flagType = stream.ReadByte();
-            int lenght = stream.ReadLength();
+            int lenght = stream.ReadVarInt32();
 
             bool isTypeTrue = flagType == elementTypeSerialize.typeFlag; // 类型是否一致
             var array = value as IList;

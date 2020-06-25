@@ -18,12 +18,12 @@ namespace wxb
 
         void ITypeSerialize.WriteTo(object obj, IStream ms)
         {
-            ms.WriteInt32((int)obj);
+            ms.WriteVarInt32((int)obj);
         }
 
         void ITypeSerialize.MergeFrom(ref object value, IStream ms)
         {
-            int id = ms.ReadInt32();
+            int id = ms.ReadVarInt32();
             value = System.Enum.ToObject(enumType, id);
         }
 

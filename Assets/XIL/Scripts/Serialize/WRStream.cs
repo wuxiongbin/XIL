@@ -18,7 +18,7 @@ namespace wxb
             stream.WritePos = write_pos;
             int length = end_pos - write_pos - 1;
 
-            int size = WRStream.ComputeLengthSize(length);
+            int size = WRStream.ComputeRawVarInt32Size(length);
             if (size != 1)
             {
                 stream.WritePos = write_pos + 1;
@@ -27,53 +27,18 @@ namespace wxb
                 stream.WritePos = write_pos;
             }
 
-            stream.WriteLength(length);
+            stream.WriteVarInt32(length);
             stream.WritePos = end_pos;
         }
 
         public static int ReadLength(IStream stream)
         {
-            return stream.ReadLength();
+            return stream.ReadVarInt32();
         }
     }
 
-    public class WRStream : IStream
+    public partial class WRStream : IStream
     {
-        public static int ComputeLengthSize(int length)
-        {
-            return ComputeRawVarint32Size((uint)length);
-        }
-
-        /// <summary>
-        /// Computes the number of bytes that would be needed to encode a varint.
-        /// </summary>
-        public static int ComputeRawVarint32Size(uint value)
-        {
-            if ((value & (0xffffffff << 7)) == 0)
-            {
-                return 1;
-            }
-            if ((value & (0xffffffff << 14)) == 0)
-            {
-                return 2;
-            }
-            if ((value & (0xffffffff << 21)) == 0)
-            {
-                return 3;
-            }
-            if ((value & (0xffffffff << 28)) == 0)
-            {
-                return 4;
-            }
-            return 5;
-        }
-
-        public static int ComputeStringSize(string value)
-        {
-            int byteArraySize = value == null ? 0 : Utf8Encoding.GetByteCount(value);
-            return ComputeLengthSize(byteArraySize) + byteArraySize;
-        }
-
         public int WriteRemain { get { return mSize - mWritePos; } }
         public int ReadPos { get { return mReadPos; } set { mReadPos = value; } }
         public int WritePos { get { return mWritePos; } set { mWritePos = value; } }
@@ -137,35 +102,52 @@ namespace wxb
 
         internal static readonly System.Text.Encoding Utf8Encoding = System.Text.Encoding.UTF8;
 
-        public void WriteLength(int length)
+        public void WriteVarInt32(int value)
         {
-            WriteRawVarint32((uint)length);
+            if (value >= 0)
+            {
+                WriteRawVarint32((uint)value);
+            }
+            else
+            {
+                // Must sign-extend.
+                WriteRawVarint64((ulong)value);
+            }
         }
 
-        internal void WriteRawVarint32(uint value)
-        {
-            // Optimize for the common case of a single byte value
-            if (value < 128)
-            {
-                ensureCapacity(1);
-                mBuffer[mWritePos++] = (byte)value;
-                return;
-            }
-
-            while (value > 127)
-            {
-                ensureCapacity(1);
-                mBuffer[mWritePos++] = (byte)((value & 0x7F) | 0x80);
-                value >>= 7;
-            }
-
-            ensureCapacity(1);
-            mBuffer[mWritePos++] = (byte)value;
-        }
-
-        public int ReadLength()
+        public int ReadVarInt32()
         {
             return (int)ReadRawVarint32();
+        }
+
+        public void WriteVarUInt32(uint value)
+        {
+            WriteRawVarint32(value);
+        }
+
+        public uint ReadVarUInt32()
+        {
+            return ReadRawVarint32();
+        }
+
+        public void WriteVarInt64(long value)
+        {
+            WriteRawVarint64((ulong)value);
+        }
+
+        public long ReadVarInt64()
+        {
+            return (long)ReadRawVarint64();
+        }
+
+        public void WriteVarUInt64(ulong value)
+        {
+            WriteRawVarint64(value);
+        }
+
+        public ulong ReadVarUInt64()
+        {
+            return ReadRawVarint64();
         }
 
         internal byte ReadRawByte()
@@ -222,72 +204,16 @@ namespace wxb
             return (uint)result;
         }
 
-        internal uint ReadRawVarint32()
-        {
-            if (ReadSize < 5)
-            {
-                return SlowReadRawVarint32();
-            }
-
-            int tmp = mBuffer[mReadPos++];
-            if (tmp < 128)
-            {
-                return (uint)tmp;
-            }
-            int result = tmp & 0x7f;
-            if ((tmp = mBuffer[mReadPos++]) < 128)
-            {
-                result |= tmp << 7;
-            }
-            else
-            {
-                result |= (tmp & 0x7f) << 7;
-                if ((tmp = mBuffer[mReadPos++]) < 128)
-                {
-                    result |= tmp << 14;
-                }
-                else
-                {
-                    result |= (tmp & 0x7f) << 14;
-                    if ((tmp = mBuffer[mReadPos++]) < 128)
-                    {
-                        result |= tmp << 21;
-                    }
-                    else
-                    {
-                        result |= (tmp & 0x7f) << 21;
-                        result |= (tmp = mBuffer[mReadPos++]) << 28;
-                        if (tmp >= 128)
-                        {
-                            // Discard upper 32 bits.
-                            // Note that this has to use ReadRawByte() as we only ensure we've
-                            // got at least 5 bytes at the start of the method. This lets us
-                            // use the fast path in more cases, and we rarely hit this section of code.
-                            for (int i = 0; i < 5; i++)
-                            {
-                                if (ReadRawByte() < 128)
-                                {
-                                    return (uint)result;
-                                }
-                            }
-                            throw new System.Exception("MalformedVarint");
-                        }
-                    }
-                }
-            }
-            return (uint)result;
-        }
-
         public void WriteString(string value)
         {
             if (value == null)
             {
-                WriteLength(0);
+                WriteVarInt32(0);
             }
             else
             {
                 int length = Utf8Encoding.GetByteCount(value);
-                WriteLength(length);
+                WriteVarInt32(length);
                 ensureCapacity(length);
 
                 if (length == value.Length) // Must be all ASCII...
@@ -307,7 +233,7 @@ namespace wxb
 
         public string ReadString()
         {
-            int length = ReadLength();
+            int length = ReadVarInt32();
             // No need to read any data for an empty string.
             if (length == 0)
             {
@@ -602,7 +528,16 @@ namespace wxb
         // 以WritePos位置为参数，移动当前数据块
         public void MoveWritePos(int offset, int count)
         {
-            System.Array.Copy(mBuffer, WritePos, mBuffer, WritePos + offset, count);
+            try
+            {
+                ensureCapacity(WritePos + count + offset);
+                System.Array.Copy(mBuffer, WritePos, mBuffer, WritePos + offset, count);
+            }
+            catch (System.Exception ex)
+            {
+                L.LogError($"buffer:{mBuffer.Length} writePos:{WritePos}, (WritePos + offset):{WritePos + offset}, count:{count}");
+                L.LogException(ex);
+            }
         }
     }
 }

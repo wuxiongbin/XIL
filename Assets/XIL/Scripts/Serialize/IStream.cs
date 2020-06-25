@@ -7,8 +7,17 @@ namespace wxb
         int WriteRemain { get; }
         int ReadSize { get; }
 
-        void WriteLength(int value);
-        int ReadLength();
+        void WriteVarInt32(int value);
+        int ReadVarInt32();
+
+        void WriteVarUInt32(uint value);
+        uint ReadVarUInt32();
+
+        void WriteVarInt64(long value);
+        long ReadVarInt64();
+
+        void WriteVarUInt64(ulong value);
+        ulong ReadVarUInt64();
 
         void WriteInt32(int value);
         int ReadInt32();

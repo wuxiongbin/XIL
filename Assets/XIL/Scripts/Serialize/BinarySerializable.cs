@@ -55,8 +55,8 @@ namespace wxb
             unityObjectSerialize = new UnityObjectSerialize();
 
             // int,uint
-            Reg(TypeFlags.intType, (value, ms) => { ms.WriteInt32(value); }, (ms) => { return ms.ReadInt32(); });
-            Reg(TypeFlags.uintType, (value, ms) => { ms.WriteUInt32(value); }, (ms) => { return ms.ReadUInt32(); });
+            Reg(TypeFlags.intType, (value, ms) => { ms.WriteVarInt32(value); }, (ms) => { return ms.ReadVarInt32(); });
+            Reg(TypeFlags.uintType, (value, ms) => { ms.WriteVarUInt32(value); }, (ms) => { return ms.ReadVarUInt32(); });
 
             // sbyte,byte
             Reg(TypeFlags.sbyteType, (value, ms) => { ms.WriteSByte(value); }, (ms) => { return ms.ReadSByte(); });
@@ -66,8 +66,8 @@ namespace wxb
             Reg(TypeFlags.charType, (value, ms) => { ms.WriteChar(value); }, (ms) => { return ms.ReadChar(); });
 
             // long,ulong
-            Reg(TypeFlags.longType, (value, ms) => { ms.WriteLong(value); }, (ms) => { return ms.ReadLong(); });
-            Reg(TypeFlags.ulongType, (value, ms) => { ms.WriteULong(value); }, (ms) => { return ms.ReadULong(); });
+            Reg(TypeFlags.longType, (value, ms) => { ms.WriteVarInt64(value); }, (ms) => { return ms.ReadVarInt64(); });
+            Reg(TypeFlags.ulongType, (value, ms) => { ms.WriteVarUInt64(value); }, (ms) => { return ms.ReadVarUInt64(); });
 
             // short,ushort
             Reg(TypeFlags.shortType, (value, ms) => { ms.WriteShort(value); }, (ms) => { return ms.ReadShort(); });
