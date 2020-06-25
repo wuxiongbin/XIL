@@ -1,7 +1,6 @@
 ﻿namespace hot
 {
     using System.Reflection;
-    using System.Collections;
 
     class hotApp
     {
