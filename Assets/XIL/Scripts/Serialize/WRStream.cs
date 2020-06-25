@@ -530,7 +530,7 @@ namespace wxb
         {
             try
             {
-                ensureCapacity(WritePos + count + offset);
+                ensureCapacity(offset + count);
                 System.Array.Copy(mBuffer, WritePos, mBuffer, WritePos + offset, count);
             }
             catch (System.Exception ex)
