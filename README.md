@@ -12,7 +12,7 @@
 和XLUA原理类似，注入和XLUA基本一致。
 
 不一样的地方  
-使用C#来进行代码的热更，避免项目内lua与C#代码交叉混杂，修复BUG时，需要C#一份，lua一份。
+使用C#来进行代码的热更，**整个项目开发语言全部基于C#，**不需要额外引入Lua
 
 目录以及文件说明:
 Project-  
@@ -51,9 +51,10 @@ XIL/Hotfix Inject In Editor &#8194;&#8194;&#8194;-- 编辑器下注入接口
 2 非编辑器下，需要自己创建加载文件的接口，可参考编辑器下的资源加载类EditorResLoad。  
 
 **生成补丁dll**  
-1 打开Hot解决方案  
-2 替换DyncDll工程依赖UnityEngine.dll以及UnityEngine.UI.dll的文件，在目录Hot下，默认是Unity2018.2.11f1版本的，可以替换为自己项目对应的版本  
-3 编译运行DyncDll工程，编译成功，即可在Data目录下生成补丁库。
+1 使用Unity3D打开项目目录，确保工程目录下生成对应的C#工程文件
+2 运行项目下的**UnityAutoProject.exe**程序，生成热更工程
+3 打开Hot解决方案  
+4 编译运行DyncDll工程，编译成功，即可在Data目录下生成补丁库。
 
 **如何添加需要热更的类型:**  
 1 使用HotfixAttribute属性宏来修饰类型  
@@ -94,9 +95,5 @@ XIL/Hotfix Inject In Editor &#8194;&#8194;&#8194;-- 编辑器下注入接口
 建议：  
 最好安装下.NET Reflector，可用来反编译被注入的dll,查看源文件，可加深理解XIL的实现原理。  
 项目下文件Library/ScriptAssemblies/Assembly-CSharp.dll这u3d生成的dll文件，原理上，也是修改此文件实现热更新功能,可使用.NET Reflector进行反编译查看源码  
-
-热更下模拟MonoBehaviour组件,用法可以参考hotScripts下脚本，可以做到平时在非热更环境下开发调试，到要发版本时再转换为热更方式
-
-**Unity5.6以下版本**，编辑器下使用的Mono库，会报错，**应该是Unity3D的Bug**。可以使用源文件来替换dll，源文件在压缩包Mono.Cecil.zip下,可解压此文件，放到在Assets/XIL/Scripts/ILHotfix/Editor/下，并删除这三个Dll(Mono.Cecil.dll, Mono.Cecil.Mdb.dll,MonoCecil.Pdb.dll)
 
 如遇到BUG，可添加QQ群:784186449或邮件qewsfs@qq.com联系。
