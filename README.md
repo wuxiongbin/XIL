@@ -4,7 +4,7 @@
 **公司项目[(初音未来:梦幻歌姬)](http://miku.qq.com)已经使用此插件上线，由腾讯运营，上线运营情况良好，插件自身目前暂未发现BUG!**  
 
 下图为Demo截图
-![Demo截图](http://chuantu.xyz/t6/726/1585537445x2890149693.png)
+![Demo截图](https://raw.githubusercontent.com/wuxiongbin/XIL/master/%E7%A4%BA%E4%BE%8B%E6%88%AA%E5%9B%BE.png)
 
 **请使用Unity2019.2.17f1版本打开，其他版本问题，请自行修复报错提示！Unity3D 5.x版本以下可以使用[Unity4.7.2](https://github.com/wuxiongbin/XIL/tree/Unity4.7.2)分支~**
 
