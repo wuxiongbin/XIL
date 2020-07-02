@@ -51,8 +51,8 @@ XIL/Hotfix Inject In Editor &#8194;&#8194;&#8194;-- 编辑器下注入接口
 2 非编辑器下，需要自己创建加载文件的接口，可参考编辑器下的资源加载类EditorResLoad。  
 
 **生成补丁dll**  
-1 使用Unity3D打开项目目录，确保工程目录下生成对应的C#工程文件
-2 运行项目下的**UnityAutoProject.exe**程序，生成热更工程
+1 使用Unity3D打开项目目录，确保工程目录下生成对应的C#工程文件  
+2 运行项目下的**UnityAutoProject.exe**程序，生成热更工程  
 3 打开Hot解决方案  
 4 编译运行DyncDll工程，编译成功，即可在Data目录下生成补丁库。
 
