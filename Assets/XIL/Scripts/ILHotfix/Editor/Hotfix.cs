@@ -248,6 +248,12 @@ namespace wxb.Editor
             List<MethodDefinition> methods = new List<MethodDefinition>(type.Methods);
             foreach (var method in methods)
             {
+                if (method.ReturnType.IsByReference)
+                {
+                    L.LogErrorFormat("{0} 返回值为ref类型，不能Hotfix此接口!", method.FullName);
+                    continue; // 返回值为引用类型的，不能hotfix
+                }
+
                 bool isEditorCall = false;
                 if (method.IsSpecialName && (method.Name.StartsWith("get_") || method.Name.StartsWith("set_")))
                 {
