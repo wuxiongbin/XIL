@@ -35,6 +35,46 @@ namespace wxb
         {
             return stream.ReadVarInt32();
         }
+
+        // ÏÂÒ»¸ö×Ö¶Î
+        public static void Next(IStream stream)
+        {
+            int count = ReadLength(stream);
+            int endpos = stream.WritePos;
+            stream.WritePos = stream.ReadPos + count;
+
+            stream.ReadPos += count;
+#if UNITY_EDITOR
+            if (stream.ReadSize != 0)
+                L.LogErrorFormat("IListAnyType stream.ReadSize != 0");
+#endif
+            stream.WritePos = endpos;
+        }
+
+        public static void MergeFrom(ITypeSerialize typeSerialize, IStream stream, ref object value)
+        {
+            int count = ReadLength(stream);
+            int endpos = stream.WritePos;
+            stream.WritePos = stream.ReadPos + count;
+            try
+            {
+                typeSerialize.MergeFrom(ref value, stream);
+#if UNITY_EDITOR
+                if (stream.ReadSize != 0)
+                {
+                    L.LogErrorFormat("IListAnyType stream.ReadSize != 0");
+                }
+#endif
+            }
+            catch (System.Exception ex)
+            {
+                L.LogException(ex);
+            }
+            finally
+            {
+                stream.WritePos = endpos;
+            }
+        }
     }
 
     public partial class WRStream : IStream

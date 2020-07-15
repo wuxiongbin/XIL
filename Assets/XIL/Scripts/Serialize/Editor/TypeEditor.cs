@@ -155,6 +155,10 @@ namespace wxb.Editor
 
                 return new ListTypeEditor(type, elementType, Get(elementType, null));
             }
+            else if (IL.Help.isDictionaryType(type))
+            {
+                return new DictionaryTypeEditor(type, fieldInfo);
+            }
 #if USE_HOT
             if (type is ILRuntimeType)
             {

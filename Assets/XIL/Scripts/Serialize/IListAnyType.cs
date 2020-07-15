@@ -65,37 +65,20 @@ namespace wxb
                 value = array;
             }
 
-            for (int i = 0; i < lenght; ++i)
+            if (isTypeTrue)
             {
-                int count = RLStream.ReadLength(stream);
-                int endpos = stream.WritePos;
-                stream.WritePos = stream.ReadPos + count;
-                try
+                for (int i = 0; i < lenght; ++i)
                 {
-                    if (isTypeTrue)
-                    {
-                        object v = array[i];
-                        elementTypeSerialize.MergeFrom(ref v, stream);
-                        array[i] = v;
-                    }
-                    else
-                    {
-#if UNITY_EDITOR
-                        if (stream.ReadSize != 0)
-                        {
-                            L.LogErrorFormat("IListAnyType stream.ReadSize != 0");
-                        }
-#endif
-                        stream.ReadPos += count;
-                    }
+                    object v = array[i];
+                    RLStream.MergeFrom(elementTypeSerialize, stream, ref v);
+                    array[i] = v;
                 }
-                catch (System.Exception ex)
+            }
+            else
+            {
+                for (int i = 0; i < lenght; ++i)
                 {
-                    L.LogException(ex);
-                }
-                finally
-                {
-                    stream.WritePos = endpos;
+                    RLStream.Next(stream);
                 }
             }
         }

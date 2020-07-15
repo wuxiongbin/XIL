@@ -555,6 +555,23 @@
             }
         }
 
+        public static void GetDictionaryKVType(System.Type type, FieldInfo fieldInfo, out System.Type keyElement, out System.Type valueElement)
+        {
+#if USE_HOT
+            if (fieldInfo is ILRuntimeFieldInfo)
+            {
+                var ilFieldInfo = (ILRuntimeFieldInfo)fieldInfo;
+                var gas = ilFieldInfo.ILFieldType.GenericArguments;
+                keyElement = gas[0].Value.ReflectionType;
+                valueElement = gas[1].Value.ReflectionType;
+                return;
+            }
+#endif
+            var argus = type.GetGenericArguments();
+            keyElement = argus[0];
+            valueElement = argus[1];
+        }
+
         static public void GetSerializeField(System.Type type, List<FieldInfo> fieldinfos, BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
         {
             if (type.IsArray || type.GetInterface("System.Collections.Generic.IList") != null)
@@ -712,19 +729,23 @@
 #endif
                 return IsSerializableType(element, null);
             }
-            else if (type.GetInterface("System.Collections.IList") != null)
+            else if (isListType(type))
             {
                 var element = type.GetGenericArguments()[0];
-
 #if USE_HOT
                 if (fieldInfo is ILRuntimeFieldInfo)
                     return IsSerializableType(((ILRuntimeFieldInfo)fieldInfo).Definition.FieldType);
 #endif
-
                 return IsSerializableType(element, null);
             }
-            else if (type.GetInterface("System.Collections.IDictionary") != null)
+            else if (isDictionaryType(type))
             {
+                System.Type keyElement;
+                System.Type valueElement;
+                GetDictionaryKVType(type, fieldInfo, out keyElement, out valueElement);
+                if (IsSerializableType(keyElement, null) && IsSerializableType(valueElement, null))
+                    return true; // 都是可序列化的，才行
+
                 return false;
             }
 
@@ -737,6 +758,13 @@
         public static bool isListType(System.Type type)
         {
             if (type.IsGenericType && type.GetInterface("System.Collections.IList") != null)
+                return true;
+            return false;
+        }
+
+        public static bool isDictionaryType(System.Type type)
+        {
+            if (type.IsGenericType && type.GetInterface("System.Collections.IDictionary") != null)
                 return true;
             return false;
         }

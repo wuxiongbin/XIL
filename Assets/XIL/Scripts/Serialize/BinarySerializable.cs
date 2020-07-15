@@ -133,6 +133,11 @@ namespace wxb
                 {
                     ts = new ListAnyType(type);
                 }
+                else if (Help.isDictionaryType(type))
+                {
+                    // map∂‘œÛ
+                    ts = new DictionaryType(type, null);
+                }
                 else
                 {
                     var atts = type.GetCustomAttributes(typeof(SmartAttribute), false);
@@ -165,6 +170,10 @@ namespace wxb
             if (Help.isType(fieldType, typeof(UnityEngine.Object)))
             {
                 ts = unityObjectSerialize;
+            }
+            else if (Help.isDictionaryType(fieldType))
+            {
+                ts = new DictionaryType(fieldType, fieldInfo);
             }
             else
             {

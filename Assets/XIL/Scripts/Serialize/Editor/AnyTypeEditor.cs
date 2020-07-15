@@ -197,7 +197,7 @@ namespace wxb.Editor
                 if (!isFoldout)
                 {
                     isDirty = false;
-                    return false;
+                    return value;
                 }
             }
 

@@ -22,6 +22,7 @@ namespace wxb
         public const byte unityObjectType = 20; // unity类型
 
         public const byte arrayType = 100; // 数组标识
+        public const byte dicType = 101; // map类型,key-value键值对
         public const byte smartType = 200; // 智能类型
     }
 }
