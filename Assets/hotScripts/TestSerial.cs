@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using wxb;
 
+[System.Serializable]
 public class TestClass
 {
     [SerializeField]
@@ -14,11 +16,27 @@ public class TestClass1 : TestClass
 {
     public string value;
 }
- 
+
+[Smart]
+[System.Serializable]
+public abstract class TestD
+{
+    public int value;
+    public string strValue;
+}
+
+[System.Serializable]
+public class TestD111 : TestD
+{
+
+}
+
 [wxb.AutoILMono]
-public class TestClass2 : TestClass
+public class TestClass2 
 {
     public string[] value;
+    //public Dictionary<int, string> dics;
+    public Dictionary<TestD, string> vvv;
 }
 
 public enum TestEnum

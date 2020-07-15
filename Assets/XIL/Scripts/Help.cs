@@ -707,6 +707,7 @@
             return typeDefinition.IsSerializable;
         }
 #endif
+
         // 是否是可序列化的类型
         static bool IsSerializableType(System.Type type, FieldInfo fieldInfo)
         {
@@ -749,8 +750,17 @@
                 return false;
             }
 
-            if (type.IsSerializable)
-                return true;
+            if (!type.IsSerializable)
+                return false;
+
+            if (type.IsInterface || type.IsAbstract)
+            {
+                var atts = type.GetCustomAttributes(typeof(SmartAttribute), false);
+                if (atts != null && atts.Length != 0)
+                    return true;
+
+                return false;
+            }
 
             return false;
         }
@@ -849,6 +859,9 @@
 
         public static object Create(System.Type type)
         {
+            if (type.IsInterface || type.IsAbstract)
+                return null;
+
             if (type.IsArray)
             {
                 return System.Array.CreateInstance(type.GetElementType(), 0);

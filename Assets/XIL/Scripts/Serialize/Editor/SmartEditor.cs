@@ -33,7 +33,7 @@ namespace wxb.Editor
             {
                 using (new IndentLevel())
                 {
-                    if (ShowTypeSelect(ref value, label, "OnGUI." + value.GetHashCode().ToString()))
+                    if (ShowTypeSelect(ref value, label, "OnGUI." + (value == null ? "null" : value.GetHashCode().ToString())))
                         isDirty = true;
                 }
             }

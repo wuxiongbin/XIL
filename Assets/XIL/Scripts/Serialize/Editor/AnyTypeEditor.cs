@@ -122,6 +122,9 @@ namespace wxb.Editor
 
         public bool GetFoldout(object obj)
         {
+            if (obj == null)
+                return true;
+
             if (isFoldouts.TryGetValue(obj.GetHashCode(), out var isFoldout))
                 return isFoldout;
 
@@ -199,6 +202,12 @@ namespace wxb.Editor
                     isDirty = false;
                     return value;
                 }
+            }
+
+            if (type.IsInterface || type.IsAbstract)
+            {
+                isDirty = false;
+                return value;
             }
 
             isDirty = false;
