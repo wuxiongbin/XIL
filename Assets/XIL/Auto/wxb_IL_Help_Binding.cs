@@ -60,29 +60,47 @@ namespace ILRuntime.Runtime.Generated
             method = type.GetMethod("GetType", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, GetType_11);
             args = new Type[]{typeof(System.Type)};
-            method = type.GetMethod("GetSerializeField", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetSerializeField_12);
-            args = new Type[]{typeof(System.Type), typeof(System.Collections.Generic.List<System.Reflection.FieldInfo>)};
-            method = type.GetMethod("GetSerializeField", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetSerializeField_13);
-            args = new Type[]{typeof(System.Type)};
-            method = type.GetMethod("isListType", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, isListType_14);
-            args = new Type[]{typeof(System.Reflection.FieldInfo)};
-            method = type.GetMethod("GetElementByList", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetElementByList_15);
-            args = new Type[]{typeof(System.Type)};
-            method = type.GetMethod("GetElementByList", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetElementByList_16);
+            method = type.GetMethod("GetCustomAttributesType", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, GetCustomAttributesType_12);
+            args = new Type[]{typeof(System.String)};
+            method = type.GetMethod("GetBaseType", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, GetBaseType_13);
             args = new Type[]{typeof(System.Object)};
+            method = type.GetMethod("GetInstanceType", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, GetInstanceType_14);
+            args = new Type[]{typeof(System.Type), typeof(System.Type)};
+            method = type.GetMethod("HasCustomAttributes", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, HasCustomAttributes_15);
+            args = new Type[]{typeof(System.Type)};
+            method = type.GetMethod("GetSerializeField", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, GetSerializeField_16);
+            args = new Type[]{typeof(System.Type), typeof(System.Collections.Generic.List<System.Reflection.FieldInfo>), typeof(System.Reflection.BindingFlags)};
             method = type.GetMethod("GetSerializeField", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, GetSerializeField_17);
+            args = new Type[]{typeof(System.Type)};
+            method = type.GetMethod("isListType", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, isListType_18);
+            args = new Type[]{typeof(System.Reflection.FieldInfo)};
+            method = type.GetMethod("GetElementByList", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, GetElementByList_19);
+            args = new Type[]{typeof(System.Type)};
+            method = type.GetMethod("GetElementByList", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, GetElementByList_20);
+            args = new Type[]{typeof(System.Object)};
+            method = type.GetMethod("GetSerializeField", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, GetSerializeField_21);
             args = new Type[]{typeof(System.Type), typeof(System.Type)};
             method = type.GetMethod("isType", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, isType_18);
+            app.RegisterCLRMethodRedirection(method, isType_22);
             args = new Type[]{typeof(System.Type)};
             method = type.GetMethod("Create", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Create_19);
+            app.RegisterCLRMethodRedirection(method, Create_23);
+            args = new Type[]{typeof(System.Type), typeof(System.Int32), typeof(System.Int32)};
+            method = type.GetMethod("CreateIList", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, CreateIList_24);
+            args = new Type[]{typeof(System.Type), typeof(System.Int32), typeof(System.Int32)};
+            method = type.GetMethod("CreateArray", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, CreateArray_25);
 
             field = type.GetField("EmptyObj", flag);
             app.RegisterCLRFieldGetter(field, get_EmptyObj_0);
@@ -399,7 +417,92 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetSerializeField_12(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetCustomAttributesType_12(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Type @type = (System.Type)typeof(System.Type).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = wxb.IL.Help.GetCustomAttributesType(@type);
+
+            object obj_result_of_this_method = result_of_this_method;
+            if(obj_result_of_this_method is CrossBindingAdaptorType)
+            {    
+                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
+            }
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* GetBaseType_13(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.String @baseTypeFullName = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = wxb.IL.Help.GetBaseType(@baseTypeFullName);
+
+            object obj_result_of_this_method = result_of_this_method;
+            if(obj_result_of_this_method is CrossBindingAdaptorType)
+            {    
+                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
+            }
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* GetInstanceType_14(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Object @instance = (System.Object)typeof(System.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = wxb.IL.Help.GetInstanceType(@instance);
+
+            object obj_result_of_this_method = result_of_this_method;
+            if(obj_result_of_this_method is CrossBindingAdaptorType)
+            {    
+                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
+            }
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* HasCustomAttributes_15(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Type @customAtt = (System.Type)typeof(System.Type).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            System.Type @type = (System.Type)typeof(System.Type).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = wxb.IL.Help.HasCustomAttributes(@type, @customAtt);
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method ? 1 : 0;
+            return __ret + 1;
+        }
+
+        static StackObject* GetSerializeField_16(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -420,27 +523,31 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetSerializeField_13(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetSerializeField_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.List<System.Reflection.FieldInfo> @fieldinfos = (System.Collections.Generic.List<System.Reflection.FieldInfo>)typeof(System.Collections.Generic.List<System.Reflection.FieldInfo>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Reflection.BindingFlags @flags = (System.Reflection.BindingFlags)typeof(System.Reflection.BindingFlags).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            System.Collections.Generic.List<System.Reflection.FieldInfo> @fieldinfos = (System.Collections.Generic.List<System.Reflection.FieldInfo>)typeof(System.Collections.Generic.List<System.Reflection.FieldInfo>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
             System.Type @type = (System.Type)typeof(System.Type).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
 
-            wxb.IL.Help.GetSerializeField(@type, @fieldinfos);
+            wxb.IL.Help.GetSerializeField(@type, @fieldinfos, @flags);
 
             return __ret;
         }
 
-        static StackObject* isListType_14(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* isListType_18(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -458,7 +565,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* GetElementByList_15(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetElementByList_19(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -479,7 +586,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetElementByList_16(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetElementByList_20(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -500,7 +607,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetSerializeField_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetSerializeField_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -521,7 +628,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* isType_18(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* isType_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -543,7 +650,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* Create_19(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Create_23(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -562,6 +669,60 @@ namespace ILRuntime.Runtime.Generated
                 return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance, true);
             }
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method, true);
+        }
+
+        static StackObject* CreateIList_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Int32 @count = ptr_of_this_method->Value;
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            System.Int32 @arrayCount = ptr_of_this_method->Value;
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
+            System.Type @elementType = (System.Type)typeof(System.Type).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = wxb.IL.Help.CreateIList(@elementType, @arrayCount, @count);
+
+            object obj_result_of_this_method = result_of_this_method;
+            if(obj_result_of_this_method is CrossBindingAdaptorType)
+            {    
+                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
+            }
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* CreateArray_25(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Int32 @count = ptr_of_this_method->Value;
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            System.Int32 @arrayCount = ptr_of_this_method->Value;
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
+            System.Type @elementType = (System.Type)typeof(System.Type).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = wxb.IL.Help.CreateArray(@elementType, @arrayCount, @count);
+
+            object obj_result_of_this_method = result_of_this_method;
+            if(obj_result_of_this_method is CrossBindingAdaptorType)
+            {    
+                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
+            }
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
 

@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -170,7 +171,6 @@ namespace ILRuntime.Reflection
         {
             unsafe
             {
-                StackObject esp;
                 ILTypeInstance ins;
                 if (isStatic)
                 {
@@ -207,7 +207,6 @@ namespace ILRuntime.Reflection
         {
             unsafe
             {
-                StackObject esp;
                 if (value is CrossBindingAdaptorType)
                     value = ((CrossBindingAdaptorType)value).ILInstance;
                 ILTypeInstance ins;
@@ -227,4 +226,5 @@ namespace ILRuntime.Reflection
         }
     }
 }
-#endif
+
+#endif

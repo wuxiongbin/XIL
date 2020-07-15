@@ -723,6 +723,10 @@
 
                 return IsSerializableType(element, null);
             }
+            else if (type.GetInterface("System.Collections.IDictionary") != null)
+            {
+                return false;
+            }
 
             if (type.IsSerializable)
                 return true;

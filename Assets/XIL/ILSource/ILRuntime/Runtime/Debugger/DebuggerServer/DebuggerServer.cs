@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ using ILRuntime.Runtime.Debugger.Protocol;
 
 namespace ILRuntime.Runtime.Debugger
 {
+#pragma warning disable
     public class DebuggerServer
     {
         public const int Version = 2;
@@ -528,4 +530,5 @@ namespace ILRuntime.Runtime.Debugger
         }
     }
 }
-#endif
+
+#endif

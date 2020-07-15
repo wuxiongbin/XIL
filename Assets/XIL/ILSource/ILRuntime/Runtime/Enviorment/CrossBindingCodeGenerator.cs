@@ -102,10 +102,10 @@ namespace ");
                 }
                 else
                     return instance.Type.FullName;");
-            sb.AppendLine(@"            }
-        }
-    }
-}");
+            sb.AppendLine("            }");
+            sb.AppendLine("        }");
+            sb.AppendLine("    }");
+            sb.AppendLine("}");
             return sb.ToString();
         }
 

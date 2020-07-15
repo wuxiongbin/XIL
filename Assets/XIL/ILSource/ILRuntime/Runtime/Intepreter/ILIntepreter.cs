@@ -29,6 +29,7 @@ namespace ILRuntime.Runtime.Intepreter
         public StackObject* LastStepFrameBase { get; set; }
         public int LastStepInstructionIndex { get; set; }
         StackObject* ValueTypeBasePointer;
+#pragma warning disable CS0414
         bool mainthreadLock;
         public ILIntepreter(Enviorment.AppDomain domain)
         {
@@ -145,7 +146,7 @@ namespace ILRuntime.Runtime.Intepreter
             }
             unhandledException = false;
             StackObject* objRef, objRef2, dst, val, a, b, arrRef;
-            object obj = null, objVal = null;
+            object obj = null;
             IType type;
             Type clrType;
             int intVal;
@@ -189,7 +190,11 @@ namespace ILRuntime.Runtime.Intepreter
             for (int i = 0; i < method.LocalVariableCount; i++)
             {
                 var v = method.Variables[i];
-                bool isEnum = (v.VariableType is Mono.Cecil.TypeDefinition td) ? td.IsEnum : false;
+                bool isEnum = false;
+                if (v.VariableType is Mono.Cecil.TypeDefinition td)
+                {
+                    isEnum = ((Mono.Cecil.TypeDefinition)td).IsEnum;
+                }
                 if (v.VariableType.IsValueType && !v.VariableType.IsPrimitive && !isEnum)
                 {
                     var t = AppDomain.GetType(v.VariableType, method.DeclearingType, method);
@@ -2462,6 +2467,10 @@ namespace ILRuntime.Runtime.Intepreter
                                                 esp++;
                                             }
                                             esp = Execute((ILMethod)m, esp, out unhandledException);
+                                            for (int i = m.ParameterCount - 1; i >= 0; i--)
+                                            {
+                                                Free(Add(a, i));
+                                            }
                                             ValueTypeBasePointer = bp;
                                             if (isValueType)
                                             {
@@ -3198,8 +3207,6 @@ namespace ILRuntime.Runtime.Intepreter
                                                     {
                                                         var instance = mStack[objRef->Value] as ILTypeInstance;
                                                         instance.AssignFromStack(objRef->ValueLow, esp, AppDomain, mStack);
-                                                        Free(esp - 1);
-                                                        esp--;
                                                     }
                                                     break;
                                                 default:
