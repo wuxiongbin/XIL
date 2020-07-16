@@ -756,13 +756,11 @@
             if (type.IsInterface || type.IsAbstract)
             {
                 var atts = type.GetCustomAttributes(typeof(SmartAttribute), false);
-                if (atts != null && atts.Length != 0)
-                    return true;
-
-                return false;
+                if (atts == null || atts.Length == 0)
+                    return false;
             }
 
-            return false;
+            return true;
         }
 
         public static bool isListType(System.Type type)
