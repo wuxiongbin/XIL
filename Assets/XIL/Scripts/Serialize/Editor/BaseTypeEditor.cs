@@ -128,7 +128,7 @@ namespace wxb.Editor
                 nv = EditorGUILayout.EnumPopup(label, (System.Enum)value);
             }
 
-            if (nv != (System.Enum)value)
+            if ((int)(object)nv != (int)value)
                 isDirty = true;
             else
                 isDirty = false;

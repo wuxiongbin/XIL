@@ -33,11 +33,17 @@ namespace wxb
 
         public override void WriteUnityObject(UnityEngine.Object obj)
         {
+            if (obj == null)
+            {
+                WriteVarInt32(0);
+                return;
+            }
+
             int pos = objs.IndexOf(obj);
             if (pos == -1)
             {
                 objs.Add(obj);
-                pos = objs.Count - 1;
+                pos = objs.Count;
             }
 
             WriteVarInt32(pos);
@@ -46,7 +52,10 @@ namespace wxb
         public override UnityEngine.Object ReadUnityObject()
         {
             var pos = ReadVarInt32();
-            return objs[pos];
+            if (pos == 0)
+                return null;
+
+            return objs[pos - 1];
         }
     }
 

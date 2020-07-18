@@ -6,9 +6,6 @@ namespace wxb
 
         void ITypeSerialize.WriteTo(object value, IStream stream)
         {
-            if (value == null)
-                return;
-
             stream.WriteUnityObject((UnityEngine.Object)value);
         }
 
@@ -27,7 +24,7 @@ namespace wxb
         public static UnityEngine.Object To(UnityEngine.Object src, System.Type type)
         {
             if (src == null)
-                return src;
+                return null;
 
 #if USE_HOT
             if (type is ILRuntime.Reflection.ILRuntimeWrapperType)

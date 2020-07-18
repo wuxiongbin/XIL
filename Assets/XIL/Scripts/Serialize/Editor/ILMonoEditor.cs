@@ -125,8 +125,11 @@ namespace wxb.IL.Editor
 
         public void OnGUI(string newTypename)
         {
+            if (newTypename == null)
+                newTypename = string.Empty;
+
             string typeName = (string)typeNameField.GetValue(customizeData);
-            if (newTypename != typeName)
+            if (!string.Equals(newTypename, typeName))
             {
                 RegisterCompleteObjectUndo();
 
