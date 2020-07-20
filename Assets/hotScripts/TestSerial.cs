@@ -61,6 +61,8 @@ public class TestSerial
     //public List<My[]> my2l;
     //public My[][] my2;
 
+    public List<GameObject[]> goss;
+    public GameObject[] gos;
     public GameObject go;
     public Camera camera;
     public Light light;

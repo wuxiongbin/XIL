@@ -22,7 +22,7 @@ namespace wxb.Editor
             {
                 for (int i = 0; i < count; ++i)
                 {
-                    var value = IL.Help.Create(elementType);
+                    var value = CreateByType(elementType);
                     list[i] = value;
                 }
             }
@@ -54,7 +54,7 @@ namespace wxb.Editor
             if (elementTypeDefaultValue == null)
             {
                 for (int i = 0; i < count; ++i)
-                    list.Add(IL.Help.Create(elementType));
+                    list.Add(CreateByType(elementType));
             }
             else
             {

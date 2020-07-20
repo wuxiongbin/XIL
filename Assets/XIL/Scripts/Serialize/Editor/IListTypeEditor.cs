@@ -30,6 +30,14 @@ namespace wxb.Editor
 
         Dictionary<int, bool> isFoldouts = new Dictionary<int, bool>();
 
+        protected static object CreateByType(System.Type type)
+        {
+            if (typeof(UnityEngine.Object).IsAssignableFrom(type))
+                return null;
+
+            return IL.Help.Create(type);
+        }
+
         protected abstract IList Create(System.Type elementType, int count);
         protected abstract void SetDefault(IList list, int count);
 

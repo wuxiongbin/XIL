@@ -292,10 +292,13 @@
             foreach (var assembly in assemblies)
             {
 #if UNITY_EDITOR
-                if (assembly.FullName.StartsWith("Assembly-CSharp-Editor"))
+                string fn = assembly.FullName;
+                if (fn.StartsWith("Assembly-CSharp-Editor"))
+                    continue;
+                if (fn.EndsWith(".Editor.dll"))
                     continue;
 #endif
-                if (assembly.FullName.StartsWith("Assembly-CSharp"))
+                //if (assembly.FullName.StartsWith("Assembly-CSharp"))
                 {
                     var types = assembly.GetTypes();
                     foreach (var type in types)
@@ -306,15 +309,15 @@
                         System.Type t = null;
                         if (AllTypesByFullName.TryGetValue(type.FullName, out t))
                         {
-#if USE_HOT
-                            if (t != type)
-                            {
-                                if ((t is ILRuntimeWrapperType) && ((ILRuntimeWrapperType)t).RealType == type)
-                                    continue;
+//#if USE_HOT
+//                            if (t != type)
+//                            {
+//                                if ((t is ILRuntimeWrapperType) && ((ILRuntimeWrapperType)t).RealType == type)
+//                                    continue;
 
-                                wxb.L.LogErrorFormat("error:{0}", type.FullName);
-                            }
-#endif
+//                                wxb.L.LogErrorFormat("error:{0}", type.FullName);
+//                            }
+//#endif
                             continue;
                         }
                         AllTypesByFullName.Add(type.FullName, type);
@@ -697,14 +700,30 @@
 #if USE_HOT
         static bool IsSerializableType(TypeReference typeReference)
         {
-            var typeDefinition = typeReference.Resolve();
-            if (typeDefinition.IsArray)
-                return IsSerializableType(typeDefinition.GetElementType());
-
-            if (typeDefinition.FullName == "System.Collections.List<")
-                return IsSerializableType(typeDefinition.GenericParameters[0]);
-
-            return typeDefinition.IsSerializable;
+            try
+            {
+                if (typeReference.IsArray)
+                {
+                    return IsSerializableType(typeReference.GetElementType());
+                }
+                else if (typeReference is GenericInstanceType && typeReference.FullName.StartsWith("System.Collections.Generic.List`1<"))
+                {
+                    GenericInstanceType git = typeReference as GenericInstanceType;
+                    return IsSerializableType(git.GenericArguments[0]);
+                }
+                else
+                {
+                    if (typeReference.Namespace == "UnityEngine")
+                        return true;
+                   
+                    return typeReference.Resolve().IsSerializable;
+                }
+            }
+            catch (System.Exception ex)
+            {
+                L.LogException(ex);
+                return false;
+            }
         }
 #endif
 

@@ -158,6 +158,14 @@ namespace wxb
         }
 
 #if USE_HOT
+        public static System.Type GetType(string name)
+        {
+            if (name.EndsWith("[]"))
+                return Help.GetType(name.Substring(0, name.Length - 2)).MakeArrayType();
+
+            return Help.GetType(name);
+        }
+
         static ITypeSerialize GetByType(ILRuntimeFieldInfo fieldInfo)
         {
             if (FieldInfoTypes.TryGetValue(fieldInfo, out var ts))
@@ -185,10 +193,9 @@ namespace wxb
 
                     ILRuntimeFieldInfo ilFieldInfo = (ILRuntimeFieldInfo)fieldInfo;
                     GetElementType(ilFieldInfo.Definition.FieldType, ref arrayCount, out elementType);
-
-                    var et = Help.GetType(elementType);
+                    var et = GetType(elementType);
                     if (et is ILRuntimeType) // 不是热更当中的类型
-                        ts = new HotArrayAnyType(Help.GetType(elementType), isListType, arrayCount);
+                        ts = new HotArrayAnyType(et, isListType, arrayCount);
                     else
                         ts = GetByType(fieldType);
                 }
