@@ -64,6 +64,7 @@ public class TestSerial
     public List<GameObject[]> goss;
     public GameObject[] gos;
     public GameObject go;
+    public List<GameObject> goList;
     public Camera camera;
     public Light light;
     public TestEnum testEnum;
