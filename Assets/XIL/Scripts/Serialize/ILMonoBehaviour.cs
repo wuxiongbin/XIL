@@ -126,6 +126,13 @@
             customizeData.OnAfterDeserialize(this);
         }
 
+#if UNITY_EDITOR
+        void Reset()
+        {
+            customizeData = new CustomizeData();
+        }
+#endif
+
         private void Awake()
         {
             if (refType != null)

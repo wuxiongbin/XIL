@@ -80,11 +80,11 @@ namespace wxb.Editor
         public static ITypeGUI Get(System.Type type, FieldInfo fieldInfo)
         {
             ITypeGUI typeGUI = null;
-            if (BaseTypes.TryGetValue(type.FullName, out typeGUI))
-                return typeGUI;
-
             if (fieldInfo == null)
             {
+                if (BaseTypes.TryGetValue(type.FullName, out typeGUI))
+                    return typeGUI;
+
                 if (AllTypes.TryGetValue(type, out typeGUI))
                     return typeGUI;
 
@@ -97,7 +97,12 @@ namespace wxb.Editor
                 if (FieldInfoTypes.TryGetValue(fieldInfo, out typeGUI))
                     return typeGUI;
 
-                typeGUI = GetTypeGUI(type, fieldInfo);
+                var ha = fieldInfo.GetCustomAttributes(typeof(UnityEngine.HideInInspector), false);
+                if (ha != null && ha.Length != 0)
+                    typeGUI = emptyTypeGUI;
+                else if (!BaseTypes.TryGetValue(type.FullName, out typeGUI))
+                    typeGUI = GetTypeGUI(type, fieldInfo);
+
                 FieldInfoTypes.Add(fieldInfo, typeGUI);
                 return typeGUI;
             }
@@ -105,6 +110,13 @@ namespace wxb.Editor
 
         static ITypeGUI GetTypeGUI(System.Type type, FieldInfo fieldInfo)
         {
+            if (fieldInfo != null)
+            {
+                var ha = fieldInfo.GetCustomAttributes(typeof(UnityEngine.HideInInspector), false);
+                if (ha != null && ha.Length != 0)
+                    return emptyTypeGUI;
+            }
+
             if (IL.Help.isType(type, typeof(UnityEngine.Object)))
                 return unityObjectGUI;
 

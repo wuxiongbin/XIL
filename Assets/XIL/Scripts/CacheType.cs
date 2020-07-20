@@ -171,13 +171,25 @@
             {
                 serializes = new List<FieldInfo>();
 
-                IL.Help.GetSerializeField(type, serializes);
 #if USE_HOT
-                if (type is ILRuntime.Reflection.ILRuntimeType)
+                List<System.Type> types = new List<System.Type>();
+                var type = this.type;
+                types.Add(type);
+
+                while (type is ILRuntime.Reflection.ILRuntimeType)
                 {
-                    if (type.BaseType != null)
-                        IL.Help.GetSerializeField(type.BaseType, serializes);
+                    var bt = type.BaseType;
+                    if (bt == null || bt == typeof(object))
+                        break;
+
+                    types.Add(bt);
+                    type = bt;
                 }
+
+                for (int i = types.Count -1; i >= 0; --i)
+                    IL.Help.GetSerializeField(types[i], serializes);
+#else
+                IL.Help.GetSerializeField(type, serializes);
 #endif
             }
 
