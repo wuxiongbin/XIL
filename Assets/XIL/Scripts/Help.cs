@@ -740,6 +740,15 @@
             if (isType(type, typeof(UnityEngine.Object)))
                 return true;
 
+            if (type == typeof(UnityEngine.Vector2) ||
+                type == typeof(UnityEngine.Vector3) ||
+                type == typeof(UnityEngine.Vector4) ||
+                type == typeof(UnityEngine.Vector2Int) ||
+                type == typeof(UnityEngine.Vector3Int))
+            {
+                return true;
+            }
+
             if (type.IsArray)
             {
                 var element = GetRealType(type).GetElementType();

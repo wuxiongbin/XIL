@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 #if USE_HOT
 using ILRuntime.Mono.Cecil;
 using ILRuntime.Reflection;
@@ -351,7 +352,76 @@ namespace wxb.Editor
 
             return nv;
         }
+    }
 
+    class Vector2Type : BaseType<Vector2>
+    {
+        protected override Vector2 OnGUI(string label, Vector2 value, System.Type type, out bool isDirty)
+        {
+            Vector2 nv = EditorGUILayout.Vector2Field(label, value);
+            if (nv != value)
+                isDirty = true;
+            else
+                isDirty = false;
+
+            return nv;
+        }
+    }
+
+    class Vector3Type : BaseType<Vector3>
+    {
+        protected override Vector3 OnGUI(string label, Vector3 value, System.Type type, out bool isDirty)
+        {
+            Vector3 nv = EditorGUILayout.Vector3Field(label, value);
+            if (nv != value)
+                isDirty = true;
+            else
+                isDirty = false;
+
+            return nv;
+        }
+    }
+
+    class Vector4Type : BaseType<Vector4>
+    {
+        protected override Vector4 OnGUI(string label, Vector4 value, System.Type type, out bool isDirty)
+        {
+            Vector4 nv = EditorGUILayout.Vector4Field(label, value);
+            if (nv != value)
+                isDirty = true;
+            else
+                isDirty = false;
+
+            return nv;
+        }
+    }
+
+    class Vector2IntType : BaseType<Vector2Int>
+    {
+        protected override Vector2Int OnGUI(string label, Vector2Int value, System.Type type, out bool isDirty)
+        {
+            Vector2Int nv = EditorGUILayout.Vector2IntField(label, value);
+            if (nv != value)
+                isDirty = true;
+            else
+                isDirty = false;
+
+            return nv;
+        }
+    }
+
+    class Vector3IntType : BaseType<Vector3Int>
+    {
+        protected override Vector3Int OnGUI(string label, Vector3Int value, System.Type type, out bool isDirty)
+        {
+            Vector3Int nv = EditorGUILayout.Vector3IntField(label, value);
+            if (nv != value)
+                isDirty = true;
+            else
+                isDirty = false;
+
+            return nv;
+        }
     }
 
     class ObjectType : BaseType<UnityEngine.Object>

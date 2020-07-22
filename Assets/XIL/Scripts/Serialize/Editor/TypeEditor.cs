@@ -75,6 +75,13 @@ namespace wxb.Editor
             BaseTypes.Add(typeof(double).FullName, new DoubleType());
             BaseTypes.Add(typeof(string).FullName, new StrType());
             BaseTypes.Add(typeof(bool).FullName, new BoolType());
+
+            BaseTypes.Add(typeof(UnityEngine.Vector2).FullName, new Vector2Type());
+            BaseTypes.Add(typeof(UnityEngine.Vector3).FullName, new Vector3Type());
+            BaseTypes.Add(typeof(UnityEngine.Vector4).FullName, new Vector4Type());
+
+            BaseTypes.Add(typeof(UnityEngine.Vector2Int).FullName, new Vector2IntType());
+            BaseTypes.Add(typeof(UnityEngine.Vector3Int).FullName, new Vector3IntType());
         }
 
         public static ITypeGUI Get(System.Type type, FieldInfo fieldInfo)
@@ -139,7 +146,7 @@ namespace wxb.Editor
             }
 
 #if USE_HOT
-            ILRuntimeFieldInfo ilFieldInfo = (ILRuntimeFieldInfo)fieldInfo;
+            ILRuntimeFieldInfo ilFieldInfo = fieldInfo as ILRuntimeFieldInfo;
             if (ilFieldInfo != null && (type.IsArray || IL.Help.isListType(type)))
             {
                 var isListType = type.IsArray ? false : true;
