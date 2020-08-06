@@ -1,4 +1,4 @@
-#if USE_HOT && USE_MDB#define READ_ONLY//
+#if USE_HOT && USE_MDB#define READ_ONLY#define CECIL//
 // SymbolWriterImpl.cs
 //
 // Author:
