@@ -174,6 +174,9 @@
             if (type == typeof(void))
                 return true;
 
+            if (type == typeof(System.IntPtr) || type == typeof(System.UIntPtr))
+                return false;
+
             if (!IsPublic(type))
                 return false;
 
@@ -459,8 +462,8 @@
                     foreach (var p in method.GetParameters())
                         BuildType(p.ParameterType, hotTypes, csharpDelegate, Checks);
 
-                    foreach (var t in GetMethodBodyType(method))
-                        BuildType(t, hotTypes, csharpDelegate, Checks);
+                    //foreach (var t in GetMethodBodyType(method))
+                    //    BuildType(t, hotTypes, csharpDelegate, Checks);
                 }
 
                 foreach (var field in type.GetFields(flags))
@@ -644,7 +647,7 @@
                     return false;
                 if (parameters.Count >= maxParamCount)
                 {
-                    error = $"委托参数{parameters.Count}大于最大委托参数数量{maxParamCount-1}个，不能生成委托转换器,热更当中不能使用此委托!";
+                    error = string.Format("委托参数{0}大于最大委托参数数量{1}个，不能生成委托转换器,热更当中不能使用此委托!", parameters.Count, maxParamCount - 1);
                     return false;
                 }
 

@@ -575,7 +575,7 @@ namespace wxb
             }
             catch (System.Exception ex)
             {
-                L.LogError($"buffer:{mBuffer.Length} writePos:{WritePos}, (WritePos + offset):{WritePos + offset}, count:{count}");
+                L.LogErrorFormat("buffer:{0} writePos:{1}, (WritePos + offset):{2}, count:{3}", mBuffer.Length, WritePos, WritePos + offset, count);
                 L.LogException(ex);
             }
         }

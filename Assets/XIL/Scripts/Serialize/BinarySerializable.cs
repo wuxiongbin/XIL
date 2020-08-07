@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using wxb.IL;
-using UnityEngine.UIElements;
 #if USE_HOT
 using ILRuntime.Mono.Cecil;
 using ILRuntime.Reflection;
@@ -168,7 +167,8 @@ namespace wxb
 
         static ITypeSerialize GetByType(ILRuntimeFieldInfo fieldInfo)
         {
-            if (FieldInfoTypes.TryGetValue(fieldInfo, out var ts))
+            ITypeSerialize ts;
+            if (FieldInfoTypes.TryGetValue(fieldInfo, out ts))
                 return ts;
 
             var fieldType = fieldInfo.FieldType;
@@ -220,7 +220,8 @@ namespace wxb
 #endif
             if (fieldInfo.FieldType == typeof(RefType))
             {
-                if (RefTypes.TryGetValue(fieldInfo, out var ts))
+                ITypeSerialize ts;
+                if (RefTypes.TryGetValue(fieldInfo, out ts))
                     return ts;
 
                 ts = new RefTypeSerialize(IL.Help.GetTypeByFullName(fieldInfo.GetCustomAttribute<ILSerializable>().typeName));

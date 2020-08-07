@@ -4,8 +4,8 @@ using System;
 using System.Reflection;
 using System.Linq;
 using System.IO;
-using MonoXIL.Cecil;
-using MonoXIL.Cecil.Cil;
+using Mono.Cecil;
+using Mono.Cecil.Cil;
 
 namespace wxb.Editor
 {
@@ -343,6 +343,10 @@ namespace wxb.Editor
                 {
                     readerParameters.SymbolReaderProvider = new PortablePdbReaderProvider();
                 }
+                else
+                {
+                    readerParameters.SymbolReaderProvider = new Mono.Cecil.Mdb.MdbReaderProvider();
+                }
                 assembly = AssemblyDefinition.ReadAssembly(inject_assembly_path, readerParameters);
 
                 init(assembly);
@@ -354,7 +358,7 @@ namespace wxb.Editor
                 }
 
                 var exports = fun();
-                assembly.MainModule.Types.Add(new TypeDefinition("__IL_GEN", "__IL_GEN_FLAG", MonoXIL.Cecil.TypeAttributes.Class, objType));
+                assembly.MainModule.Types.Add(new TypeDefinition("__IL_GEN", "__IL_GEN_FLAG", Mono.Cecil.TypeAttributes.Class, objType));
 
                 hotfix_bridges = (from method in delegateBridgeType.Methods where method.Name.StartsWith("__Gen_Delegate_Imp") select method).ToList();
 
@@ -380,91 +384,6 @@ namespace wxb.Editor
                 if (assembly != null)
                 {
                     Clean(assembly);
-                }
-            }
-        }
-
-        static void ResetInstruction(MonoXIL.Cecil.Cil.MethodBody body)
-        {
-            int offset = 0;
-            var instructions = body.Instructions;
-
-            wxb.RefType refType = new RefType(instructions);
-            var items = (Instruction[])refType.GetField("items");
-            var count = instructions.Count;
-            var stack_size = 0;
-            var max_stack = 0;
-            Dictionary<Instruction, int> stack_sizes = null;
-
-            if (body.HasExceptionHandlers)
-                ComputeExceptionHandlerStackSize(body, ref stack_sizes);
-
-            for (int i = 0; i < count; i++)
-            {
-                var instruction = items[i];
-                instruction.Offset = offset;
-                offset += instruction.GetSize();
-
-                ComputeStackSize(instruction, ref stack_sizes, ref stack_size, ref max_stack);
-            }
-
-            wxb.RefType body_refType = new RefType(body);
-            body_refType.SetField("code_size", offset);
-            body_refType.SetField("max_stack_size", max_stack);
-        }
-
-        static MethodInfo _ComputeStackSize;
-        static void ComputeStackSize(Instruction instruction, ref Dictionary<Instruction, int> stack_sizes, ref int stack_size, ref int max_stack)
-        {
-            if (_ComputeStackSize == null)
-            {
-                var CodeWriter = typeof(Instruction).Assembly.GetType("MonoXIL.Cecil.Cil.CodeWriter");
-                _ComputeStackSize = CodeWriter.GetMethod(
-                    "ComputeStackSize",
-                    BindingFlags.Static | BindingFlags.NonPublic,
-                    null,
-                    new Type[] { instruction.GetType(), 
-                        typeof(Dictionary<Instruction, int>).MakeByRefType(), 
-                        typeof(int).MakeByRefType(),
-                        typeof(int).MakeByRefType()},
-                    null);
-            }
-
-            var ps = new object[] { instruction, stack_sizes, stack_size, max_stack };
-            object value = _ComputeStackSize.Invoke(null, ps);
-            stack_sizes = (Dictionary<Instruction, int>)ps[1];
-            stack_size = (int)ps[2];
-            max_stack = (int)ps[3];
-        }
-
-        static void AddExceptionStackSize(Instruction handler_start, ref Dictionary<Instruction, int> stack_sizes)
-        {
-            if (handler_start == null)
-                return;
-
-            if (stack_sizes == null)
-                stack_sizes = new Dictionary<Instruction, int>();
-
-            stack_sizes[handler_start] = 1;
-        }
-
-        static void ComputeExceptionHandlerStackSize(MonoXIL.Cecil.Cil.MethodBody body, ref Dictionary<Instruction, int> stack_sizes)
-        {
-            var exception_handlers = body.ExceptionHandlers;
-
-            for (int i = 0; i < exception_handlers.Count; i++)
-            {
-                var exception_handler = exception_handlers[i];
-
-                switch (exception_handler.HandlerType)
-                {
-                case ExceptionHandlerType.Catch:
-                    AddExceptionStackSize(exception_handler.HandlerStart, ref stack_sizes);
-                    break;
-                case ExceptionHandlerType.Filter:
-                    AddExceptionStackSize(exception_handler.FilterStart, ref stack_sizes);
-                    AddExceptionStackSize(exception_handler.HandlerStart, ref stack_sizes);
-                    break;
                 }
             }
         }
@@ -610,7 +529,7 @@ namespace wxb.Editor
             return "";
         }
 
-        static Instruction findNextRet(MonoXIL.Collections.Generic.Collection<Instruction> instructions, Instruction pos)
+        static Instruction findNextRet(Mono.Collections.Generic.Collection<Instruction> instructions, Instruction pos)
         {
             bool posFound = false;
             for(int i = 0; i < instructions.Count; i++)
@@ -687,7 +606,7 @@ namespace wxb.Editor
             return false;
         }
 
-        public static void LogInfo(string key, MonoXIL.Collections.Generic.Collection<Instruction> Instructions)
+        public static void LogInfo(string key, Mono.Collections.Generic.Collection<Instruction> Instructions)
         {
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             sb.AppendFormatLine("{0} Total:{1}", key, Instructions.Count);
@@ -734,7 +653,7 @@ namespace wxb.Editor
                 return false;
             }
 
-            FieldDefinition fieldDefinition = new FieldDefinition(luaDelegateName, MonoXIL.Cecil.FieldAttributes.Static | MonoXIL.Cecil.FieldAttributes.Private,
+            FieldDefinition fieldDefinition = new FieldDefinition(luaDelegateName, Mono.Cecil.FieldAttributes.Static | Mono.Cecil.FieldAttributes.Private,
                 invoke.DeclaringType);
             type.Fields.Add(fieldDefinition);
             fieldReference = fieldDefinition.GetGeneric();
@@ -805,7 +724,6 @@ namespace wxb.Editor
 
             if (method.IsConstructor)
             {
-                ResetInstruction(method.Body);
                 fixBranch(processor, method.Body.Instructions, originToNewTarget, noCheck);
             }
 
@@ -823,7 +741,7 @@ namespace wxb.Editor
 
         static Dictionary<OpCode, OpCode> shortToLong = new Dictionary<OpCode, OpCode>();
 
-        static void fixBranch(ILProcessor processor, MonoXIL.Collections.Generic.Collection<Instruction> instructions, Dictionary<Instruction, Instruction> originToNewTarget, HashSet<Instruction> noCheck)
+        static void fixBranch(ILProcessor processor, Mono.Collections.Generic.Collection<Instruction> instructions, Dictionary<Instruction, Instruction> originToNewTarget, HashSet<Instruction> noCheck)
         {
             foreach (var instruction in instructions)
             {
@@ -836,6 +754,14 @@ namespace wxb.Editor
                     }
                 }
             }
+            int offset = 0;
+            for (int i = 0; i < instructions.Count; i++)
+            {
+                var instruction = instructions[i];
+                instruction.Offset = offset;
+                offset += instruction.GetSize();
+            }
+
             for (int i = 0; i < instructions.Count; i++)
             {
                 var instruction = instructions[i];
@@ -909,7 +835,7 @@ namespace wxb.Editor
                 return false;
             }
 
-            FieldDefinition fieldDefinition = new FieldDefinition(luaDelegateName, MonoXIL.Cecil.FieldAttributes.Static | MonoXIL.Cecil.FieldAttributes.Private, delegateBridgeType);
+            FieldDefinition fieldDefinition = new FieldDefinition(luaDelegateName, Mono.Cecil.FieldAttributes.Static | Mono.Cecil.FieldAttributes.Private, delegateBridgeType);
             type.Fields.Add(fieldDefinition);
 
             fieldReference = fieldDefinition.GetGeneric();

@@ -12,7 +12,7 @@ namespace hot
             Template instance = values[0] as Template;
             object value = values[1];
             var type = value.GetType();
-            UnityEngine.Debug.LogFormat("type:{0} value:{1}", type.FullName, value.ToString());
+            wxb.L.LogFormat("type:{0} value:{1}", type.FullName, value.ToString());
         }
 
         [ReplaceFunction()]
@@ -20,7 +20,7 @@ namespace hot
         {
             Template template = values[0] as Template;
             object refValue = values[1];
-            UnityEngine.Debug.LogFormat("refValue:{0}", refValue.ToString());
+            wxb.L.LogFormat("refValue:{0}", refValue.ToString());
 
             if (refValue.GetType().FullName == typeof(string).FullName)
             {

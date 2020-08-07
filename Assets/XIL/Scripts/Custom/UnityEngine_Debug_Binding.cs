@@ -22,9 +22,6 @@ namespace ILRuntime.Runtime.Generated
             MethodBase method;
             Type[] args;
             Type type = typeof(UnityEngine.Debug);
-            args = new Type[]{};
-            method = type.GetMethod("get_unityLogger", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_unityLogger_0);
             args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3), typeof(UnityEngine.Color), typeof(System.Single)};
             method = type.GetMethod("DrawLine", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, DrawLine_1);
@@ -67,9 +64,6 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(UnityEngine.Object), typeof(System.String), typeof(System.Object[])};
             method = type.GetMethod("LogFormat", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, LogFormat_14);
-            args = new Type[]{typeof(UnityEngine.LogType), typeof(UnityEngine.LogOption), typeof(UnityEngine.Object), typeof(System.String), typeof(System.Object[])};
-            method = type.GetMethod("LogFormat", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LogFormat_15);
             args = new Type[]{typeof(System.Object)};
             method = type.GetMethod("LogError", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, LogError_16);
@@ -158,23 +152,6 @@ namespace ILRuntime.Runtime.Generated
             method = type.GetConstructor(flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Ctor_0);
 
-        }
-
-
-        static StackObject* get_unityLogger_0(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
-
-
-            var result_of_this_method = UnityEngine.Debug.unityLogger;
-
-            object obj_result_of_this_method = result_of_this_method;
-            if(obj_result_of_this_method is CrossBindingAdaptorType)
-            {    
-                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
-            }
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
         static StackObject* DrawLine_1(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
@@ -481,38 +458,6 @@ namespace ILRuntime.Runtime.Generated
 
             ILLog.Log(__intp, __domain, UnityEngine.LogType.Log, string.Format(@format, @args));
             //UnityEngine.Debug.LogFormat(@context, @format, @args);
-
-            return __ret;
-        }
-
-        static StackObject* LogFormat_15(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 5);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Object[] @args = (System.Object[])typeof(System.Object[]).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.String @format = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            UnityEngine.Object @context = (UnityEngine.Object)typeof(UnityEngine.Object).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 4);
-            UnityEngine.LogOption @logOptions = (UnityEngine.LogOption)typeof(UnityEngine.LogOption).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 5);
-            UnityEngine.LogType @logType = (UnityEngine.LogType)typeof(UnityEngine.LogType).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-
-            UnityEngine.Debug.LogFormat(@logType, @logOptions, @context, @format, @args);
 
             return __ret;
         }

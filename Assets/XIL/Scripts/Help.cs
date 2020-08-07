@@ -575,6 +575,15 @@
             valueElement = argus[1];
         }
 
+        public static T GetCustomAttribute<T>(this System.Reflection.ICustomAttributeProvider provider)
+        {
+            var atts = provider.GetCustomAttributes(typeof(T), false);
+            if (atts == null || atts.Length <= 0)
+                return default(T);
+
+            return (T)atts[0];
+        }
+
         static public void GetSerializeField(System.Type type, List<FieldInfo> fieldinfos, BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
         {
             if (type.IsArray || type.GetInterface("System.Collections.Generic.IList") != null)
@@ -629,7 +638,8 @@
                             var att = field.GetCustomAttribute<wxb.ILSerializable>();
                             if (att != null)
                             {
-                                if (!TryGetTypeByFullName(att.typeName, out var refType))
+                                System.Type refType;
+                                if (!TryGetTypeByFullName(att.typeName, out refType))
                                 {
                                     L.LogErrorFormat("class:{0} field:{1} {2}不存在此类型!", fieldType.DeclaringType.Name, field.Name, att.typeName);
                                     continue;
@@ -742,9 +752,7 @@
 
             if (type == typeof(UnityEngine.Vector2) ||
                 type == typeof(UnityEngine.Vector3) ||
-                type == typeof(UnityEngine.Vector4) ||
-                type == typeof(UnityEngine.Vector2Int) ||
-                type == typeof(UnityEngine.Vector3Int))
+                type == typeof(UnityEngine.Vector4))
             {
                 return true;
             }

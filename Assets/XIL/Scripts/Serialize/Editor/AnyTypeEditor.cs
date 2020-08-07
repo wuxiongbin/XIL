@@ -125,7 +125,8 @@ namespace wxb.Editor
             if (obj == null)
                 return true;
 
-            if (isFoldouts.TryGetValue(obj.GetHashCode(), out var isFoldout))
+            bool isFoldout;
+            if (isFoldouts.TryGetValue(obj.GetHashCode(), out isFoldout))
                 return isFoldout;
 
             return false;

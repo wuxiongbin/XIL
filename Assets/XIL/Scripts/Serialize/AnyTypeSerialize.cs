@@ -30,7 +30,8 @@ namespace wxb
         {
             if (NamesByFields != null)
             {
-                if (NamesByFields.TryGetValue(name, out var fieldInfo))
+                FieldInfo fieldInfo;
+                if (NamesByFields.TryGetValue(name, out fieldInfo))
                     return fieldInfo;
             }
             else

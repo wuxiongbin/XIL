@@ -18,7 +18,7 @@ namespace ILRuntime.Runtime.Generated
     {
         public static void Log(ILIntepreter __intp, Enviorment.AppDomain __domain, UnityEngine.LogType level, string text)
         {
-            UnityEngine.Debug.unityLogger.Log(level,
+            UnityEngine.Debug.logger.Log(level,
                 string.Format("{0}\nStackTrance:{1}", text, __domain.DebugService.GetStackTrace(__intp)));
         }
     }

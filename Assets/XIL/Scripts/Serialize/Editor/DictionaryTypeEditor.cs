@@ -61,7 +61,7 @@ namespace wxb.Editor
 
         string GetTypeName()
         {
-            return $"Dictionary<{keyType.Name}, {valueType.Name}>";
+            return string.Format("Dictionary<{0}, {1}>", keyType.Name, valueType.Name);
         }
 
         public bool OnGUI(object parent, FieldInfo info)

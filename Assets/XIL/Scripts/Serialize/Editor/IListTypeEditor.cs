@@ -88,12 +88,12 @@ namespace wxb.Editor
         static string GetTypeName(System.Type type)
         {
             if (type.IsArray)
-                return $"{GetTypeName(type.GetElementType())}[]";
+                return string.Format("{0}[]", GetTypeName(type.GetElementType()));
 
             if (IL.Help.isListType(type))
             {
-                var element = type.GenericTypeArguments[0];
-                return $"List<{GetTypeName(element)}>";
+                var element = type.GetGenericArguments()[0];
+                return string.Format("List<{0}>", GetTypeName(element));
             }
             else
             {
@@ -120,7 +120,7 @@ namespace wxb.Editor
                     elementName = elementName.Replace("/", ".");
             }
 
-            isFoldout = EditorGUILayout.Foldout(isFoldout, $"{GetTypeName(type)} {label}");
+            isFoldout = EditorGUILayout.Foldout(isFoldout, string.Format("{0} {1}", GetTypeName(type), label));
             isFoldouts[hashcode] = isFoldout;
             if (isFoldout)
             {
@@ -130,7 +130,7 @@ namespace wxb.Editor
                 {
                     bool isSet = true;
                     if (ns >= 1000)
-                        isSet = EditorUtility.DisplayDialog("数组过多!", $"确定要创建这么多({ns})的数组吗?", "确定", "取消");
+                        isSet = EditorUtility.DisplayDialog("数组过多!", string.Format("确定要创建这么多({0})的数组吗?", ns), "确定", "取消");
 
                     if (isSet)
                     {

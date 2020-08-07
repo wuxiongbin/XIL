@@ -45,7 +45,8 @@ namespace wxb.Editor
 
         string GetKey(string key)
         {
-            keys.TryGetValue(key, out var value);
+            string value;
+            keys.TryGetValue(key, out value);
             return value;
         }
 
@@ -99,7 +100,7 @@ namespace wxb.Editor
                 }
 
                 UnityEditor.EditorGUILayout.BeginHorizontal();
-                newTypename = IL.Editor.ILMonoEditor.StringPopupT($"设置{label}类型", typeName, allTypes, (System.Type t) => { return t == null ? "null" : t.FullName; }, "");
+                newTypename = IL.Editor.ILMonoEditor.StringPopupT(string.Format("设置{0}类型", label), typeName, allTypes, (System.Type t) => { return t == null ? "null" : t.FullName; }, "");
                 SetKey(key, newTypename);
                 if (newTypename == "null")
                     newTypename = string.Empty;

@@ -396,33 +396,33 @@ namespace wxb.Editor
         }
     }
 
-    class Vector2IntType : BaseType<Vector2Int>
-    {
-        protected override Vector2Int OnGUI(string label, Vector2Int value, System.Type type, out bool isDirty)
-        {
-            Vector2Int nv = EditorGUILayout.Vector2IntField(label, value);
-            if (nv != value)
-                isDirty = true;
-            else
-                isDirty = false;
+    //class Vector2IntType : BaseType<Vector2Int>
+    //{
+    //    protected override Vector2Int OnGUI(string label, Vector2Int value, System.Type type, out bool isDirty)
+    //    {
+    //        Vector2Int nv = EditorGUILayout.Vector2IntField(label, value);
+    //        if (nv != value)
+    //            isDirty = true;
+    //        else
+    //            isDirty = false;
 
-            return nv;
-        }
-    }
+    //        return nv;
+    //    }
+    //}
 
-    class Vector3IntType : BaseType<Vector3Int>
-    {
-        protected override Vector3Int OnGUI(string label, Vector3Int value, System.Type type, out bool isDirty)
-        {
-            Vector3Int nv = EditorGUILayout.Vector3IntField(label, value);
-            if (nv != value)
-                isDirty = true;
-            else
-                isDirty = false;
+    //class Vector3IntType : BaseType<Vector3Int>
+    //{
+    //    protected override Vector3Int OnGUI(string label, Vector3Int value, System.Type type, out bool isDirty)
+    //    {
+    //        Vector3Int nv = EditorGUILayout.Vector3IntField(label, value);
+    //        if (nv != value)
+    //            isDirty = true;
+    //        else
+    //            isDirty = false;
 
-            return nv;
-        }
-    }
+    //        return nv;
+    //    }
+    //}
 
     class ObjectType : BaseType<UnityEngine.Object>
     {

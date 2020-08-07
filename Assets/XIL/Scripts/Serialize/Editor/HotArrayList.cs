@@ -28,9 +28,9 @@ namespace wxb.Editor
             this.isListType = isListType;
             if (isListType)
             {
-                fullTypeName = $"List<{elementType}>";
+                fullTypeName = string.Format("List<{0}>", elementType);
                 for (int i = 0; i < arrayCount - 1; ++i)
-                    fullTypeName = $"List<{fullTypeName}>";
+                    fullTypeName = string.Format("List<{0}>", fullTypeName);
             }
             else
             {
@@ -126,7 +126,7 @@ namespace wxb.Editor
                 {
                     bool isSet = true;
                     if (ns >= 1000)
-                        isSet = EditorUtility.DisplayDialog("数组过多!", $"确定要创建这么多({ns})的数组吗?", "确定", "取消");
+                        isSet = EditorUtility.DisplayDialog("数组过多!", string.Format("确定要创建这么多({0})的数组吗?", ns), "确定", "取消");
 
                     if (isSet)
                     {

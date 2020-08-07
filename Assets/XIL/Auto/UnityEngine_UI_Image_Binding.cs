@@ -29,131 +29,116 @@ namespace ILRuntime.Runtime.Generated
             method = type.GetMethod("set_sprite", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, set_sprite_1);
             args = new Type[]{};
-            method = type.GetMethod("DisableSpriteOptimizations", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, DisableSpriteOptimizations_2);
-            args = new Type[]{};
             method = type.GetMethod("get_overrideSprite", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_overrideSprite_3);
+            app.RegisterCLRMethodRedirection(method, get_overrideSprite_2);
             args = new Type[]{typeof(UnityEngine.Sprite)};
             method = type.GetMethod("set_overrideSprite", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_overrideSprite_4);
+            app.RegisterCLRMethodRedirection(method, set_overrideSprite_3);
             args = new Type[]{};
             method = type.GetMethod("get_type", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_type_5);
+            app.RegisterCLRMethodRedirection(method, get_type_4);
             args = new Type[]{typeof(UnityEngine.UI.Image.Type)};
             method = type.GetMethod("set_type", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_type_6);
+            app.RegisterCLRMethodRedirection(method, set_type_5);
             args = new Type[]{};
             method = type.GetMethod("get_preserveAspect", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_preserveAspect_7);
+            app.RegisterCLRMethodRedirection(method, get_preserveAspect_6);
             args = new Type[]{typeof(System.Boolean)};
             method = type.GetMethod("set_preserveAspect", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_preserveAspect_8);
+            app.RegisterCLRMethodRedirection(method, set_preserveAspect_7);
             args = new Type[]{};
             method = type.GetMethod("get_fillCenter", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_fillCenter_9);
+            app.RegisterCLRMethodRedirection(method, get_fillCenter_8);
             args = new Type[]{typeof(System.Boolean)};
             method = type.GetMethod("set_fillCenter", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_fillCenter_10);
+            app.RegisterCLRMethodRedirection(method, set_fillCenter_9);
             args = new Type[]{};
             method = type.GetMethod("get_fillMethod", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_fillMethod_11);
+            app.RegisterCLRMethodRedirection(method, get_fillMethod_10);
             args = new Type[]{typeof(UnityEngine.UI.Image.FillMethod)};
             method = type.GetMethod("set_fillMethod", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_fillMethod_12);
+            app.RegisterCLRMethodRedirection(method, set_fillMethod_11);
             args = new Type[]{};
             method = type.GetMethod("get_fillAmount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_fillAmount_13);
+            app.RegisterCLRMethodRedirection(method, get_fillAmount_12);
             args = new Type[]{typeof(System.Single)};
             method = type.GetMethod("set_fillAmount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_fillAmount_14);
+            app.RegisterCLRMethodRedirection(method, set_fillAmount_13);
             args = new Type[]{};
             method = type.GetMethod("get_fillClockwise", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_fillClockwise_15);
+            app.RegisterCLRMethodRedirection(method, get_fillClockwise_14);
             args = new Type[]{typeof(System.Boolean)};
             method = type.GetMethod("set_fillClockwise", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_fillClockwise_16);
+            app.RegisterCLRMethodRedirection(method, set_fillClockwise_15);
             args = new Type[]{};
             method = type.GetMethod("get_fillOrigin", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_fillOrigin_17);
+            app.RegisterCLRMethodRedirection(method, get_fillOrigin_16);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("set_fillOrigin", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_fillOrigin_18);
+            app.RegisterCLRMethodRedirection(method, set_fillOrigin_17);
             args = new Type[]{};
             method = type.GetMethod("get_alphaHitTestMinimumThreshold", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_alphaHitTestMinimumThreshold_19);
+            app.RegisterCLRMethodRedirection(method, get_alphaHitTestMinimumThreshold_18);
             args = new Type[]{typeof(System.Single)};
             method = type.GetMethod("set_alphaHitTestMinimumThreshold", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_alphaHitTestMinimumThreshold_20);
-            args = new Type[]{};
-            method = type.GetMethod("get_useSpriteMesh", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_useSpriteMesh_21);
-            args = new Type[]{typeof(System.Boolean)};
-            method = type.GetMethod("set_useSpriteMesh", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_useSpriteMesh_22);
+            app.RegisterCLRMethodRedirection(method, set_alphaHitTestMinimumThreshold_19);
             args = new Type[]{};
             method = type.GetMethod("get_defaultETC1GraphicMaterial", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_defaultETC1GraphicMaterial_23);
+            app.RegisterCLRMethodRedirection(method, get_defaultETC1GraphicMaterial_20);
             args = new Type[]{};
             method = type.GetMethod("get_mainTexture", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_mainTexture_24);
+            app.RegisterCLRMethodRedirection(method, get_mainTexture_21);
             args = new Type[]{};
             method = type.GetMethod("get_hasBorder", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_hasBorder_25);
-            args = new Type[]{};
-            method = type.GetMethod("get_pixelsPerUnitMultiplier", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_pixelsPerUnitMultiplier_26);
-            args = new Type[]{typeof(System.Single)};
-            method = type.GetMethod("set_pixelsPerUnitMultiplier", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_pixelsPerUnitMultiplier_27);
+            app.RegisterCLRMethodRedirection(method, get_hasBorder_22);
             args = new Type[]{};
             method = type.GetMethod("get_pixelsPerUnit", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_pixelsPerUnit_28);
+            app.RegisterCLRMethodRedirection(method, get_pixelsPerUnit_23);
             args = new Type[]{};
             method = type.GetMethod("get_material", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_material_29);
+            app.RegisterCLRMethodRedirection(method, get_material_24);
             args = new Type[]{typeof(UnityEngine.Material)};
             method = type.GetMethod("set_material", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_material_30);
+            app.RegisterCLRMethodRedirection(method, set_material_25);
             args = new Type[]{};
             method = type.GetMethod("OnBeforeSerialize", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, OnBeforeSerialize_31);
+            app.RegisterCLRMethodRedirection(method, OnBeforeSerialize_26);
             args = new Type[]{};
             method = type.GetMethod("OnAfterDeserialize", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, OnAfterDeserialize_32);
+            app.RegisterCLRMethodRedirection(method, OnAfterDeserialize_27);
             args = new Type[]{};
             method = type.GetMethod("SetNativeSize", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetNativeSize_33);
+            app.RegisterCLRMethodRedirection(method, SetNativeSize_28);
             args = new Type[]{};
             method = type.GetMethod("CalculateLayoutInputHorizontal", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, CalculateLayoutInputHorizontal_34);
+            app.RegisterCLRMethodRedirection(method, CalculateLayoutInputHorizontal_29);
             args = new Type[]{};
             method = type.GetMethod("CalculateLayoutInputVertical", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, CalculateLayoutInputVertical_35);
+            app.RegisterCLRMethodRedirection(method, CalculateLayoutInputVertical_30);
             args = new Type[]{};
             method = type.GetMethod("get_minWidth", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_minWidth_36);
+            app.RegisterCLRMethodRedirection(method, get_minWidth_31);
             args = new Type[]{};
             method = type.GetMethod("get_preferredWidth", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_preferredWidth_37);
+            app.RegisterCLRMethodRedirection(method, get_preferredWidth_32);
             args = new Type[]{};
             method = type.GetMethod("get_flexibleWidth", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_flexibleWidth_38);
+            app.RegisterCLRMethodRedirection(method, get_flexibleWidth_33);
             args = new Type[]{};
             method = type.GetMethod("get_minHeight", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_minHeight_39);
+            app.RegisterCLRMethodRedirection(method, get_minHeight_34);
             args = new Type[]{};
             method = type.GetMethod("get_preferredHeight", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_preferredHeight_40);
+            app.RegisterCLRMethodRedirection(method, get_preferredHeight_35);
             args = new Type[]{};
             method = type.GetMethod("get_flexibleHeight", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_flexibleHeight_41);
+            app.RegisterCLRMethodRedirection(method, get_flexibleHeight_36);
             args = new Type[]{};
             method = type.GetMethod("get_layoutPriority", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_layoutPriority_42);
+            app.RegisterCLRMethodRedirection(method, get_layoutPriority_37);
             args = new Type[]{typeof(UnityEngine.Vector2), typeof(UnityEngine.Camera)};
             method = type.GetMethod("IsRaycastLocationValid", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, IsRaycastLocationValid_43);
+            app.RegisterCLRMethodRedirection(method, IsRaycastLocationValid_38);
 
 
 
@@ -197,22 +182,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* DisableSpriteOptimizations_2(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.UI.Image instance_of_this_method = (UnityEngine.UI.Image)typeof(UnityEngine.UI.Image).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.DisableSpriteOptimizations();
-
-            return __ret;
-        }
-
-        static StackObject* get_overrideSprite_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_overrideSprite_2(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -227,7 +197,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* set_overrideSprite_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_overrideSprite_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -246,7 +216,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_type_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_type_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -261,7 +231,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* set_type_6(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_type_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -280,7 +250,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_preserveAspect_7(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_preserveAspect_6(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -297,7 +267,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_preserveAspect_8(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_preserveAspect_7(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -315,7 +285,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_fillCenter_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_fillCenter_8(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -332,7 +302,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_fillCenter_10(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_fillCenter_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -350,7 +320,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_fillMethod_11(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_fillMethod_10(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -365,7 +335,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* set_fillMethod_12(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_fillMethod_11(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -384,7 +354,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_fillAmount_13(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_fillAmount_12(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -401,7 +371,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_fillAmount_14(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_fillAmount_13(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -419,7 +389,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_fillClockwise_15(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_fillClockwise_14(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -436,7 +406,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_fillClockwise_16(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_fillClockwise_15(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -454,7 +424,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_fillOrigin_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_fillOrigin_16(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -471,7 +441,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_fillOrigin_18(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_fillOrigin_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -489,7 +459,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_alphaHitTestMinimumThreshold_19(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_alphaHitTestMinimumThreshold_18(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -506,7 +476,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_alphaHitTestMinimumThreshold_20(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_alphaHitTestMinimumThreshold_19(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -524,42 +494,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_useSpriteMesh_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.UI.Image instance_of_this_method = (UnityEngine.UI.Image)typeof(UnityEngine.UI.Image).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            var result_of_this_method = instance_of_this_method.useSpriteMesh;
-
-            __ret->ObjectType = ObjectTypes.Integer;
-            __ret->Value = result_of_this_method ? 1 : 0;
-            return __ret + 1;
-        }
-
-        static StackObject* set_useSpriteMesh_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Boolean @value = ptr_of_this_method->Value == 1;
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            UnityEngine.UI.Image instance_of_this_method = (UnityEngine.UI.Image)typeof(UnityEngine.UI.Image).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.useSpriteMesh = value;
-
-            return __ret;
-        }
-
-        static StackObject* get_defaultETC1GraphicMaterial_23(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_defaultETC1GraphicMaterial_20(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -575,7 +510,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_mainTexture_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_mainTexture_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -595,7 +530,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_hasBorder_25(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_hasBorder_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -612,42 +547,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_pixelsPerUnitMultiplier_26(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.UI.Image instance_of_this_method = (UnityEngine.UI.Image)typeof(UnityEngine.UI.Image).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            var result_of_this_method = instance_of_this_method.pixelsPerUnitMultiplier;
-
-            __ret->ObjectType = ObjectTypes.Float;
-            *(float*)&__ret->Value = result_of_this_method;
-            return __ret + 1;
-        }
-
-        static StackObject* set_pixelsPerUnitMultiplier_27(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Single @value = *(float*)&ptr_of_this_method->Value;
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            UnityEngine.UI.Image instance_of_this_method = (UnityEngine.UI.Image)typeof(UnityEngine.UI.Image).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.pixelsPerUnitMultiplier = value;
-
-            return __ret;
-        }
-
-        static StackObject* get_pixelsPerUnit_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_pixelsPerUnit_23(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -664,7 +564,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_material_29(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_material_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -684,7 +584,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* set_material_30(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_material_25(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -703,7 +603,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* OnBeforeSerialize_31(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* OnBeforeSerialize_26(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -718,7 +618,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* OnAfterDeserialize_32(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* OnAfterDeserialize_27(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -733,7 +633,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SetNativeSize_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetNativeSize_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -748,7 +648,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* CalculateLayoutInputHorizontal_34(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* CalculateLayoutInputHorizontal_29(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -763,7 +663,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* CalculateLayoutInputVertical_35(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* CalculateLayoutInputVertical_30(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -778,7 +678,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_minWidth_36(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_minWidth_31(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -795,7 +695,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_preferredWidth_37(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_preferredWidth_32(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -812,7 +712,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_flexibleWidth_38(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_flexibleWidth_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -829,7 +729,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_minHeight_39(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_minHeight_34(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -846,7 +746,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_preferredHeight_40(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_preferredHeight_35(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -863,7 +763,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_flexibleHeight_41(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_flexibleHeight_36(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -880,7 +780,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_layoutPriority_42(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_layoutPriority_37(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -897,7 +797,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* IsRaycastLocationValid_43(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* IsRaycastLocationValid_38(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

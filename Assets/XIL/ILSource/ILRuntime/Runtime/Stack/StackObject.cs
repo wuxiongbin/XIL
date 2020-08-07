@@ -224,9 +224,9 @@ namespace ILRuntime.Runtime.Stack
             }
             else if (type.IsEnum)
             {
-                if(type is ILType ilType)
+                if(type is ILType)
                 {
-                    Initialized(esp, ilType.FieldTypes[0]);
+                    Initialized(esp, ((ILType)type).FieldTypes[0]);
                 }
                 else
                 {

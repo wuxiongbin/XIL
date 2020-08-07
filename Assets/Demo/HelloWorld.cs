@@ -77,7 +77,7 @@ public class HelloWorld : MonoBehaviour
 #if UNITY_EDITOR && USE_HOT
     static bool Check()
     {
-        var fields = typeof(HelloWorld).GetFields(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        var fields = typeof(HelloWorld).GetFields(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
         foreach (var field in fields)
         {
             if (field.FieldType == typeof(IL.DelegateBridge))

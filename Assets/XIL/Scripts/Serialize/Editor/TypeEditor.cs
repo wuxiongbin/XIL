@@ -80,8 +80,8 @@ namespace wxb.Editor
             BaseTypes.Add(typeof(UnityEngine.Vector3).FullName, new Vector3Type());
             BaseTypes.Add(typeof(UnityEngine.Vector4).FullName, new Vector4Type());
 
-            BaseTypes.Add(typeof(UnityEngine.Vector2Int).FullName, new Vector2IntType());
-            BaseTypes.Add(typeof(UnityEngine.Vector3Int).FullName, new Vector3IntType());
+            //BaseTypes.Add(typeof(UnityEngine.Vector2Int).FullName, new Vector2IntType());
+            //BaseTypes.Add(typeof(UnityEngine.Vector3Int).FullName, new Vector3IntType());
         }
 
         public static ITypeGUI Get(System.Type type, FieldInfo fieldInfo)
@@ -135,7 +135,7 @@ namespace wxb.Editor
                 if (fieldInfo == null)
                     return emptyTypeGUI;
 
-                var ils = fieldInfo.GetCustomAttribute<ILSerializable>();
+                var ils = IL.Help.GetCustomAttribute<ILSerializable>(fieldInfo);
                 return new RefTypeEditor(IL.Help.GetTypeByFullName(ils.typeName));
             }
 
