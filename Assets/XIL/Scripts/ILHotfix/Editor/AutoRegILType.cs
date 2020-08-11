@@ -174,6 +174,12 @@
             if (type == typeof(void))
                 return true;
 
+            if (type == typeof(System.IntPtr))
+                return false;
+
+            if (type == typeof(System.UIntPtr))
+                return false;
+
             if (!IsPublic(type))
                 return false;
 
