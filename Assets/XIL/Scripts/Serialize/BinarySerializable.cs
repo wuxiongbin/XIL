@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using wxb.IL;
-using UnityEngine.UIElements;
 #if USE_HOT
 using ILRuntime.Mono.Cecil;
 using ILRuntime.Reflection;
