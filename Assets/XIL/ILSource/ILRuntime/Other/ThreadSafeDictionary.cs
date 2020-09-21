@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,8 +23,7 @@ namespace ILRuntime.Other
         {
             get
             {
-                lock(dic)
-                    return dic[key];
+                return dic[key];
             }
 
             set
@@ -87,14 +87,12 @@ namespace ILRuntime.Other
 
         public bool Contains(KeyValuePair<K, V> item)
         {
-           lock(dic)
-                return dic.ContainsKey(item.Key);
+            return dic.ContainsKey(item.Key);
         }
 
         public bool ContainsKey(K key)
         {
-            lock(dic)
-                return dic.ContainsKey(key);
+            return dic.ContainsKey(key);
         }
 
         public void CopyTo(KeyValuePair<K, V>[] array, int arrayIndex)
@@ -120,8 +118,7 @@ namespace ILRuntime.Other
 
         public bool TryGetValue(K key, out V value)
         {
-             lock(dic)
-                return dic.TryGetValue(key, out value);
+            return dic.TryGetValue(key, out value);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -129,4 +126,5 @@ namespace ILRuntime.Other
             throw new NotImplementedException();
         }
     }
-}#endif
+}
+#endif
