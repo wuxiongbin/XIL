@@ -3247,8 +3247,7 @@ namespace ILRuntime.Runtime.Intepreter
                                             var instance = mStack[objRef->Value] as ILTypeInstance;
                                             if (instance != null)
                                             {
-                                                PushNull(esp);
-                                                instance.AssignFromStack(objRef->ValueLow, esp, AppDomain, mStack);
+                                                instance.InitializeField(objRef->ValueLow);
                                             }
                                             else
                                                 throw new NotImplementedException();
@@ -5245,6 +5244,8 @@ namespace ILRuntime.Runtime.Intepreter
                 var dst = ILIntepreter.ResolveReference(esp);
                 var vt = domain.GetType(dst->Value);
 
+                if (obj == null)//Nothing to do
+                    return;
                 if (obj is ILTypeInstance)
                 {
                     var ins = (ILTypeInstance)obj;

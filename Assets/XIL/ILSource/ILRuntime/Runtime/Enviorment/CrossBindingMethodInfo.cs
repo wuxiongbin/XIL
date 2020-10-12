@@ -739,6 +739,8 @@ namespace ILRuntime.Runtime.Enviorment
             if (baseMethod != null)
             {
                 method = ins.Type.GetVirtualMethod(baseMethod);
+                if (method is CLRMethod)
+                    method = null;
             }
         }
 
