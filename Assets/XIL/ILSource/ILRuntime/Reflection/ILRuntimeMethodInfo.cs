@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -123,7 +124,7 @@ namespace ILRuntime.Reflection
             List<object> res = new List<object>();
             for (int i = 0; i < customAttributes.Length; i++)
             {
-                if (attributeTypes[i] == attributeType)
+                if (attributeTypes[i].Equals(attributeType))
                     res.Add(customAttributes[i]);
             }
             return res.ToArray();
@@ -171,4 +172,5 @@ namespace ILRuntime.Reflection
         }
     }
 }
-#endif
+
+#endif

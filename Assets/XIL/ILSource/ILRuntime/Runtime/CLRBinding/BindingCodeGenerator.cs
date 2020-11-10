@@ -1,4 +1,4 @@
-﻿#if USE_HOT && UNITY_EDITOR
+#if USE_HOT && UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -159,7 +159,8 @@ namespace ILRuntime.Runtime.Generated
         }
 
         public static void GenerateBindingCode(ILRuntime.Runtime.Enviorment.AppDomain domain, string outputPath, 
-                                               List<Type> valueTypeBinders = null, List<Type> delegateTypes = null)
+                                               List<Type> valueTypeBinders = null, List<Type> delegateTypes = null,
+                                               params string[] excludeFiles)
         {
             if (domain == null)
                 return;
@@ -196,6 +197,8 @@ namespace ILRuntime.Runtime.Generated
                 if (i.GetCustomAttributes(typeof(ObsoleteAttribute), true).Length > 0)
                     continue;
                 i.GetClassName(out clsName, out realClsName, out isByRef);
+                if (excludeFiles.Contains(clsName))
+                    continue;
                 if (clsNames.Contains(clsName))
                     clsName = clsName + "_t";
                 clsNames.Add(clsName);
