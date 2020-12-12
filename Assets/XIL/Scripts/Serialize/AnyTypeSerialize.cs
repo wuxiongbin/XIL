@@ -55,7 +55,7 @@ namespace wxb
             }
 
             var cnt = fieldInfos.Count;
-            stream.WriteByte(cnt == 0 ? (byte)1 : (byte)2);
+            stream.WriteByte(cnt == 0 ? (byte)2 : (byte)1);
             if (cnt == 0)
                 return;
 
@@ -91,7 +91,7 @@ namespace wxb
                 value = IL.Help.Create(type);
             }
 
-            if (flag == 1)
+            if (flag == 2)
                 return;
 
             do
