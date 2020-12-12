@@ -690,10 +690,10 @@ namespace wxb.Editor
         public static void LogInfo(string key, MonoXIL.Collections.Generic.Collection<Instruction> Instructions)
         {
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.AppendFormatLine("{0} Total:{1}", key, Instructions.Count);
+            sb.AppendLine(string.Format("{0} Total:{1}", key, Instructions.Count));
             for (int i = 0; i < Instructions.Count; ++i)
             {
-                sb.AppendFormatLine("{0}){1}", i, Instructions[i].ToString());
+                sb.AppendLine(string.Format("{0}){1}", i, Instructions[i].ToString()));
             }
             UnityEngine.Debug.Log(sb.ToString());
         }

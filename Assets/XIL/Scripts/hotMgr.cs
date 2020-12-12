@@ -274,30 +274,6 @@ namespace wxb
 
     public static class hotMgr
     {
-        public static System.Text.StringBuilder AppendFormatLine(this System.Text.StringBuilder sb, string format, params object[] objs)
-        {
-            sb.AppendFormat(format, objs);
-            return sb.AppendLine();
-        }
-
-        public static System.Text.StringBuilder AppendFormatLine(this System.Text.StringBuilder sb, string format, object p0)
-        {
-            sb.AppendFormat(format, p0);
-            return sb.AppendLine();
-        }
-
-        public static System.Text.StringBuilder AppendFormatLine(this System.Text.StringBuilder sb, string format, object p0, object p1)
-        {
-            sb.AppendFormat(format, p0, p1);
-            return sb.AppendLine();
-        }
-
-        public static System.Text.StringBuilder AppendFormatLine(this System.Text.StringBuilder sb, string format, object p0, object p1, object p2)
-        {
-            sb.AppendFormat(format, p0, p1, p2);
-            return sb.AppendLine();
-        }
-
         public static AppDomain appdomain { get; private set; }
 
         static RefType refType;
@@ -403,18 +379,6 @@ namespace wxb
         static public void InitHotModule()
         {
             appdomain = new AppDomain();
-            appdomain.RegisterCrossBindingAdaptor(new CoroutineAdapter());
-
-#if UNITY_EDITOR
-            System.Type clrType = System.Type.GetType("ILRuntime.Runtime.Generated.CLRBindings");
-            if (clrType != null)
-            {
-                clrType.GetMethod("Initialize").Invoke(null, new object[] { appdomain });
-            }
-#else
-            ILRuntime.Runtime.Generated.CLRBindings.Initialize(appdomain);
-#endif
-            ILRuntime.Runtime.Generated.UnityEngine_Debug_Binding.Register(appdomain);
             try
             {
                 DllStream = CopyStream(ResLoad.GetStream("Data/DyncDll.dll"));
@@ -442,12 +406,46 @@ namespace wxb
 
         public static void RegDelegate(AppDomain appdomain)
         {
+            appdomain.RegisterCrossBindingAdaptor(new IEnumerableAdapter());
+
+#if UNITY_EDITOR
+            System.Type clrType = System.Type.GetType("ILRuntime.Runtime.Generated.CLRBindings");
+            if (clrType != null)
+                clrType.GetMethod("Initialize").Invoke(null, new object[] { appdomain }); // CLR绑定
+
+            clrType = System.Type.GetType("AutoIL.ILRegType");
+            if (clrType != null)
+            {
+                // 自动委托注册
+                clrType.GetMethod("RegisterFunctionDelegate").Invoke(null, new object[] { appdomain });
+                clrType.GetMethod("RegisterDelegateConvertor").Invoke(null, new object[] { appdomain });
+                clrType.GetMethod("RegisterMethodDelegate").Invoke(null, new object[] { appdomain });
+            }
+#else
+            ILRuntime.Runtime.Generated.CLRBindings.Initialize(appdomain);
+            AutoIL.ILRegType.RegisterFunctionDelegate(appdomain);
+            AutoIL.ILRegType.RegisterDelegateConvertor(appdomain);
+            AutoIL.ILRegType.RegisterMethodDelegate(appdomain);
+#endif
+            ILRuntime.Runtime.Generated.UnityEngine_Debug_Binding.Register(appdomain);
+
+#if UNITY_ANDROID
+            ILRuntime.Runtime.Generated.UnityEngine_Android_Permission_Binding.Register(appdomain);
+            ILRuntime.Runtime.Generated.UnityEngine_Android_AndroidDevice_Binding.Register(appdomain);
+            ILRuntime.Runtime.Generated.UnityEngine_AndroidInput_Binding.Register(appdomain);
+            ILRuntime.Runtime.Generated.UnityEngine_AndroidJavaClass_Binding.Register(appdomain);
+            ILRuntime.Runtime.Generated.UnityEngine_AndroidJavaObject_Binding.Register(appdomain);
+            ILRuntime.Runtime.Generated.UnityEngine_AndroidJavaProxy_Binding.Register(appdomain);
+            ILRuntime.Runtime.Generated.UnityEngine_AndroidJNIHelper_Binding.Register(appdomain);
+            ILRuntime.Runtime.Generated.UnityEngine_AndroidJNI_Binding.Register(appdomain);
+#endif
+
             // 热更代码当中使用List<T>类型,注册下
             // List<T>
             {
                 appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance>();
                 appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance>();
-
+                appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Boolean>();
                 appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Int32>();
                 appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<ILRuntime.Runtime.Intepreter.ILTypeInstance>>((act) =>
                 {
@@ -482,22 +480,15 @@ namespace wxb
             appdomain.DelegateManager.RegisterMethodDelegate<string, object>();
             appdomain.DelegateManager.RegisterFunctionDelegate<bool>();
 
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.IO.BinaryReader>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.IO.BinaryReader, object>();
 
             appdomain.DelegateManager.RegisterFunctionDelegate<object, object>();
-
-#if UNITY_EDITOR
-            var clrType = System.Type.GetType("AutoIL.ILRegType");
-            if (clrType != null)
-            {
-                clrType.GetMethod("RegisterFunctionDelegate").Invoke(null, new object[] { appdomain });
-                clrType.GetMethod("RegisterDelegateConvertor").Invoke(null, new object[] { appdomain });
-                clrType.GetMethod("RegisterMethodDelegate").Invoke(null, new object[] { appdomain });
-            }
-#else
-            AutoIL.ILRegType.RegisterFunctionDelegate(appdomain);
-            AutoIL.ILRegType.RegisterDelegateConvertor(appdomain);
-            AutoIL.ILRegType.RegisterMethodDelegate(appdomain);
-#endif
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.IO.BinaryReader, bool>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.IO.BinaryReader, int>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.IO.BinaryReader, string>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.IO.BinaryReader, long>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.IO.BinaryReader, uint>();
         }
 
         static bool GetReplaceFunction(Collection<CustomAttribute> CustomAttributes, out System.Type type, out string fieldName)

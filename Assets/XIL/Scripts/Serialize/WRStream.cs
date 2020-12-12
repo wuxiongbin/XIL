@@ -105,6 +105,14 @@ namespace wxb
             mBuffer = bytes;
         }
 
+        public void Reset(byte[] bytes)
+        {
+            mSize = bytes.Length;
+            mBuffer = bytes;
+            mReadPos = 0;
+            mWritePos = 0;
+        }
+
         public byte[] GetBytes()
         {
             byte[] bytes = new byte[WritePos - ReadPos];

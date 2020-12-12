@@ -85,7 +85,18 @@ namespace wxb.Editor
             return GetTypeNameSpace(type.DeclaringType);
         }
 
+        static Dictionary<System.Type, string> typeNames = new Dictionary<System.Type, string>();
         static string GetTypeName(System.Type type)
+        {
+            if (!typeNames.TryGetValue(type, out var name))
+            {
+                typeNames.Add(type, name = GetTypeNameImp(type));
+            }
+
+            return name;
+        }
+
+        static string GetTypeNameImp(System.Type type)
         {
             if (type.IsArray)
                 return $"{GetTypeName(type.GetElementType())}[]";
@@ -97,7 +108,7 @@ namespace wxb.Editor
             }
             else
             {
-                return type.FullName;
+                return AutoRegILType.GetClassRealClsName(type);
             }
         }
 
@@ -109,16 +120,6 @@ namespace wxb.Editor
             var isFoldout = false;
             if (!isFoldouts.TryGetValue(hashcode, out isFoldout))
                 isFoldouts.Add(hashcode, isFoldout);
-
-            var elementName = elementType.FullName;
-            {
-                var ns = GetTypeNameSpace(elementType);
-                if (!string.IsNullOrEmpty(ns))
-                    elementName = elementName.Substring(ns.Length + 1);
-
-                if (elementName.IndexOf('/') != -1)
-                    elementName = elementName.Replace("/", ".");
-            }
 
             isFoldout = EditorGUILayout.Foldout(isFoldout, $"{GetTypeName(type)} {label}");
             isFoldouts[hashcode] = isFoldout;

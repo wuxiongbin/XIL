@@ -149,7 +149,7 @@ namespace PackTool
         public static void BufOpen()
         {
             OpenHotMacro.BufOpen();
-            OpenHotPDBMacro.BufCannel();
+            OpenHotPDBMacro.BufOpen();
             SetEnable(true, marco, path);
         }
     }

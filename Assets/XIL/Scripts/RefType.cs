@@ -13,15 +13,6 @@
             instance = null;
         }
 
-        public RefType(string fullType, object param)
-        {
-            this.fullType = fullType;
-            type = IL.Help.GetTypeByFullName(fullType);
-
-            if (type != null)
-                instance = IL.Help.CreateInstaince(type, param);
-        }
-
         public RefType(string fullType)
         {
             this.fullType = fullType;
@@ -70,6 +61,7 @@
        
         public object Instance { get { return instance; } }
         public System.Type Type { get { return type; } }
+        public string FullName { get { return fullType; } }
 
         public void SetInstance(object instance)
         {
@@ -287,7 +279,11 @@
             }
             catch (System.Exception ex)
             {
-                wxb.L.LogErrorFormat("TrySetProperty type:{0} name:{1}", type.Name, name);
+                wxb.L.LogErrorFormat("TrySetProperty type:{0} name:{1} type:{2} propertyType:{3}", 
+                    type.Name, 
+                    name, 
+                    value == null ? "null" : value.GetType().FullName,
+                    propertyInfo.PropertyType.FullName);
                 wxb.L.LogException(ex);
             }
         }
@@ -298,10 +294,10 @@
         static void RefTypeOpt()
         {
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.AppendFormatLine("namespace wxb");
-            sb.AppendFormatLine("{{");
-            sb.AppendFormatLine("    public partial class RefType");
-            sb.AppendFormatLine("    {{");
+            sb.AppendLine("namespace wxb");
+            sb.AppendLine("{");
+            sb.AppendLine("    public partial class RefType");
+            sb.AppendLine("    {");
 
             Name(sb, "InvokeMethod", false);
             sb.AppendLine();
@@ -312,8 +308,8 @@
             Name(sb, "TryInvokeMethodReturn", true);
             sb.AppendLine();
 
-            sb.AppendFormatLine("    }}");
-            sb.AppendFormatLine("}}");
+            sb.AppendLine("    }");
+            sb.AppendLine("}");
 
             string filename = "Assets/XIL/Scripts/RefType_InvokeMethod.cs";
             if (System.IO.File.Exists(filename))
@@ -329,16 +325,16 @@
             {
                 if (i == 0)
                 {
-                    sb.AppendFormatLine("        public {0} {1}(string name)", isReturn ? "object" : "void", name);
-                    sb.AppendFormatLine("        {{");
-                    sb.AppendFormatLine("            using (var obj = new global::IL.EmptyObjs())");
-                    sb.AppendFormatLine("            {{");
+                    sb.AppendLine(string.Format("        public {0} {1}(string name)", isReturn ? "object" : "void", name));
+                    sb.AppendLine("        {");
+                    sb.AppendLine("            using (var obj = new global::IL.EmptyObjs())");
+                    sb.AppendLine("            {");
                     if (isReturn)
-                        sb.AppendFormatLine("                return {0}(name, obj.objs);", name);
+                        sb.AppendLine(string.Format("                return {0}(name, obj.objs);", name));
                     else
-                        sb.AppendFormatLine("                {0}(name, obj.objs);", name);
-                    sb.AppendFormatLine("            }}");
-                    sb.AppendFormatLine("        }}");
+                        sb.AppendLine(string.Format("                {0}(name, obj.objs);", name));
+                    sb.AppendLine("            }");
+                    sb.AppendLine("        }");
                 }
                 else
                 {
@@ -349,7 +345,7 @@
                     }
                     sb.AppendLine(")");
 
-                    sb.AppendFormatLine("        {{");
+                    sb.AppendLine("        {");
                     sb.AppendFormat("            using (var obj = new global::IL.Objects(");
                     for (int j = 0; j < i; ++j)
                     {
@@ -360,14 +356,14 @@
                     }
                     sb.AppendLine("))");
 
-                    sb.AppendFormatLine("            {{");
+                    sb.AppendLine("            {");
                     if (isReturn)
-                        sb.AppendFormatLine("                return {0}(name, obj.objs);", name);
+                        sb.AppendLine(string.Format("                return {0}(name, obj.objs);", name));
                     else
-                        sb.AppendFormatLine("                {0}(name, obj.objs);", name);
+                        sb.AppendLine(string.Format("                {0}(name, obj.objs);", name));
 
-                    sb.AppendFormatLine("            }}");
-                    sb.AppendFormatLine("        }}");
+                    sb.AppendLine("            }");
+                    sb.AppendLine("        }");
                 }
             }
         }

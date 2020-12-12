@@ -159,6 +159,7 @@ namespace wxb.IL.Editor
             if (wxb.Editor.TypeEditor.OnGUI(instance))
             {
                 EditorUtility.SetDirty(behaviour);
+                EditorUtility.SetDirty(behaviour.gameObject);
                 RegisterCompleteObjectUndo();
             }
         }

@@ -28,6 +28,15 @@ namespace wxb
 
     }
 
+    // 类型引用
+    public class CSharpAgent : System.Attribute
+    {
+        public CSharpAgent()
+        {
+
+        }
+    }
+
     public static class BinarySerializable
     {
         static Dictionary<string, ITypeSerialize> AllTypes = new Dictionary<string, ITypeSerialize>();
@@ -146,8 +155,16 @@ namespace wxb
                     }
                     else
                     {
-                        List<FieldInfo> fieldinfos = Help.GetSerializeField(type);
-                        ts = new AnyTypeSerialize(type, fieldinfos);
+                        atts = type.GetCustomAttributes(typeof(CSharpAgent), false);
+                        if (atts != null && atts.Length > 0)
+                        {
+                            ts = new CSharpAgentSerialize(type);
+                        }
+                        else
+                        {
+                            List<FieldInfo> fieldinfos = Help.GetSerializeField(type);
+                            ts = new AnyTypeSerialize(type, fieldinfos);
+                        }
                     }
                 }
             }
@@ -222,8 +239,17 @@ namespace wxb
                 if (RefTypes.TryGetValue(fieldInfo, out var ts))
                     return ts;
 
-                ts = new RefTypeSerialize(IL.Help.GetTypeByFullName(fieldInfo.GetCustomAttribute<ILSerializable>().typeName));
-                RefTypes.Add(fieldInfo, ts);
+                var att = fieldInfo.GetCustomAttribute<ILSerializable>();
+                if (att != null)
+                {
+                    ts = new RefTypeSerialize(Help.GetTypeByFullName(att.typeName));
+                    RefTypes.Add(fieldInfo, ts);
+                }
+                else
+                {
+                    return AnyRefTypeSerialize.instance;
+                }
+
                 return ts;
             }
 
@@ -242,6 +268,36 @@ namespace wxb
             var stream = new WRStream(512);
             GetByInstance(obj).WriteTo(obj, stream);
             return stream;
+        }
+
+        public static IStream WriteTo(object obj, IStream stream)
+        {
+            GetByInstance(obj).WriteTo(obj, stream);
+            return stream;
+        }
+
+        public static IStream WriteTo(System.Type type, object obj, IStream stream)
+        {
+            GetByType(type).WriteTo(obj, stream);
+            return stream;
+        }
+
+        public static object MergeFrom(System.Type type, object obj, IStream stream)
+        {
+            if (stream == null || stream.ReadSize == 0)
+                return obj;
+
+            try
+            {
+                var ts = GetByType(type);
+                ts.MergeFrom(ref obj, stream);
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogException(ex);
+            }
+
+            return obj;
         }
 
         public static void MergeFrom(object obj, IStream stream)

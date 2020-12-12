@@ -272,7 +272,12 @@
             foreach (var itor in hotMgr.appdomain.LoadedTypes)
 #endif
             {
-                AllTypesByFullName.Add(itor.Key, itor.Value.ReflectionType);
+                string name = itor.Key;
+                AllTypesByFullName.Add(name, itor.Value.ReflectionType);
+#if USE_HOT
+                if (name.IndexOf('/') != -1)
+                    AllTypesByFullName.Add(name.Replace('/', '+'), itor.Value.ReflectionType);
+#endif
             }
 
             Reg<int>();
@@ -424,10 +429,26 @@
             if (AllTypesByFullName.TryGetValue(name, out type))
                 return true;
 
+#if USE_HOT
+            ILRuntime.Runtime.Enviorment.AppDomain appDomain;
+#if UNITY_EDITOR
+            appDomain = DllInitByEditor.appdomain;
+#else
+            appDomain = hotMgr.appdomain;
+#endif
+            var ilType = appDomain.GetType(name);
+            if (ilType == null)
+                return false;
+
+            type = GetRealType(ilType.ReflectionType);
+            AllTypesByFullName.Add(name, type);
+            return true;
+#else
             return false;
+#endif
         }
 
-        public static System.Type GetTypeByFullName(string name)
+        public static void RegType(System.Type type)
         {
 #if USE_HOT && UNITY_EDITOR
             if (AllTypesByFullName.Count == 0)
@@ -435,11 +456,15 @@
                 var app = DllInitByEditor.appdomain;
             }
 #endif
-            System.Type t = null;
-            if (AllTypesByFullName.TryGetValue(name, out t))
-                return t;
+            AllTypesByFullName.Add(type.FullName, type);
+        }
 
-            wxb.L.LogErrorFormat("type:{0} not find!", name);
+        public static System.Type GetTypeByFullName(string name)
+        {
+            if (TryGetTypeByFullName(name, out var type))
+                return type;
+
+            L.LogErrorFormat("type:{0} not find!", name);
             return null;
         }
 
@@ -540,12 +565,6 @@
         static void GetFieldsByType(System.Type type, List<FieldInfo> fieldInfos)
         {
             GetFieldsByType(type, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, fieldInfos);
-            var bt = type.BaseType;
-            while (bt != null && bt != typeof(object))
-            {
-                GetFieldsByType(bt, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.DeclaredOnly, fieldInfos);
-                bt = bt.BaseType;
-            }
         }
 
         static void GetFieldsByType(System.Type type, BindingFlags flags, List<FieldInfo> fieldInfos)
@@ -658,10 +677,10 @@
                 return IsSerializableType(fieldInfo.FieldType, fieldInfo);
             }
 #endif
-            return IsSerializableType(fieldInfo.FieldType, null);
+            return IsSerializableType(fieldInfo.FieldType, fieldInfo);
         }
 
-        static System.Type GetRealType(System.Type type)
+        public static System.Type GetRealType(System.Type type)
         {
 #if USE_HOT
             if (type is ILRuntimeWrapperType)
@@ -779,7 +798,9 @@
             }
 
             if (!type.IsSerializable)
+            {
                 return false;
+            }
 
             if (type.IsInterface || type.IsAbstract)
             {

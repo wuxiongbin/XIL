@@ -615,7 +615,7 @@ namespace ILRuntime.CLR.TypeSystem
                                 baseType = adaptor;
                             }
                             else
-                                throw new TypeLoadException("Cannot find Adaptor for:" + baseType.TypeForCLR.ToString());
+                                throw new TypeLoadException($"Cannot find Adaptor for:{baseType.TypeForCLR.ToString()} type:{definition.FullName}");
                             //继承了其他系统类型
                             //env.logger.Log_Error("ScriptType:" + Name + " Based On a SystemType:" + BaseType.Name);
                             //HasSysBase = true;

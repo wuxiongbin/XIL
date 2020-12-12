@@ -39,6 +39,22 @@ namespace wxb.IL.Editor
                 });
         }
 
+        //[MenuItem("Assets/IL/脚本宏")]
+        static void AddILMarco()
+        {
+            var ilruntime = "!USE_HOT";
+            AddMarco("Assets/Scripts/Logic/", (file) => 
+            {
+                if (file.StartsWith("Assets/Scripts/Logic/Config/Sources/"))
+                    return null;
+
+                if (file.StartsWith("Assets/Scripts/Logic/NetProto/"))
+                    return null;
+
+                return ilruntime;
+            });
+        }
+
         static void AddMarco(string assetPath, System.Func<string, string> fun)
         {
             HelpEditor.ForEach(assetPath, (AssetImporter importer) =>
@@ -47,13 +63,18 @@ namespace wxb.IL.Editor
                 if (string.IsNullOrEmpty(marco))
                     return;
 
-                string start = string.Format("#if {0}\r", marco);
-                string file_text = File.ReadAllText(importer.assetPath);
-                if (file_text.StartsWith(start))
-                    return;
-
-                string text = string.Format("{0}{1}\r#endif", start, file_text);
-                File.WriteAllText(importer.assetPath, text);
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.AppendLine($"#if {marco}");
+                {
+                    string start = sb.ToString();
+                    string file_text = File.ReadAllText(importer.assetPath);
+                    if (file_text.StartsWith(start))
+                        return;
+                    sb.Append(file_text);
+                    sb.AppendLine();
+                }
+                sb.Append($"#endif");
+                File.WriteAllText(importer.assetPath, sb.ToString(), System.Text.Encoding.UTF8);
             },
             (string file, string root) =>
             {

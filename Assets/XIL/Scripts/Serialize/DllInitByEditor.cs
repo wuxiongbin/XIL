@@ -56,12 +56,7 @@ namespace wxb
             Release();
 
             appdomain_ = new AppDomain();
-            appdomain.RegisterCrossBindingAdaptor(new CoroutineAdapter());
-            System.Type clrType = System.Type.GetType("ILRuntime.Runtime.Generated.CLRBindings");
-            if (clrType != null)
-                clrType.GetMethod("Initialize").Invoke(null, new object[] { appdomain });
-
-            ILRuntime.Runtime.Generated.UnityEngine_Debug_Binding.Register(appdomain);
+            hotMgr.RegDelegate(appdomain_);
             try
             {
                 var fs = ReadFile("Data/DyncDll.dll");
@@ -80,7 +75,6 @@ namespace wxb
                 wxb.L.LogException(ex);
             }
 
-            hotMgr.RegDelegate(appdomain_);
             wxb.IL.Help.Init();
         }
     }

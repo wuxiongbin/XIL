@@ -54,9 +54,13 @@ namespace wxb
                 return;
             }
 
-            stream.WriteByte(1);
+            var cnt = fieldInfos.Count;
+            stream.WriteByte(cnt == 0 ? (byte)1 : (byte)2);
+            if (cnt == 0)
+                return;
+
             ITypeSerialize ts = this;
-            for (int i = 0; i < fieldInfos.Count; ++i)
+            for (int i = 0; i < cnt; ++i)
             {
                 var field = fieldInfos[i];
                 object cv = field.GetValue(value);
@@ -86,6 +90,9 @@ namespace wxb
             {
                 value = IL.Help.Create(type);
             }
+
+            if (flag == 1)
+                return;
 
             do
             {

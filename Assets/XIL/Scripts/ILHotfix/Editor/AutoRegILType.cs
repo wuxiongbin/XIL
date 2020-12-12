@@ -189,9 +189,18 @@
             if (NoExports.Contains(type))
                 return false;
 
-            var ns = type.Namespace;
-            if (!string.IsNullOrEmpty(ns) && ns.StartsWith("ILRuntime"))
+            if (IsHotType(type))
                 return false;
+
+            if (IsEditorType(type))
+                return false;
+
+            string ns = type.Namespace;
+            if (!string.IsNullOrEmpty(ns))
+            {
+                if (ns.StartsWith("ILRuntime"))
+                    return false;
+            }
 
             return true;
         }

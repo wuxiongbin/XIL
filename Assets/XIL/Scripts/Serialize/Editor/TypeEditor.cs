@@ -145,6 +145,12 @@ namespace wxb.Editor
                 return new SmartEditor(type, new AnyType(type, IL.Help.GetSerializeField(type)));
             }
 
+            atts = type.GetCustomAttributes(typeof(CSharpAgent), false);
+            if (atts != null && atts.Length > 0)
+            {
+                return new CSharpAgentType(type);
+            }
+
 #if USE_HOT
             ILRuntimeFieldInfo ilFieldInfo = fieldInfo as ILRuntimeFieldInfo;
             if (ilFieldInfo != null && (type.IsArray || IL.Help.isListType(type)))

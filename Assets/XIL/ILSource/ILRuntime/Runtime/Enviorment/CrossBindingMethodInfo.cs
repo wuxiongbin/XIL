@@ -70,7 +70,9 @@ namespace ILRuntime.Runtime.Enviorment
                 return res;
             }
             else
-                return default(TResult);
+            {
+                throw new Exception($"type:{instance.Type.FullName} method:{Name} not find!");
+            }
         }
 
         public override void Invoke(ILTypeInstance instance)
@@ -137,7 +139,9 @@ namespace ILRuntime.Runtime.Enviorment
                 return res;
             }
             else
-                return default(TResult);
+            {
+                throw new Exception($"type:{instance.Type.FullName} method:{Name} not find!");
+            }
         }
 
         public override void Invoke(ILTypeInstance instance)
@@ -202,7 +206,9 @@ namespace ILRuntime.Runtime.Enviorment
                 return res;
             }
             else
-                return default(TResult);
+            {
+                throw new Exception($"type:{instance.Type.FullName} method:{Name} not find!");
+            }
         }
 
         public override void Invoke(ILTypeInstance instance)
@@ -265,7 +271,9 @@ namespace ILRuntime.Runtime.Enviorment
                 return res;
             }
             else
-                return default(TResult);
+            {
+                throw new Exception($"type:{instance.Type.FullName} method:{Name} not find!");
+            }
         }
 
         public override void Invoke(ILTypeInstance instance)
@@ -326,7 +334,9 @@ namespace ILRuntime.Runtime.Enviorment
                 return res;
             }
             else
-                return default(TResult);
+            {
+                throw new Exception($"type:{instance.Type.FullName} method:{Name} not find!");
+            }
         }
 
         public override void Invoke(ILTypeInstance instance)
@@ -379,7 +389,9 @@ namespace ILRuntime.Runtime.Enviorment
                 return res;
             }
             else
-                return default(TResult);
+            {
+                throw new Exception($"type:{instance.Type.FullName} method:{Name} not find!");
+            }
         }
     }
     #endregion
@@ -439,6 +451,10 @@ namespace ILRuntime.Runtime.Enviorment
                 {
                     invoking = false;
                 }
+            }
+            else
+            {
+                throw new Exception($"type:{instance.Type.FullName} method:{Name} not find!");
             }
         }
 
@@ -501,6 +517,10 @@ namespace ILRuntime.Runtime.Enviorment
                     invoking = false;
                 }
             }
+            else
+            {
+                throw new Exception($"type:{instance.Type.FullName} method:{Name} not find!");
+            }
         }
 
         public override void Invoke(ILTypeInstance instance)
@@ -560,6 +580,10 @@ namespace ILRuntime.Runtime.Enviorment
                     invoking = false;
                 }
             }
+            else
+            {
+                throw new Exception($"type:{instance.Type.FullName} method:{Name} not find!");
+            }
         }
 
         public override void Invoke(ILTypeInstance instance)
@@ -618,6 +642,10 @@ namespace ILRuntime.Runtime.Enviorment
                     invoking = false;
                 }
             }
+            else
+            {
+                throw new Exception($"type:{instance.Type.FullName} method:{Name} not find!");
+            }
         }
 
         public override void Invoke(ILTypeInstance instance)
@@ -668,6 +696,10 @@ namespace ILRuntime.Runtime.Enviorment
                 {
                     invoking = false;
                 }
+            }
+            else
+            {
+                throw new Exception($"type:{instance.Type.FullName} method:{Name} not find!");
             }
         }
 
@@ -752,6 +784,10 @@ namespace ILRuntime.Runtime.Enviorment
                 invoking = true;
                 domain.Invoke(method, instance, null);
                 invoking = false;
+            }
+            else
+            {
+                throw new Exception($"type:{instance.Type.FullName} method:{Name} not find!");
             }
         }
     }
