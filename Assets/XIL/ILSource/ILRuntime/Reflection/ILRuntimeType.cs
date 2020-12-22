@@ -218,7 +218,13 @@ namespace ILRuntime.Reflection
         {
             if (customAttributes == null)
                 InitializeCustomAttribute();
-
+            if (inherit && BaseType != null)
+            {
+                List<object> result = new List<object>();
+                result.AddRange(customAttributes);
+                result.AddRange(BaseType.GetCustomAttributes(inherit));
+                return result.ToArray();
+            }
             return customAttributes;
         }
 
@@ -227,10 +233,14 @@ namespace ILRuntime.Reflection
             if (customAttributes == null)
                 InitializeCustomAttribute();
             List<object> res = new List<object>();
-            for(int i = 0; i < customAttributes.Length; i++)
+            for (int i = 0; i < customAttributes.Length; i++)
             {
                 if (attributeTypes[i].Equals((object)attributeType))
                     res.Add(customAttributes[i]);
+            }
+            if (inherit && BaseType != null)
+            {
+                res.AddRange(BaseType.GetCustomAttributes(attributeType, inherit));
             }
             return res.ToArray();
         }

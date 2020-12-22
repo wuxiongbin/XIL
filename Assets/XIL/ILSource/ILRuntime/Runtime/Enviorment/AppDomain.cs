@@ -67,7 +67,7 @@ namespace ILRuntime.Runtime.Enviorment
         /// </summary>
         public bool AllowUnboundCLRMethod { get; set; }
 
-#if DEBUG && (UNITY_EDITOR || UNITY_ANDROID || UNITY_IPHONE)
+#if DEBUG && !NO_PROFILER
         public int UnityMainThreadID { get; set; }
         public bool IsNotUnityMainThread()
         {
@@ -83,6 +83,8 @@ namespace ILRuntime.Runtime.Enviorment
             loadedAssemblies = System.AppDomain.CurrentDomain.GetAssemblies();
             var mi = typeof(System.Runtime.CompilerServices.RuntimeHelpers).GetMethod("InitializeArray");
             RegisterCLRMethodRedirection(mi, CLRRedirections.InitializeArray);
+            mi = typeof(AppDomain).GetMethod("GetCurrentStackTrace");
+            RegisterCLRMethodRedirection(mi, CLRRedirections.GetCurrentStackTrace);
             foreach (var i in typeof(System.Activator).GetMethods())
             {
                 if (i.Name == "CreateInstance" && i.IsGenericMethodDefinition)
@@ -158,6 +160,10 @@ namespace ILRuntime.Runtime.Enviorment
                 {
                     RegisterCLRMethodRedirection(i, CLRRedirections.EnumHasFlag);
                 }
+                if(i.Name == "CompareTo")
+                {
+                    RegisterCLRMethodRedirection(i, CLRRedirections.EnumCompareTo);
+                }
 #endif
                 if (i.Name == "ToObject" && i.GetParameters()[1].ParameterType == typeof(int))
                 {
@@ -228,6 +234,11 @@ namespace ILRuntime.Runtime.Enviorment
                     fs.Dispose();
                 }
             }
+        }
+
+        public string GetCurrentStackTrace()
+        {
+            throw new NotSupportedException("Cannot call this method from CLR side");
         }
 
 #if USE_MDB || USE_PDB
@@ -550,7 +561,13 @@ namespace ILRuntime.Runtime.Enviorment
                     KeyValuePair<string, IType>[] genericArguments = new KeyValuePair<string, IType>[genericParams.Count];
                     for (int i = 0; i < genericArguments.Length; i++)
                     {
-                        string key = "!" + i;
+                        string key = null;
+                        if(bt is ILType ilt)
+                        {
+                            key = ilt.TypeDefinition.GenericParameters[i].FullName;
+                        }
+                        else
+                            key = "!" + i;
                         IType val = GetType(genericParams[i]);
                         if (val == null)
                             return null;
@@ -681,7 +698,7 @@ namespace ILRuntime.Runtime.Enviorment
                                 name = name.Substring(1, name.Length - 2);
                             if (!string.IsNullOrEmpty(name))
                                 genericParams.Add(name);
-                            else if (!string.IsNullOrEmpty(name))
+                            else if (!string.IsNullOrEmpty(baseType))
                             {
                                 if (!isArray)
                                 {

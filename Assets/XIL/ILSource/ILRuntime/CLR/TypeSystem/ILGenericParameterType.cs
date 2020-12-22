@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+﻿#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,8 @@ namespace ILRuntime.CLR.TypeSystem
     class ILGenericParameterType : IType
     {
         string name;
-        ILGenericParameterType arrayType;
+        bool isArray, isByRef;
+        ILGenericParameterType arrayType, byrefType, elementType;
         public ILGenericParameterType(string name)
         {
             this.name = name;
@@ -34,7 +36,7 @@ namespace ILRuntime.CLR.TypeSystem
         {
             get
             {
-                return true;
+                return !isByRef && !isArray; 
             }
         }
 
@@ -103,11 +105,17 @@ namespace ILRuntime.CLR.TypeSystem
 
         public IType ByRefType
         {
-            get { throw new NotImplementedException(); }
+            get { return byrefType; }
         }
 
         public IType MakeByRefType()
         {
+            if (byrefType == null)
+            {
+                byrefType = new ILGenericParameterType(name + "&");
+                byrefType.isByRef = true;
+                byrefType.elementType = this;
+            }
             return this;
         }
 
@@ -120,7 +128,11 @@ namespace ILRuntime.CLR.TypeSystem
         public IType MakeArrayType(int rank)
         {
             if (arrayType == null)
+            {
                 arrayType = new ILGenericParameterType(name + "[]");
+                arrayType.isArray = true;
+                arrayType.elementType = this;
+            }
             return arrayType;
         }
 
@@ -182,7 +194,7 @@ namespace ILRuntime.CLR.TypeSystem
 
         public bool IsArray
         {
-            get { return false; }
+            get { return isArray; }
         }
 
         public bool IsByRef
@@ -197,7 +209,7 @@ namespace ILRuntime.CLR.TypeSystem
         {
             get
             {
-                return null;
+                return elementType;
             }
         }
 
@@ -215,4 +227,5 @@ namespace ILRuntime.CLR.TypeSystem
         }
     }
 }
-#endif
+
+#endif
