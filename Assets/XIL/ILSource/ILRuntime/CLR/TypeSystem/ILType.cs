@@ -452,6 +452,20 @@ namespace ILRuntime.CLR.TypeSystem
             }
         }
 
+        public string FullNameForNested
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(fullNameForNested))
+                {
+                    var f = FullName;
+                }
+
+                return fullNameForNested;
+            }
+        }
+
+
         string fullName, fullNameForNested;
         public string FullName
         {
@@ -735,7 +749,7 @@ namespace ILRuntime.CLR.TypeSystem
                 if (method.DeclearingType is ILType)
                 {
                     ILType iltype = (ILType)method.DeclearingType;
-                    m = GetMethod(string.Format("{0}.{1}", iltype.fullNameForNested, method.Name), method.Parameters, genericArguments, method.ReturnType, true);
+                    m = GetMethod(string.Format("{0}.{1}", iltype.FullNameForNested, method.Name), method.Parameters, genericArguments, method.ReturnType, true);
                 }
                 else
                     m = GetMethod(string.Format("{0}.{1}", method.DeclearingType.FullName, method.Name), method.Parameters, genericArguments, method.ReturnType, true);
