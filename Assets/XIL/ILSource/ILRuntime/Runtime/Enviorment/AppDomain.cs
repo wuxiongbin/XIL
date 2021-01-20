@@ -539,8 +539,8 @@ namespace ILRuntime.Runtime.Enviorment
             string baseType;
             List<string> genericParams;
             bool isArray;
-
-            ParseGenericType(fullname, out baseType, out genericParams, out isArray);
+            byte rank;
+            ParseGenericType(fullname, out baseType, out genericParams, out isArray, out rank);
 
 
             bool isByRef = baseType.EndsWith("&");
@@ -562,7 +562,7 @@ namespace ILRuntime.Runtime.Enviorment
                     for (int i = 0; i < genericArguments.Length; i++)
                     {
                         string key = null;
-                        if(bt is ILType ilt)
+                        if (bt is ILType ilt)
                         {
                             key = ilt.TypeDefinition.GenericParameters[i].FullName;
                         }
@@ -591,7 +591,7 @@ namespace ILRuntime.Runtime.Enviorment
                             /*if (genericParams[i].Contains(","))
                                 sb.Append(genericParams[i].Substring(0, genericParams[i].IndexOf(',')));
                             else*/
-                                sb.Append(genericParams[i]);
+                            sb.Append(genericParams[i]);
                         }
                         sb.Append('>');
                         var asmName = sb.ToString();
@@ -602,7 +602,7 @@ namespace ILRuntime.Runtime.Enviorment
 
                 if (isArray)
                 {
-                    bt = bt.MakeArrayType(1);
+                    bt = bt.MakeArrayType(rank);
                     if (bt is CLRType)
                         clrTypeMapping[bt.TypeForCLR] = bt;
                     mapType[bt.FullName] = bt;
@@ -650,15 +650,17 @@ namespace ILRuntime.Runtime.Enviorment
             return null;
         }
 
-        internal static void ParseGenericType(string fullname, out string baseType, out List<string> genericParams, out bool isArray)
+        internal static void ParseGenericType(string fullname, out string baseType, out List<string> genericParams, out bool isArray, out byte rank)
         {
             StringBuilder sb = new StringBuilder();
             int depth = 0;
+            rank = 0;
             baseType = "";
             genericParams = null;
             if (fullname.Length > 2 && fullname.Substring(fullname.Length - 2) == "[]")
             {
                 fullname = fullname.Substring(0, fullname.Length - 2);
+                rank = 1;
                 isArray = true;
             }
             else
@@ -685,6 +687,8 @@ namespace ILRuntime.Runtime.Enviorment
                             name = name.Substring(1, name.Length - 2);
                         if (!string.IsNullOrEmpty(name))
                             genericParams.Add(name);
+                        else
+                            ++rank;
                         sb.Length = 0;
                         continue;
                     }
@@ -703,6 +707,7 @@ namespace ILRuntime.Runtime.Enviorment
                                 if (!isArray)
                                 {
                                     isArray = true;
+                                    ++rank;
                                 }
                                 else
                                 {

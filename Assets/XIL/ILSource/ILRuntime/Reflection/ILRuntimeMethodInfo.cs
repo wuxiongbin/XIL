@@ -167,7 +167,7 @@ namespace ILRuntime.Reflection
         {
             get
             {
-                return method.ReturnType.ReflectionType;
+                return method.ReturnType?.ReflectionType;
             }
         }
     }
