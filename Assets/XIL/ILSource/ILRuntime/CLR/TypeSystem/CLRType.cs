@@ -480,8 +480,10 @@ namespace ILRuntime.CLR.TypeSystem
             constructors = new List<CLRMethod>();
             foreach (var i in clrType.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static))
             {
-                if (i.IsPrivate)
-                    continue;
+                // 私有变量也处理下，主要为了在XIL当中，热更修复函数，经常会访问私有变量私有函数等
+                // 这里注释下，可以在原工程中修改下保护类型，再写热脚本，逻辑处理正常
+                //if (i.IsPrivate)
+                //    continue;
                 List<CLRMethod> lst;
                 if (!methods.TryGetValue(i.Name, out lst))
                 {
@@ -540,7 +542,9 @@ namespace ILRuntime.CLR.TypeSystem
             {
                 int hashCode = i.GetHashCode();
 
-                if (i.IsPublic || i.IsFamily || hasValueTypeBinder)
+                // 增加下私有变量，主要为了在XIL当中，热更修复函数，经常会访问私有变量私有函数等
+                // 这里注释下，可以在原工程中修改下保护类型，再写热脚本，逻辑处理正常
+                if (i.IsPublic || i.IsPrivate || i.IsFamily || hasValueTypeBinder)
                 {
                     fieldMapping[i.Name] = hashCode;
                     fieldInfoCache[hashCode] = i;
