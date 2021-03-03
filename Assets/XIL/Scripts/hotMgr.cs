@@ -639,13 +639,13 @@ namespace wxb
 
         public static bool IsStatic(MethodInfo info)
         {
-#if USE_HOT
-            if (info is ILRuntime.Reflection.ILRuntimeMethodInfo)
-            {
-                var ilMI = info as ILRuntime.Reflection.ILRuntimeMethodInfo;
-                return ilMI.ILMethod.IsStatic;
-            }
-#endif
+//#if USE_HOT
+//            if (info is ILRuntime.Reflection.ILRuntimeMethodInfo)
+//            {
+//                var ilMI = info as ILRuntime.Reflection.ILRuntimeMethodInfo;
+//                return ilMI.IsStatic;
+//            }
+//#endif
             return info.IsStatic;
         }
 

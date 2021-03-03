@@ -157,6 +157,30 @@ namespace ILRuntime.Runtime.Generated
                 }
             }
         }
+        
+        internal class FileNameEqualityComparer : IEqualityComparer<string>
+        {
+            public bool Equals(string x, string y)
+            {
+                // handle null cases first
+                if (x == null)
+                    return (y == null);
+                // x != null
+                else if (y == null)
+                    return false;
+                return x.Equals(y, StringComparison.OrdinalIgnoreCase);
+            }
+
+            public int GetHashCode(string obj)
+            {
+                int hashCode = 0;
+                if (obj != null)
+                {
+                    hashCode = obj.GetHashCode();
+                }
+                return hashCode;
+            }
+        }
 
         public static void GenerateBindingCode(ILRuntime.Runtime.Enviorment.AppDomain domain, string outputPath, 
                                                List<Type> valueTypeBinders = null, List<Type> delegateTypes = null,
@@ -181,6 +205,7 @@ namespace ILRuntime.Runtime.Generated
             HashSet<FieldInfo> excludeFields = null;
             HashSet<string> files = new HashSet<string>();
             List<string> clsNames = new List<string>();
+            FileNameEqualityComparer fileNameEqualityComparer = new FileNameEqualityComparer();
 
             foreach (var info in infos)
             {
@@ -199,10 +224,16 @@ namespace ILRuntime.Runtime.Generated
                 i.GetClassName(out clsName, out realClsName, out isByRef);
                 if (excludeFiles.Contains(clsName))
                     continue;
-                if (clsNames.Contains(clsName))
-                    clsName = clsName + "_t";
-                clsNames.Add(clsName);
-
+                int extraClsNameIndex = 0;
+                string oClsName = clsName;
+                while (clsNames.Contains(oClsName))
+                {
+                    extraClsNameIndex++;
+                    oClsName = clsName + "_t" + extraClsNameIndex;
+                }
+                clsNames.Add(oClsName);
+                clsName = oClsName;
+                
                 //File path length limit
                 string oriFileName = outputPath + "/" + clsName;
                 int len = Math.Min(oriFileName.Length, 100);
@@ -211,7 +242,7 @@ namespace ILRuntime.Runtime.Generated
 
                 int extraNameIndex = 0;
                 string oFileName = oriFileName;
-                while (files.Contains(oFileName))
+                while (files.Contains(oFileName, fileNameEqualityComparer))
                 {
                     extraNameIndex++;
                     oFileName = oriFileName + "_t" + extraNameIndex;
@@ -329,7 +360,9 @@ using System.Reflection;
 namespace ILRuntime.Runtime.Generated
 {
     class CLRBindings
-    {
+    {");
+                sb.Append(SmartBindText);
+                sb.Append(@"
         /// <summary>
         /// Initialize the CLR binding, please invoke this AFTER CLR Redirection registration
         /// </summary>
@@ -733,6 +766,18 @@ namespace ILRuntime.Runtime.Generated
             return clsNames;
         }
 
+
+        static private string SmartBindText = @"
+//will auto register in unity
+#if UNITY_5_3_OR_NEWER
+        [UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.BeforeSceneLoad)]
+#endif
+        static private void RegisterBindingAction()
+        {
+            ILRuntime.Runtime.CLRBinding.CLRBindingUtils.RegisterBindingAction(Initialize);
+        }
+";
+
         internal static void GenerateBindingInitializeScript(List<string> clsNames, List<Type> valueTypeBinders, string outputPath)
         {
             if (!System.IO.Directory.Exists(outputPath))
@@ -749,7 +794,9 @@ using System.Reflection;
 namespace ILRuntime.Runtime.Generated
 {
     class CLRBindings
-    {");
+    {
+");
+                sb.Append(SmartBindText);
 
                 if (valueTypeBinders != null)
                 {
