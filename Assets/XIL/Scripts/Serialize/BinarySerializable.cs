@@ -11,6 +11,7 @@ using ILRuntime.Runtime.Intepreter;
 
 namespace wxb
 {
+    [System.AttributeUsage(AttributeTargets.Class)]
     public class ILSerializable : System.Attribute
     {
         // 类型名
@@ -23,15 +24,26 @@ namespace wxb
     }
 
     // 智能类型
+    [System.AttributeUsage(AttributeTargets.Class)]
     public class SmartAttribute : System.Attribute
     {
 
     }
 
     // 类型引用
+    [System.AttributeUsage(AttributeTargets.Class)]
     public class CSharpAgent : System.Attribute
     {
         public CSharpAgent()
+        {
+
+        }
+    }
+
+    [System.AttributeUsage(AttributeTargets.Enum)]
+    public class EnumString : System.Attribute
+    {
+        public EnumString()
         {
 
         }
@@ -41,6 +53,7 @@ namespace wxb
     {
         static Dictionary<string, ITypeSerialize> AllTypes = new Dictionary<string, ITypeSerialize>();
         static ITypeSerialize unityObjectSerialize = null;
+        static ITypeSerialize objectSerialize = null;
 
         static Dictionary<FieldInfo, ITypeSerialize> RefTypes = new Dictionary<FieldInfo, ITypeSerialize>();
 
@@ -61,6 +74,7 @@ namespace wxb
         static void Init()
         {
             unityObjectSerialize = new UnityObjectSerialize();
+            objectSerialize = new ObjectSerialize();
 
             // int,uint
             Reg(TypeFlags.intType, (value, ms) => { ms.WriteVarInt32(value); }, (ms) => { return ms.ReadVarInt32(); });
@@ -94,6 +108,38 @@ namespace wxb
 
             // bool
             Reg<bool>(TypeFlags.boolType, (value, ms) => { ms.WriteByte(value ? (byte)1 : (byte)0); }, (ms) => { return ms.ReadByte() == 0 ? false : true; });
+
+            Reg<Vector2Int>(TypeFlags.vector2Int, 
+                (value, ms) => 
+                {
+                    ms.WriteInt32(value.x); 
+                    ms.WriteInt32(value.y); 
+                },                 
+                (ms) => 
+                {
+                    Vector2Int vi = new Vector2Int();
+                    vi.x = ms.ReadInt32();
+                    vi.y = ms.ReadInt32();
+
+                    return vi;
+                });
+
+            Reg<Vector3Int>(TypeFlags.vector3Int,
+                (value, ms) =>
+                {
+                    ms.WriteInt32(value.x);
+                    ms.WriteInt32(value.y);
+                    ms.WriteInt32(value.z);
+                },
+                (ms) =>
+                {
+                    Vector3Int vi = new Vector3Int();
+                    vi.x = ms.ReadInt32();
+                    vi.y = ms.ReadInt32();
+                    vi.z = ms.ReadInt32();
+                    
+                    return vi;
+                });
         }
 
         public static void Release()
@@ -116,6 +162,8 @@ namespace wxb
 
             if (Help.isType(type, typeof(UnityEngine.Object)))
                 ts = unityObjectSerialize;
+            else if (type == typeof(object))
+                ts = objectSerialize;
             else
             {
                 if (type.IsEnum)
@@ -123,12 +171,20 @@ namespace wxb
 #if USE_HOT
                     if (type is ILRuntimeType)
                     {
-                        ts = new HotEnumTypeSerialize((ILRuntimeType)type);
+                        var atts = type.GetCustomAttributes(typeof(EnumString), false);
+                        if (atts != null && atts.Length != 0)
+                            ts = new HotEnumStringTypeSerialize(type as ILRuntimeType);
+                        else
+                            ts = new HotEnumTypeSerialize(type as ILRuntimeType);
                     }
                     else
                     {
 #endif
-                        ts = new EnumTypeSerialize(type);
+                        var atts = type.GetCustomAttributes(typeof(EnumString), false);
+                        if (atts != null && atts.Length != 0)
+                            ts = new EnumStringTypeSerialize(type);
+                        else
+                            ts = new EnumTypeSerialize(type);
 #if USE_HOT
                     }
 #endif
@@ -294,7 +350,7 @@ namespace wxb
             }
             catch (System.Exception ex)
             {
-                Debug.LogException(ex);
+                UnityEngine.Debug.LogException(ex);
             }
 
             return obj;

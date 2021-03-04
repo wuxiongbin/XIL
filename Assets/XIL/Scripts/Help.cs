@@ -364,6 +364,7 @@
             AllTypesByFullName.Clear();
             BaseTypes.Clear();
             Caches.Clear();
+            Str2Enum.Release();
 #if UNITY_EDITOR
             BinarySerializable.Release();
             if (on_release_all != null)
@@ -459,6 +460,19 @@
             AllTypesByFullName.Add(type.FullName, type);
         }
 
+        public static string GetTypeFullName(System.Type type)
+        {
+#if USE_HOT
+            if (type.GetType() == typeof(ILRuntimeType))
+            {
+                ILRuntimeType ilrt = type as ILRuntimeType;
+                if (ilrt.ILType.TypeReference.IsNested)
+                    return type.FullName.Replace('/', '+');
+            }
+#endif
+            return type.FullName;
+        }
+
         public static System.Type GetTypeByFullName(string name)
         {
             if (TryGetTypeByFullName(name, out var type))
@@ -503,7 +517,7 @@
                 if (itor.Value.IsInterface)
                     continue;
 
-                var bt = itor.Value.BaseType;
+                var bt = itor.Value;
                 while (bt != null)
                 {
                     if (bt.FullName == baseTypeFullName)
@@ -526,7 +540,7 @@
             if (type == typeof(ILTypeInstance))
                 return ((ILTypeInstance)instance).Type.ReflectionType;
 #endif
-            return type;
+            return GetRealType(instance.GetType());
         }
 
         public static bool HasCustomAttributes(System.Type type, System.Type customAtt)
@@ -734,8 +748,12 @@
                 {
                     if (typeReference.Namespace == "UnityEngine")
                         return true;
-                   
-                    return typeReference.Resolve().IsSerializable;
+
+                    var typeDefinition = typeReference.Resolve();
+                    if (typeDefinition.IsEnum)
+                        return true;
+
+                    return typeDefinition.IsSerializable;
                 }
             }
             catch (System.Exception ex)
@@ -816,6 +834,49 @@
         {
             if (type.IsGenericType && type.GetInterface("System.Collections.IList") != null)
                 return true;
+            return false;
+        }
+
+        public static bool isListType(FieldInfo fieldInfo, System.Type elementType)
+        {
+            if (!isListType(fieldInfo.FieldType))
+                return false;
+#if USE_HOT
+            ILRuntimeFieldInfo ilFieldInfo = fieldInfo as ILRuntimeFieldInfo;
+            if (ilFieldInfo != null)
+            {
+                GenericInstanceType git = ilFieldInfo.Definition.FieldType as GenericInstanceType;
+                if (git.GenericArguments[0].FullName == elementType.FullName)
+                    return true;
+
+                return false;
+            }
+#endif
+            if (fieldInfo.FieldType.GetGenericArguments()[0] == elementType)
+                return true;
+
+            return false;
+        }
+
+        public static bool isArrayType(FieldInfo fieldInfo, System.Type elementType)
+        {
+            var ft = fieldInfo.FieldType;
+            if (!ft.IsArray)
+                return false;
+#if USE_HOT
+            ILRuntimeFieldInfo ilFieldInfo = fieldInfo as ILRuntimeFieldInfo;
+            if (ilFieldInfo != null)
+            {
+                ArrayType arrayType = (ArrayType)ilFieldInfo.Definition.FieldType;
+                if (arrayType.ElementType.FullName == elementType.FullName)
+                    return true;
+
+                return false;
+            }
+#endif
+            if (fieldInfo.FieldType.GetGenericArguments()[0] == elementType)
+                return true;
+
             return false;
         }
 
@@ -1028,10 +1089,20 @@
             if (arrayCount == 1)
             {
                 ILRuntimeType ilrt = elementType as ILRuntimeType;
-                List<ILTypeInstance> list = new List<ILTypeInstance>(count);
-                for (int i = 0; i < count; ++i)
-                    list.Add(new ILTypeInstance(ilrt.ILType));
-                return list;
+                if (elementType.IsEnum)
+                {
+                    List<int> list = new List<int>(count);
+                    for (int i = 0; i < count; ++i)
+                        list.Add(0);
+                    return list;
+                }
+                else
+                {
+                    List<ILTypeInstance> list = new List<ILTypeInstance>(count);
+                    for (int i = 0; i < count; ++i)
+                        list.Add(new ILTypeInstance(ilrt.ILType));
+                    return list;
+                }
             }
             else
             {
@@ -1044,10 +1115,18 @@
             if (arrayCount == 1)
             {
                 ILRuntimeType ilrt = elementType as ILRuntimeType;
-                ILTypeInstance[] list = new ILTypeInstance[count];
-                for (int i = 0; i < count; ++i)
-                    list[i] = new ILTypeInstance(ilrt.ILType);
-                return list;
+                if (elementType.IsEnum)
+                {
+                    int[] list = new int[count];
+                    return list;
+                }
+                else
+                {
+                    ILTypeInstance[] list = new ILTypeInstance[count];
+                    for (int i = 0; i < count; ++i)
+                        list[i] = new ILTypeInstance(ilrt.ILType);
+                    return list;
+                }
             }
             else
             {

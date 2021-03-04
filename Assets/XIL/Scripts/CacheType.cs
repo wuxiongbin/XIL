@@ -34,7 +34,8 @@
             is_default_ctor = true;
             try
             {
-                default_ctor = type.GetConstructor(Flags, null, IL.Help.EmptyType, null);
+                var flags = Flags & ~BindingFlags.Static;
+                default_ctor = type.GetConstructor(flags, null, IL.Help.EmptyType, null);
             }
             catch (System.Exception ex)
             {

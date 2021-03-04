@@ -2,7 +2,7 @@ namespace wxb
 {
     public static class TypeFlags
     {
-        public const byte classType = 0; // 类型
+        public const byte classType = 0; // 绫诲瀷
 
         public const byte intType = 1;
         public const byte uintType = 2;
@@ -18,13 +18,18 @@ namespace wxb
         public const byte DateTimeType = 12;
         public const byte stringType = 13;
         public const byte boolType = 14;
-        public const byte enumType = 15; // 枚举类型
-        public const byte unityObjectType = 20; // unity类型
-        public const byte csharpAgentType = 21; // unity代理类型
-        
-        public const byte arrayType = 100; // 数组标识
-        public const byte dicType = 101; // map类型,key-value键值对
-        public const byte smartType = 200; // 智能类型
-        public const byte anyRefType = 201; // RefType任意类型
+        public const byte enumType = 15; // 鏋氫妇绫诲瀷,鏁村舰瀛樺偍
+        public const byte enumStringType = 16; // 鏋氫妇绫诲瀷锛屽瓧绗︿覆瀛樺偍
+        public const byte vector2Int = 17; // Vector2Int
+        public const byte vector3Int = 18; // Vector3Int
+
+        public const byte unityObjectType = 20; // unity绫诲瀷
+        public const byte csharpAgentType = 21; // unity浠ｇ悊绫诲瀷
+
+        public const byte arrayType = 100; // 鏁扮粍鏍囪瘑
+        public const byte dicType = 101; // map绫诲瀷,key-value閿�煎
+        public const byte smartType = 200; // 鏅鸿兘绫诲瀷
+        public const byte anyRefType = 201; // RefType浠绘剰绫诲瀷
+        public const byte objectType = 202; // object浠绘剰绫诲瀷
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 namespace wxb
 {
     // 通用的组件事件
-    public class BehaviourAction : MonoBehaviour
+    public partial class BehaviourAction : MonoBehaviour
     {
         public System.Action<BehaviourAction, int> OnAnimatorIKAction;
         private void OnAnimatorIK(int layerIndex)

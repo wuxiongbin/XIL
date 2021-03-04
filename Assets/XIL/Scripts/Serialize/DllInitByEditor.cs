@@ -50,7 +50,7 @@ namespace wxb
             return ms;
         }
 
-        [MenuItem("Assets/LoadHotDLL")]
+        [MenuItem("Assets/IL/LoadHotDLL")]
         static void LoadDLL()
         {
             Release();

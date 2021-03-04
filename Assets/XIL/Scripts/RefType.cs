@@ -22,6 +22,15 @@
                 instance = IL.Help.CreateInstaince(type, null);
         }
 
+        public RefType(string fullType, object param)
+        {
+            this.fullType = fullType;
+            type = IL.Help.GetTypeByFullName(fullType);
+
+            if (type != null)
+                instance = IL.Help.CreateInstaince(type, param);
+        }
+
         public RefType(System.Type type)
         {
             this.type = type;

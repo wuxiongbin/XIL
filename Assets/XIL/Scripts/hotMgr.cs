@@ -447,6 +447,7 @@ namespace wxb
                 appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance>();
                 appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Boolean>();
                 appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Int32>();
+                appdomain.DelegateManager.RegisterFunctionDelegate<System.Linq.IGrouping<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>, System.Linq.IGrouping<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>>();
                 appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<ILRuntime.Runtime.Intepreter.ILTypeInstance>>((act) =>
                 {
                     return new System.Comparison<ILRuntime.Runtime.Intepreter.ILTypeInstance>((x, y) =>
@@ -489,6 +490,8 @@ namespace wxb
             appdomain.DelegateManager.RegisterFunctionDelegate<System.IO.BinaryReader, string>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.IO.BinaryReader, long>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.IO.BinaryReader, uint>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<ILTypeInstance, ILTypeInstance, List<ILTypeInstance>>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Action, System.String, System.Boolean>();
         }
 
         static bool GetReplaceFunction(Collection<CustomAttribute> CustomAttributes, out System.Type type, out string fieldName)
@@ -643,7 +646,7 @@ namespace wxb
 //            if (info is ILRuntime.Reflection.ILRuntimeMethodInfo)
 //            {
 //                var ilMI = info as ILRuntime.Reflection.ILRuntimeMethodInfo;
-//                return ilMI.IsStatic;
+//                return ilMI.ILMethod.IsStatic;
 //            }
 //#endif
             return info.IsStatic;

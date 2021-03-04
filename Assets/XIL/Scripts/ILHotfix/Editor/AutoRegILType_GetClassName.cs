@@ -261,6 +261,7 @@ namespace AutoIL
 }}
 " + "#endif";
 
+#if USE_HOT
         static void DelegateAdapter(DelegateKey key, SB SB, string suffix, System.Action<System.Text.StringBuilder> onfun)
         {
             System.Text.StringBuilder sb = null;
@@ -320,5 +321,6 @@ namespace AutoIL
             sb.Append("();");
             sb.AppendLine();
         }
+#endif
     }
 }

@@ -1,4 +1,5 @@
-﻿namespace wxb
+﻿#if USE_HOT
+namespace wxb
 {
     using System.Reflection;
     using System.Collections.Generic;
@@ -99,3 +100,4 @@
         }
     }
 }
+#endif

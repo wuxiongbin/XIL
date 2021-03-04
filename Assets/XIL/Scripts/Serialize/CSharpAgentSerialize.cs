@@ -80,7 +80,14 @@ namespace wxb
                 }
             }
 
-            unity_fieldInfo.SetValue(parent, unity);
+            try
+            {
+                unity_fieldInfo.SetValue(parent, unity);
+            }
+            catch (System.Exception ex)
+            {
+                L.LogException(ex);
+            }
         }
 
         // 判断两个值是否相等

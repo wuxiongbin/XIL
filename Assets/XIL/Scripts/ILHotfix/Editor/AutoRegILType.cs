@@ -1,4 +1,5 @@
-﻿namespace wxb
+﻿#if USE_HOT
+namespace wxb
 {
     using System.Reflection;
     using System.Collections.Generic;
@@ -178,6 +179,9 @@
                 return false;
 
             if (type == typeof(System.UIntPtr))
+                return false;
+
+            if (type.IsPointer)
                 return false;
 
             if (!IsPublic(type))
@@ -488,6 +492,13 @@
                     BuildType(p.PropertyType, hotTypes, csharpDelegate, Checks);
                 }
 
+                // 模版类型，转换为对应的运行时热更类型
+                {
+                    var t = ToHotGenericType(type);
+                    if (t != null)
+                        BuildType(t, hotTypes, csharpDelegate, Checks);
+                }
+
                 return;
             }
 
@@ -510,6 +521,80 @@
                     return;
                 CheckMethods(type, hotTypes, csharpDelegate, Checks);
             }
+        }
+
+        // 热更当中的类型，转换为运行时的类型
+        static System.Type ToHotGenericType(System.Type type)
+        {
+            if (!type.IsGenericType)
+                return null; // 非模版
+
+            var genericType = type.GetGenericTypeDefinition();
+            if (genericType == null || IsHotType(genericType))
+                return null;
+
+            var hotType = typeof(ILRuntime.Runtime.Intepreter.ILTypeInstance);
+            var parameters = type.GetGenericArguments();
+            int cnt = parameters.Length;
+            for (int i = 0; i < cnt; ++i)
+            {
+                var pt = parameters[i];
+                if (IsHotType(pt))
+                    parameters[i] = pt.IsEnum ? typeof(int) : hotType;
+            }
+
+            try
+            {
+                return genericType.MakeGenericType(parameters);
+            }
+            catch (System.Exception ex)
+            {
+                L.LogException(ex);
+                return null;
+            }
+        }
+
+        static System.Type GetActionByParamCount(int count)
+        {
+            switch (count)
+            {
+            case 1: return typeof(System.Action<>);
+            case 2: return typeof(System.Action<,>);
+            case 3: return typeof(System.Action<,,>);
+            case 4: return typeof(System.Action<,,,>);
+            case 5: return typeof(System.Action<,,,,>);
+            case 6: return typeof(System.Action<,,,,,>);
+            case 7: return typeof(System.Action<,,,,,,>);
+            case 8: return typeof(System.Action<,,,,,,,>);
+            case 9: return typeof(System.Action<,,,,,,,,>);
+            case 10: return typeof(System.Action<,,,,,,,,,>);
+            case 11: return typeof(System.Action<,,,,,,,,,,>);
+            case 12: return typeof(System.Action<,,,,,,,,,,,>);
+            }
+
+            return null;
+        }
+
+        static System.Type GetFunByParamCount(int count)
+        {
+            switch (count)
+            {
+            case 0: return typeof(System.Func<>);
+            case 1: return typeof(System.Func<,>);
+            case 2: return typeof(System.Func<,,>);
+            case 3: return typeof(System.Func<,,,>);
+            case 4: return typeof(System.Func<,,,,>);
+            case 5: return typeof(System.Func<,,,,,>);
+            case 6: return typeof(System.Func<,,,,,,>);
+            case 7: return typeof(System.Func<,,,,,,,>);
+            case 8: return typeof(System.Func<,,,,,,,,>);
+            case 9: return typeof(System.Func<,,,,,,,,,>);
+            case 10: return typeof(System.Func<,,,,,,,,,,>);
+            case 11: return typeof(System.Func<,,,,,,,,,,,>);
+            case 12: return typeof(System.Func<,,,,,,,,,,,,>);
+            }
+
+            return null;
         }
 
         static void CheckMethods(System.Type type, HashSet<System.Type> hotTypes, Dictionary<System.Type, UseTypeInfo> csharpDelegate, HashSet<System.Type> Checks)
@@ -878,3 +963,4 @@
         }
     }
 }
+#endif

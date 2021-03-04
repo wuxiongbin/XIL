@@ -34,6 +34,11 @@
         }
 
 #if UNITY_EDITOR
+        public void SetType(string typeName)
+        {
+            this.typeName = typeName;
+        }
+
         bool isShowTypeInfo;
         object instance;
         bool isDllChange()

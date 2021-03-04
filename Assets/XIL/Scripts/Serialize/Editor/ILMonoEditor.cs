@@ -242,7 +242,7 @@ namespace wxb.IL.Editor
             OnGUI();
         }
 
-        [MenuItem("Assets/TestLogIL")]
+        //[MenuItem("Assets/TestLogIL")]
         static void TestIL()
         {
             var type = IL.Help.GetTypeByFullName("hot.hotApp");

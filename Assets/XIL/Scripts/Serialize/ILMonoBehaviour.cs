@@ -23,13 +23,13 @@
     {
         [SerializeField]
         [HideInInspector]
-        CustomizeData customizeData;
+        protected CustomizeData customizeData;
 
         public RefType refType
         {
             get
             {
-                return customizeData.GetRefType(this);
+                return customizeData == null ? null : customizeData.GetRefType(this);
             }
         }
 
@@ -53,42 +53,92 @@
         {
             customizeData = new CustomizeData();
         }
+
+        public void SaveByInstance()
+        {
+            customizeData.OnBeforeSerialize();
+        }
+
+        private void OnGUI()
+        {
+            if (!isQuit && refType != null)
+                refType.TryInvokeMethod("OnGUI");
+        }
 #endif
 
         private void Awake()
         {
-            if (refType != null)
+            if (!isQuit && refType != null)
                 refType.TryInvokeMethod("Awake");
         }
 
         void Start()
         {
-            if (refType != null)
+            if (!isQuit && refType != null)
                 refType.TryInvokeMethod("Start");
         }
 
         void OnEnable()
         {
-            if (refType != null)
+            if (!isQuit && refType != null)
                 refType.TryInvokeMethod("OnEnable");
         }
 
         void OnDisable()
         {
-            if (refType != null)
+            if (!isQuit && refType != null)
                 refType.TryInvokeMethod("OnDisable");
         }
 
         void OnDestroy()
         {
-            if (refType != null)
+            if (!isQuit && refType != null)
                 refType.TryInvokeMethod("OnDestroy");
         }
 
+        public static bool isQuit = false;
         void OnApplicationQuit()
         {
+            isQuit = true;
             if (refType != null)
                 refType.TryInvokeMethod("OnApplicationQuit");
         }        
+    }
+
+    public class ILMBUpdate : ILMonoBehaviour
+    {
+        public System.Action update;
+        private void Update()
+        {
+            if (update != null)
+                update();
+        }
+    }
+
+    public class ILMBLateUpdate : ILMonoBehaviour
+    {
+        public System.Action lateUpdate;
+        private void LateUpdate()
+        {
+            if (lateUpdate != null)
+                lateUpdate();
+        }
+    }
+
+    public class ILMBLU : ILMonoBehaviour
+    {
+        public System.Action update;
+        private void Update()
+        {
+            if (update != null)
+                update();
+        }
+
+        public System.Action lateUpdate;
+        private void LateUpdate()
+        {
+            if (lateUpdate != null)
+                lateUpdate();
+        }
     }
 }
