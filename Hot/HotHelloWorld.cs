@@ -46,6 +46,10 @@ namespace hot
             UnityEngine.Debug.LogFormat("Hot Start(HelloWorld world)");
             RefType refType = new RefType((object)world);
             refType.GetField<List<string>>("onTexts").Add("HotHelloWorld Start");
+
+            ITestInterface hti = new TestInterface();
+            hti.Test();
+
             __Hotfix_Start.Invoke(world); // 调回HelloWorld.Start自身接口
         }
 

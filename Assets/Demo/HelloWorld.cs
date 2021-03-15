@@ -2,6 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public interface ITestInterface
+{
+    void Test();
+}
+
+public class TestInterface : ITestInterface
+{
+    void ITestInterface.Test()
+    {
+        Debug.Log("TestInterface.Test()");
+    }
+}
+
 public class TestReplaceFunction
 {
     public void Test1()

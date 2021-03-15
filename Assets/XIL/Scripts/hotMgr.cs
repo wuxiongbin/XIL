@@ -263,6 +263,16 @@ namespace wxb
         {
 
         }
+
+        public ReplaceFunction(System.Type type, string fieldName, string hot_hotfix_fieldName)
+        {
+
+        }
+
+        public ReplaceFunction(string typeName, string fieldName, string hot_hotfix_fieldName)
+        {
+
+        }
     }
 
     // 自动调用初始化接口，定义在某个类的属性，只要此类下有静态的函数Init，会自动调用
@@ -494,7 +504,25 @@ namespace wxb
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Action, System.String, System.Boolean>();
         }
 
-        static bool GetReplaceFunction(Collection<CustomAttribute> CustomAttributes, out System.Type type, out string fieldName)
+        static System.Type GetType(CustomAttributeArgument caa)
+        {
+            var value = caa.Value;
+            if (value == null)
+                return null;
+
+            if (value is string)
+            {
+                var typeName = value as string;
+                if (!string.IsNullOrEmpty(typeName))
+                    return GetTypeByName(typeName);
+            }
+            else if (value is TypeReference)
+                return GetTypeByName(((TypeReference)value).FullName);
+
+            return null;
+        }
+
+        static bool GetReplaceFunction(Collection<CustomAttribute> CustomAttributes, out System.Type type, out string fieldName, out string hot_fieldName)
         {
             CustomAttribute custom;
             for (int i = 0; i < CustomAttributes.Count; ++i)
@@ -506,59 +534,73 @@ namespace wxb
                 var ConstructorArguments = custom.ConstructorArguments;
                 switch (ConstructorArguments.Count)
                 {
-                case 0:
-                    {
-                        type = null;
-                        fieldName = null;
-                    }
-                    return true;
-                case 1:
-                    {
-                        var zeroValue = ConstructorArguments[0];
-                        if (zeroValue.Value is string)
+                    case 0:
                         {
-                            string strValue = (string)zeroValue.Value;
-                            if (strValue.StartsWith("__Hotfix_"))
-                            {
-                                // 字段
-                                fieldName = strValue;
-                                type = null;
-                            }
-                            else
-                            {
-                                type = GetTypeByName(strValue);
-                                fieldName = null;
-                            }
-                        }
-                        else
-                        {
-                            // 类型
-                            type = GetTypeByName(((TypeReference)zeroValue.Value).FullName);
+                            type = null;
+                            hot_fieldName = null;
                             fieldName = null;
                         }
                         return true;
-                    }
-                case 2:
-                    {
-                        var zeroValue = ConstructorArguments[0];
-                        var oneValue = ConstructorArguments[1];
-                        if (zeroValue.Value is string)
+                    case 1:
                         {
-                            type = GetTypeByName((string)zeroValue.Value);
+                            var zeroValue = ConstructorArguments[0];
+                            var zv = zeroValue.Value;
+                            if (zv == null)
+                            {
+                                type = null;
+                                fieldName = null;
+                            }
+                            else if (zv is string)
+                            {
+                                string strValue = (string)zv;
+                                if (strValue.StartsWith("__Hotfix_"))
+                                {
+                                    // 字段
+                                    fieldName = strValue;
+                                    type = null;
+                                }
+                                else
+                                {
+                                    type = GetTypeByName(strValue);
+                                    fieldName = null;
+                                }
+                            }
+                            else
+                            {
+                                // 类型
+                                type = GetTypeByName(((TypeReference)zeroValue.Value).FullName);
+                                fieldName = null;
+                            }
+                            
+                            hot_fieldName = null;
+                            return true;
                         }
-                        else
+                    case 2:
                         {
-                            type = GetTypeByName(((TypeReference)zeroValue.Value).FullName);
+                            var zeroValue = ConstructorArguments[0];
+                            var oneValue = ConstructorArguments[1];
+                            type = GetType(zeroValue);
+                            fieldName = (string)oneValue.Value;
+                            hot_fieldName = null;
+                            return true;
                         }
+                    case 3:
+                        {
+                            var zeroValue = ConstructorArguments[0];
+                            var oneValue = ConstructorArguments[1];
+                            var twoValue = ConstructorArguments[2];
 
-                        fieldName = (string)oneValue.Value;
-                        return true;
-                    }
+                            type = GetType(zeroValue);
+                            fieldName = (string)oneValue.Value;
+                            hot_fieldName = (string)twoValue.Value;
+                            return true;
+                        }
                 }
             }
 
             type = null;
             fieldName = null;
+            hot_fieldName = null;
             return false;
         }
 
@@ -642,13 +684,13 @@ namespace wxb
 
         public static bool IsStatic(MethodInfo info)
         {
-//#if USE_HOT
-//            if (info is ILRuntime.Reflection.ILRuntimeMethodInfo)
-//            {
-//                var ilMI = info as ILRuntime.Reflection.ILRuntimeMethodInfo;
-//                return ilMI.ILMethod.IsStatic;
-//            }
-//#endif
+            //#if USE_HOT
+            //            if (info is ILRuntime.Reflection.ILRuntimeMethodInfo)
+            //            {
+            //                var ilMI = info as ILRuntime.Reflection.ILRuntimeMethodInfo;
+            //                return ilMI.ILMethod.IsStatic;
+            //            }
+            //#endif
             return info.IsStatic;
         }
 
@@ -722,13 +764,13 @@ namespace wxb
 #if UNITY_EDITOR
             switch (UnityEditor.EditorUserBuildSettings.activeBuildTarget)
             {
-            case UnityEditor.BuildTarget.Android:
-                return UnityEngine.RuntimePlatform.Android;
-            case UnityEditor.BuildTarget.iOS:
-                return UnityEngine.RuntimePlatform.IPhonePlayer;
-            case UnityEditor.BuildTarget.StandaloneWindows:
-            case UnityEditor.BuildTarget.StandaloneWindows64:
-                return UnityEngine.RuntimePlatform.WindowsPlayer;
+                case UnityEditor.BuildTarget.Android:
+                    return UnityEngine.RuntimePlatform.Android;
+                case UnityEditor.BuildTarget.iOS:
+                    return UnityEngine.RuntimePlatform.IPhonePlayer;
+                case UnityEditor.BuildTarget.StandaloneWindows:
+                case UnityEditor.BuildTarget.StandaloneWindows64:
+                    return UnityEngine.RuntimePlatform.WindowsPlayer;
             }
             return UnityEngine.Application.platform;
 #else
@@ -768,7 +810,8 @@ namespace wxb
                     var method = ilMethod.Definition;
                     System.Type methodType;
                     string methodFieldName;
-                    if (!GetReplaceFunction(method.CustomAttributes, out methodType, out methodFieldName))
+                    string set_hot_field_name;
+                    if (!GetReplaceFunction(method.CustomAttributes, out methodType, out methodFieldName, out set_hot_field_name))
                         continue;
 
                     if (!ilMethod.IsStatic)
@@ -808,7 +851,7 @@ namespace wxb
                     Fields.Add(field);
                     wxb.L.LogFormat("type:{0} method:{1} Replace {2}.{3}!", type.Name, method.Name, srcType.Name, fieldName);
 
-                    AutoSetFieldMethodValue(srcType, field, type, fieldName, bridge, NameToSorted);
+                    AutoSetFieldMethodValue(srcType, field, type, fieldName, set_hot_field_name, bridge, NameToSorted);
                 }
             }
         }
@@ -877,16 +920,35 @@ namespace wxb
             }
         }
 
-        static void AutoSetFieldMethodValue(System.Type srcType, FieldInfo srcFieldInfo, ILType type, string fieldName, DelegateBridge bridge, Dictionary<string, List<MethodInfo>> NameToSorted)
+        static void AutoSetFieldMethodValue(System.Type srcType, FieldInfo srcFieldInfo, ILType type, string fieldName, string set_hot_field_name, DelegateBridge bridge, Dictionary<string, List<MethodInfo>> NameToSorted)
         {
-            var auto_fieldInfo = FindStaticField(type, fieldName);
-            if (auto_fieldInfo == null || auto_fieldInfo.FieldType.FullName != "wxb.Hotfix")
-                return;
+            FieldDefinition auto_fieldInfo = null;
+            if (string.IsNullOrEmpty(set_hot_field_name))
+            {
+                auto_fieldInfo = FindStaticField(type, fieldName);
+                if (auto_fieldInfo == null)
+                    return;
+            }
+            else
+            {
+                auto_fieldInfo = FindStaticField(type, set_hot_field_name);
+                if (auto_fieldInfo == null)
+                {
+                    L.LogErrorFormat("hotType:{0} fieldName:{1} set_hot_field_name:{2} not find!", type.Name, fieldName, set_hot_field_name);
+                    return;
+                }
+            }
 
-            var fieldInfo = type.ReflectionType.GetField(fieldName, bindingFlags);
+            if (auto_fieldInfo.FieldType.FullName != "wxb.Hotfix")
+            {
+                L.LogErrorFormat("hotType:{0} fieldName:{1} type:{2} is not wxb.Hotfix!", type.Name, auto_fieldInfo.Name, auto_fieldInfo.FieldType.FullName);
+                return;
+            }
+
+            var fieldInfo = type.ReflectionType.GetField(auto_fieldInfo.Name, bindingFlags);
             if (fieldInfo == null)
             {
-                wxb.L.LogErrorFormat("type:{0} fieldInfo:{1} find but not find clrType fieldInfo!", type.Name, fieldName);
+                wxb.L.LogErrorFormat("type:{0} fieldInfo:{1} find but not find clrType fieldInfo!", type.Name, auto_fieldInfo.Name);
                 return;
             }
 
