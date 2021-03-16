@@ -37,4 +37,5 @@ namespace ILRuntime.Runtime.CLRBinding
         }
     }
 }
-#endif
+
+#endif

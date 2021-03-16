@@ -1,4 +1,5 @@
-#if USE_HOT#define READ_ONLY//
+#if USE_HOT
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -10,6 +11,7 @@
 
 using System;
 using System.Text;
+using System.Threading;
 using ILRuntime.Mono.Collections.Generic;
 using MD = ILRuntime.Mono.Cecil.Metadata;
 
@@ -57,8 +59,11 @@ namespace ILRuntime.Mono.Cecil {
 				if (dimensions != null)
 					return dimensions;
 
-				dimensions = new Collection<ArrayDimension> ();
-				dimensions.Add (new ArrayDimension ());
+				var empty_dimensions = new Collection<ArrayDimension> ();
+				empty_dimensions.Add (new ArrayDimension ());
+
+				Interlocked.CompareExchange (ref dimensions, empty_dimensions, null);
+
 				return dimensions;
 			}
 		}
@@ -139,4 +144,5 @@ namespace ILRuntime.Mono.Cecil {
 		}
 	}
 }
-#endif
+
+#endif

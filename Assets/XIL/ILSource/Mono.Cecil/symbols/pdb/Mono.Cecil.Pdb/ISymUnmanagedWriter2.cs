@@ -1,4 +1,5 @@
-#if USE_HOT && USE_PDB#define READ_ONLY//
+#if USE_HOT && USE_PDB
+//
 // Author:
 //   Juerg Billeter (j@bitron.ch)
 //
@@ -12,8 +13,6 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 
 using ILRuntime.Mono.Cecil.Cil;
-
-#if !READ_ONLY
 
 namespace ILRuntime.Mono.Cecil.Pdb {
 
@@ -88,4 +87,3 @@ namespace ILRuntime.Mono.Cecil.Pdb {
 }
 
 #endif
-#endif

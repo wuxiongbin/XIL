@@ -1,4 +1,5 @@
-#if USE_HOT#define READ_ONLY//
+#if USE_HOT
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -296,7 +297,7 @@ namespace ILRuntime.Mono.Cecil {
 			if (generic_arguments.IsNullOrEmpty ())
 				return type;
 
-			var instance = new GenericInstanceType (type);
+			var instance = new GenericInstanceType (type, generic_arguments.Length);
 			var instance_arguments = instance.GenericArguments;
 
 			for (int i = 0; i < generic_arguments.Length; i++)
@@ -530,4 +531,5 @@ namespace ILRuntime.Mono.Cecil {
 		}
 	}
 }
-#endif
+
+#endif

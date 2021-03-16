@@ -1,4 +1,5 @@
-#if USE_HOT#define READ_ONLY//
+#if USE_HOT
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -10,8 +11,6 @@
 
 using System;
 using System.IO;
-
-#if !READ_ONLY
 
 namespace ILRuntime.Mono.Cecil.PE {
 
@@ -91,4 +90,3 @@ namespace ILRuntime.Mono.Cecil.PE {
 }
 
 #endif
-#endif

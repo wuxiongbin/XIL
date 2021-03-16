@@ -1,4 +1,5 @@
-#if USE_HOT#define READ_ONLY//
+#if USE_HOT
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -29,8 +30,11 @@ namespace ILRuntime.Mono.Cecil {
 		UI1 = 17,
 		UI2 = 18,
 		UI4 = 19,
+		I8 = 20,
+		UI8 = 21,
 		Int = 22,
 		UInt = 23
 	}
 }
-#endif
+
+#endif

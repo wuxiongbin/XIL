@@ -1,4 +1,5 @@
-#if USE_HOT#define READ_ONLY//
+#if USE_HOT
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -11,6 +12,7 @@
 using System;
 using System.Text;
 
+using System.Threading;
 using ILRuntime.Mono.Collections.Generic;
 
 namespace ILRuntime.Mono.Cecil {
@@ -24,7 +26,12 @@ namespace ILRuntime.Mono.Cecil {
 		}
 
 		public Collection<TypeReference> GenericArguments {
-			get { return arguments ?? (arguments = new Collection<TypeReference> ()); }
+			get {
+				if (arguments == null)
+					Interlocked.CompareExchange (ref arguments, new Collection<TypeReference> (), null);
+
+				return arguments;
+			}
 		}
 
 		public override bool IsGenericInstance {
@@ -63,6 +70,13 @@ namespace ILRuntime.Mono.Cecil {
 			: base (method)
 		{
 		}
+
+		internal GenericInstanceMethod (MethodReference method, int arity)
+			: this (method)
+		{
+			this.arguments = new Collection<TypeReference> (arity);
+		}
 	}
 }
-#endif
+
+#endif

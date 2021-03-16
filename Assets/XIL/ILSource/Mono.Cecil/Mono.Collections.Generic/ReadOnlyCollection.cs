@@ -1,4 +1,5 @@
-#if USE_HOT#define READ_ONLY//
+#if USE_HOT
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -11,6 +12,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace ILRuntime.Mono.Collections.Generic {
 
@@ -19,7 +21,13 @@ namespace ILRuntime.Mono.Collections.Generic {
 		static ReadOnlyCollection<T> empty;
 
 		public static ReadOnlyCollection<T> Empty {
-			get { return empty ?? (empty = new ReadOnlyCollection<T> ()); }
+			get {
+				if (empty != null)
+					return empty;
+
+				Interlocked.CompareExchange (ref empty, new ReadOnlyCollection<T> (), null);
+				return empty;
+			}
 		}
 
 		bool ICollection<T>.IsReadOnly {
@@ -92,4 +100,5 @@ namespace ILRuntime.Mono.Collections.Generic {
 		}
 	}
 }
-#endif
+
+#endif

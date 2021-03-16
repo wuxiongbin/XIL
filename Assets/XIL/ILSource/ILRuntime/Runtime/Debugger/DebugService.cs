@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Collections;
@@ -35,6 +35,7 @@ namespace ILRuntime.Runtime.Debugger
         {
             get
             {
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
 #if HOT_DEBUG
                 return (server != null && server.IsAttached);
 #else
@@ -54,6 +55,7 @@ namespace ILRuntime.Runtime.Debugger
         /// <param name="port">Port to listen on</param>
         public void StartDebugService(int port)
         {
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
 #if HOT_DEBUG
             server = new Debugger.DebuggerServer(this);
             server.Port = port;
@@ -66,6 +68,7 @@ namespace ILRuntime.Runtime.Debugger
         /// </summary>
         public void StopDebugService()
         {
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
 #if HOT_DEBUG
             server.Stop();
             server = null;

@@ -1,13 +1,7 @@
-#if USE_HOT && USE_PDB#define READ_ONLY//-----------------------------------------------------------------------------
-//
+#if USE_HOT && USE_PDB
 // Copyright (c) Microsoft. All rights reserved.
-// This code is licensed under the Microsoft Public License.
-// THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF
-// ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY
-// IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR
-// PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
-//
-//-----------------------------------------------------------------------------
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.IO;
 using System.Text;
@@ -17,6 +11,11 @@ namespace Microsoft.Cci.Pdb {
 
     internal BitAccess(int capacity) {
       this.buffer = new byte[capacity];
+    }
+
+    internal BitAccess(byte[] buffer) {
+      this.buffer = buffer;
+      offset = 0;
     }
 
     internal byte[] Buffer {
@@ -253,4 +252,5 @@ namespace Microsoft.Cci.Pdb {
 
   }
 }
-#endif
+
+#endif

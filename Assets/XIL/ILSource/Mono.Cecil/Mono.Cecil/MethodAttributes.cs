@@ -1,4 +1,5 @@
-#if USE_HOT#define READ_ONLY//
+#if USE_HOT
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -46,4 +47,5 @@ namespace ILRuntime.Mono.Cecil {
 		RequireSecObject	= 0x8000	 // Method calls another method containing security code
 	}
 }
-#endif
+
+#endif

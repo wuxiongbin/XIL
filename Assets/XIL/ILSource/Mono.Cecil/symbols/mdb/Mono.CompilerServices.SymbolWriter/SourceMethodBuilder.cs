@@ -1,4 +1,5 @@
-#if USE_HOT && USE_MDB#define READ_ONLY//
+#if USE_HOT && USE_MDB
+//
 // SourceMethodBuilder.cs
 //
 // Authors:
@@ -244,4 +245,5 @@ namespace ILRuntime.Mono.CompilerServices.SymbolWriter
 		}
 	}
 }
-#endif
+
+#endif

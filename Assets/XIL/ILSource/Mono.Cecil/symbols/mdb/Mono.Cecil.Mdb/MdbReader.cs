@@ -1,4 +1,5 @@
-#if USE_HOT && USE_MDB#define READ_ONLY//
+#if USE_HOT && USE_MDB
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -50,12 +51,10 @@ namespace ILRuntime.Mono.Cecil.Mdb {
 			this.documents = new Dictionary<string, Document> ();
 		}
 
-#if !READ_ONLY
 		public ISymbolWriterProvider GetWriterProvider ()
 		{
 			return new MdbWriterProvider ();
 		}
-#endif
 
 		public bool ProcessDebugHeader (ImageDebugHeader header)
 		{
@@ -207,4 +206,5 @@ namespace ILRuntime.Mono.Cecil.Mdb {
 		}
 	}
 }
-#endif
+
+#endif

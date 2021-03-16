@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -140,6 +140,7 @@ namespace ILRuntime.CLR.Method
                 isDelegateInvoke = true;
             this.appdomain = domain;
             paramCnt = def.HasParameters ? def.Parameters.Count : 0;
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
 #if HOT_DEBUG
             if (def.HasBody)
             {

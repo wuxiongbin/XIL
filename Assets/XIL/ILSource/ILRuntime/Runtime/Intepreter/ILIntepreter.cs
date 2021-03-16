@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +36,7 @@ namespace ILRuntime.Runtime.Intepreter
             this.domain = domain;
             stack = new RuntimeStack(this);
             allowUnboundCLRMethod = domain.AllowUnboundCLRMethod;
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
 #if HOT_DEBUG
             _lockObj = new object();
 #endif
@@ -98,6 +99,7 @@ namespace ILRuntime.Runtime.Intepreter
             esp = Execute(method, esp, out unhandledException);
             object result = method.ReturnType != domain.VoidType ? method.ReturnType.TypeForCLR.CheckCLRTypes(StackObject.ToObject((esp - 1), domain, mStack)) : null;
             //ClearStack
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
 #if HOT_DEBUG
             ((List<object>)mStack).RemoveRange(mStackBase, mStack.Count - mStackBase);
 #else
@@ -140,7 +142,8 @@ namespace ILRuntime.Runtime.Intepreter
                 paramCnt++;
 /// 为确保性能，暂时先确保开发的时候，安全检查完备。
 /// 当然手机端运行时可能会出现为空的类对象可正常调用成员函数，导致成员函数里面访问成员变量报错时可能使得根据Log跟踪BUG时方向错误。
-#if DEBUG || HOT_DEBUG
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
                 var thisObj = RetriveObject(arg, mStack);
                 if (thisObj == null)
                     throw new NullReferenceException();
@@ -262,6 +265,7 @@ namespace ILRuntime.Runtime.Intepreter
                 {
                     try
                     {
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
 #if HOT_DEBUG
                         if (ShouldBreak)
                             Break();
@@ -1818,6 +1822,7 @@ namespace ILRuntime.Runtime.Intepreter
                                                     esp = redirect(this, esp, mStack, cm, false);
                                                 else
                                                 {
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
 #if HOT_DEBUG
                                                     if (!allowUnboundCLRMethod)
                                                         throw new NotSupportedException(cm.ToString() + " is not bound!");
@@ -2555,6 +2560,11 @@ namespace ILRuntime.Runtime.Intepreter
                                                     esp = redirect(this, esp, mStack, cm, true);
                                                 else
                                                 {
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
+                                                    if (!allowUnboundCLRMethod)
+                                                        throw new NotSupportedException(cm.ToString() + " is not bound!");
+#endif
                                                     object result = cm.Invoke(this, esp, mStack, true);
                                                     int paramCount = cm.ParameterCount;
                                                     for (int i = 1; i <= paramCount; i++)
@@ -3343,6 +3353,7 @@ namespace ILRuntime.Runtime.Intepreter
                                                     }
                                                     else
                                                     {
+//#if !DEBUG || DISABLE_ILRUNTIME_DEBUG
 #if !DEBUG || !HOT_DEBUG
                                                         oriRef->ObjectType = ObjectTypes.Null;
                                                         oriRef->Value = -1;
@@ -3358,6 +3369,7 @@ namespace ILRuntime.Runtime.Intepreter
                                                     }
                                                     else
                                                     {
+//#if !DEBUG || DISABLE_ILRUNTIME_DEBUG
 #if !DEBUG || !HOT_DEBUG
                                                         oriRef->ObjectType = ObjectTypes.Null;
                                                         oriRef->Value = -1;
@@ -3368,6 +3380,7 @@ namespace ILRuntime.Runtime.Intepreter
                                             }
                                             else
                                             {
+//#if !DEBUG || DISABLE_ILRUNTIME_DEBUG
 #if !DEBUG || !HOT_DEBUG
                                                     oriRef->ObjectType = ObjectTypes.Null;
                                                     oriRef->Value = -1;
@@ -4257,6 +4270,7 @@ namespace ILRuntime.Runtime.Intepreter
 
                         unhandledException = true;
                         returned = true;
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
 #if HOT_DEBUG
                         if (!AppDomain.DebugService.Break(this, ex))
 #endif
@@ -5418,6 +5432,7 @@ namespace ILRuntime.Runtime.Intepreter
                     FreeStackValueType(esp);
                     break;
             }
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
 #if HOT_DEBUG
             esp->ObjectType = ObjectTypes.Null;
             esp->Value = -1;

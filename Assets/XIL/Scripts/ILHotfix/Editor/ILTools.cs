@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
@@ -13,9 +13,9 @@ namespace wxb.IL.Editor
         {
             var ilruntime = "USE_HOT";
             var ilruntime_editor = "USE_HOT && UNITY_EDITOR";
-            var mono = "USE_HOT\r#define READ_ONLY";
-            var mono_pdb = "USE_HOT && USE_PDB\r#define READ_ONLY";
-            var mono_mdb = "USE_HOT && USE_MDB\r#define READ_ONLY";
+            var mono = "USE_HOT";
+            var mono_pdb = "USE_HOT && USE_PDB";
+            var mono_mdb = "USE_HOT && USE_MDB";
 
             AddMarco("Assets/XIL/ILSource/", 
                 (file) => 
@@ -55,6 +55,26 @@ namespace wxb.IL.Editor
             });
         }
 
+        public static string ReadText(byte[] bytes)
+        {
+            int start = (bytes.Length >= 3 && bytes[0] == 0xEF && bytes[1] == 0xBB && bytes[2] == 0xBF) ? 3 : 0;
+            string url = System.Text.Encoding.UTF8.GetString(bytes, start, bytes.Length - start);
+            return url;
+        }
+
+        public static void WriteBytes(string file, byte[] bytes)
+        {
+            int start = (bytes.Length >= 3 && bytes[0] == 0xEF && bytes[1] == 0xBB && bytes[2] == 0xBF) ? 3 : 0;
+            if (start == 0)
+                File.WriteAllBytes(file, bytes);
+            else
+            {
+                var copyBytes = new byte[bytes.Length - 3];
+                System.Array.Copy(bytes, start, copyBytes, 0, copyBytes.Length);
+                File.WriteAllBytes(file, copyBytes);
+            }
+        }
+
         static void AddMarco(string assetPath, System.Func<string, string> fun)
         {
             HelpEditor.ForEach(assetPath, (AssetImporter importer) =>
@@ -64,17 +84,20 @@ namespace wxb.IL.Editor
                     return;
 
                 System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                sb.AppendLine($"#if {marco}");
+                sb.Append($"#if {marco}");
                 {
                     string start = sb.ToString();
-                    string file_text = File.ReadAllText(importer.assetPath);
+
+                    string file_text = ReadText(System.IO.File.ReadAllBytes(importer.assetPath));
                     if (file_text.StartsWith(start))
                         return;
+
+                    sb.AppendLine();
                     sb.Append(file_text);
                     sb.AppendLine();
                 }
                 sb.Append($"#endif");
-                File.WriteAllText(importer.assetPath, sb.ToString(), System.Text.Encoding.UTF8);
+                WriteBytes(importer.assetPath, System.Text.Encoding.UTF8.GetBytes(sb.ToString()));
             },
             (string file, string root) =>
             {

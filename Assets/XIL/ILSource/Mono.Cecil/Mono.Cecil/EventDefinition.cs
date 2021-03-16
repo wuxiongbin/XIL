@@ -1,4 +1,5 @@
-#if USE_HOT#define READ_ONLY//
+#if USE_HOT
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -8,6 +9,7 @@
 // Licensed under the MIT/X11 license.
 //
 
+using System.Threading;
 using ILRuntime.Mono.Collections.Generic;
 
 namespace ILRuntime.Mono.Cecil {
@@ -78,10 +80,10 @@ namespace ILRuntime.Mono.Cecil {
 
 				InitializeMethods ();
 
-				if (other_methods != null)
-					return other_methods;
+				if (other_methods == null)
+					Interlocked.CompareExchange (ref other_methods, new Collection<MethodDefinition> (), null);
 
-				return other_methods = new Collection<MethodDefinition> ();
+				return other_methods;
 			}
 		}
 
@@ -153,4 +155,5 @@ namespace ILRuntime.Mono.Cecil {
 		}
 	}
 }
-#endif
+
+#endif

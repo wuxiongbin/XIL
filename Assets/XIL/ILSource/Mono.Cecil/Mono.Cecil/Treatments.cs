@@ -1,4 +1,5 @@
-#if USE_HOT#define READ_ONLY//
+#if USE_HOT
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -23,6 +24,7 @@ namespace ILRuntime.Mono.Cecil {
 		PrefixWindowsRuntimeName = 0x4,
 		RedirectToClrType = 0x5,
 		RedirectToClrAttribute = 0x6,
+		RedirectImplementedMethods = 0x7,
 
 		Abstract = 0x10,
 		Internal = 0x20,
@@ -38,7 +40,6 @@ namespace ILRuntime.Mono.Cecil {
 	[Flags]
 	enum MethodDefinitionTreatment {
 		None = 0x0,
-		Dispose = 0x1,
 		Abstract = 0x2,
 		Private = 0x4,
 		Public = 0x8,
@@ -51,11 +52,6 @@ namespace ILRuntime.Mono.Cecil {
 		Public = 0x1,
 	}
 
-	enum MemberReferenceTreatment {
-		None = 0x0,
-		Dispose = 0x1,
-	}
-
 	enum CustomAttributeValueTreatment {
 		None = 0x0,
 		AllowSingle = 0x1,
@@ -64,4 +60,5 @@ namespace ILRuntime.Mono.Cecil {
 		DeprecatedAttribute = 0x4,
 	}
 }
-#endif
+
+#endif

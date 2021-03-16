@@ -1,4 +1,5 @@
-#if USE_HOT#define READ_ONLY//
+#if USE_HOT
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -21,4 +22,5 @@ namespace ILRuntime.Mono.Cecil {
 		string Name { get; set; }
 	}
 }
-#endif
+
+#endif

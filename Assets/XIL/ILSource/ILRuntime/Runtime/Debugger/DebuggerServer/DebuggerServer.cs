@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -308,7 +308,7 @@ namespace ILRuntime.Runtime.Debugger
             if (msg.IsLambda)
             {
                 ILMethod found = null;
-                foreach (var i in domain.LoadedTypes)
+                foreach (var i in domain.LoadedTypes.ToArray())
                 {
                     var vt = i.Value as ILType;
                     if (vt != null)

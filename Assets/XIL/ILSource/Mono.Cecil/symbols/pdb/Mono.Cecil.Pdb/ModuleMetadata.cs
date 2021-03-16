@@ -1,9 +1,8 @@
-#if USE_HOT && USE_PDB#define READ_ONLYusing System;
+#if USE_HOT && USE_PDB
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
-
-#if !READ_ONLY
 
 namespace ILRuntime.Mono.Cecil.Pdb {
 
@@ -794,4 +793,3 @@ namespace ILRuntime.Mono.Cecil.Pdb {
 }
 
 #endif
-#endif

@@ -1,4 +1,5 @@
-#if USE_HOT#define READ_ONLY//
+#if USE_HOT
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -229,6 +230,16 @@ namespace ILRuntime.Mono.Cecil.Cil {
 			instructions.Insert (index + 1, instruction);
 		}
 
+		public void InsertAfter (int index, Instruction instruction)
+		{
+			if (index < 0 || index >= instructions.Count)
+				throw new ArgumentOutOfRangeException ("index");
+			if (instruction == null)
+				throw new ArgumentNullException ("instruction");
+
+			instructions.Insert (index + 1, instruction);
+		}
+
 		public void Append (Instruction instruction)
 		{
 			if (instruction == null)
@@ -248,6 +259,15 @@ namespace ILRuntime.Mono.Cecil.Cil {
 			Remove (target);
 		}
 
+		public void Replace (int index, Instruction instruction)
+		{
+			if (instruction == null)
+				throw new ArgumentNullException ("instruction");
+
+			InsertAfter (index, instruction);
+			RemoveAt (index);
+		}
+
 		public void Remove (Instruction instruction)
 		{
 			if (instruction == null)
@@ -256,6 +276,20 @@ namespace ILRuntime.Mono.Cecil.Cil {
 			if (!instructions.Remove (instruction))
 				throw new ArgumentOutOfRangeException ("instruction");
 		}
+
+		public void RemoveAt (int index)
+		{
+			if (index < 0 || index >= instructions.Count)
+				throw new ArgumentOutOfRangeException ("index");
+
+			instructions.RemoveAt (index);
+		}
+
+		public void Clear ()
+		{
+			instructions.Clear ();
+		}
 	}
 }
-#endif
+
+#endif

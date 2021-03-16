@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,4 +32,5 @@ namespace ILRuntime.CLR.Method
         IMethod MakeGenericMethod(IType[] genericArguments);
     }
 }
-#endif
+
+#endif

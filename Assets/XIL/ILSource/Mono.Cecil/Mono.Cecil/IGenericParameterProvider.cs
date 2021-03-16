@@ -1,4 +1,5 @@
-#if USE_HOT#define READ_ONLY//
+#if USE_HOT
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -9,6 +10,7 @@
 //
 
 
+using System.Threading;
 using ILRuntime.Mono.Collections.Generic;
 
 namespace ILRuntime.Mono.Cecil {
@@ -48,10 +50,13 @@ namespace ILRuntime.Mono.Cecil {
 			ref Collection<GenericParameter> collection,
 			ModuleDefinition module)
 		{
-			return module.HasImage ()
-				? module.Read (ref collection, self, (provider, reader) => reader.ReadGenericParameters (provider))
-				: collection = new GenericParameterCollection (self);
+			if (module.HasImage ())
+				return module.Read (ref collection, self, (provider, reader) => reader.ReadGenericParameters (provider));
+
+			Interlocked.CompareExchange (ref collection, new GenericParameterCollection (self), null);
+			return collection;
 		}
 	}
 }
-#endif
+
+#endif

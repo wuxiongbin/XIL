@@ -1,13 +1,7 @@
-#if USE_HOT && USE_PDB#define READ_ONLY//-----------------------------------------------------------------------------
-//
+#if USE_HOT && USE_PDB
 // Copyright (c) Microsoft. All rights reserved.
-// This code is licensed under the Microsoft Public License.
-// THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF
-// ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY
-// IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR
-// PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
-//
-//-----------------------------------------------------------------------------
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 
 namespace Microsoft.Cci.Pdb {
@@ -39,4 +33,5 @@ namespace Microsoft.Cci.Pdb {
     internal ushort snSectionHdrOrig;      // 20..21
   }
 }
-#endif
+
+#endif

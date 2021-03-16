@@ -1,4 +1,5 @@
-#if USE_HOTusing System;
+#if USE_HOT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace ILRuntime.Reflection
         Mono.Cecil.PropertyDefinition definition;
         ILRuntime.Runtime.Enviorment.AppDomain appdomain;
 
-        object[] customAttributes;
+        Attribute[] customAttributes;
         Type[] attributeTypes;
 
         public ILMethod Getter
@@ -68,7 +69,7 @@ namespace ILRuntime.Reflection
 
         void InitializeCustomAttribute()
         {
-            customAttributes = new object[definition.CustomAttributes.Count];
+            customAttributes = new Attribute[definition.CustomAttributes.Count];
             attributeTypes = new Type[customAttributes.Length];
             for (int i = 0; i < definition.CustomAttributes.Count; i++)
             {
@@ -76,7 +77,7 @@ namespace ILRuntime.Reflection
                 var at = appdomain.GetType(attribute.AttributeType, null, null);
                 try
                 {
-                    object ins = attribute.CreateInstance(at, appdomain);
+                    Attribute ins = attribute.CreateInstance(at, appdomain) as Attribute;
 
                     attributeTypes[i] = at.ReflectionType;
                     customAttributes[i] = ins;
@@ -255,4 +256,5 @@ namespace ILRuntime.Reflection
         }
     }
 }
-#endif
+
+#endif

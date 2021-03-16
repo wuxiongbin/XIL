@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -878,12 +878,14 @@ namespace ILRuntime.CLR.TypeSystem
                 }
 
                 Type newType = null;
-#if UNITY_EDITOR || (DEBUG && !DISABLE_ILRUNTIME_DEBUG)
+//#if UNITY_EDITOR || (DEBUG && !DISABLE_ILRUNTIME_DEBUG)
+#if UNITY_EDITOR || HOT_DEBUG
                 try
                 {
 #endif
                     newType = clrType.MakeGenericType(args);
-#if UNITY_EDITOR || (DEBUG && !DISABLE_ILRUNTIME_DEBUG)
+//#if UNITY_EDITOR || (DEBUG && !DISABLE_ILRUNTIME_DEBUG)
+#if UNITY_EDITOR || HOT_DEBUG
                 }
                 catch (Exception e)
                 {

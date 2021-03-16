@@ -1,4 +1,5 @@
-#if USE_HOT#define READ_ONLY//
+#if USE_HOT
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -29,6 +30,8 @@ namespace ILRuntime.Mono.Cecil.PE {
 		public TargetArchitecture Architecture;
 		public ModuleCharacteristics Characteristics;
 		public ushort LinkerVersion;
+		public ushort SubSystemMajor;
+		public ushort SubSystemMinor;
 
 		public ImageDebugHeader DebugHeader;
 
@@ -166,4 +169,5 @@ namespace ILRuntime.Mono.Cecil.PE {
 		}
 	}
 }
-#endif
+
+#endif

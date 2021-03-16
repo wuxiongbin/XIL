@@ -1,4 +1,5 @@
-#if USE_HOT#define READ_ONLY//
+#if USE_HOT
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -10,6 +11,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Threading;
 using ILRuntime.Mono.Collections.Generic;
 
 namespace ILRuntime.Mono.Cecil {
@@ -105,7 +107,10 @@ namespace ILRuntime.Mono.Cecil {
 			get {
 				Resolve ();
 
-				return arguments ?? (arguments = new Collection<CustomAttributeArgument> ());
+				if (arguments == null)
+					Interlocked.CompareExchange (ref arguments, new Collection<CustomAttributeArgument> (), null);
+
+				return arguments;
 			}
 		}
 
@@ -121,7 +126,10 @@ namespace ILRuntime.Mono.Cecil {
 			get {
 				Resolve ();
 
-				return fields ?? (fields = new Collection<CustomAttributeNamedArgument> ());
+				if (fields == null)
+					Interlocked.CompareExchange (ref fields, new Collection<CustomAttributeNamedArgument> (), null);
+
+				return fields;
 			}
 		}
 
@@ -137,7 +145,10 @@ namespace ILRuntime.Mono.Cecil {
 			get {
 				Resolve ();
 
-				return properties ?? (properties = new Collection<CustomAttributeNamedArgument> ());
+				if (properties == null)
+					Interlocked.CompareExchange (ref properties, new Collection<CustomAttributeNamedArgument> (), null);
+
+				return properties;
 			}
 		}
 
@@ -185,22 +196,28 @@ namespace ILRuntime.Mono.Cecil {
 			if (resolved || !HasImage)
 				return;
 
-			Module.Read (this, (attribute, reader) => {
-				try {
-					reader.ReadCustomAttributeSignature (attribute);
-					resolved = true;
-				} catch (ResolutionException) {
-					if (arguments != null)
-						arguments.Clear ();
-					if (fields != null)
-						fields.Clear ();
-					if (properties != null)
-						properties.Clear ();
+			lock (Module.SyncRoot) {
+				if (resolved)
+					return;
 
-					resolved = false;
-				}
-			});
+				Module.Read (this, (attribute, reader) => {
+					try {
+						reader.ReadCustomAttributeSignature (attribute);
+						resolved = true;
+					} catch (ResolutionException) {
+						if (arguments != null)
+							arguments.Clear ();
+						if (fields != null)
+							fields.Clear ();
+						if (properties != null)
+							properties.Clear ();
+
+						resolved = false;
+					}
+				});
+			}
 		}
 	}
 }
-#endif
+
+#endif

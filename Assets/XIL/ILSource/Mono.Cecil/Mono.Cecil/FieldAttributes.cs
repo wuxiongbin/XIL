@@ -1,4 +1,5 @@
-#if USE_HOT#define READ_ONLY//
+#if USE_HOT
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -39,4 +40,5 @@ namespace ILRuntime.Mono.Cecil {
 		HasFieldRVA			= 0x0100	 // Field has RVA
 	}
 }
-#endif
+
+#endif

@@ -1,4 +1,5 @@
-#if USE_HOT#define READ_ONLY//
+#if USE_HOT
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -46,11 +47,6 @@ namespace ILRuntime.Mono.Cecil {
 
 		public bool IsWindowsRuntimeProjection {
 			get { return projection != null; }
-		}
-
-		internal MemberReferenceProjection WindowsRuntimeProjection {
-			get { return (MemberReferenceProjection) projection; }
-			set { projection = value; }
 		}
 
 		internal bool HasImage {
@@ -105,4 +101,5 @@ namespace ILRuntime.Mono.Cecil {
 		}
 	}
 }
-#endif
+
+#endif

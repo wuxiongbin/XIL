@@ -1,4 +1,5 @@
-#if USE_HOT#define READ_ONLY//
+#if USE_HOT
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -23,4 +24,5 @@ namespace ILRuntime.Mono.Cecil {
 		Fire		= 0x0020	 // Fire method for event
 	}
 }
-#endif
+
+#endif

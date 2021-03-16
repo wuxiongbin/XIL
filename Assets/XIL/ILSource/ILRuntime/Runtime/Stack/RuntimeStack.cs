@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +18,7 @@ namespace ILRuntime.Runtime.Stack
 
         IntPtr nativePointer;
 
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
 #if HOT_DEBUG
         IList<object> managedStack = new List<object>(32);
 #else
@@ -91,6 +92,7 @@ namespace ILRuntime.Runtime.Stack
             res = new StackFrame();
             res.LocalVarPointer = esp;
             res.Method = method;
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
 #if HOT_DEBUG
             res.Address = new IntegerReference();
             for (int i = 0; i < method.LocalVariableCount; i++)
@@ -160,6 +162,7 @@ namespace ILRuntime.Runtime.Stack
                 }
                 ret++;
             }
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
 #if HOT_DEBUG
             ((List<object>)managedStack).RemoveRange(mStackBase, managedStack.Count - mStackBase);
 #else
@@ -394,6 +397,7 @@ namespace ILRuntime.Runtime.Stack
             {
                 if (end == managedStack.Count - 1)
                 {
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
 #if HOT_DEBUG
                     ((List<object>)managedStack).RemoveRange(start, managedStack.Count - start);
 #else

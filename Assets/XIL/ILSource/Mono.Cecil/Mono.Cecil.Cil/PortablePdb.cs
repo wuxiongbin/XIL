@@ -1,4 +1,5 @@
-#if USE_HOT#define READ_ONLY//
+#if USE_HOT
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -60,12 +61,10 @@ namespace ILRuntime.Mono.Cecil.Cil {
 			this.debug_reader = new MetadataReader (image, module, this.reader);
 		}
 
-#if !READ_ONLY
 		public ISymbolWriterProvider GetWriterProvider ()
 		{
 			return new PortablePdbWriterProvider ();
 		}
-#endif
 
 		public bool ProcessDebugHeader (ImageDebugHeader header)
 		{
@@ -200,12 +199,11 @@ namespace ILRuntime.Mono.Cecil.Cil {
 			this.reader = reader;
 		}
 
-#if !READ_ONLY
 		public ISymbolWriterProvider GetWriterProvider ()
 		{
 			return new EmbeddedPortablePdbWriterProvider ();
 		}
-#endif
+
 		public bool ProcessDebugHeader (ImageDebugHeader header)
 		{
 			return reader.ProcessDebugHeader (header);
@@ -221,9 +219,6 @@ namespace ILRuntime.Mono.Cecil.Cil {
 			reader.Dispose ();
 		}
 	}
-
-
-#if !READ_ONLY
 
 	public sealed class PortablePdbWriterProvider : ISymbolWriterProvider
 	{
@@ -253,12 +248,7 @@ namespace ILRuntime.Mono.Cecil.Cil {
 		}
 	}
 
-	interface IMetadataSymbolWriter : ISymbolWriter {
-		void SetMetadata (MetadataBuilder metadata);
-		void WriteModule ();
-	}
-
-	public sealed class PortablePdbWriter : ISymbolWriter, IMetadataSymbolWriter {
+	public sealed class PortablePdbWriter : ISymbolWriter {
 
 		readonly MetadataBuilder pdb_metadata;
 		readonly ModuleDefinition module;
@@ -272,25 +262,19 @@ namespace ILRuntime.Mono.Cecil.Cil {
 		{
 			this.pdb_metadata = pdb_metadata;
 			this.module = module;
+
+			this.module_metadata = module.metadata_builder;
+
+			if (module_metadata != pdb_metadata)
+				this.pdb_metadata.metadata_builder = this.module_metadata;
+
+			pdb_metadata.AddCustomDebugInformations (module);
 		}
 
 		internal PortablePdbWriter (MetadataBuilder pdb_metadata, ModuleDefinition module, ImageWriter writer)
 			: this (pdb_metadata, module)
 		{
 			this.writer = writer;
-		}
-
-		void IMetadataSymbolWriter.SetMetadata (MetadataBuilder metadata)
-		{
-			this.module_metadata = metadata;
-
-			if (module_metadata != pdb_metadata)
-				this.pdb_metadata.metadata_builder = metadata;
-		}
-
-		void IMetadataSymbolWriter.WriteModule ()
-		{
-			pdb_metadata.AddCustomDebugInformations (module);
 		}
 
 		public ISymbolReaderProvider GetReaderProvider ()
@@ -318,11 +302,7 @@ namespace ILRuntime.Mono.Cecil.Cil {
 			// PDB Age
 			buffer.WriteUInt32 (1);
 			// PDB Path
-			var filename = writer.BaseStream.GetFileName ();
-			if (!string.IsNullOrEmpty (filename))
-				filename = Path.GetFileName (filename);
-
-			buffer.WriteBytes (System.Text.Encoding.UTF8.GetBytes (filename));
+			buffer.WriteBytes (System.Text.Encoding.UTF8.GetBytes (writer.BaseStream.GetFileName ()));
 			buffer.WriteByte (0);
 
 			var data = new byte [buffer.length];
@@ -428,7 +408,7 @@ namespace ILRuntime.Mono.Cecil.Cil {
 		}
 	}
 
-	public sealed class EmbeddedPortablePdbWriter : ISymbolWriter, IMetadataSymbolWriter {
+	public sealed class EmbeddedPortablePdbWriter : ISymbolWriter {
 
 		readonly Stream stream;
 		readonly PortablePdbWriter writer;
@@ -485,19 +465,7 @@ namespace ILRuntime.Mono.Cecil.Cil {
 		public void Dispose ()
 		{
 		}
-
-		void IMetadataSymbolWriter.SetMetadata (MetadataBuilder metadata)
-		{
-			((IMetadataSymbolWriter) writer).SetMetadata (metadata);
-		}
-
-		void IMetadataSymbolWriter.WriteModule ()
-		{
-			((IMetadataSymbolWriter) writer).WriteModule ();
-		}
 	}
-
-#endif
 
 	static class PdbGuidMapping {
 
@@ -613,4 +581,5 @@ namespace ILRuntime.Mono.Cecil.Cil {
 		}
 	}
 }
-#endif
+
+#endif

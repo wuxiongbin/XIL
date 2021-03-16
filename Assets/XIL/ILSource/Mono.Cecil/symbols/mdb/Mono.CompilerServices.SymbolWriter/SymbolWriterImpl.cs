@@ -1,4 +1,5 @@
-#if USE_HOT && USE_MDB#define READ_ONLY#define CECIL//
+#if USE_HOT && USE_MDB
+//
 // SymbolWriterImpl.cs
 //
 // Author:
@@ -28,6 +29,7 @@
 //
 
 #if !NET_CORE
+#define CECIL
 
 using System;
 using System.Reflection;
@@ -350,4 +352,5 @@ namespace ILRuntime.Mono.CompilerServices.SymbolWriter
 }
 
 #endif
-#endif
+
+#endif

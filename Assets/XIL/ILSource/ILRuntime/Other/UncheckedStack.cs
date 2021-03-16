@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_HOT
 // System.Collections.Generic.Stack<T>
 using System;
 using System.Collections;
@@ -259,4 +259,5 @@ public void TrimExcess()
 		return array;
 	}
 }
+
 #endif

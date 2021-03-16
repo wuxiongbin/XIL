@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -1193,4 +1193,5 @@ namespace ILRuntime.Runtime.Intepreter
         bool Equals(Delegate dele);
     }
 }
+
 #endif

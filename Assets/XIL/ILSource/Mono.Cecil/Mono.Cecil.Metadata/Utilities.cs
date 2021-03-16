@@ -1,4 +1,5 @@
-#if USE_HOT#define READ_ONLY//
+#if USE_HOT
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -300,7 +301,6 @@ namespace ILRuntime.Mono.Cecil {
 			return MetadataToken.Zero;
 		}
 
-#if !READ_ONLY
 		public static uint CompressMetadataToken (this CodedIndex self, MetadataToken token)
 		{
 			uint ret = 0;
@@ -561,7 +561,6 @@ namespace ILRuntime.Mono.Cecil {
 		exit:
 			throw new ArgumentException ();
 		}
-#endif
 
 		public static int GetSize (this CodedIndex self, Func<Table, int> counter)
 		{
@@ -650,4 +649,5 @@ namespace ILRuntime.Mono.Cecil {
 		}
 	}
 }
-#endif
+
+#endif

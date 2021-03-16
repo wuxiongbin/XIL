@@ -1,4 +1,5 @@
-#if USE_HOT#define READ_ONLY//
+#if USE_HOT
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -17,8 +18,6 @@ using ILRuntime.Mono.Cecil.Metadata;
 using ILRuntime.Mono.Cecil.PE;
 
 using RVA = System.UInt32;
-
-#if !READ_ONLY
 
 namespace ILRuntime.Mono.Cecil.Cil {
 
@@ -657,4 +656,3 @@ namespace ILRuntime.Mono.Cecil.Cil {
 }
 
 #endif
-#endif

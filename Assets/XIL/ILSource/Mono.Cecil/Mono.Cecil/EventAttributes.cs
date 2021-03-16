@@ -1,4 +1,5 @@
-#if USE_HOT#define READ_ONLY//
+#if USE_HOT
+//
 // Author:
 //   Jb Evain (jbevain@gmail.com)
 //
@@ -19,4 +20,5 @@ namespace ILRuntime.Mono.Cecil {
 		RTSpecialName	= 0x0400	 // CLI provides 'special' behavior, depending upon the name of the event
 	}
 }
-#endif
+
+#endif
