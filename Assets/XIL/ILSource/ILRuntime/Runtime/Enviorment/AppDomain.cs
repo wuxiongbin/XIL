@@ -1006,15 +1006,16 @@ namespace ILRuntime.Runtime.Enviorment
         /// Prewarm all methods of the specified type
         /// </summary>
         /// <param name="type"></param>
-        public void Prewarm(string type)
+        /// <param name="recursive"></param>
+        public void Prewarm(string type, bool recursive = true)
         {
             IType t = GetType(type);
             if (t == null || t is CLRType)
                 return;
             var methods = t.GetMethods();
-            foreach(var i in methods)
+            foreach (var i in methods)
             {
-                ((ILMethod)i).Prewarm();
+                ((ILMethod)i).Prewarm(recursive);
             }
         }
 
@@ -1022,7 +1023,8 @@ namespace ILRuntime.Runtime.Enviorment
         /// Prewarm all methods specified by the parameter
         /// </summary>
         /// <param name="info"></param>
-        public void Prewarm(PrewarmInfo[] info)
+        /// <param name="recursive"></param>
+        public void Prewarm(PrewarmInfo[] info, bool recursive = true)
         {
             foreach(var i in info)
             {
@@ -1037,7 +1039,7 @@ namespace ILRuntime.Runtime.Enviorment
                         ILMethod m = (ILMethod)j;
                         if(m.Name == mn && m.GenericParameterCount == 0)
                         {
-                            m.Prewarm();
+                            m.Prewarm(recursive);
                         }
                     }
                 }
