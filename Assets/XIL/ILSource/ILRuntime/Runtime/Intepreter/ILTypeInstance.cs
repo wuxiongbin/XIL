@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +34,7 @@ namespace ILRuntime.Runtime.Intepreter
                     if (i.InitialValue != null && i.InitialValue.Length > 0)
                     {
                         fields[idx].ObjectType = ObjectTypes.Object;
+                        fields[idx].Value = idx;
                         managedObjs[idx] = i.InitialValue;
                     }
                     idx++;
@@ -436,6 +437,30 @@ namespace ILRuntime.Runtime.Intepreter
                         obj = ((CrossBindingAdaptorType)obj).ILInstance;
                     //if(!clrType.CopyFieldToStack(fieldIdx, clrInstance,))
                     ILIntepreter.PushObject(esp, managedStack, obj);
+                }
+                else
+                    throw new TypeLoadException();
+            }
+        }
+
+        internal unsafe void CopyToRegister(int fieldIdx,ref RegisterFrameInfo info, short reg)
+        {
+            if (fieldIdx < fields.Length && fieldIdx >= 0)
+            {
+                fixed(StackObject* ptr = fields)
+                {
+                    info.Intepreter.CopyToRegister(ref info, reg, &ptr[fieldIdx], managedObjs);
+                }
+            }
+            else
+            {
+                if (Type.FirstCLRBaseType != null && Type.FirstCLRBaseType is Enviorment.CrossBindingAdaptor)
+                {
+                    CLRType clrType = info.Intepreter.AppDomain.GetType(((Enviorment.CrossBindingAdaptor)Type.FirstCLRBaseType).BaseCLRType) as CLRType;
+                    var obj = clrType.GetFieldValue(fieldIdx, clrInstance);
+                    if (obj is CrossBindingAdaptorType)
+                        obj = ((CrossBindingAdaptorType)obj).ILInstance;
+                    ILIntepreter.AssignToRegister(ref info, reg, obj);
                 }
                 else
                     throw new TypeLoadException();

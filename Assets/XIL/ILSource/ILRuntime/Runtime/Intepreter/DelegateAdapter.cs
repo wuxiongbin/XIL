@@ -919,6 +919,7 @@ namespace ILRuntime.Runtime.Intepreter
         unsafe protected InvocationContext BeginInvoke()
         {
             var ctx = appdomain.BeginInvoke(method);
+            *ctx.ESP = default(StackObject);
             ctx.ESP++;//required to simulate delegate invocation
             return ctx;
         }
@@ -937,12 +938,19 @@ namespace ILRuntime.Runtime.Intepreter
             if (method.HasThis)
                 esp = ILIntepreter.PushObject(esp, mStack, instance);
             int paramCnt = method.ParameterCount;
-            for(int i = paramCnt; i > 0; i--)
+            bool useRegister = method.ShouldUseRegisterVM;
+            for (int i = paramCnt; i > 0; i--)
             {
                 intp.CopyToStack(esp, Minus(ebp, i), mStack);
+                if (esp->ObjectType < ObjectTypes.Object && useRegister)
+                    mStack.Add(null);
                 esp++;
             }
-            var ret = intp.Execute(method, esp, out unhandled);
+            StackObject* ret;
+            if (useRegister)
+                ret = intp.ExecuteR(method, esp, out unhandled);
+            else
+                ret = intp.Execute(method, esp, out unhandled);
             if (next != null)
             {
                 if (method.ReturnType != appdomain.VoidType)

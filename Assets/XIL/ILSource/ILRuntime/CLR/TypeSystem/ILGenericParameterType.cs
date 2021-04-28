@@ -192,6 +192,11 @@ namespace ILRuntime.CLR.TypeSystem
             return method;
         }
 
+        public void GetValueTypeSize(out int fieldCout, out int managedCount)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool IsArray
         {
             get { return isArray; }
@@ -223,6 +228,14 @@ namespace ILRuntime.CLR.TypeSystem
             get
             {
                 return null;
+            }
+        }
+
+        public int TotalFieldCount
+        {
+            get
+            {
+                return 0;
             }
         }
     }
