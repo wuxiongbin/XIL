@@ -36,10 +36,10 @@
         void ISerializationCallbackReceiver.OnBeforeSerialize()
         {
 #if UNITY_EDITOR
-            if (customizeData == null)
-                return;
+            //if (customizeData == null)
+            //    return;
 
-            customizeData.OnBeforeSerialize();
+            //customizeData.OnBeforeSerialize();
 #endif
         }
 

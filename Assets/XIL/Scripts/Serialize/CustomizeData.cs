@@ -39,6 +39,18 @@
             this.typeName = typeName;
         }
 
+        public object getInstance()
+        {
+            return instance;
+        }
+
+        public void OnTypeChange(string newTypeName)
+        {
+            this.typeName = newTypeName;
+            instance = null;
+            refType_ = null;
+        }
+
         bool isShowTypeInfo;
         object instance;
         bool isDllChange()
@@ -90,6 +102,9 @@
             if (string.IsNullOrEmpty(typeName))
             {
                 refType_ = null;
+#if UNITY_EDITOR
+                instance = null;
+#endif
                 return;
             }
 

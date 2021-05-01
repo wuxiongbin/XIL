@@ -10,13 +10,8 @@ namespace wxb.IL.Editor
 {
     public class ILMonoEditor
     {
-        FieldInfo typeNameField;
-        FieldInfo instanceField;
-        FieldInfo objsField;
-        FieldInfo bytesField;
-
         MonoBehaviour behaviour;
-        object customizeData;
+        CustomizeData customizeData;
 
         List<System.Type> allTypes;
 
@@ -51,47 +46,19 @@ namespace wxb.IL.Editor
             var customizeDataField = GetField(behaviour.GetType(), "customizeData", BindingFlags.Instance | BindingFlags.NonPublic);
             if (customizeDataField != null)
             {
-                customizeData = customizeDataField.GetValue(behaviour);
+                customizeData = customizeDataField.GetValue(behaviour) as CustomizeData;
                 if (customizeData == null)
                 {
-                    customizeData = Help.Create(customizeDataField.FieldType);
+                    customizeData = new CustomizeData();
                     customizeDataField.SetValue(behaviour, customizeData);
-                    EditorUtility.SetDirty(behaviour);
-                }
-
-                var customizeData_sp = serializedObject.FindProperty("customizeData");
-                bool isHit = GetValue(customizeData, "typeName") == null;
-                if (isHit)
-                {
-                    serializedObject.Update();
-                    SetByRef(behaviour, customizeData, "typeName");
-                    SetByRef(behaviour, customizeData, "objs");
-                    SetByRef(behaviour, customizeData, "bytes");
-                    ((CustomizeData)customizeData).OnAfterDeserialize(behaviour);
                     EditorUtility.SetDirty(behaviour);
                 }
             }
             else
             {
-                customizeData = behaviour;
-            }
-            
-            System.Type type = customizeDataField != null ? customizeDataField.FieldType : behaviour.GetType();
-            typeNameField = GetField(type, "typeName", BindingFlags.Instance | BindingFlags.NonPublic);
-            instanceField = GetField(type, "instance", BindingFlags.Instance | BindingFlags.NonPublic);
-            objsField = GetField(type, "objs", BindingFlags.Instance | BindingFlags.NonPublic);
-            bytesField = GetField(type, "bytes", BindingFlags.Instance | BindingFlags.NonPublic);
-        }
-
-        // src.name
-        static object GetValue(object src, string name)
-        {
-            var flag = BindingFlags.Instance | BindingFlags.NonPublic;
-            var src_field = src.GetType().GetField(name, flag);
-            if (src_field == null)
-                return null;
-
-            return src_field.GetValue(src);
+                EditorGUILayout.LabelField($"type:{behaviour.GetType()} not find customizeData!");
+                return;
+            }            
         }
 
         // dst.name = src.name;
@@ -128,14 +95,13 @@ namespace wxb.IL.Editor
             if (newTypename == null)
                 newTypename = string.Empty;
 
-            string typeName = (string)typeNameField.GetValue(customizeData);
+            string typeName = customizeData.TypeName;
             if (!string.Equals(newTypename, typeName))
             {
                 RegisterCompleteObjectUndo();
 
-                typeName = newTypename;
-                typeNameField.SetValue(customizeData, typeName);
-                instanceField.SetValue(customizeData, null);
+                customizeData.OnTypeChange(newTypename);
+
                 EditorUtility.SetDirty(behaviour);
             }
 
@@ -149,7 +115,7 @@ namespace wxb.IL.Editor
                 return;
             }
 
-            object instance = instanceField.GetValue(customizeData);
+            object instance = customizeData.getInstance();
             if (instance == null)
             {
                 ((CustomizeData)customizeData).OnAfterDeserialize(behaviour);
@@ -160,6 +126,7 @@ namespace wxb.IL.Editor
             {
                 EditorUtility.SetDirty(behaviour);
                 EditorUtility.SetDirty(behaviour.gameObject);
+                ((CustomizeData)customizeData).OnBeforeSerialize();
                 RegisterCompleteObjectUndo();
             }
         }
@@ -207,10 +174,7 @@ namespace wxb.IL.Editor
         public void OnGUI()
         {
             m_searchName = EditorGUILayout.TextField("输入搜索：", m_searchName);
-            string typeName = (string)typeNameField.GetValue(customizeData);
-            if (!string.IsNullOrEmpty(typeName) && typeName.StartsWith("xys.hot"))
-                typeName = typeName.Substring(4);
-
+            string typeName = customizeData.TypeName;
             string newTypename = StringPopupT("typeName", typeName, allTypes, (System.Type t) => { return t == null ? "null" : t.FullName; }, m_searchName);
             if (newTypename == "null")
                 newTypename = null;
