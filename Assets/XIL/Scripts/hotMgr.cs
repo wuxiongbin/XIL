@@ -439,17 +439,6 @@ namespace wxb
 #endif
             ILRuntime.Runtime.Generated.UnityEngine_Debug_Binding.Register(appdomain);
 
-#if UNITY_ANDROID
-            ILRuntime.Runtime.Generated.UnityEngine_Android_Permission_Binding.Register(appdomain);
-            ILRuntime.Runtime.Generated.UnityEngine_Android_AndroidDevice_Binding.Register(appdomain);
-            ILRuntime.Runtime.Generated.UnityEngine_AndroidInput_Binding.Register(appdomain);
-            ILRuntime.Runtime.Generated.UnityEngine_AndroidJavaClass_Binding.Register(appdomain);
-            ILRuntime.Runtime.Generated.UnityEngine_AndroidJavaObject_Binding.Register(appdomain);
-            ILRuntime.Runtime.Generated.UnityEngine_AndroidJavaProxy_Binding.Register(appdomain);
-            ILRuntime.Runtime.Generated.UnityEngine_AndroidJNIHelper_Binding.Register(appdomain);
-            ILRuntime.Runtime.Generated.UnityEngine_AndroidJNI_Binding.Register(appdomain);
-#endif
-
             // 热更代码当中使用List<T>类型,注册下
             // List<T>
             {

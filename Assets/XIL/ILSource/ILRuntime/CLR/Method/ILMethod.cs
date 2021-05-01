@@ -46,6 +46,8 @@ namespace ILRuntime.CLR.Method
 
         public bool Compiling { get; set; }
 
+        public bool IsRegisterBodyReady { get { return bodyRegister != null; } }
+
         public MethodDefinition Definition { get { return def; } }
 
         public Dictionary<int, int[]> JumpTables { get { return jumptables; } }
@@ -588,7 +590,7 @@ namespace ILRuntime.CLR.Method
 //#if !DEBUG || DISABLE_ILRUNTIME_DEBUG
 #if !DEBUG || !HOT_DEBUG
                 //Release Method body to save memory
-                if (!noRelease)
+                if(!noRelease)
                     def.Body = null;
 #endif
             }

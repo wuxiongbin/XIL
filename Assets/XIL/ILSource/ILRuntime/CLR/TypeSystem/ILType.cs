@@ -457,21 +457,25 @@ namespace ILRuntime.CLR.TypeSystem
             }
         }
 
+        string fullName, fullNameForNested;
+
         public string FullNameForNested
         {
             get
             {
                 if (string.IsNullOrEmpty(fullNameForNested))
                 {
-                    var f = FullName;
+                    if (typeRef.IsNested)
+                    {
+                        fullNameForNested = FullName.Replace("/", ".");
+                    }
+                    else
+                        fullNameForNested = FullName;
                 }
-
                 return fullNameForNested;
             }
         }
 
-
-        string fullName, fullNameForNested;
         public string FullName
         {
             get
@@ -497,12 +501,14 @@ namespace ILRuntime.CLR.TypeSystem
                     }
                     else
                         fullName = typeRef.FullName;
+                    /* 
                     if (typeRef.IsNested)
                     {
                         fullNameForNested = fullName.Replace("/", ".");
                     }
                     else
                         fullNameForNested = fullName;
+                    */
                 }
                 return fullName;
             }
@@ -900,7 +906,7 @@ namespace ILRuntime.CLR.TypeSystem
 
                     if (p.HasGenericParameter)
                     {
-                        if(p.Name != p2.Name)
+                        if (p.Name != p2.Name)
                         {
                             match = false;
                             break;
@@ -1033,7 +1039,7 @@ namespace ILRuntime.CLR.TypeSystem
         void InitializeFields()
         {
             fieldMapping = new Dictionary<string, int>();
-            if(definition == null)
+            if (definition == null)
             {
                 fieldTypes = new IType[0];
                 fieldDefinitions = new FieldDefinition[0];
@@ -1281,11 +1287,11 @@ namespace ILRuntime.CLR.TypeSystem
         public unsafe int GetMethodBodySizeInMemory()
         {
             int size = 0;
-            if(methods != null)
+            if (methods != null)
             {
-                foreach(var i in methods)
+                foreach (var i in methods)
                 {
-                    foreach(var j in i.Value)
+                    foreach (var j in i.Value)
                     {
                         if (j.HasBody)
                         {

@@ -328,7 +328,7 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
 #endif
             method.Compiling = false;
             var arr = res.ToArray();
-#if UNITY_EDITOR
+#if DEBUG && !NO_PROFILER
             if (System.Threading.Thread.CurrentThread.ManagedThreadId == method.AppDomain.UnityMainThreadID)
 #if UNITY_5_5_OR_NEWER
                 UnityEngine.Profiling.Profiler.EndSample();
@@ -531,7 +531,13 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
                             constrainIdx = lst.Count - 1;
                             hasConstrained = lst[constrainIdx].Code == OpCodeREnum.Constrained;
                         }
-                        if (!canInline || hasConstrained)
+                        bool needInline = canInline && !hasConstrained;
+                        if (needInline)
+                        {
+                            if (toInline.BodyRegister.Length > Optimizer.MaximalInlineInstructionCount / 2)
+                                needInline = false;
+                        }
+                        if (!needInline)
                         {
                             if (code.Code == Code.Callvirt && m is ILMethod)
                             {
@@ -605,7 +611,7 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
 
 #endif
                             Optimizer.InlineMethod(block, toInline, link, ref jumptables, baseRegIdx, hasRet);
-#if UNITY_EDITOR
+#if DEBUG && !NO_PROFILER
             if (System.Threading.Thread.CurrentThread.ManagedThreadId == method.AppDomain.UnityMainThreadID)
 #if UNITY_5_5_OR_NEWER
                 UnityEngine.Profiling.Profiler.EndSample();
@@ -982,7 +988,8 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
                     if (!ilm.IsDelegateInvoke && !ilm.IsVirtual && !noJIT && !hasExceptionHandler && !ilm.Compiling)
                     {
                         var def = ilm.Definition;
-                        if (!def.HasBody || forceInline || def.Body.Instructions.Count <= Optimizer.MaximalInlineInstructionCount)
+                        bool codeSizeOK = ilm.IsRegisterBodyReady ? ilm.BodyRegister.Length <= Optimizer.MaximalInlineInstructionCount : def.Body.Instructions.Count <= Optimizer.MaximalInlineInstructionCount;
+                        if (!def.HasBody || forceInline || codeSizeOK)
                         {
                             canInline = true;
                             toInline = ilm;

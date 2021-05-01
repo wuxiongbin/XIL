@@ -361,7 +361,7 @@ namespace ILRuntime.Runtime.Generated
 {
     class CLRBindings
     {");
-                sb.Append(SmartBindText);
+                //sb.Append(SmartBindText);
                 sb.Append(@"
         /// <summary>
         /// Initialize the CLR binding, please invoke this AFTER CLR Redirection registration
@@ -767,16 +767,16 @@ namespace ILRuntime.Runtime.Generated
         }
 
 
-        static private string SmartBindText = @"
-//will auto register in unity
-#if UNITY_5_3_OR_NEWER
-        [UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.BeforeSceneLoad)]
-#endif
-        static private void RegisterBindingAction()
-        {
-            ILRuntime.Runtime.CLRBinding.CLRBindingUtils.RegisterBindingAction(Initialize);
-        }
-";
+//        static private string SmartBindText = @"
+////will auto register in unity
+//#if UNITY_5_3_OR_NEWER
+//        [UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.BeforeSceneLoad)]
+//#endif
+//        static private void RegisterBindingAction()
+//        {
+//            ILRuntime.Runtime.CLRBinding.CLRBindingUtils.RegisterBindingAction(Initialize);
+//        }
+//";
 
         internal static void GenerateBindingInitializeScript(List<string> clsNames, List<Type> valueTypeBinders, string outputPath)
         {
@@ -796,7 +796,7 @@ namespace ILRuntime.Runtime.Generated
     class CLRBindings
     {
 ");
-                sb.Append(SmartBindText);
+                //sb.Append(SmartBindText);
 
                 if (valueTypeBinders != null)
                 {

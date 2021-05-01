@@ -136,14 +136,14 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
                                 if (xDst == yDst)
                                 {
                                     postPropagation = false;
-                                    canRemove.Add(i);
                                     ended = true;
-                                    //if (!propagationInline)
-                                        break;
+                                    if (!propagationInline)
+                                        canRemove.Add(i);
+                                    break;
                                 }
                             }
 
-                            if(Y.Code == OpCodeREnum.Ret)
+                            if(Y.Code == OpCodeREnum.Ret && !propagationInline)
                             {
                                 postPropagation = false;
                                 canRemove.Add(i);
@@ -251,7 +251,7 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
                                         break;
                                     }
                                 }
-                                if(Y.Code == OpCodeREnum.Ret)
+                                if(Y.Code == OpCodeREnum.Ret && !propagationInline)
                                 {
                                     isAbort = true;
                                     break;

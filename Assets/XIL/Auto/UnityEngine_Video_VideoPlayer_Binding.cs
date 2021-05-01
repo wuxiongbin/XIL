@@ -268,12 +268,60 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.UInt16), typeof(UnityEngine.AudioSource)};
             method = type.GetMethod("SetTargetAudioSource", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, SetTargetAudioSource_81);
+            args = new Type[]{typeof(UnityEngine.Video.VideoPlayer.EventHandler)};
+            method = type.GetMethod("add_prepareCompleted", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, add_prepareCompleted_82);
+            args = new Type[]{typeof(UnityEngine.Video.VideoPlayer.EventHandler)};
+            method = type.GetMethod("remove_prepareCompleted", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, remove_prepareCompleted_83);
+            args = new Type[]{typeof(UnityEngine.Video.VideoPlayer.EventHandler)};
+            method = type.GetMethod("add_loopPointReached", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, add_loopPointReached_84);
+            args = new Type[]{typeof(UnityEngine.Video.VideoPlayer.EventHandler)};
+            method = type.GetMethod("remove_loopPointReached", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, remove_loopPointReached_85);
+            args = new Type[]{typeof(UnityEngine.Video.VideoPlayer.EventHandler)};
+            method = type.GetMethod("add_started", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, add_started_86);
+            args = new Type[]{typeof(UnityEngine.Video.VideoPlayer.EventHandler)};
+            method = type.GetMethod("remove_started", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, remove_started_87);
+            args = new Type[]{typeof(UnityEngine.Video.VideoPlayer.EventHandler)};
+            method = type.GetMethod("add_frameDropped", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, add_frameDropped_88);
+            args = new Type[]{typeof(UnityEngine.Video.VideoPlayer.EventHandler)};
+            method = type.GetMethod("remove_frameDropped", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, remove_frameDropped_89);
+            args = new Type[]{typeof(UnityEngine.Video.VideoPlayer.ErrorEventHandler)};
+            method = type.GetMethod("add_errorReceived", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, add_errorReceived_90);
+            args = new Type[]{typeof(UnityEngine.Video.VideoPlayer.ErrorEventHandler)};
+            method = type.GetMethod("remove_errorReceived", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, remove_errorReceived_91);
+            args = new Type[]{typeof(UnityEngine.Video.VideoPlayer.EventHandler)};
+            method = type.GetMethod("add_seekCompleted", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, add_seekCompleted_92);
+            args = new Type[]{typeof(UnityEngine.Video.VideoPlayer.EventHandler)};
+            method = type.GetMethod("remove_seekCompleted", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, remove_seekCompleted_93);
+            args = new Type[]{typeof(UnityEngine.Video.VideoPlayer.TimeEventHandler)};
+            method = type.GetMethod("add_clockResyncOccurred", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, add_clockResyncOccurred_94);
+            args = new Type[]{typeof(UnityEngine.Video.VideoPlayer.TimeEventHandler)};
+            method = type.GetMethod("remove_clockResyncOccurred", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, remove_clockResyncOccurred_95);
             args = new Type[]{};
             method = type.GetMethod("get_sendFrameReadyEvents", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_sendFrameReadyEvents_82);
+            app.RegisterCLRMethodRedirection(method, get_sendFrameReadyEvents_96);
             args = new Type[]{typeof(System.Boolean)};
             method = type.GetMethod("set_sendFrameReadyEvents", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_sendFrameReadyEvents_83);
+            app.RegisterCLRMethodRedirection(method, set_sendFrameReadyEvents_97);
+            args = new Type[]{typeof(UnityEngine.Video.VideoPlayer.FrameReadyEventHandler)};
+            method = type.GetMethod("add_frameReady", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, add_frameReady_98);
+            args = new Type[]{typeof(UnityEngine.Video.VideoPlayer.FrameReadyEventHandler)};
+            method = type.GetMethod("remove_frameReady", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, remove_frameReady_99);
 
 
 
@@ -1724,7 +1772,273 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_sendFrameReadyEvents_82(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* add_prepareCompleted_82(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer.EventHandler @value = (UnityEngine.Video.VideoPlayer.EventHandler)typeof(UnityEngine.Video.VideoPlayer.EventHandler).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.prepareCompleted += value;
+
+            return __ret;
+        }
+
+        static StackObject* remove_prepareCompleted_83(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer.EventHandler @value = (UnityEngine.Video.VideoPlayer.EventHandler)typeof(UnityEngine.Video.VideoPlayer.EventHandler).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.prepareCompleted -= value;
+
+            return __ret;
+        }
+
+        static StackObject* add_loopPointReached_84(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer.EventHandler @value = (UnityEngine.Video.VideoPlayer.EventHandler)typeof(UnityEngine.Video.VideoPlayer.EventHandler).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.loopPointReached += value;
+
+            return __ret;
+        }
+
+        static StackObject* remove_loopPointReached_85(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer.EventHandler @value = (UnityEngine.Video.VideoPlayer.EventHandler)typeof(UnityEngine.Video.VideoPlayer.EventHandler).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.loopPointReached -= value;
+
+            return __ret;
+        }
+
+        static StackObject* add_started_86(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer.EventHandler @value = (UnityEngine.Video.VideoPlayer.EventHandler)typeof(UnityEngine.Video.VideoPlayer.EventHandler).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.started += value;
+
+            return __ret;
+        }
+
+        static StackObject* remove_started_87(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer.EventHandler @value = (UnityEngine.Video.VideoPlayer.EventHandler)typeof(UnityEngine.Video.VideoPlayer.EventHandler).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.started -= value;
+
+            return __ret;
+        }
+
+        static StackObject* add_frameDropped_88(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer.EventHandler @value = (UnityEngine.Video.VideoPlayer.EventHandler)typeof(UnityEngine.Video.VideoPlayer.EventHandler).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.frameDropped += value;
+
+            return __ret;
+        }
+
+        static StackObject* remove_frameDropped_89(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer.EventHandler @value = (UnityEngine.Video.VideoPlayer.EventHandler)typeof(UnityEngine.Video.VideoPlayer.EventHandler).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.frameDropped -= value;
+
+            return __ret;
+        }
+
+        static StackObject* add_errorReceived_90(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer.ErrorEventHandler @value = (UnityEngine.Video.VideoPlayer.ErrorEventHandler)typeof(UnityEngine.Video.VideoPlayer.ErrorEventHandler).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.errorReceived += value;
+
+            return __ret;
+        }
+
+        static StackObject* remove_errorReceived_91(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer.ErrorEventHandler @value = (UnityEngine.Video.VideoPlayer.ErrorEventHandler)typeof(UnityEngine.Video.VideoPlayer.ErrorEventHandler).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.errorReceived -= value;
+
+            return __ret;
+        }
+
+        static StackObject* add_seekCompleted_92(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer.EventHandler @value = (UnityEngine.Video.VideoPlayer.EventHandler)typeof(UnityEngine.Video.VideoPlayer.EventHandler).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.seekCompleted += value;
+
+            return __ret;
+        }
+
+        static StackObject* remove_seekCompleted_93(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer.EventHandler @value = (UnityEngine.Video.VideoPlayer.EventHandler)typeof(UnityEngine.Video.VideoPlayer.EventHandler).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.seekCompleted -= value;
+
+            return __ret;
+        }
+
+        static StackObject* add_clockResyncOccurred_94(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer.TimeEventHandler @value = (UnityEngine.Video.VideoPlayer.TimeEventHandler)typeof(UnityEngine.Video.VideoPlayer.TimeEventHandler).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.clockResyncOccurred += value;
+
+            return __ret;
+        }
+
+        static StackObject* remove_clockResyncOccurred_95(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer.TimeEventHandler @value = (UnityEngine.Video.VideoPlayer.TimeEventHandler)typeof(UnityEngine.Video.VideoPlayer.TimeEventHandler).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.clockResyncOccurred -= value;
+
+            return __ret;
+        }
+
+        static StackObject* get_sendFrameReadyEvents_96(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1741,7 +2055,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_sendFrameReadyEvents_83(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_sendFrameReadyEvents_97(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1755,6 +2069,44 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
             instance_of_this_method.sendFrameReadyEvents = value;
+
+            return __ret;
+        }
+
+        static StackObject* add_frameReady_98(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer.FrameReadyEventHandler @value = (UnityEngine.Video.VideoPlayer.FrameReadyEventHandler)typeof(UnityEngine.Video.VideoPlayer.FrameReadyEventHandler).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.frameReady += value;
+
+            return __ret;
+        }
+
+        static StackObject* remove_frameReady_99(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Video.VideoPlayer.FrameReadyEventHandler @value = (UnityEngine.Video.VideoPlayer.FrameReadyEventHandler)typeof(UnityEngine.Video.VideoPlayer.FrameReadyEventHandler).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            UnityEngine.Video.VideoPlayer instance_of_this_method = (UnityEngine.Video.VideoPlayer)typeof(UnityEngine.Video.VideoPlayer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.frameReady -= value;
 
             return __ret;
         }

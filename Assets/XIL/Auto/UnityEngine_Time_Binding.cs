@@ -26,77 +26,95 @@ namespace ILRuntime.Runtime.Generated
             method = type.GetMethod("get_time", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, get_time_0);
             args = new Type[]{};
+            method = type.GetMethod("get_timeAsDouble", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_timeAsDouble_1);
+            args = new Type[]{};
             method = type.GetMethod("get_timeSinceLevelLoad", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_timeSinceLevelLoad_1);
+            app.RegisterCLRMethodRedirection(method, get_timeSinceLevelLoad_2);
+            args = new Type[]{};
+            method = type.GetMethod("get_timeSinceLevelLoadAsDouble", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_timeSinceLevelLoadAsDouble_3);
             args = new Type[]{};
             method = type.GetMethod("get_deltaTime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_deltaTime_2);
+            app.RegisterCLRMethodRedirection(method, get_deltaTime_4);
             args = new Type[]{};
             method = type.GetMethod("get_fixedTime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_fixedTime_3);
+            app.RegisterCLRMethodRedirection(method, get_fixedTime_5);
+            args = new Type[]{};
+            method = type.GetMethod("get_fixedTimeAsDouble", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_fixedTimeAsDouble_6);
             args = new Type[]{};
             method = type.GetMethod("get_unscaledTime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_unscaledTime_4);
+            app.RegisterCLRMethodRedirection(method, get_unscaledTime_7);
+            args = new Type[]{};
+            method = type.GetMethod("get_unscaledTimeAsDouble", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_unscaledTimeAsDouble_8);
             args = new Type[]{};
             method = type.GetMethod("get_fixedUnscaledTime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_fixedUnscaledTime_5);
+            app.RegisterCLRMethodRedirection(method, get_fixedUnscaledTime_9);
+            args = new Type[]{};
+            method = type.GetMethod("get_fixedUnscaledTimeAsDouble", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_fixedUnscaledTimeAsDouble_10);
             args = new Type[]{};
             method = type.GetMethod("get_unscaledDeltaTime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_unscaledDeltaTime_6);
+            app.RegisterCLRMethodRedirection(method, get_unscaledDeltaTime_11);
             args = new Type[]{};
             method = type.GetMethod("get_fixedUnscaledDeltaTime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_fixedUnscaledDeltaTime_7);
+            app.RegisterCLRMethodRedirection(method, get_fixedUnscaledDeltaTime_12);
             args = new Type[]{};
             method = type.GetMethod("get_fixedDeltaTime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_fixedDeltaTime_8);
+            app.RegisterCLRMethodRedirection(method, get_fixedDeltaTime_13);
             args = new Type[]{typeof(System.Single)};
             method = type.GetMethod("set_fixedDeltaTime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_fixedDeltaTime_9);
+            app.RegisterCLRMethodRedirection(method, set_fixedDeltaTime_14);
             args = new Type[]{};
             method = type.GetMethod("get_maximumDeltaTime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_maximumDeltaTime_10);
+            app.RegisterCLRMethodRedirection(method, get_maximumDeltaTime_15);
             args = new Type[]{typeof(System.Single)};
             method = type.GetMethod("set_maximumDeltaTime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_maximumDeltaTime_11);
+            app.RegisterCLRMethodRedirection(method, set_maximumDeltaTime_16);
             args = new Type[]{};
             method = type.GetMethod("get_smoothDeltaTime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_smoothDeltaTime_12);
+            app.RegisterCLRMethodRedirection(method, get_smoothDeltaTime_17);
             args = new Type[]{};
             method = type.GetMethod("get_maximumParticleDeltaTime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_maximumParticleDeltaTime_13);
+            app.RegisterCLRMethodRedirection(method, get_maximumParticleDeltaTime_18);
             args = new Type[]{typeof(System.Single)};
             method = type.GetMethod("set_maximumParticleDeltaTime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_maximumParticleDeltaTime_14);
+            app.RegisterCLRMethodRedirection(method, set_maximumParticleDeltaTime_19);
             args = new Type[]{};
             method = type.GetMethod("get_timeScale", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_timeScale_15);
+            app.RegisterCLRMethodRedirection(method, get_timeScale_20);
             args = new Type[]{typeof(System.Single)};
             method = type.GetMethod("set_timeScale", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_timeScale_16);
+            app.RegisterCLRMethodRedirection(method, set_timeScale_21);
             args = new Type[]{};
             method = type.GetMethod("get_frameCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_frameCount_17);
+            app.RegisterCLRMethodRedirection(method, get_frameCount_22);
             args = new Type[]{};
             method = type.GetMethod("get_renderedFrameCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_renderedFrameCount_18);
+            app.RegisterCLRMethodRedirection(method, get_renderedFrameCount_23);
             args = new Type[]{};
             method = type.GetMethod("get_realtimeSinceStartup", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_realtimeSinceStartup_19);
+            app.RegisterCLRMethodRedirection(method, get_realtimeSinceStartup_24);
+            args = new Type[]{};
+            method = type.GetMethod("get_realtimeSinceStartupAsDouble", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_realtimeSinceStartupAsDouble_25);
             args = new Type[]{};
             method = type.GetMethod("get_captureDeltaTime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_captureDeltaTime_20);
+            app.RegisterCLRMethodRedirection(method, get_captureDeltaTime_26);
             args = new Type[]{typeof(System.Single)};
             method = type.GetMethod("set_captureDeltaTime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_captureDeltaTime_21);
+            app.RegisterCLRMethodRedirection(method, set_captureDeltaTime_27);
             args = new Type[]{};
             method = type.GetMethod("get_captureFramerate", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_captureFramerate_22);
+            app.RegisterCLRMethodRedirection(method, get_captureFramerate_28);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("set_captureFramerate", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_captureFramerate_23);
+            app.RegisterCLRMethodRedirection(method, set_captureFramerate_29);
             args = new Type[]{};
             method = type.GetMethod("get_inFixedTimeStep", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_inFixedTimeStep_24);
+            app.RegisterCLRMethodRedirection(method, get_inFixedTimeStep_30);
 
 
 
@@ -123,7 +141,20 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_timeSinceLevelLoad_1(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_timeAsDouble_1(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.Time.timeAsDouble;
+
+            __ret->ObjectType = ObjectTypes.Double;
+            *(double*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_timeSinceLevelLoad_2(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -136,7 +167,20 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_deltaTime_2(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_timeSinceLevelLoadAsDouble_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.Time.timeSinceLevelLoadAsDouble;
+
+            __ret->ObjectType = ObjectTypes.Double;
+            *(double*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_deltaTime_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -149,7 +193,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_fixedTime_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_fixedTime_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -162,7 +206,20 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_unscaledTime_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_fixedTimeAsDouble_6(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.Time.fixedTimeAsDouble;
+
+            __ret->ObjectType = ObjectTypes.Double;
+            *(double*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_unscaledTime_7(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -175,7 +232,20 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_fixedUnscaledTime_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_unscaledTimeAsDouble_8(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.Time.unscaledTimeAsDouble;
+
+            __ret->ObjectType = ObjectTypes.Double;
+            *(double*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_fixedUnscaledTime_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -188,7 +258,20 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_unscaledDeltaTime_6(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_fixedUnscaledTimeAsDouble_10(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.Time.fixedUnscaledTimeAsDouble;
+
+            __ret->ObjectType = ObjectTypes.Double;
+            *(double*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_unscaledDeltaTime_11(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -201,7 +284,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_fixedUnscaledDeltaTime_7(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_fixedUnscaledDeltaTime_12(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -214,7 +297,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_fixedDeltaTime_8(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_fixedDeltaTime_13(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -227,7 +310,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_fixedDeltaTime_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_fixedDeltaTime_14(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -242,7 +325,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_maximumDeltaTime_10(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_maximumDeltaTime_15(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -255,7 +338,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_maximumDeltaTime_11(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_maximumDeltaTime_16(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -270,7 +353,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_smoothDeltaTime_12(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_smoothDeltaTime_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -283,7 +366,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_maximumParticleDeltaTime_13(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_maximumParticleDeltaTime_18(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -296,7 +379,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_maximumParticleDeltaTime_14(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_maximumParticleDeltaTime_19(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -311,7 +394,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_timeScale_15(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_timeScale_20(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -324,7 +407,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_timeScale_16(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_timeScale_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -339,7 +422,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_frameCount_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_frameCount_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -352,7 +435,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_renderedFrameCount_18(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_renderedFrameCount_23(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -365,7 +448,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_realtimeSinceStartup_19(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_realtimeSinceStartup_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -378,7 +461,20 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_captureDeltaTime_20(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_realtimeSinceStartupAsDouble_25(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.Time.realtimeSinceStartupAsDouble;
+
+            __ret->ObjectType = ObjectTypes.Double;
+            *(double*)&__ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* get_captureDeltaTime_26(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -391,7 +487,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_captureDeltaTime_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_captureDeltaTime_27(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -406,7 +502,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_captureFramerate_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_captureFramerate_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -419,7 +515,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_captureFramerate_23(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_captureFramerate_29(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -434,7 +530,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_inFixedTimeStep_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_inFixedTimeStep_30(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);

@@ -171,6 +171,7 @@ namespace ILRuntime.Runtime.Intepreter
             }
             var bp = stack.ValueTypeStackPointer;
             ValueTypeBasePointer = bp;
+            var ehs = method.ExceptionHandlerRegister;
 
             StackObject* reg1, reg2, reg3, objRef, objRef2, val, dst, ret;
             bool transfer;
@@ -2100,12 +2101,12 @@ namespace ILRuntime.Runtime.Intepreter
                             case OpCodeREnum.Leave:
                             case OpCodeREnum.Leave_S:
                                 {
-                                    if (method.ExceptionHandlerRegister != null)
+                                    if (ehs != null)
                                     {
                                         ExceptionHandler eh = null;
 
                                         int addr = ip->Operand;
-                                        var sql = from e in method.ExceptionHandlerRegister
+                                        var sql = from e in ehs
                                                   where addr == e.HandlerEnd + 1 && e.HandlerType == ExceptionHandlerType.Finally || e.HandlerType == ExceptionHandlerType.Fault
                                                   select e;
                                         eh = sql.FirstOrDefault();
@@ -3330,86 +3331,89 @@ namespace ILRuntime.Runtime.Intepreter
                                         ILType it = (ILType)type;
                                         if (it.IsValueType)
                                         {
-                                            if (it.IsEnum)
+                                            if (it.IsEnum || it.IsPrimitive)
                                             {
                                                 StackObject.Initialized(objRef, type);
                                             }
                                             else
                                             {
-                                                switch (objRef->ObjectType)
+                                                if (objRef >= info.RegisterStart && objRef < info.RegisterEnd)
                                                 {
-                                                    case ObjectTypes.Null:
-                                                        throw new NullReferenceException();
-                                                    case ObjectTypes.Integer:
-                                                    case ObjectTypes.Float:
-                                                        objRef->Value = 0;
-                                                        break;
-                                                    case ObjectTypes.Long:
-                                                    case ObjectTypes.Double:
-                                                        *(long*)&objRef->Value = 0;
-                                                        break;
-                                                    case ObjectTypes.ValueTypeObjectReference:
-                                                        stack.ClearValueTypeObject(type, ILIntepreter.ResolveReference(objRef));
-                                                        break;
-                                                    case ObjectTypes.Object:
-                                                        {
-                                                            obj = mStack[objRef->Value];
-                                                            if (obj == null)
+                                                    stack.AllocValueType(objRef, type, true);
+                                                }
+                                                else
+                                                {
+                                                    switch (objRef->ObjectType)
+                                                    {
+                                                        case ObjectTypes.Null:
+                                                            throw new NullReferenceException();
+                                                        case ObjectTypes.ValueTypeObjectReference:
+                                                            stack.ClearValueTypeObject(type, ILIntepreter.ResolveReference(objRef));
+                                                            break;
+                                                        case ObjectTypes.Object:
                                                             {
-                                                                if (it.IsEnum)
+                                                                obj = mStack[objRef->Value];
+                                                                if (obj == null)
                                                                 {
-                                                                    StackObject.Initialized(objRef, it);
-                                                                    continue;
+                                                                    throw new NotSupportedException();
                                                                 }
-                                                                else
-                                                                {
-                                                                    if (objRef >= info.RegisterStart && objRef < info.RegisterEnd)
-                                                                    {
-                                                                        stack.AllocValueType(objRef, type, true);
-                                                                        continue;
-                                                                    }
-                                                                    else
-                                                                        throw new NotSupportedException();
-                                                                }
-                                                            }
 
-                                                            if (obj is ILTypeInstance)
-                                                            {
-                                                                ILTypeInstance instance = obj as ILTypeInstance;
-                                                                instance.Clear();
-                                                            }
-                                                            else
-                                                                throw new NotSupportedException();
-                                                        }
-                                                        break;
-                                                    case ObjectTypes.ArrayReference:
-                                                        {
-                                                            var arr = mStack[objRef->Value] as Array;
-                                                            var idx = objRef->ValueLow;
-                                                            obj = arr.GetValue(idx);
-                                                            if (obj == null)
-                                                                arr.SetValue(it.Instantiate(), idx);
-                                                            else
-                                                            {
                                                                 if (obj is ILTypeInstance)
                                                                 {
                                                                     ILTypeInstance instance = obj as ILTypeInstance;
                                                                     instance.Clear();
                                                                 }
                                                                 else
-                                                                    throw new NotImplementedException();
+                                                                    throw new NotSupportedException();
                                                             }
-                                                        }
-                                                        break;
-                                                    case ObjectTypes.FieldReference:
-                                                        {
-                                                            obj = mStack[objRef->Value];
-                                                            if (obj != null)
+                                                            break;
+                                                        case ObjectTypes.ArrayReference:
                                                             {
-                                                                if (obj is ILTypeInstance)
+                                                                var arr = mStack[objRef->Value] as Array;
+                                                                var idx = objRef->ValueLow;
+                                                                obj = arr.GetValue(idx);
+                                                                if (obj == null)
+                                                                    arr.SetValue(it.Instantiate(), idx);
+                                                                else
                                                                 {
-                                                                    ILTypeInstance instance = obj as ILTypeInstance;
-                                                                    var tar = instance[objRef->ValueLow] as ILTypeInstance;
+                                                                    if (obj is ILTypeInstance)
+                                                                    {
+                                                                        ILTypeInstance instance = obj as ILTypeInstance;
+                                                                        instance.Clear();
+                                                                    }
+                                                                    else
+                                                                        throw new NotImplementedException();
+                                                                }
+                                                            }
+                                                            break;
+                                                        case ObjectTypes.FieldReference:
+                                                            {
+                                                                obj = mStack[objRef->Value];
+                                                                if (obj != null)
+                                                                {
+                                                                    if (obj is ILTypeInstance)
+                                                                    {
+                                                                        ILTypeInstance instance = obj as ILTypeInstance;
+                                                                        var tar = instance[objRef->ValueLow] as ILTypeInstance;
+                                                                        if (tar != null)
+                                                                            tar.Clear();
+                                                                        else
+                                                                            throw new NotSupportedException();
+                                                                    }
+                                                                    else
+                                                                        throw new NotSupportedException();
+                                                                }
+                                                                else
+                                                                    throw new NullReferenceException();
+                                                            }
+                                                            break;
+                                                        case ObjectTypes.StaticFieldReference:
+                                                            {
+                                                                var t = AppDomain.GetType(objRef->Value);
+                                                                int idx = objRef->ValueLow;
+                                                                if (t is ILType)
+                                                                {
+                                                                    var tar = ((ILType)t).StaticInstance[idx] as ILTypeInstance;
                                                                     if (tar != null)
                                                                         tar.Clear();
                                                                     else
@@ -3418,28 +3422,10 @@ namespace ILRuntime.Runtime.Intepreter
                                                                 else
                                                                     throw new NotSupportedException();
                                                             }
-                                                            else
-                                                                throw new NullReferenceException();
-                                                        }
-                                                        break;
-                                                    case ObjectTypes.StaticFieldReference:
-                                                        {
-                                                            var t = AppDomain.GetType(objRef->Value);
-                                                            int idx = objRef->ValueLow;
-                                                            if (t is ILType)
-                                                            {
-                                                                var tar = ((ILType)t).StaticInstance[idx] as ILTypeInstance;
-                                                                if (tar != null)
-                                                                    tar.Clear();
-                                                                else
-                                                                    throw new NotSupportedException();
-                                                            }
-                                                            else
-                                                                throw new NotSupportedException();
-                                                        }
-                                                        break;
-                                                    default:
-                                                        throw new NotImplementedException();
+                                                            break;
+                                                        default:
+                                                            throw new NotImplementedException();
+                                                    }
                                                 }
                                             }
                                         }
@@ -4281,14 +4267,14 @@ namespace ILRuntime.Runtime.Intepreter
                     }
                     catch (Exception ex)
                     {
-                        if (method.ExceptionHandlerRegister != null)
+                        if (ehs != null)
                         {
                             int addr = (int)(ip - ptr);
-                            var eh = GetCorrespondingExceptionHandler(method.ExceptionHandlerRegister, ex, addr, ExceptionHandlerType.Catch, true);
+                            var eh = GetCorrespondingExceptionHandler(ehs, ex, addr, ExceptionHandlerType.Catch, true);
 
                             if (eh == null)
                             {
-                                eh = GetCorrespondingExceptionHandler(method.ExceptionHandlerRegister, ex, addr, ExceptionHandlerType.Catch, false);
+                                eh = GetCorrespondingExceptionHandler(ehs, ex, addr, ExceptionHandlerType.Catch, false);
                             }
                             if (eh != null)
                             {
@@ -4348,7 +4334,7 @@ namespace ILRuntime.Runtime.Intepreter
                 }
             }
 
-#if UNITY_EDITOR
+#if DEBUG && !NO_PROFILER
             if (System.Threading.Thread.CurrentThread.ManagedThreadId == AppDomain.UnityMainThreadID)
 #if UNITY_5_5_OR_NEWER
                 UnityEngine.Profiling.Profiler.EndSample();
