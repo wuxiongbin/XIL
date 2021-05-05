@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +46,7 @@ namespace ILRuntime.CLR.TypeSystem
         IType firstCLRBaseType, firstCLRInterface;
         int hashCode = -1;
         static int instance_id = 0x10000000;
-        ILRuntimeJITFlags jitFlags;
+        int jitFlags;
         public TypeDefinition TypeDefinition { get { return definition; } }
         bool mToStringGot, mEqualsGot, mGetHashCodeGot;
         IMethod mToString, mEquals, mGetHashCode;
@@ -697,11 +697,15 @@ namespace ILRuntime.CLR.TypeSystem
 
         void InitializeMethods()
         {
+            methods = new Dictionary<string, List<ILMethod>>();
+            constructors = new List<ILMethod>();
+            if (definition == null)
+                return;
             if (definition.HasCustomAttributes)
             {
                 for (int i = 0; i < definition.CustomAttributes.Count; i++)
                 {
-                    ILRuntimeJITFlags f;
+                    int f;
                     if (definition.CustomAttributes[i].GetJITFlags(AppDomain, out f))
                     {
                         this.jitFlags = f;
@@ -709,10 +713,6 @@ namespace ILRuntime.CLR.TypeSystem
                     }
                 }
             }
-            methods = new Dictionary<string, List<ILMethod>>();
-            constructors = new List<ILMethod>();
-            if (definition == null)
-                return;
             foreach (var i in definition.Methods)
             {
                 if (i.IsConstructor)

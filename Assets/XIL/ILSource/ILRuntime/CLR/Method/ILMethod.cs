@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +34,7 @@ namespace ILRuntime.CLR.Method
         ILRuntimeMethodInfo refletionMethodInfo;
         ILRuntimeConstructorInfo reflectionCtorInfo;
         int paramCnt, localVarCnt, stackRegisterCnt;
-        ILRuntimeJITFlags jitFlags;
+        int jitFlags;
         bool jitOnDemand;
         bool jitImmediately;
         int warmupCounter = 0;
@@ -55,7 +55,7 @@ namespace ILRuntime.CLR.Method
 
         internal Dictionary<int, RegisterVMSymbol> RegisterVMSymbols { get { return registerSymbols; } }
 
-        internal ILRuntimeJITFlags JITFlags { get { return jitFlags; } }
+        internal int JITFlags { get { return jitFlags; } }
 
         internal bool IsRegisterVMSymbolFixed { get { return symbolFixed; } }
 
@@ -191,7 +191,7 @@ namespace ILRuntime.CLR.Method
                 }
             }
         }
-        public ILMethod(MethodDefinition def, ILType type, ILRuntime.Runtime.Enviorment.AppDomain domain, ILRuntimeJITFlags flags)
+        public ILMethod(MethodDefinition def, ILType type, ILRuntime.Runtime.Enviorment.AppDomain domain, int flags)
         {
             this.def = def;
             declaringType = type;
@@ -210,7 +210,7 @@ namespace ILRuntime.CLR.Method
             {
                 for(int i = 0; i < def.CustomAttributes.Count; i++)
                 {
-                    ILRuntimeJITFlags f;
+                    int f;
                     if(def.CustomAttributes[i].GetJITFlags(domain, out f))
                     {
                         this.jitFlags = f;

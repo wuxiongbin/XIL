@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -3691,7 +3691,7 @@ namespace ILRuntime.Runtime.Intepreter
                                                 res = mStack[reg1->Value] == null && reg2->ObjectType == ObjectTypes.Null;
                                                 break;
                                             case ObjectTypes.Null:
-                                                res = reg1->ObjectType == ObjectTypes.Object && mStack[reg2->Value] == null;
+                                                res = reg2->ObjectType == ObjectTypes.Object && mStack[reg2->Value] == null;
                                                 break;
                                         }
                                     }
