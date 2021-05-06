@@ -156,6 +156,76 @@ namespace ILRuntime.Runtime.Intepreter.OpCodes
                 case OpCodeREnum.Ldsfld:
                     param = string.Format("r{0}, 0x{1:X8}", Register1, OperandLong);
                     break;
+
+                case OpCodeREnum.Beqi:
+                case OpCodeREnum.Bgei:
+                case OpCodeREnum.Bgei_Un:
+                case OpCodeREnum.Bgti:
+                case OpCodeREnum.Bgti_Un:
+                case OpCodeREnum.Bnei_Un:
+                case OpCodeREnum.Blei:
+                case OpCodeREnum.Blei_Un:
+                case OpCodeREnum.Blti:
+                case OpCodeREnum.Blti_Un:
+                    if (Operand != 0)
+                    {
+                        param = string.Format("r{0},{1},{2}", Register1, Operand, Operand4);
+                    }
+                    else if (OperandLong != 0)
+                    {
+                        param = string.Format("r{0},{1},{2}", Register1, OperandLong, Operand4);
+                    }
+                    else if (OperandFloat != 0)
+                    {
+                        param = string.Format("r{0},{1},{2}", Register1, OperandFloat, Operand4);
+                    }
+                    else if (OperandDouble != 0)
+                    {
+                        param = string.Format("r{0},{1},{2}", Register1, OperandDouble, Operand4);
+                    }
+                    else
+                    {
+                        param = string.Format("r{0},0,{1}", Register1, Operand4);
+                    }
+                    break;
+                case OpCodeREnum.Ceqi:
+                case OpCodeREnum.Cgti:
+                case OpCodeREnum.Cgti_Un:
+                case OpCodeREnum.Clti:
+                case OpCodeREnum.Clti_Un:
+                case OpCodeREnum.Addi:
+                case OpCodeREnum.Subi:
+                case OpCodeREnum.Muli:
+                case OpCodeREnum.Divi:
+                case OpCodeREnum.Remi:
+                case OpCodeREnum.Remi_Un:
+                case OpCodeREnum.Andi:
+                case OpCodeREnum.Ori:
+                case OpCodeREnum.Xori:
+                case OpCodeREnum.Shli:
+                case OpCodeREnum.Shri:
+                case OpCodeREnum.Shri_Un:
+                    if (Operand != 0)
+                    {
+                        param = string.Format("r{0},r{1},{2}", Register1, Register2, Operand);
+                    }
+                    else if (OperandLong != 0)
+                    {
+                        param = string.Format("r{0},r{1},{2}", Register1, Register2, OperandLong);
+                    }
+                    else if (OperandFloat != 0)
+                    {
+                        param = string.Format("r{0},r{1},{2}", Register1, Register2, OperandFloat);
+                    }
+                    else if (OperandDouble != 0)
+                    {
+                        param = string.Format("r{0},r{1},{2}", Register1, Register2, OperandDouble);
+                    }
+                    else
+                    {
+                        param = string.Format("r{0},r{1},0", Register1, Register2);
+                    }
+                    break;
                 case OpCodeREnum.Add:
                 case OpCodeREnum.Add_Ovf:
                 case OpCodeREnum.Add_Ovf_Un:

@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -197,6 +197,7 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
             Optimizer.ForwardCopyPropagation(blocks, hasReturn, baseRegStart);
             Optimizer.BackwardsCopyPropagation(blocks, hasReturn, baseRegStart);
             Optimizer.ForwardCopyPropagation(blocks, hasReturn, baseRegStart);
+            Optimizer.EliminateConstantLoad(blocks, hasReturn);
 
 #if OUTPUT_JIT_RESULT
             cnt = 1;
@@ -268,6 +269,11 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
                                 ins.Operand += inlineOffset;
                                 inlinedBranches.Add(res.Count);
                             }
+                            else if (Optimizer.IsIntermediateBranching(ins.Code))
+                            {
+                                ins.Operand4 += inlineOffset;
+                                inlinedBranches.Add(res.Count);
+                            }
                             else if (ins.Code == OpCodeREnum.Switch)
                             {
                                 int[] targets = jumptables[ins.Operand];
@@ -291,6 +297,11 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
                 if (Optimizer.IsBranching(op.Code) && !inlinedBranches.Contains(i))
                 {
                     op.Operand = jumpTargets[op.Operand];
+                    res[i] = op;
+                }
+                else if (Optimizer.IsIntermediateBranching(op.Code) && !inlinedBranches.Contains(i))
+                {
+                    op.Operand4 = jumpTargets[op.Operand4];
                     res[i] = op;
                 }
                 else if (op.Code == OpCodeREnum.Switch && !inlinedBranches.Contains(i))
@@ -594,11 +605,19 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
                         {
                             baseRegIdx -= (short)pCnt;
                             RegisterVMSymbolLink link = null;
-#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
                             link = new RegisterVMSymbolLink();
                             link.BaseRegisterIndex = baseRegIdx;
                             link.Value.Instruction = ins;
                             link.Value.Method = method;
+#else
+                            RegisterVMSymbol vmS = new RegisterVMSymbol()
+                            {
+                                Instruction = ins,
+                                Method = method
+                            };
+                            block.InstructionMapping.Add(lst.Count,vmS);
 #endif
 #if DEBUG && !NO_PROFILER
             if (System.Threading.Thread.CurrentThread.ManagedThreadId == method.AppDomain.UnityMainThreadID)
@@ -955,6 +974,8 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
             };
             block.InstructionMapping.Add(lst.Count, s);
             lst.Add(op);
+            if (!block.NeedLoadConstantElimination)
+                block.NeedLoadConstantElimination = Optimizer.IsLoadConstant(op.Code);
         }
 
 
