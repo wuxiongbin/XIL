@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -155,15 +155,23 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
             for (short r = locVarRegStart; r < locVarRegStart + body.Variables.Count; r++)
             {
                 visitedBlocks.Clear();
-                if (CheckNeedInitObj(first, r, method.ReturnType != method.AppDomain.VoidType, visitedBlocks))
+                foreach (var b in blocks)
                 {
-                    OpCodeR code = new OpCodeR();
-                    code.Code = OpCodeREnum.Initobj;
-                    code.Register1 = r;
-                    code.Operand = method.GetTypeTokenHashCode(body.Variables[idx].VariableType);
-                    code.Operand2 = 1;
-                    first.FinalInstructions.Insert(appendIdx++, code);
+                    if (b.PreviousBlocks.Count == 0)
+                    {
+                        if (CheckNeedInitObj(b, r, method.ReturnType != method.AppDomain.VoidType, visitedBlocks))
+                        {
+                            OpCodeR code = new OpCodeR();
+                            code.Code = OpCodeREnum.Initobj;
+                            code.Register1 = r;
+                            code.Operand = method.GetTypeTokenHashCode(body.Variables[idx].VariableType);
+                            code.Operand2 = 1;
+                            first.FinalInstructions.Insert(appendIdx++, code);
+                            break;
+                        }
+                    }
                 }
+
                 idx++;
             }
             for (idx = first.FinalInstructions.Count - 1; idx >= 0; idx--)

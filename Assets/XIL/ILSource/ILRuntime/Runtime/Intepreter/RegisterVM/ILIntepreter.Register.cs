@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -2707,9 +2707,9 @@ namespace ILRuntime.Runtime.Intepreter
                                     {
                                         ExceptionHandler eh = null;
 
-                                        int addr = ip->Operand;
+                                        int addr = (int)(ip - ptr);
                                         var sql = from e in ehs
-                                                  where addr == e.HandlerEnd + 1 && e.HandlerType == ExceptionHandlerType.Finally || e.HandlerType == ExceptionHandlerType.Fault
+                                                  where addr >= e.TryStart && addr <=e.TryEnd && e.HandlerType == ExceptionHandlerType.Finally || e.HandlerType == ExceptionHandlerType.Fault
                                                   select e;
                                         eh = sql.FirstOrDefault();
                                         if (eh != null)
