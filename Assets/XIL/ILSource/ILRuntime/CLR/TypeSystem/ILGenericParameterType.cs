@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -116,7 +116,7 @@ namespace ILRuntime.CLR.TypeSystem
                 byrefType.isByRef = true;
                 byrefType.elementType = this;
             }
-            return this;
+            return byrefType;
         }
 
 
@@ -206,7 +206,7 @@ namespace ILRuntime.CLR.TypeSystem
         {
             get
             {
-                return false;
+                return isByRef;
             }
         }
 

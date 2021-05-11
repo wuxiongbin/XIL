@@ -21,11 +21,18 @@ namespace wxb
 
         public int Add(Object o)
         {
+            if (o == null)
+                return 0;
+
             int pos = objs.IndexOf(o);
             if (pos == -1)
             {
                 objs.Add(o);
-                pos = objs.Count - 1;
+                pos = objs.Count;
+            }
+            else
+            {
+                pos += 1;
             }
 
             return pos;
@@ -44,6 +51,10 @@ namespace wxb
             {
                 objs.Add(obj);
                 pos = objs.Count;
+            }
+            else
+            {
+                pos += 1;
             }
 
             WriteVarInt32(pos);

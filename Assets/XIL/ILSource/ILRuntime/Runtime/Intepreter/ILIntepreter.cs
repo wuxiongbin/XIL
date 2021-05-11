@@ -4520,11 +4520,6 @@ namespace ILRuntime.Runtime.Intepreter
                 StackObject* cur = basePointer + i;
                 if (cur->ObjectType < ObjectTypes.Object)
                 {
-                    if (cur->ObjectType == ObjectTypes.Null)
-                    {
-                        cur->ObjectType = ObjectTypes.Object;
-                        cur->Value = mStack.Count;
-                    }
                     mStack.Add(null);
                 }
                 else
@@ -4540,6 +4535,15 @@ namespace ILRuntime.Runtime.Intepreter
                     {
                         mStack[mBase + i] = mStack[cur->Value];
                         cur->Value = mBase + i;
+                    }
+                    else
+                    {
+                        if (cur->ObjectType == ObjectTypes.Null)
+                        {
+                            cur->ObjectType = ObjectTypes.Object;
+                            cur->Value = mBase + i;                            
+                        }
+                        mStack[mBase + i] = null;
                     }
                 }
             }
