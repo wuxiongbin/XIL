@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEditor;
+using UnityEngine;
 #if USE_HOT
 using ILRuntime.Runtime.Intepreter;
 using ILRuntime.Reflection;
@@ -13,6 +14,9 @@ namespace wxb.Editor
     {
         bool OnGUI(object parent, FieldInfo info);
         object OnGUI(string label, object value, System.Type type, out bool isDirty);
+
+        // 自动赋值
+        bool AutoSetValue(object value, FieldInfo fieldInfo, GameObject root);
     }
 
     class EmptyTypeGUI : ITypeGUI
@@ -26,6 +30,11 @@ namespace wxb.Editor
         {
             isDirty = false;
             return value;
+        }
+
+        public bool AutoSetValue(object value, FieldInfo fieldInfo, GameObject root)
+        {
+            return false;
         }
     }
 
@@ -203,6 +212,20 @@ namespace wxb.Editor
             return new AnyType(type, IL.Help.GetSerializeField(type));
         }
 
+        public static bool OnAutoSetValue(object parent, GameObject root)
+        {
+            bool isDirty = false;
+            List<FieldInfo> fieldinfos = IL.Help.GetSerializeField(parent);
+            for (int i = 0; i < fieldinfos.Count; ++i)
+            {
+                var field = fieldinfos[i];
+                if (Get(field.FieldType, field).AutoSetValue(parent, field, root))
+                    isDirty = true;
+            }
+
+            return isDirty;
+        }
+
         public static bool OnGUI(object parent)
         {
             bool isDirty = false;
@@ -211,6 +234,14 @@ namespace wxb.Editor
             {
                 var field = fieldinfos[i];
                 if (Get(field.FieldType, field).OnGUI(parent, field))
+                    isDirty = true;
+            }
+
+            if (parent != null)
+            {
+                wxb.RefType rt = new RefType(parent);
+                var v = rt.TryInvokeMethodReturn("OnGUIInspector");
+                if (v != null && v is bool && ((bool)v))
                     isDirty = true;
             }
 

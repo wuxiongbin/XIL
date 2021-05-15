@@ -167,5 +167,10 @@ namespace wxb.Editor
                 return isDirty | isd;
             }
         }
+
+        public bool AutoSetValue(object value, FieldInfo fieldInfo, GameObject root)
+        {
+            return false;
+        }
     }
 }

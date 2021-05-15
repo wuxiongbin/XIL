@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 #if USE_HOT
 using ILRuntime.Reflection;
 using ILRuntime.Runtime.Intepreter;
@@ -199,6 +200,12 @@ namespace wxb.Editor
 
                 return isDirty | isd;
             }
+        }
+
+        // 自动赋值
+        public bool AutoSetValue(object value, FieldInfo fieldInfo, GameObject root)
+        {
+            return false;
         }
     }
 }

@@ -1,9 +1,4 @@
 ﻿using UnityEditor;
-using System.Reflection;
-using System.Collections.Generic;
-#if USE_HOT
-using ILRuntime.Runtime.Intepreter;
-#endif
 
 namespace wxb.Editor
 {
@@ -22,7 +17,6 @@ namespace wxb.Editor
             base.OnInspectorGUI();
 
             EditorGUILayout.LabelField("反射序列化数据:");
-            System.Type type = target.GetType();
             monoEditor.OnGUI();
         }
     }

@@ -1,19 +1,10 @@
 ﻿#if USE_HOT
+//#define DEBUG_INPUT
 namespace wxb
 {
     using System.Reflection;
     using System.Collections.Generic;
-//#if UNITY_EDITOR
-//    public class EditorClass : System.Attribute
-//    {
 
-//    }
-//    public class EditorField : System.Attribute
-//    {
-
-//    }
-
-//#endif
     static partial class AutoRegILType
     {
         static Dictionary<System.Type, bool> HotTypes = new Dictionary<System.Type, bool>();
@@ -95,7 +86,7 @@ namespace wxb
             if (type.IsGenericType)
             {
                 if (type.ContainsGenericParameters)
-                    return true;
+                    return false;
 
                 foreach (var ator in type.GetGenericArguments())
                 {
@@ -199,12 +190,12 @@ namespace wxb
             if (IsEditorType(type))
                 return false;
 
-            string ns = type.Namespace;
-            if (!string.IsNullOrEmpty(ns))
-            {
-                if (ns.StartsWith("ILRuntime"))
-                    return false;
-            }
+            //string ns = type.Namespace;
+            //if (!string.IsNullOrEmpty(ns))
+            //{
+            //    if (ns.StartsWith("ILRuntime"))
+            //        return false;
+            //}
 
             return true;
         }
@@ -823,6 +814,24 @@ namespace wxb
 #endif
         }
 
+#if DEBUG_INPUT
+        static void DebugInfo(string suffix, System.Type type, Dictionary<System.Type, UseTypeInfo> infos, System.Text.StringBuilder sb)
+        {
+            sb.Append(suffix);
+            sb.Append("// ");
+            sb.AppendLine(GetClassRealClsName(type));
+
+            UseTypeInfo info = null;
+            if (infos.TryGetValue(type, out info))
+            {
+                if (info.infos.Count == 0)
+                    return;
+
+                info.To(sb, suffix);
+            }
+        }
+#endif
+
         static void BuildDelegate(Dictionary<System.Type, UseTypeInfo> csharpDelegate, Dictionary<System.Type, UseTypeInfo> hotTDic)
         {
             string marco, file_suffix;
@@ -867,22 +876,12 @@ namespace wxb
                     //sb.Append(suffix);
                     DelegateAdapter(ator.Key, sb, suffix, (ssb) =>
                     {
-                        //foreach (var v in ator.Value)
-                        //{
-                        //    ssb.Append(suffix);
-                        //    ssb.Append("// ");
-                        //    ssb.AppendLine(GetClassRealClsName(v));
-
-                        //    UseTypeInfo info = null;
-                        //    if (csharpDelegate.TryGetValue(v, out info))
-                        //    {
-                        //        if (info.infos.Count == 0)
-                        //            continue;
-
-                        //        info.To(ssb, suffix);
-                        //    }
-                        //}
-
+#if DEBUG_INPUT
+                        foreach (var v in ator.Value)
+                        {
+                            DebugInfo(suffix, v, csharpDelegate, ssb);
+                        }
+#endif
                     });
                     //sb.AppendLine();
                 }
@@ -909,6 +908,10 @@ namespace wxb
                     if (IsSystemDelegate(v))
                         continue;
 
+#if DEBUG_INPUT
+                    var ssb = sb.RegisterDelegateConvertor;
+                    DebugInfo(suffix, v, csharpDelegate, ssb);
+#endif
                     ConvertToDelegate(v, sb.RegisterDelegateConvertor, suffix);
                     sb.RegisterDelegateConvertor.AppendLine();
                 }
@@ -943,8 +946,9 @@ namespace wxb
             sb.AppendLine("System.Type v = null;");
             foreach (var d in hotTDic)
             {
-                //d.Value.To(sb, suffix);
-
+#if DEBUG_INPUT
+                d.Value.To(sb, suffix);
+#endif
                 sb.Append(suffix);
 
                 if (d.Key.FullName.StartsWith("System.Collections.Generic.Dictionary`2[["))

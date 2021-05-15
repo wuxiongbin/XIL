@@ -66,6 +66,15 @@
             return false;
         }
 
+        public void CheckDllChange()
+        {
+            if (isDllChange())
+            {
+                refType_ = null;
+                instance = null;
+            }
+        }
+
         public void OnBeforeSerialize()
         {
             if (instance == null)

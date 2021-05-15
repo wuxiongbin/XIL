@@ -35,12 +35,7 @@
 
         void ISerializationCallbackReceiver.OnBeforeSerialize()
         {
-#if UNITY_EDITOR
-            //if (customizeData == null)
-            //    return;
 
-            //customizeData.OnBeforeSerialize();
-#endif
         }
 
         void ISerializationCallbackReceiver.OnAfterDeserialize()

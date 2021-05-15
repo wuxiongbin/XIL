@@ -24,7 +24,7 @@ namespace wxb
             var field = IL.Help.GetField(type, "unity");
             if (field == null)
             {
-                L.LogErrorFormat("CSharpAgent {0} not find unity!", value.GetType().FullName);
+                L.LogErrorFormat("CSharpAgent type:{0} {1} not find unity!", type.FullName, value.GetType().FullName);
                 return null;
             }
 
@@ -80,6 +80,9 @@ namespace wxb
                 }
             }
 
+#if UNITY_EDITOR
+            unity = UnityObjectSerialize.To(unity, IL.Help.GetRealType(unity_fieldInfo.FieldType));
+#endif
             try
             {
                 unity_fieldInfo.SetValue(parent, unity);

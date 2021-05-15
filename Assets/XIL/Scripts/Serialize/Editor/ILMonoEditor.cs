@@ -90,6 +90,20 @@ namespace wxb.IL.Editor
             Undo.RegisterCompleteObjectUndo(behaviour, "ILMonoEditor");
         }
 
+        public void OnAutoSetValue()
+        {
+            object value = customizeData.getInstance();
+            GameObject root = behaviour.gameObject;
+            if (wxb.Editor.TypeEditor.OnAutoSetValue(value, root))
+            {
+                RegisterCompleteObjectUndo();
+
+                EditorUtility.SetDirty(behaviour);
+                EditorUtility.SetDirty(behaviour.gameObject);
+                customizeData.OnBeforeSerialize();
+            }
+        }
+
         public void OnGUI(string newTypename)
         {
             if (newTypename == null)
@@ -115,19 +129,22 @@ namespace wxb.IL.Editor
                 return;
             }
 
+            customizeData.CheckDllChange();
+
             object instance = customizeData.getInstance();
             if (instance == null)
             {
-                ((CustomizeData)customizeData).OnAfterDeserialize(behaviour);
+                customizeData.OnAfterDeserialize(behaviour);
                 return;
             }
 
             if (wxb.Editor.TypeEditor.OnGUI(instance))
             {
+                RegisterCompleteObjectUndo();
+
                 EditorUtility.SetDirty(behaviour);
                 EditorUtility.SetDirty(behaviour.gameObject);
-                ((CustomizeData)customizeData).OnBeforeSerialize();
-                RegisterCompleteObjectUndo();
+                customizeData.OnBeforeSerialize();
             }
         }
 
@@ -173,13 +190,19 @@ namespace wxb.IL.Editor
 
         public void OnGUI()
         {
+            EditorGUILayout.BeginHorizontal();
             m_searchName = EditorGUILayout.TextField("输入搜索：", m_searchName);
+            bool autoSetValue = GUILayout.Button("自动赋值");
+            EditorGUILayout.EndHorizontal();
             string typeName = customizeData.TypeName;
             string newTypename = StringPopupT("typeName", typeName, allTypes, (System.Type t) => { return t == null ? "null" : t.FullName; }, m_searchName);
             if (newTypename == "null")
                 newTypename = null;
 
             OnGUI(newTypename);
+
+            if (autoSetValue)
+                OnAutoSetValue(); // 自动赋值
         }
 
         public void OnChildGUI(Object target)

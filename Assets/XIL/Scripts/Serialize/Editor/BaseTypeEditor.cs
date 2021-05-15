@@ -36,6 +36,11 @@ namespace wxb.Editor
         }
 
         protected abstract T OnGUI(string label, T value, System.Type type, out bool isDirty);
+
+        public virtual bool AutoSetValue(object value, FieldInfo fieldInfo, GameObject root)
+        {
+            return false;
+        }
     }
 
     class IntType : BaseType<int>
@@ -135,6 +140,11 @@ namespace wxb.Editor
                 isDirty = false;
 
             return nv;
+        }
+
+        public bool AutoSetValue(object value, FieldInfo fieldInfo, GameObject root)
+        {
+            return false;
         }
     }
 
@@ -428,20 +438,99 @@ namespace wxb.Editor
     {
         protected override UnityEngine.Object OnGUI(string label, UnityEngine.Object value, System.Type type, out bool isDirty)
         {
-#if USE_HOT
-            if (type is ILRuntimeWrapperType)
-            {
-                type = ((ILRuntimeWrapperType)type).RealType;
-            }
-#endif
+            type = IL.Help.GetRealType(type);
             isDirty = false;
-            UnityEngine.Object nv = EditorGUILayout.ObjectField(label, value, type, true);
+            Object nv = null;
+            CopyFieldName(label, ()=> 
+            {
+                nv = EditorGUILayout.ObjectField(label, value, type, true);
+            });
+
             if (nv != value)
                 isDirty = true;
             else
                 isDirty = false;
 
             return nv;
+        }
+
+        public static void CopyFieldName(string label, System.Action ongui)
+        {
+            EditorGUILayout.BeginHorizontal();
+            ongui();
+            CopyString(label);
+            EditorGUILayout.EndHorizontal();
+        }
+
+        public static void CopyString(string label)
+        {
+            if (GUILayout.Button("C", GUILayout.Width(20f)))
+            {
+                int last = label.LastIndexOf(' ');
+                if (last == -1)
+                    EditorGUIUtility.systemCopyBuffer = label;
+                else
+                    EditorGUIUtility.systemCopyBuffer = label.Substring(last + 1);
+            }
+        }
+
+        public override bool AutoSetValue(object value, FieldInfo fieldInfo, GameObject root)
+        {
+            if (fieldInfo.GetValue(value) != null)
+                return false;
+
+            var fieldType = IL.Help.GetRealType(fieldInfo.FieldType);
+            var obj = GetFind(root.transform, fieldInfo.Name, fieldType);
+            if (obj == null)
+                obj = GetComponentInChildren(root, fieldType);
+
+            if (obj != null)
+            {
+                fieldInfo.SetValue(value, obj);
+                return true;
+            }
+
+            return false;
+        }
+
+        public static Object GetComponentInChildren(GameObject root, System.Type type)
+        {
+            if (type == typeof(GameObject))
+                return root;
+
+            return root.GetComponentInChildren(type);
+        }
+
+        public static Object GetComponent(Transform t, System.Type type)
+        {
+            if (type == typeof(Transform))
+                return t;
+            if (type == typeof(GameObject))
+                return t.gameObject;
+
+            return t.GetComponent(type);
+        }
+
+        public static Object GetFind(Transform root, string name, System.Type type, System.Func<Object, bool> onFind = null)
+        {
+            int cnt = root.childCount;
+            Transform t = root.Find(name);
+            if (t != null)
+            {
+                var tt = GetComponent(t, type);
+                if (onFind == null || onFind(tt))
+                    return tt;
+            }
+
+            for (int i = 0; i < cnt; ++i)
+            {
+                var child = root.GetChild(i);
+                var tt = GetFind(child, name, type, onFind);
+                if (tt != null)
+                    return tt;
+            }
+
+            return null;
         }
     }
 }

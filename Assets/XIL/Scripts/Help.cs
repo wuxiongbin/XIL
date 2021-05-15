@@ -365,8 +365,8 @@
             BaseTypes.Clear();
             Caches.Clear();
             Str2Enum.Release();
-#if UNITY_EDITOR
             BinarySerializable.Release();
+#if UNITY_EDITOR
             if (on_release_all != null)
                 on_release_all();
 #endif
@@ -539,8 +539,10 @@
 #if USE_HOT
             if (type == typeof(ILTypeInstance))
                 return ((ILTypeInstance)instance).Type.ReflectionType;
+            else if (type == typeof(ILEnumTypeInstance))
+                return ((ILEnumTypeInstance)instance).Type.ReflectionType;
 #endif
-            return GetRealType(instance.GetType());
+            return GetRealType(type);
         }
 
         public static bool HasCustomAttributes(System.Type type, System.Type customAtt)
@@ -746,7 +748,7 @@
                 }
                 else
                 {
-                    if (typeReference.Namespace == "UnityEngine")
+                    if (typeReference.Namespace.StartsWith("UnityEngine"))
                         return true;
 
                     var typeDefinition = typeReference.Resolve();

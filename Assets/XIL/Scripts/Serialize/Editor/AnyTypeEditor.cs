@@ -190,6 +190,7 @@ namespace wxb.Editor
                             wxb.L.Log(sb.ToString());
                         }
                     }
+                    ObjectType.CopyString(label);
                 }
                 finally
                 {
@@ -262,6 +263,37 @@ namespace wxb.Editor
                     info.SetValue(parent, value);
                 return isDirty | isd;
             }
+        }
+
+        public bool AutoSetValue(object value, FieldInfo fieldInfo, GameObject root)
+        {
+            object vv = fieldInfo.GetValue(value);
+            if (vv == null)
+                return false;
+
+            var r = ObjectType.GetFind(root.transform, fieldInfo.Name, typeof(GameObject)) as GameObject;
+            if (r == null)
+                r = root;
+
+            bool isDirty = false;
+            for (int i = 0; i < infos.Count; ++i)
+            {
+                var field = infos[i];
+                object v = null;
+                try
+                {
+                    v = field.GetValue(value);
+                }
+                catch (System.Exception ex)
+                {
+                    wxb.L.LogException(ex);
+                }
+
+                if (v != null)
+                    isDirty |= TypeEditor.Get(field.FieldType, field).AutoSetValue(v, field, r);
+            }
+            
+            return isDirty;
         }
     }
 }

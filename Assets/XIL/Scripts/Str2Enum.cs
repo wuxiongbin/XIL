@@ -185,6 +185,56 @@ namespace wxb
         }
 #endif
 
+        public static bool TryParse(string value, System.Type type, out object t)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                t = null;
+                return false;
+            }
+
+            if (value[0] >= '0' && value[0] <= '9')
+            {
+                // 数字
+#if USE_HOT
+                if (type is ILRuntime.Reflection.ILRuntimeType)
+                {
+                    t = int.Parse(value);
+                    return true;
+                }
+#endif
+                t = Enum.ToObject(type, int.Parse(value)); // 数字
+                return true;
+            }
+
+#if USE_HOT
+            if (type is ILRuntime.Reflection.ILRuntimeType)
+            {
+                if (TryGet(type, value, out t))
+                    return true;
+
+                return false;
+            }
+#endif
+            return TryParse(type, value, out t);
+        }
+
+        static bool TryParse(System.Type type, string value, out object ev)
+        {
+            var names = Enum.GetNames(type);
+            for (int i = 0;i < names.Length; ++i)
+            {
+                if (names[i] == value)
+                {
+                    ev = Enum.Parse(type, value);
+                    return true;
+                }
+            }
+
+            ev = null;
+            return false;
+        }
+
         public static Array GetEnumValues(System.Type type)
         {
 #if USE_HOT

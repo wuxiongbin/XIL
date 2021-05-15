@@ -23,12 +23,12 @@ namespace ILRuntime.Runtime.Enviorment
             public string OverrideString;
         }
 
-        public static string GenerateCrossBindingAdapterCode(Type baseType, string nameSpace)
+        public static string GenerateCrossBindingAdapterCode(Type baseType, string nameSpace, out string clsName)
         {
             StringBuilder sb = new StringBuilder();
             List<MethodInfo> virtMethods = new List<MethodInfo>();
             GetMethods(baseType, virtMethods);
-            string clsName, realClsName;
+            string realClsName;
             bool isByRef;
             baseType.GetClassName(out clsName, out realClsName, out isByRef, true);
             sb.Append(@"#if USE_HOT

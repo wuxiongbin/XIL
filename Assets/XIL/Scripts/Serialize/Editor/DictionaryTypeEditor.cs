@@ -220,5 +220,11 @@ namespace wxb.Editor
             }
             return current;
         }
+
+        // 自动赋值
+        public bool AutoSetValue(object value, FieldInfo fieldInfo, GameObject root)
+        {
+            return false;
+        }
     }
 }

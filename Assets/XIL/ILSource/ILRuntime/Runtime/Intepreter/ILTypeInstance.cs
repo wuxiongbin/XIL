@@ -43,7 +43,7 @@ namespace ILRuntime.Runtime.Intepreter
         }
     }
 
-    unsafe class ILEnumTypeInstance : ILTypeInstance
+    public unsafe class ILEnumTypeInstance : ILTypeInstance
     {
         public ILEnumTypeInstance(ILType type)
         {

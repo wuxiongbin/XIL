@@ -21,6 +21,12 @@ namespace wxb.Editor
             Reset(elementType, arrayCount, isListType);
         }
 
+        // 自动赋值
+        public bool AutoSetValue(object value, FieldInfo fieldInfo, UnityEngine.GameObject root)
+        {
+            return false;
+        }
+
         protected void Reset(string elementType, int arrayCount, bool isListType)
         {
             this.arrayCount = arrayCount;
