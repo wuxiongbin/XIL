@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -297,7 +297,7 @@ namespace ILRuntime.CLR.TypeSystem
         /// <param name="def"></param>
         void RetriveDefinitino(TypeReference def)
         {
-            if (!def.IsGenericParameter)
+            if (!def.IsGenericParameter && definition == null)
             {
                 if (def is TypeSpecification)
                 {
@@ -405,7 +405,7 @@ namespace ILRuntime.CLR.TypeSystem
                 {
                     return byRefCLRType;
                 }
-                else if (definition.IsEnum)
+                else if (this.IsEnum)
                 {
                     if (enumType == null)
                         InitializeFields();
@@ -1127,14 +1127,33 @@ namespace ILRuntime.CLR.TypeSystem
 
         public IType FindGenericArgument(string key)
         {
-            if (genericArguments != null)
+            var o = this.Generic(key);
+            if (o == null && definition.GenericParameters != null)
             {
-                foreach (var i in genericArguments)
+                for (int i = 0; i < definition.GenericParameters.Count; i++)
                 {
-                    if (i.Key == key)
-                        return i.Value;
+                    if (definition.GenericParameters[i].Name == key)
+                    {
+                        return this.Generic("!" + i);
+                    }
                 }
             }
+            return null;
+        }
+
+        private IType Generic(string key)
+        {
+            if (this.genericArguments != null)
+            {
+                for (int i = 0; i < this.genericArguments.Length; i++)
+                {
+                    if (this.genericArguments[i].Key == key)
+                    {
+                        return this.genericArguments[i].Value;
+                    }
+                }
+            }
+
             return null;
         }
 

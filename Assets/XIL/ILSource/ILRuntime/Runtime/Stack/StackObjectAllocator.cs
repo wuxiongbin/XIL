@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_HOT
 using ILRuntime.Runtime.Intepreter;
 using System;
 using System.Collections.Generic;
