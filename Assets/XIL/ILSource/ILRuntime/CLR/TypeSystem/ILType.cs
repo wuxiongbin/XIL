@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +10,7 @@ using ILRuntime.Runtime.Enviorment;
 using ILRuntime.CLR.Method;
 using ILRuntime.Runtime.Intepreter;
 using ILRuntime.Reflection;
+using ILRuntime.Runtime.Stack;
 
 namespace ILRuntime.CLR.TypeSystem
 {
@@ -45,6 +46,7 @@ namespace ILRuntime.CLR.TypeSystem
         ILType genericDefinition;
         IType firstCLRBaseType, firstCLRInterface;
         int hashCode = -1;
+        int tIdx = -1;
         static int instance_id = 0x10000000;
         int jitFlags;
         public TypeDefinition TypeDefinition { get { return definition; } }
@@ -520,6 +522,18 @@ namespace ILRuntime.CLR.TypeSystem
                 return typeRef.Name;
             }
         }
+
+        public StackObject DefaultObject { get { return default(StackObject); } }
+        public int TypeIndex
+        {
+            get
+            {
+                if (tIdx < 0)
+                    tIdx = appdomain.AllocTypeIndex(this);
+                return tIdx;
+            }
+        }
+
         public List<IMethod> GetMethods()
         {
             if (methods == null)
@@ -1138,7 +1152,7 @@ namespace ILRuntime.CLR.TypeSystem
                     }
                 }
             }
-            return null;
+            return o;
         }
 
         private IType Generic(string key)

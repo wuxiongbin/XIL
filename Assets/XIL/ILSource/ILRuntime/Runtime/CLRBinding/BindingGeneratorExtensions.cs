@@ -1,10 +1,11 @@
-#if USE_HOT && UNITY_EDITOR
+﻿#if USE_HOT && UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using System.Text;
 using ILRuntime.Runtime.Enviorment;
+using ILRuntime.CLR.Utils;
 
 namespace ILRuntime.Runtime.CLRBinding
 {
@@ -423,7 +424,7 @@ namespace ILRuntime.Runtime.CLRBinding
                     }
                     else
                     {
-                        sb.AppendLine(string.Format("            {0} @{1} = ({0})typeof({0}).CheckCLRTypes(__intp.RetriveObject(ptr_of_this_method, __mStack));", realClsName, name));
+                        sb.AppendLine(string.Format("            {0} @{1} = ({0})typeof({0}).CheckCLRTypes(__intp.RetriveObject(ptr_of_this_method, __mStack), (CLR.Utils.Extensions.TypeFlags){2});", realClsName, name, (int)p.GetTypeFlagsRecursive()));
                     }
 
                 }
@@ -499,7 +500,7 @@ namespace ILRuntime.Runtime.CLRBinding
             }
             else
             {
-                return string.Format("({0})typeof({0}).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack))", realClsName);
+                return string.Format("({0})typeof({0}).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags){1})", realClsName, (int)type.GetTypeFlagsRecursive());
             }
         }
 

@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -187,6 +187,14 @@ namespace ILRuntime.CLR.Utils
             return (pt.GetTypeFlags() & TypeFlags.IsValueType) != 0;
         }
 
+        public static TypeFlags GetTypeFlagsRecursive(this Type pt)
+        {
+            var res = GetTypeFlags(pt);
+            if ((res & TypeFlags.IsByRef) == TypeFlags.IsByRef)
+                res = GetTypeFlagsRecursive(pt.GetElementType());
+            return res;
+        }
+
         public static TypeFlags GetTypeFlags(this Type pt)
         {
             var result = TypeFlags.Default;
@@ -226,10 +234,14 @@ namespace ILRuntime.CLR.Utils
 
         public static object CheckCLRTypes(this Type pt, object obj)
         {
+            var typeFlags = GetTypeFlags(pt);
+            return CheckCLRTypes(pt, obj, typeFlags);
+        }
+
+        public static object CheckCLRTypes(this Type pt, object obj, TypeFlags typeFlags)
+        {
             if (obj == null)
                 return null;
-
-            var typeFlags = GetTypeFlags(pt);
 
             if ((typeFlags & TypeFlags.IsPrimitive) != 0)
             {

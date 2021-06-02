@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Collections;
@@ -1353,7 +1353,7 @@ namespace ILRuntime.Runtime.Debugger
 
             for (var i = stack.ValueTypeStackBase; i > stack.ValueTypeStackPointer;)
             {
-                var vt = domain.GetType(i->Value);
+                var vt = domain.GetTypeByIndex(i->Value);
                 var cnt = i->ValueLow;
                 bool leak = leakVObj.Contains((long)i);
                 final.AppendLine("----------------------------------------------");
@@ -1405,7 +1405,7 @@ namespace ILRuntime.Runtime.Debugger
                         {
                             text = "Invalid Object";
                         }
-                        text += string.Format("({0})", domain.GetType(dst->Value));
+                        text += string.Format("({0})", domain.GetTypeByIndex(dst->Value));
                     }
                     sb.Append(string.Format("Value:0x{0:X8} Text:{1} ", (long)ILIntepreter.ResolveReference(esp), text));
                     break;

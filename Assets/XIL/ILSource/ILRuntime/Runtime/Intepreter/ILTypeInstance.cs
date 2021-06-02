@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -495,7 +495,7 @@ namespace ILRuntime.Runtime.Intepreter
         internal unsafe void CopyValueTypeToStack(StackObject* ptr, IList<object> mStack)
         {
             ptr->ObjectType = ObjectTypes.ValueTypeDescriptor;
-            ptr->Value = type.GetHashCode();
+            ptr->Value = type.TypeIndex;
             ptr->ValueLow = type.TotalFieldCount;
             for(int i = 0; i < fields.Length; i++)
             {
@@ -512,7 +512,7 @@ namespace ILRuntime.Runtime.Intepreter
                         {
                             var obj = managedObjs[i];
                             var dst = ILIntepreter.ResolveReference(val);
-                            var vt = type.AppDomain.GetType(dst->Value);
+                            var vt = type.AppDomain.GetTypeByIndex(dst->Value);
                             if (vt is ILType)
                             {
                                 ((ILTypeInstance)obj).CopyValueTypeToStack(dst, mStack);
@@ -601,7 +601,7 @@ namespace ILRuntime.Runtime.Intepreter
                         field.ObjectType = ObjectTypes.Object;
                         field.Value = fieldIdx;
                         var dst = ILIntepreter.ResolveReference(esp);
-                        var vt = domain.GetType(dst->Value);
+                        var vt = domain.GetTypeByIndex(dst->Value);
                         if(vt is ILType)
                         {
                             var ins = managedObjs[fieldIdx];

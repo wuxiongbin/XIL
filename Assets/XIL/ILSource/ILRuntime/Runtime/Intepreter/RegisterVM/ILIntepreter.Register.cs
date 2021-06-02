@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -2846,7 +2846,7 @@ namespace ILRuntime.Runtime.Intepreter
                                                     if (objRef->ObjectType == ObjectTypes.ValueTypeObjectReference)
                                                     {
                                                         dst = *(StackObject**)&objRef->Value;
-                                                        var ft = domain.GetType(dst->Value) as ILType;
+                                                        var ft = domain.GetTypeByIndex(dst->Value) as ILType;
                                                         ilm = ft.GetVirtualMethod(ilm) as ILMethod;
                                                     }
                                                     else
@@ -2951,7 +2951,7 @@ namespace ILRuntime.Runtime.Intepreter
                                     if (objRef->ObjectType == ObjectTypes.ValueTypeObjectReference)
                                     {
                                         dst = ILIntepreter.ResolveReference(objRef);
-                                        var ft = domain.GetType(dst->Value);
+                                        var ft = domain.GetTypeByIndex(dst->Value);
                                         if (ft is ILType)
                                             CopyToValueTypeField(dst, (int)ip->OperandLong, reg2, mStack);
                                         else
@@ -3027,7 +3027,7 @@ namespace ILRuntime.Runtime.Intepreter
                                                             case ObjectTypes.ValueTypeObjectReference:
                                                                 {
                                                                     dst = ILIntepreter.ResolveReference(objRef);
-                                                                    var ct = domain.GetType(dst->Value) as CLRType;
+                                                                    var ct = domain.GetTypeByIndex(dst->Value) as CLRType;
                                                                     var binder = ct.ValueTypeBinder;
                                                                     binder.CopyValueTypeToStack(obj, dst, mStack);
                                                                 }
@@ -3053,7 +3053,7 @@ namespace ILRuntime.Runtime.Intepreter
                                     if (objRef->ObjectType == ObjectTypes.ValueTypeObjectReference)
                                     {
                                         dst = *(StackObject**)&objRef->Value;
-                                        var ft = domain.GetType(dst->Value);
+                                        var ft = domain.GetTypeByIndex(dst->Value);
                                         if (ft is ILType)
                                             val = dst - ((int)ip->OperandLong + 1);
                                         else
@@ -3685,7 +3685,7 @@ namespace ILRuntime.Runtime.Intepreter
                                                 if (objRef->ObjectType == ObjectTypes.ValueTypeObjectReference)
                                                 {
                                                     dst = *(StackObject**)&objRef->Value;
-                                                    var vt = domain.GetType(dst->Value);
+                                                    var vt = domain.GetTypeByIndex(dst->Value);
                                                     if (vt != type)
                                                         throw new InvalidCastException();
                                                     obj = ((CLRType)vt).ValueTypeBinder.ToObject(dst, mStack);
@@ -5176,6 +5176,7 @@ namespace ILRuntime.Runtime.Intepreter
         }
 
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void CopyToRegister(ref RegisterFrameInfo info, short reg, StackObject* val, IList<object> mStackSrc = null)
         {
             var mStack = info.ManagedStack;
@@ -5334,7 +5335,7 @@ namespace ILRuntime.Runtime.Intepreter
                         if(!CanCopyStackValueType(val,v))
                         {
                             var dst = *(StackObject**)&val->Value;
-                            var ct = domain.GetType(dst->Value);
+                            var ct = domain.GetTypeByIndex(dst->Value);
                             stack.FreeRegisterValueType(v);
                             stack.AllocValueType(v, ct, true);
                         }
@@ -5345,7 +5346,7 @@ namespace ILRuntime.Runtime.Intepreter
                         if (v >= info.RegisterStart && v < info.RegisterEnd)
                         {
                             var dst = ResolveReference(val);
-                            var type = domain.GetType(dst->Value);
+                            var type = domain.GetTypeByIndex(dst->Value);
                             stack.AllocValueType(v, type, true);
                             CopyStackValueType(val, v, mStack);
                         }
@@ -5418,7 +5419,7 @@ namespace ILRuntime.Runtime.Intepreter
             var val = esp - 1;
             if (val->ObjectType == ObjectTypes.ValueTypeObjectReference)
             {
-                var v = Add(info.RegisterStart, reg);
+                var v = info.RegisterStart + reg;
                 if (CanCopyStackValueType(val, v))
                 {
                     CopyStackValueType(val, v, info.ManagedStack);

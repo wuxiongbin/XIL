@@ -1,4 +1,5 @@
 ﻿#if USE_HOT
+using ILRuntime.Runtime.Stack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace ILRuntime.CLR.TypeSystem
         {
             get
             {
-                return !isByRef && !isArray; 
+                return !isByRef && !isArray;
             }
         }
 
@@ -236,6 +237,16 @@ namespace ILRuntime.CLR.TypeSystem
             get
             {
                 return 0;
+            }
+        }
+
+        public StackObject DefaultObject { get { return default(StackObject); } }
+
+        public int TypeIndex
+        {
+            get
+            {
+                return -1;
             }
         }
     }
