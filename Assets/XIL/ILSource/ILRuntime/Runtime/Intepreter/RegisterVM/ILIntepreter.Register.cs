@@ -89,6 +89,7 @@ namespace ILRuntime.Runtime.Intepreter
             stack.InitializeFrame(method, esp, out frame);
             frame.IsRegister = true;
             int finallyEndAddress = 0;
+            Exception lastCaughtEx = null;
 
             var stackRegStart = frame.LocalVarPointer;
             StackObject* r = frame.LocalVarPointer - method.ParameterCount;
@@ -3801,7 +3802,7 @@ namespace ILRuntime.Runtime.Intepreter
 
                                                 //esp = PushObject(esp - 1, mStack, ins);
                                             }
-                                            else
+                                            else if (objRef2->ObjectType != ObjectTypes.ValueTypeObjectReference)
                                             {
                                                 object res = RetriveObject(objRef2, mStack);
                                                 //Free(objRef);
@@ -3828,7 +3829,7 @@ namespace ILRuntime.Runtime.Intepreter
                                                 objRef->Value = insIdx;
                                                 //esp = PushObject(esp - 1, mStack, tt.CheckCLRTypes(StackObject.ToObject(obj, AppDomain, mStack)));
                                             }
-                                            else
+                                            else if (objRef2->ObjectType != ObjectTypes.ValueTypeObjectReference)
                                             {
                                                 object res = RetriveObject(objRef2, mStack);
                                                 //Free(objRef);
@@ -4901,7 +4902,7 @@ namespace ILRuntime.Runtime.Intepreter
                                     if (obj is ILTypeInstance)
                                     {
                                         ILTypeInstance ins = (ILTypeInstance)obj;
-                                        if (ins.Type.IsValueType && !ins.Boxed)
+                                        if (!(ins is DelegateAdapter) && ins.Type.IsValueType && !ins.Boxed)
                                         {
                                             AllocValueType(reg1, ins.Type);
                                             dst = ILIntepreter.ResolveReference(reg1);
@@ -5066,6 +5067,8 @@ namespace ILRuntime.Runtime.Intepreter
                                     var ex = mStack[objRef->Value] as Exception;
                                     throw ex;
                                 }
+                            case OpCodeREnum.Rethrow:
+                                throw lastCaughtEx;
                             default:
                                 throw new NotSupportedException("Not supported opcode " + code);
                         }
@@ -5114,6 +5117,7 @@ namespace ILRuntime.Runtime.Intepreter
                                         esp--;
                                     }
                                 }
+                                lastCaughtEx = ex;
                                 short exReg = (short)(paramCnt + locCnt);
                                 AssignToRegister(ref info, exReg, ex);
                                 unhandledException = false;

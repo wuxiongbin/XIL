@@ -134,6 +134,7 @@ namespace ILRuntime.Runtime.Intepreter
             StackObject* v2 = frame.LocalVarPointer + 1;
             StackObject* v3 = frame.LocalVarPointer + 1 + 1;
             StackObject* v4 = Add(frame.LocalVarPointer, 3);
+            Exception lastCaughtEx = null;
             int finallyEndAddress = 0;
             var ehs = method.ExceptionHandler;
 
@@ -2877,7 +2878,7 @@ namespace ILRuntime.Runtime.Intepreter
 
                                                 //esp = PushObject(esp - 1, mStack, ins);
                                             }
-                                            else
+                                            else if(objRef2->ObjectType != ObjectTypes.ValueTypeObjectReference)
                                             {
                                                 object res = RetriveObject(objRef2, mStack);
                                                 //Free(objRef);
@@ -2904,7 +2905,7 @@ namespace ILRuntime.Runtime.Intepreter
                                                 objRef->Value = insIdx;
                                                 //esp = PushObject(esp - 1, mStack, tt.CheckCLRTypes(StackObject.ToObject(obj, AppDomain, mStack)));
                                             }
-                                            else
+                                            else if (objRef2->ObjectType != ObjectTypes.ValueTypeObjectReference)
                                             {
                                                 object res = RetriveObject(objRef2, mStack);
                                                 //Free(objRef);
@@ -3752,7 +3753,7 @@ namespace ILRuntime.Runtime.Intepreter
                                     if (obj is ILTypeInstance)
                                     {
                                         ILTypeInstance ins = (ILTypeInstance)obj;
-                                        if (ins.Type.IsValueType && !ins.Boxed)
+                                        if (!(ins is DelegateAdapter) && ins.Type.IsValueType && !ins.Boxed)
                                         {
                                             AllocValueType(arrRef, ins.Type);
                                             dst = ILIntepreter.ResolveReference(arrRef);
@@ -4420,6 +4421,10 @@ namespace ILRuntime.Runtime.Intepreter
                                     esp--;
                                     throw ex;
                                 }
+                            case OpCodeEnum.Rethrow:
+                                {
+                                    throw lastCaughtEx;
+                                }
                             case OpCodeEnum.Nop:
                             case OpCodeEnum.Volatile:
                             case OpCodeEnum.Castclass:
@@ -4473,6 +4478,7 @@ namespace ILRuntime.Runtime.Intepreter
                                         esp--;
                                     }
                                 }
+                                lastCaughtEx = ex;
                                 esp = PushObject(esp, mStack, ex);
                                 unhandledException = false;
                                 ip = ptr + eh.HandlerStart;

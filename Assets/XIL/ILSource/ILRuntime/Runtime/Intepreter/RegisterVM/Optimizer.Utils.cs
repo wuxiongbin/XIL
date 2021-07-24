@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -514,6 +514,7 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
                 case OpCodeREnum.Leave_S:
                 case OpCodeREnum.Endfinally:
                 case OpCodeREnum.Volatile:
+                case OpCodeREnum.Rethrow:
                     return false;
                 case OpCodeREnum.Brtrue:
                 case OpCodeREnum.Brtrue_S:
@@ -809,6 +810,7 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
                 case OpCodeREnum.Leave_S:
                 case OpCodeREnum.Endfinally:
                 case OpCodeREnum.Volatile:
+                case OpCodeREnum.Rethrow:
                 case OpCodeREnum.Beqi:
                 case OpCodeREnum.Bgei:
                 case OpCodeREnum.Bgei_Un:

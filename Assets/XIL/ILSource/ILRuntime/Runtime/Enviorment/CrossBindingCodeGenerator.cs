@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -476,7 +476,7 @@ namespace ");
             {
                 if (p.ParameterType.IsByRef)
                 {
-                    sb.AppendLine(GetPushString(p.ParameterType, p.Name));
+                    sb.AppendLine(GetPushString(p.ParameterType.GetElementType(), p.Name));
                     refIndex[p] = idx++;
                 }
             }
@@ -501,7 +501,7 @@ namespace ");
                 {
                     p.ParameterType.GetClassName(out clsName, out realClsName, out isByRef, true);
 
-                    sb.AppendLine(GetReadString(p.ParameterType, realClsName, refIndex[p].ToString(), p.Name));
+                    sb.AppendLine(GetReadString(p.ParameterType.GetElementType(), realClsName, refIndex[p].ToString(), p.Name));
                 }
             }
             sb.AppendLine("                        }");
@@ -617,7 +617,7 @@ namespace ");
                 }
                 else if (type == typeof(float))
                 {
-                    return string.Format("                            ctx.PushInteger({0});", argName);
+                    return string.Format("                            ctx.PushFloat({0});", argName);
                 }
                 else if (type == typeof(double))
                 {
