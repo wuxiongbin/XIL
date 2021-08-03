@@ -88,5 +88,20 @@ namespace wxb
             ms.WritePos = bytes.Length;
             BinarySerializable.MergeFrom(obj, ms);
         }
+
+#if !CloseNested // 关闭预置体嵌套支持
+        public static Nested.Any0 WriteToTS(object obj)
+        {
+            Nested.Any0 ab = new Nested.Any0();
+            ab.dataKey = ".root";
+            BinarySerializable.GetByInstance(obj).WriteTo(obj, ab);
+            return ab;
+        }
+
+        public static void MergeFrom(object obj, Nested.AnyBase ab)
+        {
+            BinarySerializable.MergeFrom(obj, ab);
+        }
+#endif
     }
 }

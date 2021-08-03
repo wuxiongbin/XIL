@@ -91,8 +91,7 @@ namespace hot
         TEEE1[] teees;
     }
 
-    [wxb.AutoILMono]
-    class TestSer2
+    class TestSer2 : HotBehaviour
     {
         //[SerializeField]
         //List<List<List<TEEE1>>> teee;
@@ -116,8 +115,7 @@ namespace hot
     }
 
     [System.Serializable]
-    [wxb.AutoILMono]
-    class TestSer
+    class TestSer : HotBehaviour
     {
         [SerializeField]
         TEEE teee;

@@ -98,6 +98,20 @@ namespace wxb
         {
             return (UnityEngine.Object)x == (UnityEngine.Object)y;
         }
+
+#if !CloseNested
+        // 把值写入到ab当中
+        void ITypeSerialize.WriteTo(object value, Nested.AnyBase ab)
+        {
+            ab.unityObj = GetUnityObject(type, value);
+        }
+
+        // 通过ab来设置值
+        void ITypeSerialize.MergeFrom(ref object value, Nested.AnyBase ab)
+        {
+            SetObject(ref value, ab.unityObj);
+        }
+#endif
     }
 }
 

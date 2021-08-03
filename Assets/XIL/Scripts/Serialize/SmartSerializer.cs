@@ -57,5 +57,40 @@ namespace wxb
 
             return BinarySerializable.IsEquip(x, y);
         }
+
+#if !CloseNested
+        // 把值写入到ab当中
+        void ITypeSerialize.WriteTo(object value, Nested.AnyBase ab)
+        {
+            if (value == null)
+            {
+                ab.typeName = string.Empty;
+                return;
+            }
+
+            var type = IL.Help.GetInstanceType(value);
+            var serial = type == baseType ? baseTypeSerialize : BinarySerializable.GetByType(type);
+            ab.typeName = type.FullName;
+            serial.WriteTo(value, ab);
+        }
+
+        // 通过ab来设置值
+        void ITypeSerialize.MergeFrom(ref object value, Nested.AnyBase ab)
+        {
+            string fullName = ab.typeName;
+            if (string.IsNullOrEmpty(fullName))
+                return;
+
+            System.Type type;
+            if (value == null || ((type = IL.Help.GetInstanceType(value)).FullName != fullName))
+            {
+                if (IL.Help.TryGetTypeByFullName(fullName, out type))
+                    value = IL.Help.Create(type);
+            }
+
+            var serial = type == baseType ? baseTypeSerialize : BinarySerializable.GetByType(type);
+            serial.MergeFrom(ref value, ab);
+        }
+#endif
     }
 }

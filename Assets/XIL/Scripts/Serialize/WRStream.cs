@@ -75,6 +75,25 @@ namespace wxb
                 stream.WritePos = endpos;
             }
         }
+
+        public static void MergeFrom(IStream stream, System.Action<IStream> reader)
+        {
+            int count = ReadLength(stream);
+            int endpos = stream.WritePos;
+            stream.WritePos = stream.ReadPos + count;
+            try
+            {
+                reader(stream);
+            }
+            catch (System.Exception ex)
+            {
+                L.LogException(ex);
+            }
+            finally
+            {
+                stream.WritePos = endpos;
+            }
+        }
     }
 
     public partial class WRStream : IStream
@@ -119,6 +138,8 @@ namespace wxb
             System.Array.Copy(mBuffer, ReadPos, bytes, 0, bytes.Length);
             return bytes;
         }
+
+        public byte[] Buffer { get { return mBuffer; } }
 
         public void ensureCapacity(int length)
         {

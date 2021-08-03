@@ -233,6 +233,8 @@ namespace wxb
                 Assembly assembly = Assembly.LoadFile(dll);
                 types.UnionWith(assembly.GetTypes());
             }
+
+            ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.CrawlAppdomain(wxb.DllInitByEditor.appdomain, types);
 #endif
             foreach (var assemblie in assemblies)
             {
@@ -727,12 +729,12 @@ namespace wxb
                 return cache_reg == 1 ? true : false;
             }
 
-            const int maxParamCount = 5;
+            const int maxParamCount = 8;
             bool IsReg()
             {
-                bool isVoid = returnType.Name == "Void";
-                if (isVoid && parameters.Count == 0)
-                    return false;
+                //bool isVoid = returnType.Name == "Void";
+                //if (isVoid && parameters.Count == 0)
+                //    return false;
                 if (parameters.Count >= maxParamCount)
                 {
                     error = $"委托参数{parameters.Count}大于最大委托参数数量{maxParamCount-1}个，不能生成委托转换器,热更当中不能使用此委托!";

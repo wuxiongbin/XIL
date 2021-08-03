@@ -14,8 +14,8 @@ namespace wxb.Editor
         static TypeReference objType = null;
 
         static TypeDefinition delegateBridgeType = null;
-        static MethodDefinition delegateBridgeGetter = null;
-        static MethodReference hotfixFlagGetter = null;
+        //static MethodDefinition delegateBridgeGetter = null;
+        //static MethodReference hotfixFlagGetter = null;
 
         static MethodDefinition invokeSessionStart = null;
         static MethodDefinition functionInvoke = null;
@@ -74,7 +74,7 @@ namespace wxb.Editor
         {
             return left.FullName == right.FullName
                 && left.Module.Assembly.FullName == right.Module.Assembly.FullName
-                && left.Module.FullyQualifiedName == right.Module.FullyQualifiedName;
+                && left.Module.FileName == right.Module.FileName;
         }
 
         static bool hasGenericParameter(TypeReference type)
@@ -491,7 +491,7 @@ namespace wxb.Editor
 
         static OpCode[] ldargs = new OpCode[] { OpCodes.Ldarg_0, OpCodes.Ldarg_1, OpCodes.Ldarg_2, OpCodes.Ldarg_3 };
 
-        static readonly int MAX_OVERLOAD = 100;
+        //static readonly int MAX_OVERLOAD = 100;
 
         class StrMethod
         {
@@ -690,10 +690,10 @@ namespace wxb.Editor
         public static void LogInfo(string key, MonoXIL.Collections.Generic.Collection<Instruction> Instructions)
         {
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.AppendLine(string.Format("{0} Total:{1}", key, Instructions.Count));
+            sb.AppendLine($"{key} Total:{Instructions.Count}");
             for (int i = 0; i < Instructions.Count; ++i)
             {
-                sb.AppendLine(string.Format("{0}){1}", i, Instructions[i].ToString()));
+                sb.AppendLine($"{i}){Instructions[i].ToString()}");
             }
             UnityEngine.Debug.Log(sb.ToString());
         }

@@ -51,6 +51,13 @@ namespace ILRuntime.Runtime.CLRBinding
                 return true;
             if (i is MethodInfo && ((MethodInfo)i).ReturnType.IsByRef)
                 return true;
+
+            if (i.GetCustomAttributes(typeof(ObsoleteAttribute), true).Length > 0)
+                return true;
+
+            if (i.GetCustomAttributes(typeof(UnityEditor.MenuItem), true).Length > 0)
+                return true;
+
             //EventHandler is currently not supported
             var param = i.GetParameters();
             if (i.IsSpecialName)
@@ -73,21 +80,101 @@ namespace ILRuntime.Runtime.CLRBinding
                     }
                     else
                         ts = new Type[0];
-                    var prop = type.GetProperty(t[1], ts);
-                    if (prop == null)
-                    {
-                        return true;
-                    }
-                    if (prop.GetCustomAttributes(typeof(ObsoleteAttribute), true).Length > 0)
-                        return true;
 
-                    if (IsHasAttribute(prop, "EditorField"))
+                    try
+                    {
+                        var prop = type.GetProperty(t[1], ts);
+                        if (prop == null)
+                        {
+                            return true;
+                        }
+                        if (prop.GetCustomAttributes(typeof(ObsoleteAttribute), true).Length > 0)
+                            return true;
+
+                        if (IsHasAttribute(prop, "EditorField"))
+                            return true;
+                    }
+                    catch (System.Exception ex)
+                    {
+                        UnityEngine.Debug.LogException(ex);
+                        UnityEngine.Debug.LogError($"{type.FullName}.{i.Name}");
+                    }
+                }
+            }
+
+            if (type == typeof(System.Decimal))
+            {
+                switch (i.Name)
+                {
+                    case "op_Increment":
+                    case "op_Decrement":
                         return true;
                 }
             }
 
-            if (i.GetCustomAttributes(typeof(ObsoleteAttribute), true).Length > 0)
+            if (type.FullName.StartsWith("System.Collections.Generic.KeyValuePair"))
+            {
+                switch (i.Name)
+                {
+                    case "Deconstruct":
+                        return true;
+                }
+            }
+
+            if (type.FullName.StartsWith("System.Collections.Generic.Queue"))
+            {
+                switch (i.Name)
+                {
+                    case "TryDequeue":
+                    case "TryPeek":
+                        return true; 
+                }
+            }
+
+            if (type.FullName.StartsWith("System.Collections.Generic.Stack"))
+            {
+                switch (i.Name)
+                {
+                    case "TryDequeue":
+                    case "TryPeek":
+                    case "TryPop":
+                        return true;
+                }
+            }
+
+            if (type == typeof(System.Reflection.Assembly))
+            {
+                switch (i.Name)
+                {
+                    case "Load":
+                    case "Evidence":
+                    case "get_Evidence":
+                    case "PermissionSet":
+                    case "get_PermissionSet":
+                        return true;
+                }
+            }
+
+            if (type == typeof(double))
+            {
+                if (i.Name == "IsFinite")
+                {
+                    return true;
+                }
+            }
+
+            if (type == typeof(Activator))
+            {
                 return true;
+            }
+
+            if (type == typeof(System.Collections.DictionaryEntry))
+            {
+                if (i.Name == "Deconstruct")
+                {
+                    return true;
+                }
+            }
 
             if (IsHasAttribute(i, "EditorField"))
                 return true;
@@ -111,6 +198,33 @@ namespace ILRuntime.Runtime.CLRBinding
                 {
                 case "IsJoystickPreconfigured":
                     return true;
+                }
+            }
+
+            if (type == typeof(UnityEngine.Light))
+            {
+                switch (i.Name)
+                {
+                    case "set_shadowRadius":
+                    case "get_shadowRadius":
+                    case "shadowRadius":
+
+                    case "get_shadowAngle":
+                    case "set_shadowAngle":
+                    case "shadowAngle":
+
+                    case "get_areaSize":
+                    case "set_areaSize":
+                    case "areaSize":
+
+                    case "get_lightmapBakeType":
+                    case "set_lightmapBakeType":
+                    case "lightmapBakeType":
+
+                    case "get_SetLightDirty":
+                    case "set_SetLightDirty":
+                    case "SetLightDirty":
+                        return true;
                 }
             }
 

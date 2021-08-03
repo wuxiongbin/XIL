@@ -476,7 +476,7 @@ namespace wxb.Editor
 
         public override bool AutoSetValue(object value, FieldInfo fieldInfo, GameObject root)
         {
-            if (fieldInfo.GetValue(value) != null)
+            if ((Object)fieldInfo.GetValue(value) != null)
                 return false;
 
             var fieldType = IL.Help.GetRealType(fieldInfo.FieldType);

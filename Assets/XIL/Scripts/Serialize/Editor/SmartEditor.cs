@@ -10,8 +10,19 @@ namespace wxb.Editor
         {
             baseType = type;
             this.selfTypeGUI = selfTypeGUI;
+            {
+                allTypes = IL.Help.GetBaseType(baseType.FullName);
+                for (int i = allTypes.Count - 1; i >= 0; --i)
+                {
+                    var at = allTypes[i];
+                    if (at.IsAbstract || !at.IsSerializable)
+                        allTypes.RemoveAt(i);
+                }
+                allTypes.Insert(0, null);
+            }
         }
 
+        List<System.Type> allTypes;
         ITypeGUI selfTypeGUI;
         System.Type baseType;
 
@@ -74,17 +85,6 @@ namespace wxb.Editor
         bool ShowTypeSelect(ref object value, string label, string key)
         {
             bool isDirty = false;
-            var allTypes = IL.Help.GetBaseType(baseType.FullName);
-            {
-                for (int i = allTypes.Count - 1; i >= 0; --i)
-                {
-                    var at = allTypes[i];
-                    if (at.IsAbstract || !at.IsSerializable)
-                        allTypes.RemoveAt(i);
-                }
-                allTypes.Insert(0, null);
-            }
-
             bool isSet = false;
             string newTypename;
             using (new GUIColor(Color.cyan))

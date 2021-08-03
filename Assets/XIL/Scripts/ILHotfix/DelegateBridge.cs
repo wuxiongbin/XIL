@@ -11,8 +11,8 @@ namespace IL
             this.methodInfo = methodInfo;
         }
 
-        List<object> paramList; // 参数列表
-        object result; // 返回列表
+        List<object> paramList; // 鍙傛暟鍒楄〃
+        object result; // 杩斿洖鍒楄〃
 
         public void InvokeSessionStart()
         {

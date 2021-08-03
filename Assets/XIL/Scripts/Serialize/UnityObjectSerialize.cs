@@ -23,7 +23,7 @@ namespace wxb
         // 类型转换
         public static UnityEngine.Object To(UnityEngine.Object src, System.Type type)
         {
-            if (src == null)
+            if (ReferenceEquals(src, null))
                 return null;
 
 #if USE_HOT
@@ -52,5 +52,19 @@ namespace wxb
 
             return null;
         }
+
+#if !CloseNested
+        // 把值写入到ab当中
+        void ITypeSerialize.WriteTo(object value, Nested.AnyBase ab)
+        {
+            ab.unityObj = value as UnityEngine.Object;
+        }
+
+        // 通过ab来设置值
+        void ITypeSerialize.MergeFrom(ref object value, Nested.AnyBase ab)
+        {
+            value = ab.unityObj;
+        }
+#endif
     }
 }

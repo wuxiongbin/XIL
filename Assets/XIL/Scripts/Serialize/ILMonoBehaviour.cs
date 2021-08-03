@@ -1,22 +1,15 @@
 ﻿namespace wxb
 {
     using UnityEngine;
-    using System.Reflection;
-    using System.Collections.Generic;
 
-    public class SingleILMono : System.Attribute
+    public class HotBaseType : System.Attribute
     {
-        public SingleILMono(System.Type type)
+        public HotBaseType(string typeName)
         {
-            this.type = type.FullName;
+            this.typeName = typeName;
         }
 
-        public string type;
-    }
-
-    public class AutoILMono : System.Attribute
-    {
-
+        public string typeName;
     }
 
     public class ILMonoBehaviour : MonoBehaviour, ISerializationCallbackReceiver
@@ -44,16 +37,19 @@
         }
 
 #if UNITY_EDITOR
+        [EditorField]
         void Reset()
         {
             customizeData = new CustomizeData();
         }
 
+        [EditorField]
         public void SaveByInstance()
         {
             customizeData.OnBeforeSerialize();
         }
 
+        [EditorField]
         private void OnGUI()
         {
             if (!isQuit && refType != null)
@@ -97,43 +93,19 @@
             isQuit = true;
             if (refType != null)
                 refType.TryInvokeMethod("OnApplicationQuit");
-        }        
-    }
-
-    public class ILMBUpdate : ILMonoBehaviour
-    {
-        public System.Action update;
-        private void Update()
-        {
-            if (update != null)
-                update();
-        }
-    }
-
-    public class ILMBLateUpdate : ILMonoBehaviour
-    {
-        public System.Action lateUpdate;
-        private void LateUpdate()
-        {
-            if (lateUpdate != null)
-                lateUpdate();
-        }
-    }
-
-    public class ILMBLU : ILMonoBehaviour
-    {
-        public System.Action update;
-        private void Update()
-        {
-            if (update != null)
-                update();
         }
 
-        public System.Action lateUpdate;
-        private void LateUpdate()
+        public void OnEvent(string name)
         {
-            if (lateUpdate != null)
-                lateUpdate();
+            if (!isQuit && refType != null)
+                refType.InvokeMethod("OnEvent", name);
+        }
+
+        // 调用热更里的函数
+        public void OnFunction(string name)
+        {
+            if (!isQuit && refType != null)
+                refType.InvokeMethod(name);
         }
     }
 }

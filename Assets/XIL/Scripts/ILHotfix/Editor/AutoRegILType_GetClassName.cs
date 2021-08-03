@@ -269,12 +269,19 @@ namespace AutoIL
             var ps = key.parameters;
             if (isVoid)
             {
-                sb = SB.RegisterMethodDelegate;
-                if (onfun != null)
-                    onfun(sb);
+                if (ps.Count != 0)
+                {
+                    sb = SB.RegisterMethodDelegate;
+                    if (onfun != null)
+                        onfun(sb);
 
-                sb.Append(suffix);
-                sb.Append("appdomain.DelegateManager.RegisterMethodDelegate<");
+                    sb.Append(suffix);
+                    sb.Append("appdomain.DelegateManager.RegisterMethodDelegate<");
+                }
+                else
+                {
+                    return;
+                }
             }
             else
             {

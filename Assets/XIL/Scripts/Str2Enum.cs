@@ -108,7 +108,8 @@ namespace wxb
                 enumValues.Add(type, enumInfo);
                 var fields = it.TypeDefinition.Fields;
                 List<object> allValues = new List<object>();
-                for (int i = 0; i < fields.Count; i++)
+                int cnt = fields.Count;
+                for (int i = 0; i < cnt; i++)
                 {
                     var f = fields[i];
                     if (f.IsStatic)
@@ -144,7 +145,7 @@ namespace wxb
 
             try
             {
-                if (str[0] >= '0' && str[0] <= '9')
+                if ((str[0] >= '0' && str[0] <= '9') || str[0] == '-')
                 {
 #if USE_HOT
                     if (type is ILRuntime.Reflection.ILRuntimeType)
@@ -193,7 +194,7 @@ namespace wxb
                 return false;
             }
 
-            if (value[0] >= '0' && value[0] <= '9')
+            if ((value[0] >= '0' && value[0] <= '9') || value[0] == '-')
             {
                 // 数字
 #if USE_HOT

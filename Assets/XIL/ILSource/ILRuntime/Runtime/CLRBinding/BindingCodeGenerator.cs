@@ -416,6 +416,18 @@ namespace ILRuntime.Runtime.Generated
                 }
             }
         }
+
+        public static void CrawlAppdomain(ILRuntime.Runtime.Enviorment.AppDomain domain, HashSet<Type> types)
+        {
+            Dictionary<Type, CLRBindingGenerateInfo> infos = new Dictionary<Type, CLRBindingGenerateInfo>();
+            CrawlAppdomain(domain, infos);
+            foreach (var ator in infos)
+            {
+                if (!ator.Key.IsArray && ator.Value.NeedGenerate)
+                    types.Add(ator.Key);
+            }
+        }
+
         internal static void CrawlAppdomain(ILRuntime.Runtime.Enviorment.AppDomain domain, Dictionary<Type, CLRBindingGenerateInfo> infos)
         {
             domain.SuppressStaticConstructor = true;

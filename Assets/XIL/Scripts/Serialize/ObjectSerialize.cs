@@ -126,6 +126,29 @@ namespace wxb
                 }
             }
 
+#if !CloseNested
+            public string ToBase64()
+            {
+                WRStream stream = new WRStream(512);
+                Write(stream);
+
+                return System.Convert.ToBase64String(stream.GetBytes());
+            }
+
+            public static TypeDesc CreateByBase64(string base64)
+            {
+                TypeDesc td = new TypeDesc();
+                {
+                    var bytes = System.Convert.FromBase64String(base64);
+                    WRStream stream = new WRStream(bytes);
+                    stream.WritePos = bytes.Length;
+                    td.Reader(stream);
+                }
+
+                return td;
+            }
+#endif
+
             public static TypeDesc Get(System.Type type)
             {
                 TypeDesc td = new TypeDesc();
@@ -191,5 +214,44 @@ namespace wxb
 
             return BinarySerializable.IsEquip(x, y);
         }
+
+#if !CloseNested
+        // 把值写入到ab当中
+        void ITypeSerialize.WriteTo(object value, Nested.AnyBase ab)
+        {
+            if (value == null)
+            {
+                ab.valueType = 0;
+                return;
+            }
+
+            ab.valueType = 1;
+            var type = IL.Help.GetInstanceType(value);
+            var serial = BinarySerializable.GetByType(type);
+
+            TypeDesc typeDesc = TypeDesc.Get(type);
+            ab.typeName = typeDesc.ToBase64();
+            serial.WriteTo(value, ab);
+        }
+
+        // 通过ab来设置值
+        void ITypeSerialize.MergeFrom(ref object value, Nested.AnyBase ab)
+        {
+            if (ab.valueType == 0)
+            {
+                value = null;
+                return;
+            }
+
+            var typeDesc = TypeDesc.CreateByBase64(ab.typeName);
+
+            System.Type type = typeDesc.GetCurrentType();
+            if (value == null || (IL.Help.GetInstanceType(value) != type))
+                value = IL.Help.Create(type);
+
+            var serial = BinarySerializable.GetByType(type);
+            serial.MergeFrom(ref value, ab);
+        }
+#endif
     }
 }

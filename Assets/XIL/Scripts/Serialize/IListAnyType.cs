@@ -6,7 +6,7 @@ namespace wxb
     {
         protected ITypeSerialize elementTypeSerialize;
 
-        protected bool isSmartType = false; // Êı×éÊÇ·ñ±£´æÒ»ÑùµÄÀàĞÍ
+        protected bool isSmartType = false; // æ•°ç»„æ˜¯å¦ä¿å­˜ä¸€æ ·çš„ç±»å‹
 
         public IListAnyType(ITypeSerialize elementTypeSerialize)
         {
@@ -18,7 +18,7 @@ namespace wxb
 
         }
 
-        byte ITypeSerialize.typeFlag { get { return TypeFlags.arrayType; } } // Êı×é±êÊ¶
+        byte ITypeSerialize.typeFlag { get { return TypeFlags.arrayType; } } // æ•°ç»„æ ‡è¯†
 
         void ITypeSerialize.WriteTo(object value, IStream stream)
         {
@@ -31,9 +31,10 @@ namespace wxb
 
             stream.WriteByte(1);
             stream.WriteByte(elementTypeSerialize.typeFlag);
-            stream.WriteVarInt32(array.Count);
+            int cnt = array.Count;
+            stream.WriteVarInt32(cnt);
             object elementObj;
-            for (int i = 0; i < array.Count; ++i)
+            for (int i = 0; i < cnt; ++i)
             {
                 elementObj = array[i];
                 using (new RLStream(stream))
@@ -57,7 +58,7 @@ namespace wxb
             byte flagType = stream.ReadByte();
             int lenght = stream.ReadVarInt32();
 
-            bool isTypeTrue = flagType == elementTypeSerialize.typeFlag; // ÀàĞÍÊÇ·ñÒ»ÖÂ
+            bool isTypeTrue = flagType == elementTypeSerialize.typeFlag; // ç±»å‹æ˜¯å¦ä¸€è‡´
             var array = value as IList;
             if (isTypeTrue && (array == null || array.Count != lenght))
             {
@@ -83,7 +84,7 @@ namespace wxb
             }
         }
 
-        // ÅĞ¶ÏÁ½¸öÖµÊÇ·ñÏàµÈ
+        // åˆ¤æ–­ä¸¤ä¸ªå€¼æ˜¯å¦ç›¸ç­‰
         bool ITypeSerialize.IsEquals(object x, object y)
         {
             var xlist = (IList)x;
@@ -100,5 +101,63 @@ namespace wxb
 
             return true;
         }
+
+#if !CloseNested
+        // æŠŠå€¼å†™å…¥åˆ°abå½“ä¸­
+        void ITypeSerialize.WriteTo(object value, Nested.AnyBase ab)
+        {
+            IList array = (IList)value;
+            if (array == null)
+            {
+                ab.valueType = 0;
+                return;
+            }
+
+            ab.valueType = 1;
+            ab.elementTypeFlags = elementTypeSerialize.typeFlag;
+            object elementObj;
+            int cnt = array.Count;
+            ab.listCount = cnt;
+            for (int i = 0; i < cnt; ++i)
+            {
+                elementObj = array[i];
+                var cts = ab.Create($"[{i}]", elementTypeSerialize.typeFlag);
+                elementTypeSerialize.WriteTo(elementObj, cts);
+            }
+        }
+
+        // é€šè¿‡abæ¥è®¾ç½®å€¼
+        void ITypeSerialize.MergeFrom(ref object value, Nested.AnyBase ab)
+        {
+            byte flag = ab.valueType;
+            if (flag == 0)
+            {
+                value = null;
+                return;
+            }
+
+            bool isTypeTrue = ab.elementTypeFlags == elementTypeSerialize.typeFlag; // ç±»å‹æ˜¯å¦ä¸€è‡´
+            var array = value as IList;
+            int length = ab.listCount;
+            if (isTypeTrue && (array == null || array.Count != length))
+            {
+                array = Create(length);
+                value = array;
+            }
+
+            if (isTypeTrue)
+            {
+                for (int i = 0; i < length; ++i)
+                {
+                    object v = array[i];
+
+                    ab.Get($"[{i}]", out var vv);
+                    elementTypeSerialize.MergeFrom(ref v, vv);
+
+                    array[i] = v;
+                }
+            }
+        }
+#endif
     }
 }

@@ -27,6 +27,8 @@ namespace wxb.IL.Editor
             return null;
         }
 
+        const string SerializedKey = "customizeData";
+
         public void InitByBaseType(SerializedObject serializedObject, UnityEngine.MonoBehaviour target, string baseTypeFullName)
         {
             Init(serializedObject, target);
@@ -43,7 +45,7 @@ namespace wxb.IL.Editor
             var appdomain = DllInitByEditor.appdomain;
 #endif
             this.behaviour = behaviour;
-            var customizeDataField = GetField(behaviour.GetType(), "customizeData", BindingFlags.Instance | BindingFlags.NonPublic);
+            var customizeDataField = GetField(behaviour.GetType(), SerializedKey, BindingFlags.Instance | BindingFlags.NonPublic);
             if (customizeDataField != null)
             {
                 customizeData = customizeDataField.GetValue(behaviour) as CustomizeData;
@@ -218,14 +220,6 @@ namespace wxb.IL.Editor
                     return;
             }
 
-            System.Type type = target.GetType();
-            var attributes = type.GetCustomAttributes(typeof(SingleILMono), true);
-            if (attributes != null && attributes.Length != 0)
-            {
-                OnGUI(((SingleILMono)attributes[0]).type);
-                return;
-            }
-
             OnGUI();
         }
 
@@ -237,5 +231,80 @@ namespace wxb.IL.Editor
             var method = type.GetMethod("TestLog", BindingFlags.NonPublic | BindingFlags.Static);
             method.Invoke(null, new object[] { });
         }
+
+#if !CloseNested
+        [UnityEditor.MenuItem("Assets/IL/预置体重保存")]
+        static void ResavePrefab()
+        {
+            SaveSelectPrefab(Selection.objects, (cd)=> 
+            {
+                cd.OnBeforeSerialize();
+            },
+            null);
+        }
+
+        static void SaveSelectPrefab(Object[] objects, System.Action<CustomizeData> onSet, System.Action onend)
+        {
+            GlobalCoroutine.StartCoroutine(EditorHelper.ForEachSelectASync(objects, (file) =>
+            {
+                if (!file.EndsWith(".prefab"))
+                    return null;
+
+                bool isOk = PrefabModify.Modify(file, (go) =>
+                {
+                    var serials = go.GetComponentsInChildren<ISerializationCallbackReceiver>(true);
+                    int cnt = serials.Length;
+                    if (serials.Length == 0)
+                        return;
+
+                    for (int i = 0; i < cnt; ++i)
+                    {
+                        var obj = serials[i] as Object;
+                        var type = obj.GetType();
+                        var customizeDataField = IL.Help.GetField(type, "customizeData");
+                        if (customizeDataField != null)
+                        {
+                            var customizeData = customizeDataField.GetValue(obj) as CustomizeData;
+                            if (customizeData != null)
+                            {
+                                onSet?.Invoke(customizeData);
+                                EditorUtility.SetDirty(obj);
+                            }
+                        }
+                    }
+                });
+
+                if (isOk)
+                {
+                    Debug.Log(file);
+                    int count = 5;
+                    return () => { return count-- >= 0; };
+                }
+                else
+                {
+                    return null;
+                }
+            }, onend));
+        }
+
+        [UnityEditor.MenuItem("Assets/IL/嵌套数据重置")]
+        static void ResetNestedPrefab()
+        {
+            var objects = Selection.objects;
+            SaveSelectPrefab(objects, (cd)=> { cd.OnBeforeSerialize(); }, () => 
+            {
+                SaveSelectPrefab(objects, (cd) => 
+                {
+                    cd.ResetNested();
+                    cd.OnAfterDeserialize(null);
+                    cd.OnBeforeSerialize();
+                },
+                ()=> 
+                {
+
+                });
+            });
+        }
+#endif
     }
 }

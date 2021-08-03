@@ -779,6 +779,9 @@ namespace wxb
                 if (type == null)
                     continue;
 
+                if (type.IsEnum || type.IsInterface || type.IsValueType || type.IsDelegate || type.IsArray)
+                    continue;
+
                 NameToSorted.Clear();
                 var typeDefinition = type.TypeDefinition;
                 System.Type rt = GetReplaceType(typeDefinition.CustomAttributes);

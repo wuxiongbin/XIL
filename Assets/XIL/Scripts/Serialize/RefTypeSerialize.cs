@@ -48,5 +48,32 @@ namespace wxb
 
             return BinarySerializable.IsEquip(xValue.Instance, yValue.Instance);
         }
+
+#if !CloseNested
+        // 把值写入到ab当中
+        void ITypeSerialize.WriteTo(object value, Nested.AnyBase ab)
+        {
+            RefType refType = (RefType)value;
+            if (refType == null || refType.Instance == null)
+                return;
+
+            typeSerialize.WriteTo(refType.Instance, ab);
+        }
+
+        // 通过ab来设置值
+        void ITypeSerialize.MergeFrom(ref object value, Nested.AnyBase ab)
+        {
+            RefType refType = (RefType)value;
+            if (refType == null)
+            {
+                refType = new RefType(type);
+                value = refType;
+            }
+
+            var instance = refType.Instance;
+            typeSerialize.MergeFrom(ref instance, ab);
+            refType.SetInstance(instance);
+        }
+#endif
     }
 }

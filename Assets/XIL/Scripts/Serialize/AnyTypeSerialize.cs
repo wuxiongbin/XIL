@@ -164,5 +164,76 @@ namespace wxb
 
             return true;
         }
+
+#if !CloseNested
+        // 把值写入到ab当中
+        public void WriteTo(object value, Nested.AnyBase ab)
+        {
+            if (value == null)
+            {
+                ab.valueType = 0;
+                return;
+            }
+
+            var cnt = fieldInfos.Count;
+            ab.valueType = cnt == 0 ? (byte)2 : (byte)1;
+            if (cnt == 0)
+                return;
+
+            ITypeSerialize its;
+            for (int i = 0; i < cnt; ++i)
+            {
+                var field = fieldInfos[i];
+                object cv = field.GetValue(value);
+
+                its = BinarySerializable.GetByFieldInfo(field);
+                its.WriteTo(cv, ab.Create(field.Name, its.typeFlag));
+            }
+        }
+
+
+        void ITypeSerialize.MergeFrom(ref object value, Nested.AnyBase ab)
+        {
+            byte flag = ab.valueType;
+            if (flag == 0)
+            {
+                value = null;
+                return;
+            }
+
+            if (value == null)
+            {
+                value = IL.Help.Create(type);
+            }
+
+            if (flag == 2)
+                return;
+
+            int cnt = fieldInfos.Count;
+            FieldInfo field;
+            ITypeSerialize its;
+            for (int i = 0; i < cnt; ++i)
+            {
+                field = fieldInfos[i];
+                if (ab.Get(field.Name, out var fieldValue))
+                {
+                    object cv = field.GetValue(value);
+                    {
+                        its = BinarySerializable.GetByFieldInfo(field);
+                        if (fieldValue.typeFlags == its.typeFlag)
+                        {
+                            its.MergeFrom(ref cv, fieldValue);
+                            if (its.typeFlag == TypeFlags.unityObjectType)
+                            {
+                                cv = UnityObjectSerialize.To((UnityEngine.Object)cv, field.FieldType);
+                            }
+
+                            field.SetValue(value, cv);
+                        }
+                    }
+                }
+            }
+        }
+#endif
     }
 }

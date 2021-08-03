@@ -6,10 +6,14 @@ namespace wxb
 {
     class Serialize<T> : ITypeSerialize where T : System.IEquatable<T>
     {
-        public Serialize(byte typeFlag, System.Action<T, IStream> writeTo, System.Func<IStream, T> mergeFrom)
+        public Serialize(byte typeFlag, System.Action<T, IStream> writeTo, System.Func<IStream, T> mergeFrom, System.Func<T, string> writeToS, System.Func<string, T> mergeFromS)
         {
             this.writeTo = writeTo;
             this.mergeFrom = mergeFrom;
+#if !CloseNested
+            this.writeToS = writeToS;
+            this.mergeFromS = mergeFromS;
+#endif
             typeFlag_ = typeFlag;
         }
 
@@ -34,5 +38,19 @@ namespace wxb
         {
             return ((System.IEquatable<T>)x).Equals((System.IEquatable<T>)y);
         }
+
+#if !CloseNested
+        System.Func<T, string> writeToS;
+        void ITypeSerialize.WriteTo(object value, Nested.AnyBase ab)
+        {
+            ab.baseValue = writeToS((T)value);
+        }
+
+        System.Func<string, T> mergeFromS;
+        void ITypeSerialize.MergeFrom(ref object value, Nested.AnyBase ab)
+        {
+            value = mergeFromS(ab.baseValue);
+        }
+#endif
     }
 }

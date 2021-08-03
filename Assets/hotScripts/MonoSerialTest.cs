@@ -27,8 +27,7 @@ namespace hot
         List<TestSSS> ssss11;
     }
 
-    [wxb.AutoILMono]
-    class MonoSerialTest
+    class MonoSerialTest : HotBehaviour
     {
         //public GameObject go;
         //public int maxValue;

@@ -14,7 +14,7 @@ namespace wxb
     [System.AttributeUsage(AttributeTargets.Class)]
     public class ILSerializable : System.Attribute
     {
-        // ¿‡–Õ√˚
+        // Á±ªÂûãÂêç
         public ILSerializable(string typeName)
         {
             this.typeName = typeName;
@@ -23,14 +23,14 @@ namespace wxb
         public string typeName;
     }
 
-    // ÷«ƒ‹¿‡–Õ
+    // Êô∫ËÉΩÁ±ªÂûã
     [System.AttributeUsage(AttributeTargets.Class)]
     public class SmartAttribute : System.Attribute
     {
 
     }
 
-    // ¿‡–Õ“˝”√
+    // Á±ªÂûãÂºïÁî®
     [System.AttributeUsage(AttributeTargets.Class)]
     public class CSharpAgent : System.Attribute
     {
@@ -61,9 +61,9 @@ namespace wxb
         static Dictionary<ILRuntimeFieldInfo, ITypeSerialize> FieldInfoTypes = new Dictionary<ILRuntimeFieldInfo, ITypeSerialize>();
 #endif
 
-        static void Reg<T>(byte typeFlag, System.Action<T, IStream> writeTo, System.Func<IStream, T> mergeFrom) where T : System.IEquatable<T>
+        static void Reg<T>(byte typeFlag, System.Action<T, IStream> writeTo, System.Func<IStream, T> mergeFrom, System.Func<T, string> writeToS, System.Func<string, T> mergeFromS) where T : System.IEquatable<T>
         {
-            AllTypes.Add(typeof(T).FullName, new Serialize<T>(typeFlag, writeTo, mergeFrom));
+            AllTypes.Add(typeof(T).FullName, new Serialize<T>(typeFlag, writeTo, mergeFrom, writeToS, mergeFromS));
         }
 
         static BinarySerializable()
@@ -77,37 +77,37 @@ namespace wxb
             objectSerialize = new ObjectSerialize();
 
             // int,uint
-            Reg(TypeFlags.intType, (value, ms) => { ms.WriteVarInt32(value); }, (ms) => { return ms.ReadVarInt32(); });
-            Reg(TypeFlags.uintType, (value, ms) => { ms.WriteVarUInt32(value); }, (ms) => { return ms.ReadVarUInt32(); });
+            Reg(TypeFlags.intType, (value, ms) => ms.WriteVarInt32(value), (ms) => ms.ReadVarInt32(), (value) => value.ToString(), (str) => int.Parse(str));
+            Reg(TypeFlags.uintType, (value, ms) => ms.WriteVarUInt32(value), (ms) => ms.ReadVarUInt32(), (value) => value.ToString(), (str) => uint.Parse(str));
 
             // sbyte,byte
-            Reg(TypeFlags.sbyteType, (value, ms) => { ms.WriteSByte(value); }, (ms) => { return ms.ReadSByte(); });
-            Reg(TypeFlags.byteType, (value, ms) => { ms.WriteByte(value); }, (ms) => { return ms.ReadByte(); });
+            Reg(TypeFlags.sbyteType, (value, ms) => ms.WriteSByte(value), (ms) => ms.ReadSByte(), (value) => value.ToString(), (str) => sbyte.Parse(str));
+            Reg(TypeFlags.byteType, (value, ms) => ms.WriteByte(value), (ms) => ms.ReadByte(), (value) => value.ToString(), (str) => byte.Parse(str));
 
             // char
-            Reg(TypeFlags.charType, (value, ms) => { ms.WriteChar(value); }, (ms) => { return ms.ReadChar(); });
+            Reg(TypeFlags.charType, (value, ms) => ms.WriteChar(value), (ms) => ms.ReadChar(), (value) => value.ToString(), (str) => char.Parse(str));
 
             // long,ulong
-            Reg(TypeFlags.longType, (value, ms) => { ms.WriteVarInt64(value); }, (ms) => { return ms.ReadVarInt64(); });
-            Reg(TypeFlags.ulongType, (value, ms) => { ms.WriteVarUInt64(value); }, (ms) => { return ms.ReadVarUInt64(); });
+            Reg(TypeFlags.longType, (value, ms) => ms.WriteVarInt64(value), (ms) => ms.ReadVarInt64(), (value) => value.ToString(), (str) => long.Parse(str));
+            Reg(TypeFlags.ulongType, (value, ms) => ms.WriteVarUInt64(value), (ms) => ms.ReadVarUInt64(), (value) => value.ToString(), (str) => ulong.Parse(str));
 
             // short,ushort
-            Reg(TypeFlags.shortType, (value, ms) => { ms.WriteShort(value); }, (ms) => { return ms.ReadShort(); });
-            Reg(TypeFlags.ushortType, (value, ms) => { ms.WriteUShort(value); }, (ms) => { return ms.ReadUShort(); });
+            Reg(TypeFlags.shortType, (value, ms) => ms.WriteShort(value), (ms) => ms.ReadShort(), (value) => value.ToString(), (str) => short.Parse(str));
+            Reg(TypeFlags.ushortType, (value, ms) => ms.WriteUShort(value), (ms) => ms.ReadUShort(), (value) => value.ToString(), (str) => ushort.Parse(str));
 
             // float
-            Reg(TypeFlags.floatType, (value, ms) => { ms.WriteFloat(value); }, (ms) => { return ms.ReadFloat(); });
+            Reg(TypeFlags.floatType, (value, ms) => ms.WriteFloat(value), (ms) => ms.ReadFloat(), (value) => value.ToString(), (str) => float.Parse(str));
             // double
-            Reg(TypeFlags.doubleType, (value, ms) => { ms.WriteDouble(value); }, (ms) => { return ms.ReadDouble(); });
+            Reg(TypeFlags.doubleType, (value, ms) => ms.WriteDouble(value), (ms) => ms.ReadDouble(), (value) => value.ToString(), (str) => double.Parse(str));
 
             // DateTime
-            Reg(TypeFlags.DateTimeType, (value, ms) => { ms.WriteLong(value.Ticks); }, (ms) => { return new DateTime(ms.ReadLong()); });
+            Reg(TypeFlags.DateTimeType, (value, ms) => { ms.WriteLong(value.Ticks); }, (ms) => new DateTime(ms.ReadLong()), (value) => value.ToString(), (str) => DateTime.Parse(str));
 
             // string
-            Reg(TypeFlags.stringType, (value, ms) => { ms.WriteString(value); }, (ms) => { return ms.ReadString(); });
+            Reg(TypeFlags.stringType, (value, ms) => { ms.WriteString(value); }, (ms) => { return ms.ReadString(); }, (value) => value, (str) => str);
 
             // bool
-            Reg<bool>(TypeFlags.boolType, (value, ms) => { ms.WriteByte(value ? (byte)1 : (byte)0); }, (ms) => { return ms.ReadByte() == 0 ? false : true; });
+            Reg<bool>(TypeFlags.boolType, (value, ms) => ms.WriteByte(value ? (byte)1 : (byte)0), (ms) => ms.ReadByte() == 0 ? false : true, (value) => value.ToString(), (str) => bool.Parse(str));
 
             Reg<Vector2Int>(TypeFlags.vector2Int, 
                 (value, ms) => 
@@ -120,6 +120,16 @@ namespace wxb
                     Vector2Int vi = new Vector2Int();
                     vi.x = ms.ReadInt32();
                     vi.y = ms.ReadInt32();
+
+                    return vi;
+                },
+                (value)=> $"{value.x},{value.y}",
+                (value)=> 
+                {
+                    Vector2Int vi = new Vector2Int();
+                    string[] ss = value.Split(',');
+                    vi.x = int.Parse(ss[0]);
+                    vi.y = int.Parse(ss[1]);
 
                     return vi;
                 });
@@ -138,6 +148,17 @@ namespace wxb
                     vi.y = ms.ReadInt32();
                     vi.z = ms.ReadInt32();
                     
+                    return vi;
+                },
+                (value) => $"{value.x},{value.y},{value.z}",
+                (value) =>
+                {
+                    Vector3Int vi = new Vector3Int();
+                    string[] ss = value.Split(',');
+                    vi.x = int.Parse(ss[0]);
+                    vi.y = int.Parse(ss[1]);
+                    vi.z = int.Parse(ss[2]);
+
                     return vi;
                 });
         }
@@ -199,7 +220,7 @@ namespace wxb
                 }
                 else if (Help.isDictionaryType(type))
                 {
-                    // map∂‘œÛ
+                    // mapÂØπË±°
                     ts = new DictionaryType(type, null);
                 }
                 else
@@ -266,7 +287,7 @@ namespace wxb
                     ILRuntimeFieldInfo ilFieldInfo = (ILRuntimeFieldInfo)fieldInfo;
                     GetElementType(ilFieldInfo.Definition.FieldType, ref arrayCount, out elementType);
                     var et = GetType(elementType);
-                    if (et is ILRuntimeType) // ≤ª «»»∏¸µ±÷–µƒ¿‡–Õ
+                    if (et is ILRuntimeType) // ‰∏çÊòØÁÉ≠Êõ¥ÂΩì‰∏≠ÁöÑÁ±ªÂûã
                         ts = new HotArrayAnyType(et, isListType, arrayCount);
                     else
                         ts = GetByType(fieldType);
@@ -318,7 +339,7 @@ namespace wxb
             return GetByType(type);
         }
 
-        // –¥»Î¡˜
+        // ÂÜôÂÖ•ÊµÅ
         public static IStream WriteTo(object obj)
         {
             var stream = new WRStream(512);
@@ -375,6 +396,24 @@ namespace wxb
             }
         }
 
+#if !CloseNested // ÂÖ≥Èó≠È¢ÑÁΩÆ‰ΩìÂµåÂ•óÊîØÊåÅ
+        public static void MergeFrom(object obj, Nested.AnyBase ab)
+        {
+            var its = GetByInstance(obj);
+            if (its == null)
+                return;
+
+            try
+            {
+                its.MergeFrom(ref obj, ab);
+            }
+            catch (System.Exception ex)
+            {
+                UnityEngine.Debug.LogException(ex);
+            }
+        }
+#endif
+
 #if USE_HOT
         public static void GetElementType(TypeReference type, ref int arrayCount, out string elementType)
         {
@@ -400,7 +439,7 @@ namespace wxb
         }
 #endif
 
-        // ≈–∂œ¡Ω∏ˆ÷µ «∑Òœ‡µ»
+        // Âà§Êñ≠‰∏§‰∏™ÂÄºÊòØÂê¶Áõ∏Á≠â
         public static bool IsEquip(object x, object y)
         {
             if (x == null && y == null)
@@ -416,5 +455,30 @@ namespace wxb
 
             return true;
         }
+
+        public static IStream CreateReaderStream(System.IO.BinaryReader reader)
+        {
+            var cnt = (int)(reader.BaseStream.Length - reader.BaseStream.Position);
+            byte[] bytes = new byte[cnt];
+            reader.Read(bytes, 0, cnt);
+            wxb.WRStream stream = new WRStream(bytes);
+            stream.WritePos = cnt;
+            return stream;
+        }
+
+#if UNITY_EDITOR
+        //[UnityEditor.MenuItem("Assets/TestBinarySerializable")]
+        //static void TestBinarySerializable()
+        //{
+        //    DG.NetProto.ChatMessageVo cmvo = new DG.NetProto.ChatMessageVo();
+        //    cmvo.templateParam.Add("xx", new object[] { "3333", "2222" });
+        //    var stream = WriteTo(cmvo);
+
+        //    DG.NetProto.ChatMessageVo nmvo = new DG.NetProto.ChatMessageVo();
+        //    MergeFrom(nmvo, stream);
+
+        //    Log.Debug($"{cmvo.templateParam.Count}->{nmvo.templateParam.Count}");
+        //}
+#endif
     }
 }

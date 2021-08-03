@@ -33,6 +33,18 @@ namespace wxb
         {
             return ((int)x) == ((int)y);
         }
+
+#if !CloseNested
+        // 把值写入到ab当中
+        void ITypeSerialize.WriteTo(object value, Nested.AnyBase ab)
+        {
+            ab.baseValue = ((int)value).ToString();
+        }
+        void ITypeSerialize.MergeFrom(ref object value, Nested.AnyBase ab)
+        {
+            value = int.Parse(ab.baseValue);
+        }
+#endif
     }
 }
 #endif

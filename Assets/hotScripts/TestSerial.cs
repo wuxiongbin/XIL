@@ -31,12 +31,19 @@ public class TestD111 : TestD
 
 }
 
-[wxb.AutoILMono]
-public class TestClass2 
+public class TestClass2 : hot.HotBehaviour
 {
-    public string[] value;
+    public long longValue;
+    public string vvValue;
+    public int intValue;
+    //public long[] longsValue;
+    //public int[] intsValue;
+    //public int intValue;
+    //public long longValue;
+    //public float floatValue;
+    //public string[] value;
     //public Dictionary<int, string> dics;
-    public Dictionary<TestD, string> vvv;
+    //public Dictionary<TestD, string> vvv;
 }
 
 public enum TestEnum
@@ -48,8 +55,7 @@ public enum TestEnum
     TE4,
 }
 
-[wxb.AutoILMono]
-public class TestSerial
+public class TestSerial : hot.HotBehaviour
 {
     //public int value;
     //public string strValue;

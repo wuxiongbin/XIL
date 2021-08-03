@@ -766,6 +766,23 @@
         }
 #endif
 
+        public static HashSet<System.Type> DefaultSerializableType = new HashSet<System.Type>() 
+        {
+            typeof(UnityEngine.Vector2),
+            typeof(UnityEngine.Vector3),
+            typeof(UnityEngine.Vector4),
+            typeof(UnityEngine.Color),
+            typeof(UnityEngine.Color32),
+        };
+
+        static bool IsDefaultSerializableType(System.Type type)
+        {
+            if (DefaultSerializableType.Contains(type))
+                return true;
+
+            return false;
+        }
+
         // 是否是可序列化的类型
         static bool IsSerializableType(System.Type type, FieldInfo fieldInfo)
         {
@@ -779,18 +796,28 @@
             if (isType(type, typeof(UnityEngine.Object)))
                 return true;
 
-            if (type == typeof(UnityEngine.Vector2) ||
-                type == typeof(UnityEngine.Vector3) ||
-                type == typeof(UnityEngine.Vector4) ||
-                type == typeof(UnityEngine.Vector2Int) ||
-                type == typeof(UnityEngine.Vector3Int))
+            if (IsDefaultSerializableType(type))
             {
                 return true;
+            }
+
+            if (type.IsSerializable)
+            {
+                return true;
+            }
+
+            if (type.IsInterface || type.IsAbstract)
+            {
+                var atts = type.GetCustomAttributes(typeof(SmartAttribute), false);
+                if (atts != null || atts.Length != 0)
+                    return true;
             }
 
             if (type.IsArray)
             {
                 var element = GetRealType(type).GetElementType();
+                if (IsSerializableType(element, null))
+                    return true;
 #if USE_HOT
                 if (fieldInfo is ILRuntimeFieldInfo)
                     return IsSerializableType(((ILRuntimeFieldInfo)fieldInfo).Definition.FieldType);
@@ -800,6 +827,8 @@
             else if (isListType(type))
             {
                 var element = type.GetGenericArguments()[0];
+                if (IsSerializableType(element, null))
+                    return true;
 #if USE_HOT
                 if (fieldInfo is ILRuntimeFieldInfo)
                     return IsSerializableType(((ILRuntimeFieldInfo)fieldInfo).Definition.FieldType);
@@ -817,19 +846,7 @@
                 return false;
             }
 
-            if (!type.IsSerializable)
-            {
-                return false;
-            }
-
-            if (type.IsInterface || type.IsAbstract)
-            {
-                var atts = type.GetCustomAttributes(typeof(SmartAttribute), false);
-                if (atts == null || atts.Length == 0)
-                    return false;
-            }
-
-            return true;
+            return false;
         }
 
         public static bool isListType(System.Type type)

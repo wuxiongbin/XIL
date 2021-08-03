@@ -372,8 +372,7 @@ namespace wxb
 
             public void toInfo(string suffix, System.Text.StringBuilder sb)
             {
-                return;
-                GetInfo(suffix, sb);
+                //GetInfo(suffix, sb);
             }
 
             public void GetInfo(string suffix, System.Text.StringBuilder sb)

@@ -32,5 +32,19 @@ namespace wxb
         {
             return ((int)x) == ((int)y);
         }
+
+#if !CloseNested
+        // 把值写入到ab当中
+        void ITypeSerialize.WriteTo(object value, Nested.AnyBase ab)
+        {
+            ab.baseValue = value.ToString();
+        }
+
+        // 通过ab来设置值
+        void ITypeSerialize.MergeFrom(ref object value, Nested.AnyBase ab)
+        {
+            value = Str2Enum.To(ab.baseValue, enumType);
+        }
+#endif
     }
 }

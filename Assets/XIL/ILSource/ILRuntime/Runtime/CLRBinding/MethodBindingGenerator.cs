@@ -339,7 +339,7 @@ namespace ILRuntime.Runtime.CLRBinding
                                     }
                                     break;
                                 default:
-                                    throw new NotImplementedException(i.Name);
+                                    throw new NotImplementedException($"{type.FullName}.{i.Name} {t[1]}");
                             }
                         }
                         else if(propType == "add")

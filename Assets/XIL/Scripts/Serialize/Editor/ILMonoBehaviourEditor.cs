@@ -9,7 +9,12 @@ namespace wxb.Editor
 
         private void OnEnable()
         {
-            monoEditor.InitByAttribute(serializedObject, target as ILMonoBehaviour, typeof(AutoILMono));
+            string baseType = "hot.HotBehaviour";
+            var atts = target.GetType().GetCustomAttributes(typeof(HotBaseType), true);
+            if (atts == null || atts.Length != 0)
+                baseType = ((HotBaseType)atts[0]).typeName;
+
+            monoEditor.InitByBaseType(serializedObject, target as ILMonoBehaviour, baseType);
         }
 
         public override void OnInspectorGUI()

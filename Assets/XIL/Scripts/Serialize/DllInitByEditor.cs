@@ -51,7 +51,7 @@ namespace wxb
         }
 
         [MenuItem("Assets/IL/LoadHotDLL")]
-        static void LoadDLL()
+        public static void LoadDLL()
         {
             Release();
 

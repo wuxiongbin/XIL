@@ -106,5 +106,71 @@ namespace wxb
 
             return true;
         }
+
+#if !CloseNested
+        // 把值写入到ab当中
+        public void WriteTo(object value, Nested.AnyBase ab)
+        {
+            if (value == null)
+            {
+                ab.valueType = 0;
+                return;
+            }
+
+            ab.valueType = 1;
+            var dic = (IDictionary)value;
+            int cnt = 0;
+            ab.listCount = dic.Count;
+            foreach (DictionaryEntry ator in dic)
+            {
+                string key = cnt.ToString();
+                keyTypeSerialize.WriteTo(ator.Key, ab.Create($"key:{key}", keyTypeSerialize.typeFlag));
+                valueTypeSerialize.WriteTo(ator.Value, ab.Create($"value:{key}", valueTypeSerialize.typeFlag));
+                ++cnt;
+            }
+        }
+
+        // 通过ab来设置值
+        public void MergeFrom(ref object value, Nested.AnyBase ab)
+        {
+            if (ab.valueType == 0)
+            {
+                value = null;
+                return;
+            }
+
+            var dic = (IDictionary)value;
+            if (value == null)
+            {
+                value = System.Activator.CreateInstance(type);
+                dic = (IDictionary)value;
+            }
+
+            int cnt = ab.listCount;
+            for (int i = 0; i < cnt; ++i)
+            {
+                if (ab.Get($"key:{i}", out var keyValue))
+                {
+                    object key = IL.Help.Create(keyType);
+                    keyTypeSerialize.MergeFrom(ref key, keyValue);
+                    if (ab.Get($"value:{i}", out var valueValue))
+                    {
+                        object kv = IL.Help.Create(valueType);
+                        valueTypeSerialize.MergeFrom(ref kv, valueValue);
+
+                        dic[key] = kv;
+                    }
+                    else
+                    {
+                        Debug.LogError($"dic {ab.dataKey} {i} value not find value!");
+                    }
+                }
+                else
+                {
+                    Debug.LogError($"dic {ab.dataKey} {i} not find value!");
+                }
+            }
+        }
+#endif
     }
 }

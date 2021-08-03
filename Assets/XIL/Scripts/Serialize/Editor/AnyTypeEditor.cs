@@ -279,20 +279,9 @@ namespace wxb.Editor
             for (int i = 0; i < infos.Count; ++i)
             {
                 var field = infos[i];
-                object v = null;
-                try
-                {
-                    v = field.GetValue(value);
-                }
-                catch (System.Exception ex)
-                {
-                    wxb.L.LogException(ex);
-                }
-
-                if (v != null)
-                    isDirty |= TypeEditor.Get(field.FieldType, field).AutoSetValue(v, field, r);
+                isDirty |= TypeEditor.Get(field.FieldType, field).AutoSetValue(vv, field, r);
             }
-            
+
             return isDirty;
         }
     }
