@@ -164,7 +164,12 @@ namespace wxb
             types.Remove(typeof(UnityEngine.Debug));
             types.Remove(typeof(System.Activator));
             ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(types.ToList(), "Assets/XIL/Auto/CLR");
-            GenerateCrossBindingAdapterCode(new System.Type[] 
+        }
+
+        [UnityEditor.MenuItem("XIL/生成跨域继承适配")]
+        static void GenerateCross()
+        {
+            GenerateCrossBindingAdapterCode(new System.Type[]
             {
                 typeof(IComparer<int>)
             },
