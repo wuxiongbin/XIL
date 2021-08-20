@@ -72,7 +72,14 @@ namespace wxb
                 {
                     object v = array[i];
                     RLStream.MergeFrom(elementTypeSerialize, stream, ref v);
-                    array[i] = v;
+                    try
+                    {
+                        array[i] = v;
+                    }
+                    catch (System.Exception ex)
+                    {
+                        Log.Exception(ex);
+                    }
                 }
             }
             else
@@ -154,7 +161,14 @@ namespace wxb
                     ab.Get($"[{i}]", out var vv);
                     elementTypeSerialize.MergeFrom(ref v, vv);
 
-                    array[i] = v;
+                    try
+                    {
+                        array[i] = v;
+                    }
+                    catch (System.Exception /*ex*/)
+                    {
+
+                    }
                 }
             }
         }

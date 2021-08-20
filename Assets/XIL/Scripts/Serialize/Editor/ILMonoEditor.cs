@@ -243,11 +243,33 @@ namespace wxb.IL.Editor
             null);
         }
 
+        static bool isNeedCheck(GameObject go)
+        {
+            var serials = go.GetComponentsInChildren<ISerializationCallbackReceiver>(true);
+            int cnt = serials.Length;
+            if (serials.Length == 0)
+                return false;
+
+            for (int i = 0; i < cnt; ++i)
+            {
+                var obj = serials[i] as Object;
+                var type = obj.GetType();
+                var customizeDataField = IL.Help.GetField(type, "customizeData");
+                if (customizeDataField != null)
+                    return true;
+            }
+
+            return false;
+        }
+
         static void SaveSelectPrefab(Object[] objects, System.Action<CustomizeData> onSet, System.Action onend)
         {
             GlobalCoroutine.StartCoroutine(EditorHelper.ForEachSelectASync(objects, (file) =>
             {
                 if (!file.EndsWith(".prefab"))
+                    return null;
+                
+                if (!isNeedCheck(AssetDatabase.LoadAssetAtPath<GameObject>(file)))
                     return null;
 
                 bool isOk = PrefabModify.Modify(file, (go) =>

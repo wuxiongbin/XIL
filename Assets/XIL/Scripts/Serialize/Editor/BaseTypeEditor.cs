@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using wxb.IL;
 #if USE_HOT
 using ILRuntime.Mono.Cecil;
 using ILRuntime.Reflection;
@@ -86,6 +87,11 @@ namespace wxb.Editor
         List<int> enumValues;
 #endif
 
+        public static System.Enum EnumPopup(string label, System.Enum selected, params GUILayoutOption[] options)
+        {
+            return Enum2Type.EnumPopup(label, selected, options);
+        }
+
         public bool OnGUI(object parent, FieldInfo info)
         {
             using (new IndentLevel())
@@ -131,7 +137,7 @@ namespace wxb.Editor
 #endif
             System.Enum nv;
             {
-                nv = EditorGUILayout.EnumPopup(label, (System.Enum)value);
+                nv = EnumPopup(label, (System.Enum)value);
             }
 
             if ((int)(object)nv != (int)value)

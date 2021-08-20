@@ -83,11 +83,11 @@ namespace wxb
                     return true;
             }
 
+            if (type.ContainsGenericParameters)
+                return false;
+
             if (type.IsGenericType)
             {
-                if (type.ContainsGenericParameters)
-                    return false;
-
                 foreach (var ator in type.GetGenericArguments())
                 {
                     if (IsEditorType(ator))
@@ -95,20 +95,32 @@ namespace wxb
                 }
             }
 
+            if (type.IsArray)
+            {
+                return IsEditorType(type.GetElementType());
+            }
+
             string ns = type.Namespace;
             if (!string.IsNullOrEmpty(ns) && (ns.StartsWith("GUIEditor.") || ns.StartsWith("UnityEditor.") || ns.StartsWith("MikuArtTech.EditorTools.")))
                 return true;
 
-            if (type.FullName.Contains("GUIEditor") || type.FullName.Contains("MikuArtTech.EditorTools."))
-                return true;
+            var fullName = type.FullName;
+            if (!string.IsNullOrEmpty(fullName))
+            {
+                if (fullName.Contains("GUIEditor") || fullName.Contains("MikuArtTech.EditorTools."))
+                    return true;
 
-            if (type.FullName.StartsWith("System.Runtime.Remoting"))
-                return true;
+                if (fullName.StartsWith("System.Runtime.Remoting"))
+                    return true;
 
-            if (type.FullName == "System.CrossAppDomainDelegate")
-                return true;
-            if (type.FullName == "System.AppDomainInitializer")
-                return true;
+                if (fullName == "System.CrossAppDomainDelegate")
+                    return true;
+                if (fullName == "System.AppDomainInitializer")
+                    return true;
+
+                if (fullName == typeof(UnityEngine.Tilemaps.Tilemap.SyncTile).FullName)
+                    return true;
+            }
 
             if (type.GetCustomAttributes(typeof(EditorClass), true).Length != 0)
                 return true;
@@ -464,8 +476,9 @@ namespace wxb
             {
                 hotTypes.Add(type); // 热更当中的类型
                 BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static | BindingFlags.NonPublic;
-                //// C#层当中的类型，遍历下所有的方法，查看下，方法的参数是否有委托类型的
-                foreach (var method in type.GetMethods(flags))
+                // C#层当中的类型，遍历下所有的方法，查看下，方法的参数是否有委托类型的
+                var methods = type.GetMethods(flags);
+                foreach (var method in methods)
                 {
                     BuildType(method.ReturnType, hotTypes, csharpDelegate, Checks);
                     foreach (var p in method.GetParameters())
@@ -475,12 +488,14 @@ namespace wxb
                         BuildType(t, hotTypes, csharpDelegate, Checks);
                 }
 
-                foreach (var field in type.GetFields(flags))
+                var fields = type.GetFields(flags);
+                foreach (var field in fields)
                 {
                     BuildType(field.FieldType, hotTypes, csharpDelegate, Checks);
                 }
 
-                foreach (var p in type.GetProperties(flags))
+                var propertices = type.GetProperties(flags);
+                foreach (var p in propertices)
                 {
                     BuildType(p.PropertyType, hotTypes, csharpDelegate, Checks);
                 }
@@ -490,6 +505,13 @@ namespace wxb
                     var t = ToHotGenericType(type);
                     if (t != null)
                         BuildType(t, hotTypes, csharpDelegate, Checks);
+                }
+
+                var bt = type.BaseType;
+                while (bt != null && bt != typeof(object))
+                {
+                    BuildType(bt, hotTypes, csharpDelegate, Checks);
+                    bt = bt.BaseType;
                 }
 
                 return;

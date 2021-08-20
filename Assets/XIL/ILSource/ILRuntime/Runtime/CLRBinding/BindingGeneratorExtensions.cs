@@ -242,6 +242,31 @@ namespace ILRuntime.Runtime.CLRBinding
                 }
             }
 
+            if (type == typeof(UnityEngine.Tilemaps.Tilemap))
+            {
+                switch (i.Name)
+                {
+                    case "add_tilemapTileChanged":
+                    case "remove_tilemapTileChanged":
+                    case "tilemapTileChanged":
+                    case "GetEditorPreviewTile":
+                    case "GetEditorPreviewTileFlags":
+                    case "GetEditorPreviewTransformMatrix":
+                    case "HasEditorPreviewTile":
+                    case "SetEditorPreviewColor":
+                    case "SetEditorPreviewTile":
+                    case "SetEditorPreviewTransformMatrix":
+                    case "get_editorPreviewOrigin":
+                    case "get_editorPreviewSize":
+                    case "ClearAllEditorPreviewTiles":
+                    case "GetEditorPreviewSprite":
+                    case "GetEditorPreviewColor":
+                    case "EditorPreviewFloodFill":
+                    case "EditorPreviewBoxFill":                        
+                        return true;
+                }
+            }
+
             if (type == typeof(UnityEngine.QualitySettings))
             {
                 switch (i.Name)
@@ -354,6 +379,30 @@ namespace ILRuntime.Runtime.CLRBinding
                 case "SetAccessControl":
                 case "GetAccessControl":
                     return true;
+                }
+            }
+            if (type == typeof(System.IO.FileStream))
+            {
+                switch (i.Name)
+                {
+                    case ".ctor":
+                        {
+                            if (i is ConstructorInfo)
+                            {
+                                var p = i.GetParameters();
+                                foreach (var ator in p)
+                                {
+                                    if (ator.ParameterType.FullName == "System.Security.AccessControl.FileSystemRights")
+                                    {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case "SetAccessControl":
+                    case "GetAccessControl":
+                        return true;
                 }
             }
 

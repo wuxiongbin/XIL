@@ -410,7 +410,14 @@ namespace ILRuntime.Runtime.Generated
                         {
                             if (method.GenericParameterCount > 0 && !method.IsGenericInstance)
                                 continue;
-                            var body = method.Body;
+                            try
+                            {
+                                var body = method.Body;
+                            }
+                            catch (System.Exception ex)
+                            {
+                                UnityEngine.Debug.LogException(ex);
+                            }
                         }
                     }
                 }

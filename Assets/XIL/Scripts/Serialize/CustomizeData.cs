@@ -162,29 +162,6 @@
         }
 #endif
 #endif
-
-#if !CloseNested
-        // 数据完整性校验
-        bool isFullBytes()
-        {
-            if (bytesCrc32 == 0 || bytesLength == 0)
-                return true; // 当前保存的数据是无效的
-
-            int len = bytes == null ? 0 : bytes.Length;
-            if (len != bytesLength)
-                return false; // 长度不一样，说明预置体嵌套混合了
-
-            if (Crc32.To(bytes) != bytesCrc32)
-                return false; // 完整性检验，说明预置体嵌套混合了
-
-#if UNITY_EDITOR
-            return false; // 编辑器模式下，尽量使用typeSerialize数据来初始化
-#else
-            return true;
-#endif
-        }
-#endif
-
         public void OnAfterDeserialize(object self)
         {
             if (string.IsNullOrEmpty(typeName))
@@ -200,7 +177,7 @@
                 refType_ = new RefType(typeName);
 
 #if !CloseNested
-            if (!isFullBytes() && anyValue != null && !string.IsNullOrEmpty(anyValue.dataKey))
+            if (anyValue != null && !string.IsNullOrEmpty(anyValue.dataKey))
             {
                 // 数据因为预置体嵌套被修改了，不完整了,使用TypeSerialize数据来初始化
                 MonoSerialize.MergeFrom(refType_.Instance, anyValue);
