@@ -44,7 +44,9 @@ namespace ILRuntime.Runtime.CLRBinding
         internal static bool IsSkipType(System.Type type)
         {
             if (type.IsPointer ||
+#if UNITY_2021
                 type.IsByRefLike ||
+#endif
                 type == typeof(IntPtr) ||
                 type == typeof(System.TypedReference))
                 return true;
