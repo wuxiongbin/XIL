@@ -78,7 +78,7 @@ namespace wxb
                     }
                     catch (System.Exception ex)
                     {
-                        Log.Exception(ex);
+                        L.LogException(ex);
                     }
                 }
             }

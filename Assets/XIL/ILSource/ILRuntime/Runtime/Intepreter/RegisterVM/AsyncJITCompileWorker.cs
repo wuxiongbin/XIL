@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +33,7 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
         public void Dispose()
         {
             exit = true;
+            evt.Set ();
         }
         void DoJob()
         {

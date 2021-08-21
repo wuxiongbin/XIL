@@ -176,6 +176,15 @@ namespace wxb
             "Assets/XIL/Auto/CrossAdaptor");
         }
 
+        [UnityEditor.MenuItem("XIL/编译运行时脚本")]
+        public static void TestRuntimeScript()
+        {
+            string filepath = ResourcesPath.LocalBasePath + "ScriptOnly";
+            UnityEditor.BuildPipeline.BuildStreamedSceneAssetBundle(new string[] { }, filepath, UnityEditor.EditorUserBuildSettings.activeBuildTarget, UnityEditor.BuildOptions.BuildScriptsOnly);
+            if (System.IO.File.Exists(filepath))
+                System.IO.File.Delete(filepath);
+        }
+
         static void GenerateCrossBindingAdapterCode(IList<System.Type> types, string root)
         {
             foreach (var type in types)

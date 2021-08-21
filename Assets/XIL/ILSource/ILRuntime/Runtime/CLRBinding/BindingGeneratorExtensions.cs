@@ -41,6 +41,17 @@ namespace ILRuntime.Runtime.CLRBinding
             return false;
         }
 
+        internal static bool IsSkipType(System.Type type)
+        {
+            if (type.IsPointer ||
+                type.IsByRefLike ||
+                type == typeof(IntPtr) ||
+                type == typeof(System.TypedReference))
+                return true;
+
+            return false;
+        }
+
         internal static bool ShouldSkipMethod(this Type type, MethodBase i)
         {
             if (i.IsPrivate)
@@ -57,9 +68,9 @@ namespace ILRuntime.Runtime.CLRBinding
 
             if (i.GetCustomAttributes(typeof(UnityEditor.MenuItem), true).Length > 0)
                 return true;
-
-            //EventHandler is currently not supported
+            
             var param = i.GetParameters();
+            //EventHandler is currently not supported
             if (i.IsSpecialName)
             {
                 string[] t = i.Name.Split('_');
@@ -109,6 +120,16 @@ namespace ILRuntime.Runtime.CLRBinding
                     case "op_Increment":
                     case "op_Decrement":
                         return true;
+                }
+            }
+            else if (type == typeof(System.Type))
+            {
+                switch (i.Name)
+                {
+                    case "get_IsCollectible":
+                    case "get_IsSZArray":
+                    case "MakeGenericSignatureType":
+                        return true;                        
                 }
             }
 
@@ -179,9 +200,12 @@ namespace ILRuntime.Runtime.CLRBinding
             if (IsHasAttribute(i, "EditorField"))
                 return true;
 
+            if (i is MethodInfo && IsSkipType(((MethodInfo)i).ReturnType))
+                return true;
+
             foreach (var j in param)
             {
-                if (j.ParameterType.IsPointer || j.ParameterType == typeof(IntPtr) || j.ParameterType == typeof(System.TypedReference))
+                if (IsSkipType(j.ParameterType))
                     return true;
             }
 
@@ -312,9 +336,6 @@ namespace ILRuntime.Runtime.CLRBinding
                     return true;
                 }
             }
-
-            if (type == typeof(Type) && i.Name == "get_IsSZArray")
-                return true;
 
             switch (i.Name)
             {
