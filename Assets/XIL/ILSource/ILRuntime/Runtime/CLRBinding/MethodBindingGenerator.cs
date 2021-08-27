@@ -341,6 +341,12 @@ namespace ILRuntime.Runtime.CLRBinding
                                         sb.AppendLine(string.Format("({1}){0};", param[0].Name, realClsName));
                                     }
                                     break;
+                                case "Increment":
+                                    sb.AppendLine(string.Format("++{0};", param[0].Name));
+                                    break;
+                                case "Decrement":
+                                    sb.AppendLine(string.Format("--{0};", param[0].Name));
+                                    break;
                                 default:
                                     throw new NotImplementedException($"{type.FullName}.{i.Name} {t[1]}");
                             }

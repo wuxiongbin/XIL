@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,17 +52,23 @@ namespace ILRuntime.CLR.Method
                 return isConstructor ? !cDef.IsStatic : !def.IsStatic;
             }
         }
+
+        int _genericParameterCount = -1;
         public int GenericParameterCount
         {
             get
             {
-                if (def.ContainsGenericParameters && def.IsGenericMethodDefinition)
+                if (_genericParameterCount == -1)
                 {
-                    return def.GetGenericArguments().Length;
+                    if (def.ContainsGenericParameters && def.IsGenericMethodDefinition)
+                        _genericParameterCount = def.GetGenericArguments().Length;
+                    else
+                        _genericParameterCount = 0;
                 }
-                return 0;
+                return _genericParameterCount;
             }
         }
+
         public bool IsGenericInstance
         {
             get

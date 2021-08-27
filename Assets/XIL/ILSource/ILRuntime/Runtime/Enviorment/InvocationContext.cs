@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -94,6 +94,7 @@ namespace ILRuntime.Runtime.Enviorment
         Float,
         Double,
         Enum,
+        ValueType,
         Object,
     }
     public unsafe struct InvocationContext : IDisposable
@@ -183,6 +184,8 @@ namespace ILRuntime.Runtime.Enviorment
                     return InvocationTypes.Long;
                 return InvocationTypes.Enum;
             }
+            else if (type.IsValueType)
+                return InvocationTypes.ValueType;
             else
                 return InvocationTypes.Object;
         }
@@ -293,6 +296,34 @@ namespace ILRuntime.Runtime.Enviorment
             paramCnt++;
         }
 
+        public void PushValueType<T>(ref T obj)
+        {
+            Type t = typeof(T);
+            bool needPush = false;
+            StackObject* res = default(StackObject*);
+            if (domain.ValueTypeBinders.TryGetValue(t, out var binder))
+            {
+                var binderT = binder as ValueTypeBinder<T>;
+                if (binderT != null)
+                {
+                    binderT.PushValue(ref obj, intp, esp, mStack);
+                    if (useRegister)
+                        mStack.Add(null);
+                    res = esp + 1;
+                }
+                else
+                    needPush = true;
+            }
+            else
+                needPush = true;
+            if (needPush)
+            {
+                res = ILIntepreter.PushObject(esp, mStack, obj, true);
+            }
+            esp = res;
+            paramCnt++;
+        }
+
         public void PushObject(object obj, bool isBox = true)
         {
             if (obj is CrossBindingAdaptorType)
@@ -333,6 +364,9 @@ namespace ILRuntime.Runtime.Enviorment
                 case InvocationTypes.Enum:
                     PushObject(val, false);
                     break;
+                case InvocationTypes.ValueType:
+                    PushValueType(ref val);
+                    break;
                 default:
                     PushObject(val);
                     break;
@@ -351,6 +385,8 @@ namespace ILRuntime.Runtime.Enviorment
                     return ReadFloat<T>();
                 case InvocationTypes.Double:
                     return ReadDouble<T>();
+                case InvocationTypes.ValueType:
+                    return ReadValueType<T>();
                 default:
                     return ReadObject<T>();
             }
@@ -450,6 +486,26 @@ namespace ILRuntime.Runtime.Enviorment
         {
             var esp = ILIntepreter.Add(ebp, index);
             return esp->Value == 1;
+        }
+
+        public T ReadValueType<T>()
+        {
+            CheckReturnValue();
+            Type t = typeof(T);
+            T res = default(T);
+            if (domain.ValueTypeBinders.TryGetValue(t, out var binder))
+            {
+                var binderT = binder as ValueTypeBinder<T>;
+                if (binderT != null)
+                {
+                    binderT.ParseValue(ref res, intp, esp, mStack);
+                }
+                else
+                    res = (T)t.CheckCLRTypes(StackObject.ToObject(esp, domain, mStack));
+            }
+            else
+                res = (T)t.CheckCLRTypes(StackObject.ToObject(esp, domain, mStack));
+            return res;
         }
 
         public T ReadObject<T>()

@@ -112,6 +112,10 @@ namespace ILRuntime.CLR.Utils
             }
             else
             {
+                if (baseType.Contains("["))
+                {
+                    baseType = ReplaceGenericArgument(baseType, argumentName, argumentType, isGA);
+                }
                 bool isAssemblyQualified = baseType.Contains('=');
                 if (isGA && !hasGA && isAssemblyQualified)
                     sb.Append('[');
