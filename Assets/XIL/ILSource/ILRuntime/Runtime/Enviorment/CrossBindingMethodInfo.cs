@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -762,9 +762,17 @@ namespace ILRuntime.Runtime.Enviorment
                 if (ReturnType != null)
                     rt = domain.GetType(ReturnType);
                 if (ilType.FirstCLRBaseType != null)
-                    baseMethod = ilType.FirstCLRBaseType.GetMethod(Name, param, null, rt);
+                    baseMethod = ilType.FirstCLRBaseType.BaseType.GetMethod(Name, param, null, rt);
                 if (ilType.FirstCLRInterface != null)
-                    baseMethod = ilType.FirstCLRInterface.GetMethod(Name, param, null, rt);
+                {
+                    var implements = ilType.FirstCLRInterface.Implements;
+                    for (int i = 0; i < implements.Length; i++)
+                    {
+                        baseMethod = implements[i].GetMethod(Name, param, null, rt);
+                        if (baseMethod != null)
+                            break;
+                    }
+                }
                 if (baseMethod == null)
                     method = ilType.GetMethod(Name, param, null, rt);
             }

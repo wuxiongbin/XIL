@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -157,9 +157,10 @@ namespace ILRuntime.Reflection
                 InitializeCustomAttribute();
 
             List<object> res = new List<object>();
-            for (int i = 0; i < customAttributes.Length; i++)
+            int cnt = customAttributes.Length;
+            for (int i = 0; i < cnt; i++)
             {
-                if (attributeTypes[i].Equals(attributeType))
+                if (attributeTypes[i].Equals(attributeType) || attributeTypes[i].IsSubclassOf(attributeType))
                 {
                     res.Add(customAttributes[i]);
                 }
@@ -192,8 +193,8 @@ namespace ILRuntime.Reflection
             if (customAttributes == null)
                 InitializeCustomAttribute();
 
-
-            for (int i = 0; i < customAttributes.Length; i++)
+            int cnt = customAttributes.Length;
+            for (int i = 0; i < cnt; i++)
             {
                 if (attributeTypes[i].Equals(attributeType))
                 {

@@ -118,6 +118,10 @@ namespace ILRuntime.Runtime.Enviorment
                 {
                     RegisterCLRMethodRedirection(i, CLRRedirections.TypeEquals);
                 }
+                if (i.Name == "IsAssignableFrom" && i.GetParameters()[0].ParameterType == typeof(Type))
+                {
+                    RegisterCLRMethodRedirection(i, CLRRedirections.IsAssignableFrom);
+                }
             }
             foreach (var i in typeof(System.Delegate).GetMethods())
             {
@@ -563,8 +567,7 @@ namespace ILRuntime.Runtime.Enviorment
             byte rank;
             ParseGenericType(fullname, out baseType, out genericParams, out isArray, out rank);
 
-
-            bool isByRef = baseType.EndsWith("&");
+            bool isByRef = !string.IsNullOrEmpty(baseType) && baseType[baseType.Length - 1] == '&';
             if (isByRef)
                 baseType = baseType.Substring(0, baseType.Length - 1);
             if (genericParams != null || isArray || isByRef)
@@ -678,7 +681,8 @@ namespace ILRuntime.Runtime.Enviorment
             rank = 0;
             baseType = "";
             genericParams = null;
-            if (fullname.Length > 2 && fullname.Substring(fullname.Length - 2) == "[]")
+
+            if (fullname.Length > 2 && fullname[fullname.Length - 2] == '[' && fullname[fullname.Length - 1] == ']')
             {
                 fullname = fullname.Substring(0, fullname.Length - 2);
                 rank = 1;
@@ -686,12 +690,21 @@ namespace ILRuntime.Runtime.Enviorment
             }
             else
                 isArray = false;
-            if (fullname.Length > 2 && fullname.Substring(fullname.Length - 2) == "[]")
+            if (fullname.Length > 2 && fullname[fullname.Length - 2] == '[' && fullname[fullname.Length - 1] == ']')
             {
                 baseType = fullname;
                 return;
             }
-            if (fullname.Contains('<') || fullname.Contains('['))
+            bool isGenericType = false;
+            foreach (var i in fullname)
+            {
+                if (i == '<' || i == '[')
+                {
+                    isGenericType = true;
+                    break;
+                }
+            }
+            if (isGenericType)
             {
                 foreach (var i in fullname)
                 {
@@ -1231,6 +1244,22 @@ namespace ILRuntime.Runtime.Enviorment
             else
                 throw new NotSupportedException("Cannot invoke CLRMethod");
         }
+        
+
+        bool IsInvalidMethodReference(MethodReference _ref)
+        {
+            if ((_ref.DeclaringType.Name == "Object" || _ref.DeclaringType.Name == "Attribute")
+                    && _ref.Name == ".ctor"
+                    && _ref.DeclaringType.Namespace == "System"
+                    && _ref.ReturnType.Name == "Void"
+                    && _ref.ReturnType.Namespace == "System")
+            {
+                return true;
+            }
+            return false;
+        }
+        
+        
         internal IMethod GetMethod(object token, ILType contextType, ILMethod contextMethod, out bool invalidToken)
         {
             string methodname = null;
@@ -1248,17 +1277,13 @@ namespace ILRuntime.Runtime.Enviorment
             if (token is Mono.Cecil.MethodReference)
             {
                 Mono.Cecil.MethodReference _ref = (token as Mono.Cecil.MethodReference);
-                var refFullName = _ref.FullName;
-                if (refFullName == "System.Void System.Object::.ctor()")
+
+                if(IsInvalidMethodReference(_ref))
                 {
                     mapMethod[hashCode] = null;
                     return null;
                 }
-                if (refFullName == "System.Void System.Attribute::.ctor()")
-                {
-                    mapMethod[hashCode] = null;
-                    return null;
-                }
+                
                 methodname = _ref.Name;
                 var typeDef = _ref.DeclaringType;
                 type = GetType(typeDef, contextType, contextMethod);
@@ -1302,7 +1327,7 @@ namespace ILRuntime.Runtime.Enviorment
                     GenericInstanceType gim = (GenericInstanceType)typeDef;
                     for (int i = 0; i < gim.GenericArguments.Count; i++)
                     {
-                        if (gim.GenericArguments[i].IsGenericParameter)
+                        if (gim.GenericArguments[i].ContainsGenericParameter)
                         {
                             invalidToken = true;
                             break;
