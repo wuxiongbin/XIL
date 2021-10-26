@@ -26,6 +26,13 @@
             }
         }
 
+        public void SetInstance(object instance)
+        {
+            if (customizeData == null)
+                customizeData = new CustomizeData();
+            customizeData.SetInstance(instance, this);
+        }
+
         void ISerializationCallbackReceiver.OnBeforeSerialize()
         {
 

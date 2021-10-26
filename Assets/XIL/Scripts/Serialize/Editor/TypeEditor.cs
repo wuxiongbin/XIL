@@ -1,8 +1,6 @@
-﻿using System.Reflection;
+﻿using UnityEngine;
+using System.Reflection;
 using System.Collections.Generic;
-using System;
-using UnityEditor;
-using UnityEngine;
 #if USE_HOT
 using ILRuntime.Runtime.Intepreter;
 using ILRuntime.Reflection;
@@ -240,7 +238,9 @@ namespace wxb.Editor
             if (parent != null)
             {
                 wxb.RefType rt = new RefType(parent);
+                ++UnityEditor.EditorGUI.indentLevel;
                 var v = rt.TryInvokeMethodReturn("OnGUIInspector");
+                --UnityEditor.EditorGUI.indentLevel;
                 if (v != null && v is bool && ((bool)v))
                     isDirty = true;
             }

@@ -276,7 +276,16 @@
                 AllTypesByFullName.Add(name, itor.Value.ReflectionType);
 #if USE_HOT
                 if (name.IndexOf('/') != -1)
-                    AllTypesByFullName.Add(name.Replace('/', '+'), itor.Value.ReflectionType);
+                {
+                    try
+                    {
+                        AllTypesByFullName.Add(name.Replace('/', '+'), itor.Value.ReflectionType);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        UnityEngine.Debug.LogException(ex);
+                    }
+                }
 #endif
             }
 

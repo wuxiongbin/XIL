@@ -398,27 +398,34 @@ namespace ILRuntime.Runtime.Generated
                 {
                     if (type.HasGenericParameter)
                         continue;
-                    var methods = type.GetMethods().ToList();
-                    foreach (var i in ((CLR.TypeSystem.ILType)type).GetConstructors())
-                        methods.Add(i);
-                    if (((CLR.TypeSystem.ILType)type).GetStaticConstroctor() != null)
-                        methods.Add(((CLR.TypeSystem.ILType)type).GetStaticConstroctor());
-                    foreach (var j in methods)
+                    try
                     {
-                        CLR.Method.ILMethod method = j as CLR.Method.ILMethod;
-                        if (method != null)
+                        var methods = type.GetMethods().ToList();
+                        foreach (var i in ((CLR.TypeSystem.ILType)type).GetConstructors())
+                            methods.Add(i);
+                        if (((CLR.TypeSystem.ILType)type).GetStaticConstroctor() != null)
+                            methods.Add(((CLR.TypeSystem.ILType)type).GetStaticConstroctor());
+                        foreach (var j in methods)
                         {
-                            if (method.GenericParameterCount > 0 && !method.IsGenericInstance)
-                                continue;
-                            try
+                            CLR.Method.ILMethod method = j as CLR.Method.ILMethod;
+                            if (method != null)
                             {
-                                var body = method.Body;
-                            }
-                            catch (System.Exception ex)
-                            {
-                                UnityEngine.Debug.LogException(ex);
+                                if (method.GenericParameterCount > 0 && !method.IsGenericInstance)
+                                    continue;
+                                try
+                                {
+                                    var body = method.Body;
+                                }
+                                catch (System.Exception ex)
+                                {
+                                    UnityEngine.Debug.LogException(ex);
+                                }
                             }
                         }
+                    }
+                    catch (System.Exception ex)
+                    {
+                        UnityEngine.Debug.LogException(ex);
                     }
                 }
             }

@@ -2,6 +2,7 @@ using UnityEditor;
 using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
+
 #if USE_HOT
 using ILRuntime.Runtime.Intepreter;
 #endif
@@ -196,6 +197,9 @@ namespace wxb.IL.Editor
             m_searchName = EditorGUILayout.TextField("输入搜索：", m_searchName);
             bool autoSetValue = GUILayout.Button("自动赋值");
             EditorGUILayout.EndHorizontal();
+            if (customizeData == null)
+                return;
+
             string typeName = customizeData.TypeName;
             string newTypename = StringPopupT("typeName", typeName, allTypes, (System.Type t) => { return t == null ? "null" : t.FullName; }, m_searchName);
             if (newTypename == "null")
@@ -264,6 +268,7 @@ namespace wxb.IL.Editor
 
         static void SaveSelectPrefab(Object[] objects, System.Action<CustomizeData> onSet, System.Action onend)
         {
+            int count = 10;
             GlobalCoroutine.StartCoroutine(EditorHelper.ForEachSelectASync(objects, (file) =>
             {
                 if (!file.EndsWith(".prefab"))
@@ -299,8 +304,17 @@ namespace wxb.IL.Editor
                 if (isOk)
                 {
                     Debug.Log(file);
-                    int count = 5;
-                    return () => { return count-- >= 0; };
+                    --count;
+                    return () => 
+                    {
+                        if (count == 0)
+                        {
+                            count = 10;
+                            return true;
+                        }
+
+                        return false;
+                    };
                 }
                 else
                 {

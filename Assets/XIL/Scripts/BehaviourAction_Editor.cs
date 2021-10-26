@@ -11,6 +11,18 @@ namespace wxb
 
         [EditorField]
         public System.Action editor_onInspectorGUI;
+
+        [EditorField]
+        public System.Action editor_onDrawGizmos;
+
+        [EditorField]
+        public System.Action editor_onSceneGUI;
+
+        [EditorField]
+        private void OnDrawGizmos()
+        {
+            editor_onDrawGizmos?.Invoke();
+        }
     }
 }
 #endif

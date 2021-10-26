@@ -9,7 +9,7 @@ using ILRuntime.CLR.Utils;
 
 namespace ILRuntime.Runtime.CLRBinding
 {
-    static class BindingGeneratorExtensions
+    public static class BindingGeneratorExtensions
     {
         internal static bool ShouldSkipField(this Type type, FieldInfo i)
         {
@@ -24,6 +24,9 @@ namespace ILRuntime.Runtime.CLRBinding
                 return true;
 
             if (IsHasAttribute(i, "EditorField"))
+                return true;
+
+            if (IsSkip(type, i.Name))
                 return true;
 
             return false;
@@ -41,6 +44,16 @@ namespace ILRuntime.Runtime.CLRBinding
             return false;
         }
 
+        public static System.Func<System.Type, bool> isEditorType;
+        static public bool IsEditorType(System.Type type)
+        {
+            if (isEditorType != null)
+                return isEditorType(type);
+            if (type.Namespace.StartsWith("UnityEditor"))
+                return true;
+            return false;
+        }
+
         internal static bool IsSkipType(System.Type type)
         {
             if (type.IsPointer ||
@@ -51,9 +64,30 @@ namespace ILRuntime.Runtime.CLRBinding
                 type == typeof(System.TypedReference))
                 return true;
 
+            if (IsEditorType(type))
+                return true;
+
             return false;
         }
 
+        static Dictionary<string, HashSet<string>> Skips = new Dictionary<string, HashSet<string>>()
+        {
+
+        };
+
+        static bool IsSkip(System.Type type, string name)
+        {
+            if (Skips.TryGetValue(type.FullName, out var sets))
+            {
+                if (sets.Contains(name))
+                    return true;
+            }
+
+            if (type.BaseType == null)
+                return false;
+
+            return IsSkip(type.BaseType, name);
+        }
         internal static bool ShouldSkipMethod(this Type type, MethodBase i)
         {
             if (i.IsPrivate)
@@ -70,7 +104,7 @@ namespace ILRuntime.Runtime.CLRBinding
 
             if (i.GetCustomAttributes(typeof(UnityEditor.MenuItem), true).Length > 0)
                 return true;
-            
+
             var param = i.GetParameters();
             //EventHandler is currently not supported
             if (i.IsSpecialName)
@@ -185,6 +219,9 @@ namespace ILRuntime.Runtime.CLRBinding
                     return true;
                 }
             }
+
+            if (IsSkip(type, i.Name))
+                return true;
 
             if (type == typeof(Activator))
             {

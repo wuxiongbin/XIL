@@ -126,10 +126,12 @@ namespace ILRuntime.Reflection
         {
             if (customAttributes == null)
                 InitializeCustomAttribute();
+
+            int cnt = customAttributes.Length;
             List<object> res = new List<object>();
-            for (int i = 0; i < customAttributes.Length; i++)
+            for (int i = 0; i < cnt; i++)
             {
-                if (attributeTypes[i].Equals(attributeType))
+                if (ReferenceEquals(attributeTypes[i], attributeType))
                     res.Add(customAttributes[i]);
             }
             return res.ToArray();

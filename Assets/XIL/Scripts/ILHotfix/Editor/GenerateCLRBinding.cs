@@ -44,7 +44,7 @@ namespace wxb
             types.Add(typeof(SkinnedMeshRenderer));
             types.Add(typeof(SpriteRenderer));
             types.Add(typeof(Mesh));
-            types.Add(typeof(Animator));
+            types.Add(typeof(UnityEngine.Animator));
             types.Add(typeof(RuntimeAnimatorController));
             types.Add(typeof(AnimationClip));
             types.Add(typeof(AnimationEvent));

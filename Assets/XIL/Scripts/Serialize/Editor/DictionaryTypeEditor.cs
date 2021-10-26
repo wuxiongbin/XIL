@@ -116,6 +116,12 @@ namespace wxb.Editor
                 Reset();
             }
 
+            public void RemoveAt(int index)
+            {
+                keys.RemoveAt(index);
+                values.RemoveAt(index);
+            }
+
             void Reset()
             {
                 foreach (System.Collections.DictionaryEntry ator in current)
@@ -204,6 +210,7 @@ namespace wxb.Editor
                 }
 
                 ColorQueue cq = new ColorQueue();
+                int removeId = -1;
                 for (int i = begin; i < end; ++i)
                 {
                     bool cdk = false;
@@ -215,8 +222,12 @@ namespace wxb.Editor
 
                     kv.keys[i] = k;
                     kv.values[i] = v;
+                    if (GUILayout.Button("删除"))
+                        removeId = i;
                 }
                 cq.Recover();
+                if (removeId != -1)
+                    kv.RemoveAt(removeId);
             }
             return current;
         }

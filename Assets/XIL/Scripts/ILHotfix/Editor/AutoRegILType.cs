@@ -7,6 +7,12 @@ namespace wxb
 
     static partial class AutoRegILType
     {
+        [UnityEditor.InitializeOnLoadMethod]
+        static void Init()
+        {
+            ILRuntime.Runtime.CLRBinding.BindingGeneratorExtensions.isEditorType = IsEditorType;
+        }
+
         static Dictionary<System.Type, bool> HotTypes = new Dictionary<System.Type, bool>();
 
         // 是否热更当中的类型
@@ -64,7 +70,7 @@ namespace wxb
 
         static Dictionary<System.Type, bool> EditorChecks = new Dictionary<System.Type, bool>();
 
-        static bool IsEditorType(System.Type type)
+        public static bool IsEditorType(System.Type type)
         {
             bool v = false;
             if (EditorChecks.TryGetValue(type, out v))

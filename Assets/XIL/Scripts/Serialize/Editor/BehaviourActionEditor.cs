@@ -15,5 +15,10 @@ namespace wxb.Editor
         {
             (target as BehaviourAction)?.editor_onInspectorGUI?.Invoke();
         }
+
+        public void OnSceneGUI()
+        {
+            (target as BehaviourAction)?.editor_onSceneGUI?.Invoke();
+        }
     }
 }
