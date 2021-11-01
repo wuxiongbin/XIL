@@ -1,7 +1,6 @@
 ﻿#if USE_HOT && UNITY_EDITOR
 using System.Linq;
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace wxb
@@ -19,14 +18,14 @@ namespace wxb
             types.Add(typeof(object));
             types.Add(typeof(string));
             types.Add(typeof(System.Array));
-            types.Add(typeof(Vector2));
-            types.Add(typeof(Vector3));
-            types.Add(typeof(Vector4));
-            types.Add(typeof(Rect));
-            types.Add(typeof(RectInt));
-            types.Add(typeof(Vector2Int));
-            types.Add(typeof(Vector3Int));
-            types.Add(typeof(Quaternion));
+            //types.Add(typeof(Vector2));
+            //types.Add(typeof(Vector3));
+            //types.Add(typeof(Vector4));
+            //types.Add(typeof(Rect));
+            //types.Add(typeof(RectInt));
+            //types.Add(typeof(Vector2Int));
+            //types.Add(typeof(Vector3Int));
+            //types.Add(typeof(Quaternion));
             types.Add(typeof(GameObject));
             types.Add(typeof(Mathf));
             types.Add(typeof(Ray));
@@ -84,7 +83,7 @@ namespace wxb
             types.Add(typeof(MonoBehaviour));
             types.Add(typeof(Component));
             types.Add(typeof(Behaviour));
-            types.Add(typeof(Color));
+            //types.Add(typeof(Color));
             types.Add(typeof(Resources));
             types.Add(typeof(AssetBundle));
             types.Add(typeof(Camera));
@@ -159,12 +158,31 @@ namespace wxb
             types.Add(typeof(Screen));
             types.Add(typeof(wxb.Hotfix));
 
+            types.UnionWith(ValueTypes);
+
             DllInitByEditor.LoadDLL();
             ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.CrawlAppdomain(wxb.DllInitByEditor.appdomain, types);
             types.Remove(typeof(UnityEngine.Debug));
             types.Remove(typeof(System.Activator));
-            ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(types.ToList(), "Assets/XIL/Auto/CLR");
+            ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(
+                types.ToList(),
+                "Assets/XIL/Auto/CLR", null, null, ValueTypes);
         }
+
+        static List<System.Type> ValueTypes = new List<System.Type> 
+        {
+            typeof(Vector2),
+            typeof(Vector3),
+            typeof(Vector4),
+            typeof(Vector2Int),
+            typeof(Vector3Int),
+            typeof(Rect),
+            typeof(RectInt),
+            typeof(Matrix4x4),
+            typeof(Color),
+            typeof(Color32),
+            typeof(Quaternion),
+        };
 
         [UnityEditor.MenuItem("XIL/生成跨域继承适配")]
         static void GenerateCross()

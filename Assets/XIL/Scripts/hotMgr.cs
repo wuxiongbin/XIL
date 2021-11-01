@@ -2,8 +2,6 @@
 namespace wxb
 {
     using System.Reflection;
-    using ILRuntime.CLR.Utils;
-    using ILRuntime.Runtime.Stack;
     using ILRuntime.Runtime.Enviorment;
     using ILRuntime.Runtime.Intepreter;
     using System.Collections.Generic;
@@ -12,6 +10,7 @@ namespace wxb
     using ILRuntime.Mono.Collections.Generic;
     using ILRuntime.CLR.Method;
     using global::IL;
+    using ILRuntime.Runtime.Generated;
 
     public class Hotfix
     {
@@ -417,6 +416,14 @@ namespace wxb
         public static void RegDelegate(AppDomain appdomain)
         {
             appdomain.RegisterCrossBindingAdaptor(new IEnumerableAdapter());
+            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector2), new Vector2Binder());
+            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector3), new Vector3Binder());
+            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector4), new Vector4Binder());
+            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Quaternion), new QuaternionBinder());
+
+            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector2Int), new Vector2IntBinder());
+            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector3Int), new Vector3IntBinder());
+            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Rect), new RectBinder());
 
 #if UNITY_EDITOR
             System.Type clrType = System.Type.GetType("ILRuntime.Runtime.Generated.CLRBindings");

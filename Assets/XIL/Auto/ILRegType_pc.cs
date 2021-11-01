@@ -24,17 +24,6 @@ namespace AutoIL
             appdomain.DelegateManager.RegisterFunctionDelegate<System.IAsyncResult, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Threading.Tasks.Task[], System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Threading.Tasks.Task, System.Int32>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Boolean>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<System.Object>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<System.Int32, System.Object>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.CLR.TypeSystem.IType, System.Boolean>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.CLR.TypeSystem.IType, ILRuntime.CLR.TypeSystem.IType, System.Int32>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.CLR.Method.IMethod, System.Boolean>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.CLR.Method.IMethod, ILRuntime.CLR.Method.IMethod, System.Int32>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<System.Object, System.Boolean>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.CLR.Method.ILMethod, System.Boolean>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.CLR.Method.ILMethod, ILRuntime.CLR.Method.ILMethod, System.Int32>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Component, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Component, UnityEngine.Component, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.GameObject[], System.Boolean>();
@@ -81,6 +70,17 @@ namespace AutoIL
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Collections.Generic.List<System.String>, System.Collections.Generic.List<System.String>, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Collections.Generic.List<System.Int32>, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Collections.Generic.List<System.Int32>, System.Collections.Generic.List<System.Int32>, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Object>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Int32, System.Object>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.CLR.TypeSystem.IType, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.CLR.TypeSystem.IType, ILRuntime.CLR.TypeSystem.IType, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.CLR.Method.IMethod, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.CLR.Method.IMethod, ILRuntime.CLR.Method.IMethod, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Object, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.CLR.Method.ILMethod, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.CLR.Method.ILMethod, ILRuntime.CLR.Method.ILMethod, System.Int32>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Object, System.Object, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Rect, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Rect, UnityEngine.Rect, System.Int32>();
@@ -119,14 +119,6 @@ namespace AutoIL
 
         static public void RegisterDelegateConvertor(AppDomain appdomain)
         {
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.AsyncCallback>((act) =>
-            {
-                return new System.AsyncCallback((ar) =>
-                {
-                    ((System.Action<System.IAsyncResult>)act)(ar);
-                });
-            });
-
             appdomain.DelegateManager.RegisterDelegateConvertor<System.Reflection.TypeFilter>((act) =>
             {
                 return new System.Reflection.TypeFilter((m, filterCriteria) =>
@@ -148,6 +140,14 @@ namespace AutoIL
                 return new System.Reflection.ModuleResolveEventHandler((sender, e) =>
                 {
                     return ((System.Func<System.Object, System.ResolveEventArgs, System.Reflection.Module>)act)(sender, e);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.AsyncCallback>((act) =>
+            {
+                return new System.AsyncCallback((ar) =>
+                {
+                    ((System.Action<System.IAsyncResult>)act)(ar);
                 });
             });
 
@@ -188,102 +188,6 @@ namespace AutoIL
                 return new System.EventHandler<System.Threading.Tasks.UnobservedTaskExceptionEventArgs>((sender, e) =>
                 {
                     ((System.Action<System.Object, System.Threading.Tasks.UnobservedTaskExceptionEventArgs>)act)(sender, e);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<ILRuntime.Runtime.Intepreter.ILTypeInstance>>((act) =>
-            {
-                return new System.Predicate<ILRuntime.Runtime.Intepreter.ILTypeInstance>((obj) =>
-                {
-                    return ((System.Func<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Boolean>)act)(obj);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<ILRuntime.Runtime.Enviorment.CLRCreateDefaultInstanceDelegate>((act) =>
-            {
-                return new ILRuntime.Runtime.Enviorment.CLRCreateDefaultInstanceDelegate(() =>
-                {
-                    return ((System.Func<System.Object>)act)();
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<ILRuntime.Runtime.Enviorment.CLRCreateArrayInstanceDelegate>((act) =>
-            {
-                return new ILRuntime.Runtime.Enviorment.CLRCreateArrayInstanceDelegate((size) =>
-                {
-                    return ((System.Func<System.Int32, System.Object>)act)(size);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<ILRuntime.CLR.TypeSystem.IType>>((act) =>
-            {
-                return new System.Predicate<ILRuntime.CLR.TypeSystem.IType>((obj) =>
-                {
-                    return ((System.Func<ILRuntime.CLR.TypeSystem.IType, System.Boolean>)act)(obj);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<ILRuntime.CLR.TypeSystem.IType>>((act) =>
-            {
-                return new System.Comparison<ILRuntime.CLR.TypeSystem.IType>((x, y) =>
-                {
-                    return ((System.Func<ILRuntime.CLR.TypeSystem.IType, ILRuntime.CLR.TypeSystem.IType, System.Int32>)act)(x, y);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction<System.String>>((act) =>
-            {
-                return new UnityEngine.Events.UnityAction<System.String>((arg0) =>
-                {
-                    ((System.Action<System.String>)act)(arg0);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<ILRuntime.CLR.Method.IMethod>>((act) =>
-            {
-                return new System.Predicate<ILRuntime.CLR.Method.IMethod>((obj) =>
-                {
-                    return ((System.Func<ILRuntime.CLR.Method.IMethod, System.Boolean>)act)(obj);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<ILRuntime.CLR.Method.IMethod>>((act) =>
-            {
-                return new System.Comparison<ILRuntime.CLR.Method.IMethod>((x, y) =>
-                {
-                    return ((System.Func<ILRuntime.CLR.Method.IMethod, ILRuntime.CLR.Method.IMethod, System.Int32>)act)(x, y);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<System.Object>>((act) =>
-            {
-                return new System.Predicate<System.Object>((obj) =>
-                {
-                    return ((System.Func<System.Object, System.Boolean>)act)(obj);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<ILRuntime.CLR.Method.ILMethod>>((act) =>
-            {
-                return new System.Predicate<ILRuntime.CLR.Method.ILMethod>((obj) =>
-                {
-                    return ((System.Func<ILRuntime.CLR.Method.ILMethod, System.Boolean>)act)(obj);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<ILRuntime.CLR.Method.ILMethod>>((act) =>
-            {
-                return new System.Comparison<ILRuntime.CLR.Method.ILMethod>((x, y) =>
-                {
-                    return ((System.Func<ILRuntime.CLR.Method.ILMethod, ILRuntime.CLR.Method.ILMethod, System.Int32>)act)(x, y);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<ILRuntime.Runtime.Intepreter.ILTypeInstance>>((act) =>
-            {
-                return new System.Comparison<ILRuntime.Runtime.Intepreter.ILTypeInstance>((x, y) =>
-                {
-                    return ((System.Func<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Int32>)act)(x, y);
                 });
             });
 
@@ -428,6 +332,14 @@ namespace AutoIL
                 return new System.Predicate<System.String>((obj) =>
                 {
                     return ((System.Func<System.String, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction<System.String>>((act) =>
+            {
+                return new UnityEngine.Events.UnityAction<System.String>((arg0) =>
+                {
+                    ((System.Action<System.String>)act)(arg0);
                 });
             });
 
@@ -692,6 +604,94 @@ namespace AutoIL
                 return new System.Comparison<System.Collections.Generic.List<System.Int32>>((x, y) =>
                 {
                     return ((System.Func<System.Collections.Generic.List<System.Int32>, System.Collections.Generic.List<System.Int32>, System.Int32>)act)(x, y);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<ILRuntime.Runtime.Intepreter.ILTypeInstance>>((act) =>
+            {
+                return new System.Predicate<ILRuntime.Runtime.Intepreter.ILTypeInstance>((obj) =>
+                {
+                    return ((System.Func<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<ILRuntime.Runtime.Enviorment.CLRCreateDefaultInstanceDelegate>((act) =>
+            {
+                return new ILRuntime.Runtime.Enviorment.CLRCreateDefaultInstanceDelegate(() =>
+                {
+                    return ((System.Func<System.Object>)act)();
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<ILRuntime.Runtime.Enviorment.CLRCreateArrayInstanceDelegate>((act) =>
+            {
+                return new ILRuntime.Runtime.Enviorment.CLRCreateArrayInstanceDelegate((size) =>
+                {
+                    return ((System.Func<System.Int32, System.Object>)act)(size);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<ILRuntime.CLR.TypeSystem.IType>>((act) =>
+            {
+                return new System.Predicate<ILRuntime.CLR.TypeSystem.IType>((obj) =>
+                {
+                    return ((System.Func<ILRuntime.CLR.TypeSystem.IType, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<ILRuntime.CLR.TypeSystem.IType>>((act) =>
+            {
+                return new System.Comparison<ILRuntime.CLR.TypeSystem.IType>((x, y) =>
+                {
+                    return ((System.Func<ILRuntime.CLR.TypeSystem.IType, ILRuntime.CLR.TypeSystem.IType, System.Int32>)act)(x, y);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<ILRuntime.CLR.Method.IMethod>>((act) =>
+            {
+                return new System.Predicate<ILRuntime.CLR.Method.IMethod>((obj) =>
+                {
+                    return ((System.Func<ILRuntime.CLR.Method.IMethod, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<ILRuntime.CLR.Method.IMethod>>((act) =>
+            {
+                return new System.Comparison<ILRuntime.CLR.Method.IMethod>((x, y) =>
+                {
+                    return ((System.Func<ILRuntime.CLR.Method.IMethod, ILRuntime.CLR.Method.IMethod, System.Int32>)act)(x, y);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<System.Object>>((act) =>
+            {
+                return new System.Predicate<System.Object>((obj) =>
+                {
+                    return ((System.Func<System.Object, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<ILRuntime.CLR.Method.ILMethod>>((act) =>
+            {
+                return new System.Predicate<ILRuntime.CLR.Method.ILMethod>((obj) =>
+                {
+                    return ((System.Func<ILRuntime.CLR.Method.ILMethod, System.Boolean>)act)(obj);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<ILRuntime.CLR.Method.ILMethod>>((act) =>
+            {
+                return new System.Comparison<ILRuntime.CLR.Method.ILMethod>((x, y) =>
+                {
+                    return ((System.Func<ILRuntime.CLR.Method.ILMethod, ILRuntime.CLR.Method.ILMethod, System.Int32>)act)(x, y);
+                });
+            });
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<ILRuntime.Runtime.Intepreter.ILTypeInstance>>((act) =>
+            {
+                return new System.Comparison<ILRuntime.Runtime.Intepreter.ILTypeInstance>((x, y) =>
+                {
+                    return ((System.Func<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Int32>)act)(x, y);
                 });
             });
 
@@ -1126,12 +1126,6 @@ namespace AutoIL
             appdomain.DelegateManager.RegisterMethodDelegate<System.Threading.Tasks.Task<System.Threading.Tasks.Task>, System.Object>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Threading.Tasks.Task<System.Int32>>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Threading.Tasks.Task<System.Int32>, System.Object>();
-            appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance>();
-            appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Boolean>();
-            appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.CLR.TypeSystem.IType>();
-            appdomain.DelegateManager.RegisterMethodDelegate<System.String>();
-            appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.CLR.Method.IMethod>();
-            appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.CLR.Method.ILMethod>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Component>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.GameObject[]>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.GameObject>();
@@ -1141,6 +1135,7 @@ namespace AutoIL
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Camera.RenderRequest>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Rendering.AsyncGPUReadbackRequest>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Rendering.SphericalHarmonicsL2>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.String>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Int32>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Color>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Material>();
@@ -1156,6 +1151,11 @@ namespace AutoIL
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Camera>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Collections.Generic.List<System.String>>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Collections.Generic.List<System.Int32>>();
+            appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance>();
+            appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Boolean>();
+            appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.CLR.TypeSystem.IType>();
+            appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.CLR.Method.IMethod>();
+            appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.CLR.Method.ILMethod>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Font>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Rect>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Type>();
