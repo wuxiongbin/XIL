@@ -173,6 +173,8 @@ namespace wxb
         {
             typeof(Vector2),
             typeof(Vector3),
+            typeof(Quaternion),
+
             typeof(Vector4),
             typeof(Vector2Int),
             typeof(Vector3Int),
@@ -181,7 +183,6 @@ namespace wxb
             typeof(Matrix4x4),
             typeof(Color),
             typeof(Color32),
-            typeof(Quaternion),
         };
 
         [UnityEditor.MenuItem("XIL/生成跨域继承适配")]

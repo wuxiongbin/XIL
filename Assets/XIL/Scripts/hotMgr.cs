@@ -418,12 +418,16 @@ namespace wxb
             appdomain.RegisterCrossBindingAdaptor(new IEnumerableAdapter());
             appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector2), new Vector2Binder());
             appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector3), new Vector3Binder());
-            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector4), new Vector4Binder());
             appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Quaternion), new QuaternionBinder());
 
+            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector4), new Vector4Binder());
             appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector2Int), new Vector2IntBinder());
             appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector3Int), new Vector3IntBinder());
             appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Rect), new RectBinder());
+            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.RectInt), new RectIntBinder());
+            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Matrix4x4), new Matrix4x4Binder());
+            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Color), new ColorBinder());
+            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Color32), new Color32Binder());
 
 #if UNITY_EDITOR
             System.Type clrType = System.Type.GetType("ILRuntime.Runtime.Generated.CLRBindings");
