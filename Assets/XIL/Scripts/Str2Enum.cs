@@ -37,6 +37,18 @@ namespace wxb
 
             public EnumValue defaultValue;
 
+            public int GetMaxValue()
+            {
+                int maxValue = 0;
+                foreach (var ator in values)
+                {
+                    if (ator.Key > maxValue)
+                        maxValue = ator.Key;
+                }
+
+                return maxValue;
+            }
+
             public void Add(FieldDefinition field)
             {
                 var name = field.Name;
@@ -245,6 +257,23 @@ namespace wxb
             }
 #endif
             return type.GetEnumValues();
+        }
+
+        public static int GetMaxEnumValue(System.Type type)
+        {
+#if USE_HOT
+            if (type is ILRuntime.Reflection.ILRuntimeType)
+                return Get(type).GetMaxValue();
+#endif
+            int maxValue = 0;
+            foreach (var ator in type.GetEnumValues())
+            {
+                int v = (int)ator;
+                if (v > maxValue)
+                    maxValue = v;
+            }
+
+            return maxValue;
         }
 
         public static void Release()

@@ -121,174 +121,156 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.Int32), typeof(UnityEngine.ComputeBuffer)};
             method = type.GetMethod("SetGlobalBuffer", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, SetGlobalBuffer_32);
-            args = new Type[]{typeof(System.String), typeof(UnityEngine.GraphicsBuffer)};
-            method = type.GetMethod("SetGlobalBuffer", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetGlobalBuffer_33);
-            args = new Type[]{typeof(System.Int32), typeof(UnityEngine.GraphicsBuffer)};
-            method = type.GetMethod("SetGlobalBuffer", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetGlobalBuffer_34);
-            args = new Type[]{typeof(System.String), typeof(UnityEngine.ComputeBuffer), typeof(System.Int32), typeof(System.Int32)};
-            method = type.GetMethod("SetGlobalConstantBuffer", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetGlobalConstantBuffer_35);
             args = new Type[]{typeof(System.Int32), typeof(UnityEngine.ComputeBuffer), typeof(System.Int32), typeof(System.Int32)};
             method = type.GetMethod("SetGlobalConstantBuffer", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetGlobalConstantBuffer_36);
-            args = new Type[]{typeof(System.String), typeof(UnityEngine.GraphicsBuffer), typeof(System.Int32), typeof(System.Int32)};
-            method = type.GetMethod("SetGlobalConstantBuffer", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetGlobalConstantBuffer_37);
-            args = new Type[]{typeof(System.Int32), typeof(UnityEngine.GraphicsBuffer), typeof(System.Int32), typeof(System.Int32)};
-            method = type.GetMethod("SetGlobalConstantBuffer", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetGlobalConstantBuffer_38);
+            app.RegisterCLRMethodRedirection(method, SetGlobalConstantBuffer_33);
             args = new Type[]{typeof(System.String), typeof(System.Collections.Generic.List<System.Single>)};
             method = type.GetMethod("SetGlobalFloatArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetGlobalFloatArray_39);
+            app.RegisterCLRMethodRedirection(method, SetGlobalFloatArray_34);
             args = new Type[]{typeof(System.Int32), typeof(System.Collections.Generic.List<System.Single>)};
             method = type.GetMethod("SetGlobalFloatArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetGlobalFloatArray_40);
+            app.RegisterCLRMethodRedirection(method, SetGlobalFloatArray_35);
             args = new Type[]{typeof(System.String), typeof(System.Single[])};
             method = type.GetMethod("SetGlobalFloatArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetGlobalFloatArray_41);
+            app.RegisterCLRMethodRedirection(method, SetGlobalFloatArray_36);
             args = new Type[]{typeof(System.Int32), typeof(System.Single[])};
             method = type.GetMethod("SetGlobalFloatArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetGlobalFloatArray_42);
+            app.RegisterCLRMethodRedirection(method, SetGlobalFloatArray_37);
             args = new Type[]{typeof(System.String), typeof(System.Collections.Generic.List<UnityEngine.Vector4>)};
             method = type.GetMethod("SetGlobalVectorArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetGlobalVectorArray_43);
+            app.RegisterCLRMethodRedirection(method, SetGlobalVectorArray_38);
             args = new Type[]{typeof(System.Int32), typeof(System.Collections.Generic.List<UnityEngine.Vector4>)};
             method = type.GetMethod("SetGlobalVectorArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetGlobalVectorArray_44);
+            app.RegisterCLRMethodRedirection(method, SetGlobalVectorArray_39);
             args = new Type[]{typeof(System.String), typeof(UnityEngine.Vector4[])};
             method = type.GetMethod("SetGlobalVectorArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetGlobalVectorArray_45);
+            app.RegisterCLRMethodRedirection(method, SetGlobalVectorArray_40);
             args = new Type[]{typeof(System.Int32), typeof(UnityEngine.Vector4[])};
             method = type.GetMethod("SetGlobalVectorArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetGlobalVectorArray_46);
+            app.RegisterCLRMethodRedirection(method, SetGlobalVectorArray_41);
             args = new Type[]{typeof(System.String), typeof(System.Collections.Generic.List<UnityEngine.Matrix4x4>)};
             method = type.GetMethod("SetGlobalMatrixArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetGlobalMatrixArray_47);
+            app.RegisterCLRMethodRedirection(method, SetGlobalMatrixArray_42);
             args = new Type[]{typeof(System.Int32), typeof(System.Collections.Generic.List<UnityEngine.Matrix4x4>)};
             method = type.GetMethod("SetGlobalMatrixArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetGlobalMatrixArray_48);
+            app.RegisterCLRMethodRedirection(method, SetGlobalMatrixArray_43);
             args = new Type[]{typeof(System.String), typeof(UnityEngine.Matrix4x4[])};
             method = type.GetMethod("SetGlobalMatrixArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetGlobalMatrixArray_49);
+            app.RegisterCLRMethodRedirection(method, SetGlobalMatrixArray_44);
             args = new Type[]{typeof(System.Int32), typeof(UnityEngine.Matrix4x4[])};
             method = type.GetMethod("SetGlobalMatrixArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetGlobalMatrixArray_50);
+            app.RegisterCLRMethodRedirection(method, SetGlobalMatrixArray_45);
             args = new Type[]{typeof(System.String)};
             method = type.GetMethod("GetGlobalFloat", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalFloat_51);
+            app.RegisterCLRMethodRedirection(method, GetGlobalFloat_46);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("GetGlobalFloat", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalFloat_52);
+            app.RegisterCLRMethodRedirection(method, GetGlobalFloat_47);
             args = new Type[]{typeof(System.String)};
             method = type.GetMethod("GetGlobalInt", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalInt_53);
+            app.RegisterCLRMethodRedirection(method, GetGlobalInt_48);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("GetGlobalInt", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalInt_54);
+            app.RegisterCLRMethodRedirection(method, GetGlobalInt_49);
             args = new Type[]{typeof(System.String)};
             method = type.GetMethod("GetGlobalVector", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalVector_55);
+            app.RegisterCLRMethodRedirection(method, GetGlobalVector_50);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("GetGlobalVector", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalVector_56);
+            app.RegisterCLRMethodRedirection(method, GetGlobalVector_51);
             args = new Type[]{typeof(System.String)};
             method = type.GetMethod("GetGlobalColor", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalColor_57);
+            app.RegisterCLRMethodRedirection(method, GetGlobalColor_52);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("GetGlobalColor", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalColor_58);
+            app.RegisterCLRMethodRedirection(method, GetGlobalColor_53);
             args = new Type[]{typeof(System.String)};
             method = type.GetMethod("GetGlobalMatrix", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalMatrix_59);
+            app.RegisterCLRMethodRedirection(method, GetGlobalMatrix_54);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("GetGlobalMatrix", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalMatrix_60);
+            app.RegisterCLRMethodRedirection(method, GetGlobalMatrix_55);
             args = new Type[]{typeof(System.String)};
             method = type.GetMethod("GetGlobalTexture", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalTexture_61);
+            app.RegisterCLRMethodRedirection(method, GetGlobalTexture_56);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("GetGlobalTexture", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalTexture_62);
+            app.RegisterCLRMethodRedirection(method, GetGlobalTexture_57);
             args = new Type[]{typeof(System.String)};
             method = type.GetMethod("GetGlobalFloatArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalFloatArray_63);
+            app.RegisterCLRMethodRedirection(method, GetGlobalFloatArray_58);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("GetGlobalFloatArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalFloatArray_64);
+            app.RegisterCLRMethodRedirection(method, GetGlobalFloatArray_59);
             args = new Type[]{typeof(System.String)};
             method = type.GetMethod("GetGlobalVectorArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalVectorArray_65);
+            app.RegisterCLRMethodRedirection(method, GetGlobalVectorArray_60);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("GetGlobalVectorArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalVectorArray_66);
+            app.RegisterCLRMethodRedirection(method, GetGlobalVectorArray_61);
             args = new Type[]{typeof(System.String)};
             method = type.GetMethod("GetGlobalMatrixArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalMatrixArray_67);
+            app.RegisterCLRMethodRedirection(method, GetGlobalMatrixArray_62);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("GetGlobalMatrixArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalMatrixArray_68);
+            app.RegisterCLRMethodRedirection(method, GetGlobalMatrixArray_63);
             args = new Type[]{typeof(System.String), typeof(System.Collections.Generic.List<System.Single>)};
             method = type.GetMethod("GetGlobalFloatArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalFloatArray_69);
+            app.RegisterCLRMethodRedirection(method, GetGlobalFloatArray_64);
             args = new Type[]{typeof(System.Int32), typeof(System.Collections.Generic.List<System.Single>)};
             method = type.GetMethod("GetGlobalFloatArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalFloatArray_70);
+            app.RegisterCLRMethodRedirection(method, GetGlobalFloatArray_65);
             args = new Type[]{typeof(System.String), typeof(System.Collections.Generic.List<UnityEngine.Vector4>)};
             method = type.GetMethod("GetGlobalVectorArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalVectorArray_71);
+            app.RegisterCLRMethodRedirection(method, GetGlobalVectorArray_66);
             args = new Type[]{typeof(System.Int32), typeof(System.Collections.Generic.List<UnityEngine.Vector4>)};
             method = type.GetMethod("GetGlobalVectorArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalVectorArray_72);
+            app.RegisterCLRMethodRedirection(method, GetGlobalVectorArray_67);
             args = new Type[]{typeof(System.String), typeof(System.Collections.Generic.List<UnityEngine.Matrix4x4>)};
             method = type.GetMethod("GetGlobalMatrixArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalMatrixArray_73);
+            app.RegisterCLRMethodRedirection(method, GetGlobalMatrixArray_68);
             args = new Type[]{typeof(System.Int32), typeof(System.Collections.Generic.List<UnityEngine.Matrix4x4>)};
             method = type.GetMethod("GetGlobalMatrixArray", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetGlobalMatrixArray_74);
+            app.RegisterCLRMethodRedirection(method, GetGlobalMatrixArray_69);
             args = new Type[]{};
             method = type.GetMethod("GetPropertyCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetPropertyCount_75);
+            app.RegisterCLRMethodRedirection(method, GetPropertyCount_70);
             args = new Type[]{typeof(System.String)};
             method = type.GetMethod("FindPropertyIndex", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, FindPropertyIndex_76);
+            app.RegisterCLRMethodRedirection(method, FindPropertyIndex_71);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("GetPropertyName", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetPropertyName_77);
+            app.RegisterCLRMethodRedirection(method, GetPropertyName_72);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("GetPropertyNameId", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetPropertyNameId_78);
+            app.RegisterCLRMethodRedirection(method, GetPropertyNameId_73);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("GetPropertyType", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetPropertyType_79);
+            app.RegisterCLRMethodRedirection(method, GetPropertyType_74);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("GetPropertyDescription", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetPropertyDescription_80);
+            app.RegisterCLRMethodRedirection(method, GetPropertyDescription_75);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("GetPropertyFlags", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetPropertyFlags_81);
+            app.RegisterCLRMethodRedirection(method, GetPropertyFlags_76);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("GetPropertyAttributes", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetPropertyAttributes_82);
+            app.RegisterCLRMethodRedirection(method, GetPropertyAttributes_77);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("GetPropertyDefaultFloatValue", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetPropertyDefaultFloatValue_83);
+            app.RegisterCLRMethodRedirection(method, GetPropertyDefaultFloatValue_78);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("GetPropertyDefaultVectorValue", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetPropertyDefaultVectorValue_84);
+            app.RegisterCLRMethodRedirection(method, GetPropertyDefaultVectorValue_79);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("GetPropertyRangeLimits", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetPropertyRangeLimits_85);
+            app.RegisterCLRMethodRedirection(method, GetPropertyRangeLimits_80);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("GetPropertyTextureDimension", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetPropertyTextureDimension_86);
+            app.RegisterCLRMethodRedirection(method, GetPropertyTextureDimension_81);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("GetPropertyTextureDefaultName", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetPropertyTextureDefaultName_87);
-            args = new Type[]{typeof(System.Int32), typeof(System.String).MakeByRefType(), typeof(System.Int32).MakeByRefType()};
-            method = type.GetMethod("FindTextureStack", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, FindTextureStack_88);
+            app.RegisterCLRMethodRedirection(method, GetPropertyTextureDefaultName_82);
 
 
 
@@ -921,72 +903,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SetGlobalBuffer_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.GraphicsBuffer @value = (UnityEngine.GraphicsBuffer)typeof(UnityEngine.GraphicsBuffer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.String @name = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-
-            UnityEngine.Shader.SetGlobalBuffer(@name, @value);
-
-            return __ret;
-        }
-
-        static StackObject* SetGlobalBuffer_34(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.GraphicsBuffer @value = (UnityEngine.GraphicsBuffer)typeof(UnityEngine.GraphicsBuffer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Int32 @nameID = ptr_of_this_method->Value;
-
-
-            UnityEngine.Shader.SetGlobalBuffer(@nameID, @value);
-
-            return __ret;
-        }
-
-        static StackObject* SetGlobalConstantBuffer_35(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 4);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Int32 @size = ptr_of_this_method->Value;
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Int32 @offset = ptr_of_this_method->Value;
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            UnityEngine.ComputeBuffer @value = (UnityEngine.ComputeBuffer)typeof(UnityEngine.ComputeBuffer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 4);
-            System.String @name = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-
-            UnityEngine.Shader.SetGlobalConstantBuffer(@name, @value, @offset, @size);
-
-            return __ret;
-        }
-
-        static StackObject* SetGlobalConstantBuffer_36(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetGlobalConstantBuffer_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1011,58 +928,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SetGlobalConstantBuffer_37(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 4);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Int32 @size = ptr_of_this_method->Value;
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Int32 @offset = ptr_of_this_method->Value;
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            UnityEngine.GraphicsBuffer @value = (UnityEngine.GraphicsBuffer)typeof(UnityEngine.GraphicsBuffer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 4);
-            System.String @name = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-
-            UnityEngine.Shader.SetGlobalConstantBuffer(@name, @value, @offset, @size);
-
-            return __ret;
-        }
-
-        static StackObject* SetGlobalConstantBuffer_38(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 4);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Int32 @size = ptr_of_this_method->Value;
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Int32 @offset = ptr_of_this_method->Value;
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            UnityEngine.GraphicsBuffer @value = (UnityEngine.GraphicsBuffer)typeof(UnityEngine.GraphicsBuffer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 4);
-            System.Int32 @nameID = ptr_of_this_method->Value;
-
-
-            UnityEngine.Shader.SetGlobalConstantBuffer(@nameID, @value, @offset, @size);
-
-            return __ret;
-        }
-
-        static StackObject* SetGlobalFloatArray_39(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetGlobalFloatArray_34(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1082,7 +948,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SetGlobalFloatArray_40(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetGlobalFloatArray_35(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1101,7 +967,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SetGlobalFloatArray_41(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetGlobalFloatArray_36(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1121,7 +987,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SetGlobalFloatArray_42(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetGlobalFloatArray_37(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1140,7 +1006,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SetGlobalVectorArray_43(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetGlobalVectorArray_38(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1160,7 +1026,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SetGlobalVectorArray_44(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetGlobalVectorArray_39(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1179,7 +1045,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SetGlobalVectorArray_45(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetGlobalVectorArray_40(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1199,7 +1065,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SetGlobalVectorArray_46(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetGlobalVectorArray_41(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1218,7 +1084,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SetGlobalMatrixArray_47(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetGlobalMatrixArray_42(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1238,7 +1104,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SetGlobalMatrixArray_48(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetGlobalMatrixArray_43(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1257,7 +1123,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SetGlobalMatrixArray_49(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetGlobalMatrixArray_44(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1277,7 +1143,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SetGlobalMatrixArray_50(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetGlobalMatrixArray_45(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1296,7 +1162,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* GetGlobalFloat_51(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalFloat_46(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1314,7 +1180,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* GetGlobalFloat_52(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalFloat_47(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1331,7 +1197,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* GetGlobalInt_53(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalInt_48(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1349,7 +1215,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* GetGlobalInt_54(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalInt_49(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1366,7 +1232,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* GetGlobalVector_55(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalVector_50(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1387,7 +1253,7 @@ namespace ILRuntime.Runtime.Generated
             }
         }
 
-        static StackObject* GetGlobalVector_56(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalVector_51(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1407,7 +1273,7 @@ namespace ILRuntime.Runtime.Generated
             }
         }
 
-        static StackObject* GetGlobalColor_57(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalColor_52(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1428,7 +1294,7 @@ namespace ILRuntime.Runtime.Generated
             }
         }
 
-        static StackObject* GetGlobalColor_58(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalColor_53(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1448,7 +1314,7 @@ namespace ILRuntime.Runtime.Generated
             }
         }
 
-        static StackObject* GetGlobalMatrix_59(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalMatrix_54(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1469,7 +1335,7 @@ namespace ILRuntime.Runtime.Generated
             }
         }
 
-        static StackObject* GetGlobalMatrix_60(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalMatrix_55(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1489,7 +1355,7 @@ namespace ILRuntime.Runtime.Generated
             }
         }
 
-        static StackObject* GetGlobalTexture_61(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalTexture_56(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1510,7 +1376,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetGlobalTexture_62(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalTexture_57(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1530,7 +1396,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetGlobalFloatArray_63(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalFloatArray_58(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1546,7 +1412,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetGlobalFloatArray_64(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalFloatArray_59(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1561,7 +1427,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetGlobalVectorArray_65(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalVectorArray_60(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1577,7 +1443,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetGlobalVectorArray_66(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalVectorArray_61(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1592,7 +1458,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetGlobalMatrixArray_67(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalMatrixArray_62(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1608,7 +1474,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetGlobalMatrixArray_68(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalMatrixArray_63(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1623,7 +1489,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetGlobalFloatArray_69(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalFloatArray_64(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1643,7 +1509,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* GetGlobalFloatArray_70(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalFloatArray_65(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1662,7 +1528,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* GetGlobalVectorArray_71(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalVectorArray_66(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1682,7 +1548,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* GetGlobalVectorArray_72(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalVectorArray_67(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1701,7 +1567,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* GetGlobalMatrixArray_73(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalMatrixArray_68(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1721,7 +1587,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* GetGlobalMatrixArray_74(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetGlobalMatrixArray_69(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1740,7 +1606,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* GetPropertyCount_75(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetPropertyCount_70(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1757,7 +1623,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* FindPropertyIndex_76(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* FindPropertyIndex_71(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1778,7 +1644,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* GetPropertyName_77(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetPropertyName_72(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1796,7 +1662,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetPropertyNameId_78(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetPropertyNameId_73(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1816,7 +1682,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* GetPropertyType_79(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetPropertyType_74(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1834,7 +1700,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetPropertyDescription_80(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetPropertyDescription_75(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1852,7 +1718,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetPropertyFlags_81(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetPropertyFlags_76(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1870,7 +1736,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetPropertyAttributes_82(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetPropertyAttributes_77(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1888,7 +1754,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetPropertyDefaultFloatValue_83(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetPropertyDefaultFloatValue_78(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1908,7 +1774,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* GetPropertyDefaultVectorValue_84(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetPropertyDefaultVectorValue_79(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1931,7 +1797,7 @@ namespace ILRuntime.Runtime.Generated
             }
         }
 
-        static StackObject* GetPropertyRangeLimits_85(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetPropertyRangeLimits_80(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1954,7 +1820,7 @@ namespace ILRuntime.Runtime.Generated
             }
         }
 
-        static StackObject* GetPropertyTextureDimension_86(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetPropertyTextureDimension_81(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1972,7 +1838,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetPropertyTextureDefaultName_87(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetPropertyTextureDefaultName_82(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1988,136 +1854,6 @@ namespace ILRuntime.Runtime.Generated
             var result_of_this_method = instance_of_this_method.GetPropertyTextureDefaultName(@propertyIndex);
 
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
-        static StackObject* FindTextureStack_88(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 4);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Int32 @layerIndex = __intp.RetriveInt32(ptr_of_this_method, __mStack);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.String @stackName = (System.String)typeof(System.String).CheckCLRTypes(__intp.RetriveObject(ptr_of_this_method, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            System.Int32 @propertyIndex = ptr_of_this_method->Value;
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 4);
-            UnityEngine.Shader instance_of_this_method = (UnityEngine.Shader)typeof(UnityEngine.Shader).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-
-            var result_of_this_method = instance_of_this_method.FindTextureStack(@propertyIndex, out @stackName, out @layerIndex);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            switch(ptr_of_this_method->ObjectType)
-            {
-                case ObjectTypes.StackObjectReference:
-                    {
-                        var ___dst = ILIntepreter.ResolveReference(ptr_of_this_method);
-                        ___dst->ObjectType = ObjectTypes.Integer;
-                        ___dst->Value = @layerIndex;
-                    }
-                    break;
-                case ObjectTypes.FieldReference:
-                    {
-                        var ___obj = __mStack[ptr_of_this_method->Value];
-                        if(___obj is ILTypeInstance)
-                        {
-                            ((ILTypeInstance)___obj)[ptr_of_this_method->ValueLow] = @layerIndex;
-                        }
-                        else
-                        {
-                            var ___type = __domain.GetType(___obj.GetType()) as CLRType;
-                            ___type.SetFieldValue(ptr_of_this_method->ValueLow, ref ___obj, @layerIndex);
-                        }
-                    }
-                    break;
-                case ObjectTypes.StaticFieldReference:
-                    {
-                        var ___type = __domain.GetType(ptr_of_this_method->Value);
-                        if(___type is ILType)
-                        {
-                            ((ILType)___type).StaticInstance[ptr_of_this_method->ValueLow] = @layerIndex;
-                        }
-                        else
-                        {
-                            ((CLRType)___type).SetStaticFieldValue(ptr_of_this_method->ValueLow, @layerIndex);
-                        }
-                    }
-                    break;
-                 case ObjectTypes.ArrayReference:
-                    {
-                        var instance_of_arrayReference = __mStack[ptr_of_this_method->Value] as System.Int32[];
-                        instance_of_arrayReference[ptr_of_this_method->ValueLow] = @layerIndex;
-                    }
-                    break;
-            }
-
-            __intp.Free(ptr_of_this_method);
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            switch(ptr_of_this_method->ObjectType)
-            {
-                case ObjectTypes.StackObjectReference:
-                    {
-                        var ___dst = ILIntepreter.ResolveReference(ptr_of_this_method);
-                        object ___obj = @stackName;
-                        if (___dst->ObjectType >= ObjectTypes.Object)
-                        {
-                            if (___obj is CrossBindingAdaptorType)
-                                ___obj = ((CrossBindingAdaptorType)___obj).ILInstance;
-                            __mStack[___dst->Value] = ___obj;
-                        }
-                        else
-                        {
-                            ILIntepreter.UnboxObject(___dst, ___obj, __mStack, __domain);
-                        }
-                    }
-                    break;
-                case ObjectTypes.FieldReference:
-                    {
-                        var ___obj = __mStack[ptr_of_this_method->Value];
-                        if(___obj is ILTypeInstance)
-                        {
-                            ((ILTypeInstance)___obj)[ptr_of_this_method->ValueLow] = @stackName;
-                        }
-                        else
-                        {
-                            var ___type = __domain.GetType(___obj.GetType()) as CLRType;
-                            ___type.SetFieldValue(ptr_of_this_method->ValueLow, ref ___obj, @stackName);
-                        }
-                    }
-                    break;
-                case ObjectTypes.StaticFieldReference:
-                    {
-                        var ___type = __domain.GetType(ptr_of_this_method->Value);
-                        if(___type is ILType)
-                        {
-                            ((ILType)___type).StaticInstance[ptr_of_this_method->ValueLow] = @stackName;
-                        }
-                        else
-                        {
-                            ((CLRType)___type).SetStaticFieldValue(ptr_of_this_method->ValueLow, @stackName);
-                        }
-                    }
-                    break;
-                 case ObjectTypes.ArrayReference:
-                    {
-                        var instance_of_arrayReference = __mStack[ptr_of_this_method->Value] as System.String[];
-                        instance_of_arrayReference[ptr_of_this_method->ValueLow] = @stackName;
-                    }
-                    break;
-            }
-
-            __intp.Free(ptr_of_this_method);
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            __intp.Free(ptr_of_this_method);
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 4);
-            __intp.Free(ptr_of_this_method);
-            __ret->ObjectType = ObjectTypes.Integer;
-            __ret->Value = result_of_this_method ? 1 : 0;
-            return __ret + 1;
         }
 
 

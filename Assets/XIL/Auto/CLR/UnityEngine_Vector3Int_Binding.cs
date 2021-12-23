@@ -130,33 +130,24 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.String)};
             method = type.GetMethod("ToString", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, ToString_35);
-            args = new Type[]{typeof(System.String), typeof(System.IFormatProvider)};
-            method = type.GetMethod("ToString", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, ToString_36);
             args = new Type[]{};
             method = type.GetMethod("get_zero", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_zero_37);
+            app.RegisterCLRMethodRedirection(method, get_zero_36);
             args = new Type[]{};
             method = type.GetMethod("get_one", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_one_38);
+            app.RegisterCLRMethodRedirection(method, get_one_37);
             args = new Type[]{};
             method = type.GetMethod("get_up", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_up_39);
+            app.RegisterCLRMethodRedirection(method, get_up_38);
             args = new Type[]{};
             method = type.GetMethod("get_down", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_down_40);
+            app.RegisterCLRMethodRedirection(method, get_down_39);
             args = new Type[]{};
             method = type.GetMethod("get_left", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_left_41);
+            app.RegisterCLRMethodRedirection(method, get_left_40);
             args = new Type[]{};
             method = type.GetMethod("get_right", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_right_42);
-            args = new Type[]{};
-            method = type.GetMethod("get_forward", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_forward_43);
-            args = new Type[]{};
-            method = type.GetMethod("get_back", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_back_44);
+            app.RegisterCLRMethodRedirection(method, get_right_41);
 
 
             app.RegisterCLRMemberwiseClone(type, PerformMemberwiseClone);
@@ -1358,43 +1349,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* ToString_36(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.IFormatProvider @formatProvider = (System.IFormatProvider)typeof(System.IFormatProvider).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.String @format = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            UnityEngine.Vector3Int instance_of_this_method = new UnityEngine.Vector3Int();
-            if (ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector3Int_Binding_Binder != null) {
-                ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector3Int_Binding_Binder.ParseValue(ref instance_of_this_method, __intp, ptr_of_this_method, __mStack, false);
-            } else {
-                ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
-                instance_of_this_method = (UnityEngine.Vector3Int)typeof(UnityEngine.Vector3Int).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)16);
-            }
-
-            var result_of_this_method = instance_of_this_method.ToString(@format, @formatProvider);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            if (ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector3Int_Binding_Binder != null) {
-                ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector3Int_Binding_Binder.WriteBackValue(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
-            } else {
-                WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
-            }
-
-            __intp.Free(ptr_of_this_method);
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
-        static StackObject* get_zero_37(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_zero_36(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -1410,7 +1365,7 @@ namespace ILRuntime.Runtime.Generated
             }
         }
 
-        static StackObject* get_one_38(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_one_37(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -1426,7 +1381,7 @@ namespace ILRuntime.Runtime.Generated
             }
         }
 
-        static StackObject* get_up_39(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_up_38(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -1442,7 +1397,7 @@ namespace ILRuntime.Runtime.Generated
             }
         }
 
-        static StackObject* get_down_40(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_down_39(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -1458,7 +1413,7 @@ namespace ILRuntime.Runtime.Generated
             }
         }
 
-        static StackObject* get_left_41(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_left_40(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -1474,45 +1429,13 @@ namespace ILRuntime.Runtime.Generated
             }
         }
 
-        static StackObject* get_right_42(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_right_41(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
 
 
             var result_of_this_method = UnityEngine.Vector3Int.right;
-
-            if (ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector3Int_Binding_Binder != null) {
-                ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector3Int_Binding_Binder.PushValue(ref result_of_this_method, __intp, __ret, __mStack);
-                return __ret + 1;
-            } else {
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-            }
-        }
-
-        static StackObject* get_forward_43(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
-
-
-            var result_of_this_method = UnityEngine.Vector3Int.forward;
-
-            if (ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector3Int_Binding_Binder != null) {
-                ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector3Int_Binding_Binder.PushValue(ref result_of_this_method, __intp, __ret, __mStack);
-                return __ret + 1;
-            } else {
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-            }
-        }
-
-        static StackObject* get_back_44(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
-
-
-            var result_of_this_method = UnityEngine.Vector3Int.back;
 
             if (ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector3Int_Binding_Binder != null) {
                 ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector3Int_Binding_Binder.PushValue(ref result_of_this_method, __intp, __ret, __mStack);

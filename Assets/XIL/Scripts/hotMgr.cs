@@ -2,6 +2,8 @@
 namespace wxb
 {
     using System.Reflection;
+    using ILRuntime.CLR.Utils;
+    using ILRuntime.Runtime.Stack;
     using ILRuntime.Runtime.Enviorment;
     using ILRuntime.Runtime.Intepreter;
     using System.Collections.Generic;
@@ -416,43 +418,52 @@ namespace wxb
         public static void RegDelegate(AppDomain appdomain)
         {
             appdomain.RegisterCrossBindingAdaptor(new IEnumerableAdapter());
+            appdomain.RegisterCrossBindingAdaptor(new IComparer_1_ILTypeInstanceAdapter());
+            appdomain.DelegateManager.RegisterMethodDelegate<wxb.IStream>();
+
+            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Color), new Color32Binder());
+            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Color32), new Color32Binder());
             appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector2), new Vector2Binder());
             appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector3), new Vector3Binder());
-            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Quaternion), new QuaternionBinder());
-
             appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector4), new Vector4Binder());
+
             appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector2Int), new Vector2IntBinder());
             appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector3Int), new Vector3IntBinder());
+
+            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Quaternion), new QuaternionBinder());
+            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Matrix4x4), new Matrix4x4Binder());
             appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Rect), new RectBinder());
             appdomain.RegisterValueTypeBinder(typeof(UnityEngine.RectInt), new RectIntBinder());
-            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Matrix4x4), new Matrix4x4Binder());
-            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Color), new ColorBinder());
-            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Color32), new Color32Binder());
 
 #if UNITY_EDITOR
-            System.Type clrType = System.Type.GetType("ILRuntime.Runtime.Generated.CLRBindings");
-            if (clrType != null)
-                clrType.GetMethod("Initialize").Invoke(null, new object[] { appdomain }); // CLR绑定
-
-            clrType = System.Type.GetType("AutoIL.ILRegType");
-            if (clrType != null)
-            {
-                // 自动委托注册
-                clrType.GetMethod("RegisterFunctionDelegate").Invoke(null, new object[] { appdomain });
-                clrType.GetMethod("RegisterDelegateConvertor").Invoke(null, new object[] { appdomain });
-                clrType.GetMethod("RegisterMethodDelegate").Invoke(null, new object[] { appdomain });
-            }
+            CallStatic("ILRuntime.Runtime.Generated.CLRBindings", "Initialize", appdomain);
+            CallStatic("AutoIL.ILRegType", "RegisterFunctionDelegate", appdomain);
+            CallStatic("AutoIL.ILRegType", "RegisterDelegateConvertor", appdomain);
+            CallStatic("AutoIL.ILRegType", "RegisterMethodDelegate", appdomain);
+            CallStatic("wxb.AllAdapter", "Register", appdomain);
 #else
             ILRuntime.Runtime.Generated.CLRBindings.Initialize(appdomain);
             AutoIL.ILRegType.RegisterFunctionDelegate(appdomain);
             AutoIL.ILRegType.RegisterDelegateConvertor(appdomain);
             AutoIL.ILRegType.RegisterMethodDelegate(appdomain);
+            wxb.AllAdapter.Register(appdomain);
 #endif
             ILRuntime.Runtime.Generated.UnityEngine_Debug_Binding.Register(appdomain);
 
             // 热更代码当中使用List<T>类型,注册下
             // List<T>
             {
+                appdomain.DelegateManager.RegisterFunctionDelegate<System.Collections.Generic.KeyValuePair<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Double>, System.Double>();
+                appdomain.DelegateManager.RegisterFunctionDelegate<System.Collections.Generic.KeyValuePair<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Double>, ILRuntime.Runtime.Intepreter.ILTypeInstance>();
+                appdomain.DelegateManager.RegisterFunctionDelegate<KeyValuePair<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Double>, KeyValuePair<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Double>, System.Int32>();
+                appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<System.Collections.Generic.KeyValuePair<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Double>>>((act) =>
+                {
+                    return new System.Comparison<System.Collections.Generic.KeyValuePair<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Double>>((x, y) =>
+                    {
+                        return ((System.Func<System.Collections.Generic.KeyValuePair<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Double>, System.Collections.Generic.KeyValuePair<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Double>, System.Int32>)act)(x, y);
+                    });
+                });
+
                 appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance>();
                 appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance>();
                 appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Boolean>();
@@ -1001,6 +1012,14 @@ namespace wxb
 
         static HashSet<FieldInfo> Fields = new HashSet<FieldInfo>();
 
+#if UNITY_EDITOR
+        static void CallStatic(string typeName, string methodName, params object[] param)
+        {
+            System.Type clrType = System.Type.GetType(typeName);
+            if (clrType != null)
+                clrType.GetMethod(methodName).Invoke(null, param);
+        }
+#endif
         // 释放所有热更模块
         public static void ReleaseAll()
         {
@@ -1015,6 +1034,17 @@ namespace wxb
             foreach (var ator in Fields)
                 ator.SetValue(null, null);
             Fields.Clear();
+
+            // 释放CLR绑定，类继承等全局变量
+            {
+#if UNITY_EDITOR
+                CallStatic("ILRuntime.Runtime.Generated.CLRBindings", "Shutdown", appdomain);
+                CallStatic("wxb.AllAdapter", "Shutdown", appdomain);
+#else
+                ILRuntime.Runtime.Generated.CLRBindings.Shutdown(appdomain);
+                AllAdapter.Release();
+#endif
+            }
 
             IL.Help.ReleaseAll();
             AllTypes.Clear();

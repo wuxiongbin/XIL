@@ -485,42 +485,39 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{};
             method = type.GetMethod("RenderDontRestore", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, RenderDontRestore_153);
-            args = new Type[]{typeof(System.Collections.Generic.List<UnityEngine.Camera.RenderRequest>)};
-            method = type.GetMethod("SubmitRenderRequests", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SubmitRenderRequests_154);
             args = new Type[]{typeof(UnityEngine.Camera)};
             method = type.GetMethod("SetupCurrent", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SetupCurrent_155);
+            app.RegisterCLRMethodRedirection(method, SetupCurrent_154);
             args = new Type[]{typeof(UnityEngine.Camera)};
             method = type.GetMethod("CopyFrom", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, CopyFrom_156);
+            app.RegisterCLRMethodRedirection(method, CopyFrom_155);
             args = new Type[]{};
             method = type.GetMethod("get_commandBufferCount", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_commandBufferCount_157);
+            app.RegisterCLRMethodRedirection(method, get_commandBufferCount_156);
             args = new Type[]{typeof(UnityEngine.Rendering.CameraEvent)};
             method = type.GetMethod("RemoveCommandBuffers", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, RemoveCommandBuffers_158);
+            app.RegisterCLRMethodRedirection(method, RemoveCommandBuffers_157);
             args = new Type[]{};
             method = type.GetMethod("RemoveAllCommandBuffers", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, RemoveAllCommandBuffers_159);
+            app.RegisterCLRMethodRedirection(method, RemoveAllCommandBuffers_158);
             args = new Type[]{typeof(UnityEngine.Rendering.CameraEvent), typeof(UnityEngine.Rendering.CommandBuffer)};
             method = type.GetMethod("AddCommandBuffer", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, AddCommandBuffer_160);
+            app.RegisterCLRMethodRedirection(method, AddCommandBuffer_159);
             args = new Type[]{typeof(UnityEngine.Rendering.CameraEvent), typeof(UnityEngine.Rendering.CommandBuffer), typeof(UnityEngine.Rendering.ComputeQueueType)};
             method = type.GetMethod("AddCommandBufferAsync", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, AddCommandBufferAsync_161);
+            app.RegisterCLRMethodRedirection(method, AddCommandBufferAsync_160);
             args = new Type[]{typeof(UnityEngine.Rendering.CameraEvent), typeof(UnityEngine.Rendering.CommandBuffer)};
             method = type.GetMethod("RemoveCommandBuffer", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, RemoveCommandBuffer_162);
+            app.RegisterCLRMethodRedirection(method, RemoveCommandBuffer_161);
             args = new Type[]{typeof(UnityEngine.Rendering.CameraEvent)};
             method = type.GetMethod("GetCommandBuffers", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetCommandBuffers_163);
+            app.RegisterCLRMethodRedirection(method, GetCommandBuffers_162);
             args = new Type[]{typeof(UnityEngine.Rendering.ScriptableCullingParameters).MakeByRefType()};
             method = type.GetMethod("TryGetCullingParameters", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, TryGetCullingParameters_164);
+            app.RegisterCLRMethodRedirection(method, TryGetCullingParameters_163);
             args = new Type[]{typeof(System.Boolean), typeof(UnityEngine.Rendering.ScriptableCullingParameters).MakeByRefType()};
             method = type.GetMethod("TryGetCullingParameters", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, TryGetCullingParameters_165);
+            app.RegisterCLRMethodRedirection(method, TryGetCullingParameters_164);
 
             field = type.GetField("onPreCull", flag);
             app.RegisterCLRFieldGetter(field, get_onPreCull_0);
@@ -3682,26 +3679,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* SubmitRenderRequests_154(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.List<UnityEngine.Camera.RenderRequest> @renderRequests = (System.Collections.Generic.List<UnityEngine.Camera.RenderRequest>)typeof(System.Collections.Generic.List<UnityEngine.Camera.RenderRequest>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            UnityEngine.Camera instance_of_this_method = (UnityEngine.Camera)typeof(UnityEngine.Camera).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.SubmitRenderRequests(@renderRequests);
-
-            return __ret;
-        }
-
-        static StackObject* SetupCurrent_155(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetupCurrent_154(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -3717,7 +3695,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* CopyFrom_156(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* CopyFrom_155(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -3736,7 +3714,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_commandBufferCount_157(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_commandBufferCount_156(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -3753,7 +3731,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* RemoveCommandBuffers_158(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* RemoveCommandBuffers_157(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -3772,7 +3750,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* RemoveAllCommandBuffers_159(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* RemoveAllCommandBuffers_158(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -3787,7 +3765,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* AddCommandBuffer_160(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* AddCommandBuffer_159(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -3810,7 +3788,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* AddCommandBufferAsync_161(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* AddCommandBufferAsync_160(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -3837,7 +3815,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* RemoveCommandBuffer_162(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* RemoveCommandBuffer_161(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -3860,7 +3838,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* GetCommandBuffers_163(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetCommandBuffers_162(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -3879,7 +3857,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* TryGetCullingParameters_164(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryGetCullingParameters_163(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -3955,7 +3933,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* TryGetCullingParameters_165(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* TryGetCullingParameters_164(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

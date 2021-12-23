@@ -112,18 +112,12 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{};
             method = type.GetMethod("ToString", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, ToString_29);
-            args = new Type[]{typeof(System.String)};
-            method = type.GetMethod("ToString", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, ToString_30);
-            args = new Type[]{typeof(System.String), typeof(System.IFormatProvider)};
-            method = type.GetMethod("ToString", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, ToString_31);
             args = new Type[]{typeof(UnityEngine.RectInt)};
             method = type.GetMethod("Equals", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Equals_32);
+            app.RegisterCLRMethodRedirection(method, Equals_30);
             args = new Type[]{};
             method = type.GetMethod("get_allPositionsWithin", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_allPositionsWithin_33);
+            app.RegisterCLRMethodRedirection(method, get_allPositionsWithin_31);
 
 
             app.RegisterCLRMemberwiseClone(type, PerformMemberwiseClone);
@@ -1176,75 +1170,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* ToString_30(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.String @format = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            UnityEngine.RectInt instance_of_this_method = new UnityEngine.RectInt();
-            if (ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_RectInt_Binding_Binder != null) {
-                ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_RectInt_Binding_Binder.ParseValue(ref instance_of_this_method, __intp, ptr_of_this_method, __mStack, false);
-            } else {
-                ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
-                instance_of_this_method = (UnityEngine.RectInt)typeof(UnityEngine.RectInt).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)16);
-            }
-
-            var result_of_this_method = instance_of_this_method.ToString(@format);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            if (ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_RectInt_Binding_Binder != null) {
-                ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_RectInt_Binding_Binder.WriteBackValue(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
-            } else {
-                WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
-            }
-
-            __intp.Free(ptr_of_this_method);
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
-        static StackObject* ToString_31(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.IFormatProvider @formatProvider = (System.IFormatProvider)typeof(System.IFormatProvider).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.String @format = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            UnityEngine.RectInt instance_of_this_method = new UnityEngine.RectInt();
-            if (ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_RectInt_Binding_Binder != null) {
-                ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_RectInt_Binding_Binder.ParseValue(ref instance_of_this_method, __intp, ptr_of_this_method, __mStack, false);
-            } else {
-                ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
-                instance_of_this_method = (UnityEngine.RectInt)typeof(UnityEngine.RectInt).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)16);
-            }
-
-            var result_of_this_method = instance_of_this_method.ToString(@format, @formatProvider);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            if (ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_RectInt_Binding_Binder != null) {
-                ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_RectInt_Binding_Binder.WriteBackValue(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
-            } else {
-                WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
-            }
-
-            __intp.Free(ptr_of_this_method);
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
-        static StackObject* Equals_32(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Equals_30(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1283,7 +1209,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* get_allPositionsWithin_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_allPositionsWithin_31(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

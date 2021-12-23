@@ -2,6 +2,7 @@ using UnityEditor;
 using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 #if USE_HOT
 using ILRuntime.Runtime.Intepreter;
@@ -193,6 +194,19 @@ namespace wxb.IL.Editor
 
         public void OnGUI()
         {
+#if !CloseNested && false
+            var color = GUI.color;
+            GUI.color = Color.red;
+            try
+            {
+                wxb.CustomizeData.isUsedBytes = EditorGUILayout.Toggle("全局是否使用数据流", wxb.CustomizeData.isUsedBytes);
+            }
+            finally
+            {
+                GUI.color = color;
+            }
+#endif
+
             EditorGUILayout.BeginHorizontal();
             m_searchName = EditorGUILayout.TextField("输入搜索：", m_searchName);
             bool autoSetValue = GUILayout.Button("自动赋值");
@@ -201,7 +215,7 @@ namespace wxb.IL.Editor
                 return;
 
             string typeName = customizeData.TypeName;
-            string newTypename = StringPopupT("typeName", typeName, allTypes, (System.Type t) => { return t == null ? "null" : t.FullName; }, m_searchName);
+            string newTypename = StringPopupT("typeName", typeName, allTypes, (System.Type t) => { return t == null ? "null" : t.FullName.Replace('/', '+'); }, m_searchName);
             if (newTypename == "null")
                 newTypename = null;
 
@@ -235,112 +249,5 @@ namespace wxb.IL.Editor
             var method = type.GetMethod("TestLog", BindingFlags.NonPublic | BindingFlags.Static);
             method.Invoke(null, new object[] { });
         }
-
-#if !CloseNested
-        [UnityEditor.MenuItem("Assets/IL/预置体重保存")]
-        static void ResavePrefab()
-        {
-            SaveSelectPrefab(Selection.objects, (cd)=> 
-            {
-                cd.OnBeforeSerialize();
-            },
-            null);
-        }
-
-        static bool isNeedCheck(GameObject go)
-        {
-            var serials = go.GetComponentsInChildren<ISerializationCallbackReceiver>(true);
-            int cnt = serials.Length;
-            if (serials.Length == 0)
-                return false;
-
-            for (int i = 0; i < cnt; ++i)
-            {
-                var obj = serials[i] as Object;
-                var type = obj.GetType();
-                var customizeDataField = IL.Help.GetField(type, "customizeData");
-                if (customizeDataField != null)
-                    return true;
-            }
-
-            return false;
-        }
-
-        static void SaveSelectPrefab(Object[] objects, System.Action<CustomizeData> onSet, System.Action onend)
-        {
-            int count = 10;
-            GlobalCoroutine.StartCoroutine(EditorHelper.ForEachSelectASync(objects, (file) =>
-            {
-                if (!file.EndsWith(".prefab"))
-                    return null;
-                
-                if (!isNeedCheck(AssetDatabase.LoadAssetAtPath<GameObject>(file)))
-                    return null;
-
-                bool isOk = PrefabModify.Modify(file, (go) =>
-                {
-                    var serials = go.GetComponentsInChildren<ISerializationCallbackReceiver>(true);
-                    int cnt = serials.Length;
-                    if (serials.Length == 0)
-                        return;
-
-                    for (int i = 0; i < cnt; ++i)
-                    {
-                        var obj = serials[i] as Object;
-                        var type = obj.GetType();
-                        var customizeDataField = IL.Help.GetField(type, "customizeData");
-                        if (customizeDataField != null)
-                        {
-                            var customizeData = customizeDataField.GetValue(obj) as CustomizeData;
-                            if (customizeData != null)
-                            {
-                                onSet?.Invoke(customizeData);
-                                EditorUtility.SetDirty(obj);
-                            }
-                        }
-                    }
-                });
-
-                if (isOk)
-                {
-                    Debug.Log(file);
-                    --count;
-                    return () => 
-                    {
-                        if (count == 0)
-                        {
-                            count = 10;
-                            return true;
-                        }
-
-                        return false;
-                    };
-                }
-                else
-                {
-                    return null;
-                }
-            }, onend));
-        }
-
-        [UnityEditor.MenuItem("Assets/IL/嵌套数据重置")]
-        static void ResetNestedPrefab()
-        {
-            var objects = Selection.objects;
-            SaveSelectPrefab(objects, (cd)=> { cd.OnBeforeSerialize(); }, () => 
-            {
-                SaveSelectPrefab(objects, (cd) => 
-                {
-                    cd.ResetNested();
-                    cd.OnAfterDeserialize(null);
-                    cd.OnBeforeSerialize();
-                },
-                ()=> 
-                {
-
-                });
-            });
-        }
-#endif
     }
 }

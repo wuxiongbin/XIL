@@ -65,6 +65,8 @@ namespace ILRuntime.Reflection
                 MethodAttributes ma = MethodAttributes.Public;
                 if (method.IsStatic)
                     ma |= MethodAttributes.Static;
+                if (method.Definition.IsAbstract)
+                    ma |= MethodAttributes.Abstract;
                 return ma;
             }
         }

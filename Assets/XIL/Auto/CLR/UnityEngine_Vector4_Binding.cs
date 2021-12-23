@@ -144,15 +144,12 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.String)};
             method = type.GetMethod("ToString", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, ToString_39);
-            args = new Type[]{typeof(System.String), typeof(System.IFormatProvider)};
-            method = type.GetMethod("ToString", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, ToString_40);
             args = new Type[]{typeof(UnityEngine.Vector4)};
             method = type.GetMethod("SqrMagnitude", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SqrMagnitude_41);
+            app.RegisterCLRMethodRedirection(method, SqrMagnitude_40);
             args = new Type[]{};
             method = type.GetMethod("SqrMagnitude", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, SqrMagnitude_42);
+            app.RegisterCLRMethodRedirection(method, SqrMagnitude_41);
 
             field = type.GetField("kEpsilon", flag);
             app.RegisterCLRFieldGetter(field, get_kEpsilon_0);
@@ -1447,43 +1444,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* ToString_40(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.IFormatProvider @formatProvider = (System.IFormatProvider)typeof(System.IFormatProvider).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.String @format = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            UnityEngine.Vector4 instance_of_this_method = new UnityEngine.Vector4();
-            if (ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector4_Binding_Binder != null) {
-                ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector4_Binding_Binder.ParseValue(ref instance_of_this_method, __intp, ptr_of_this_method, __mStack, false);
-            } else {
-                ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
-                instance_of_this_method = (UnityEngine.Vector4)typeof(UnityEngine.Vector4).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)16);
-            }
-
-            var result_of_this_method = instance_of_this_method.ToString(@format, @formatProvider);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            if (ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector4_Binding_Binder != null) {
-                ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector4_Binding_Binder.WriteBackValue(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
-            } else {
-                WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
-            }
-
-            __intp.Free(ptr_of_this_method);
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
-        static StackObject* SqrMagnitude_41(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SqrMagnitude_40(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1506,7 +1467,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* SqrMagnitude_42(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SqrMagnitude_41(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

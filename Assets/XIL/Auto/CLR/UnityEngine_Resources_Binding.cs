@@ -53,12 +53,6 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{};
             method = type.GetMethod("UnloadUnusedAssets", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, UnloadUnusedAssets_9);
-            args = new Type[]{typeof(System.Int32)};
-            method = type.GetMethod("InstanceIDToObject", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, InstanceIDToObject_10);
-            args = new Type[]{typeof(Unity.Collections.NativeArray<System.Int32>), typeof(System.Collections.Generic.List<UnityEngine.Object>)};
-            method = type.GetMethod("InstanceIDToObjectList", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, InstanceIDToObjectList_11);
 
 
 
@@ -271,46 +265,6 @@ namespace ILRuntime.Runtime.Generated
                 return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
             }
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
-        static StackObject* InstanceIDToObject_10(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Int32 @instanceID = ptr_of_this_method->Value;
-
-
-            var result_of_this_method = UnityEngine.Resources.InstanceIDToObject(@instanceID);
-
-            object obj_result_of_this_method = result_of_this_method;
-            if(obj_result_of_this_method is CrossBindingAdaptorType)
-            {    
-                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
-            }
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
-        static StackObject* InstanceIDToObjectList_11(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.List<UnityEngine.Object> @objects = (System.Collections.Generic.List<UnityEngine.Object>)typeof(System.Collections.Generic.List<UnityEngine.Object>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            Unity.Collections.NativeArray<System.Int32> @instanceIDs = (Unity.Collections.NativeArray<System.Int32>)typeof(Unity.Collections.NativeArray<System.Int32>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)16);
-            __intp.Free(ptr_of_this_method);
-
-
-            UnityEngine.Resources.InstanceIDToObjectList(@instanceIDs, @objects);
-
-            return __ret;
         }
 
 

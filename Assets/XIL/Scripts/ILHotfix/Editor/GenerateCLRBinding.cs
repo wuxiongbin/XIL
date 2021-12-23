@@ -1,6 +1,7 @@
 ﻿#if USE_HOT && UNITY_EDITOR
 using System.Linq;
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace wxb
@@ -18,14 +19,14 @@ namespace wxb
             types.Add(typeof(object));
             types.Add(typeof(string));
             types.Add(typeof(System.Array));
-            //types.Add(typeof(Vector2));
-            //types.Add(typeof(Vector3));
-            //types.Add(typeof(Vector4));
-            //types.Add(typeof(Rect));
-            //types.Add(typeof(RectInt));
-            //types.Add(typeof(Vector2Int));
-            //types.Add(typeof(Vector3Int));
-            //types.Add(typeof(Quaternion));
+            types.Add(typeof(Vector2));
+            types.Add(typeof(Vector3));
+            types.Add(typeof(Vector4));
+            types.Add(typeof(Rect));
+            types.Add(typeof(RectInt));
+            types.Add(typeof(Vector2Int));
+            types.Add(typeof(Vector3Int));
+            types.Add(typeof(Quaternion));
             types.Add(typeof(GameObject));
             types.Add(typeof(Mathf));
             types.Add(typeof(Ray));
@@ -37,6 +38,7 @@ namespace wxb
             types.Add(typeof(Texture2D));
             types.Add(typeof(Shader));
             types.Add(typeof(Renderer));
+            types.Add(typeof(Graphics));
             types.Add(typeof(RenderSettings));
             types.Add(typeof(RenderTexture));
             types.Add(typeof(MeshRenderer));
@@ -83,7 +85,7 @@ namespace wxb
             types.Add(typeof(MonoBehaviour));
             types.Add(typeof(Component));
             types.Add(typeof(Behaviour));
-            //types.Add(typeof(Color));
+            types.Add(typeof(Color));
             types.Add(typeof(Resources));
             types.Add(typeof(AssetBundle));
             types.Add(typeof(Camera));
@@ -97,6 +99,7 @@ namespace wxb
             types.Add(typeof(System.Reflection.FieldInfo));
             types.Add(typeof(System.Reflection.PropertyInfo));
             //types.Add(typeof(Debug));
+            //types.Add(typeof(Log));
 
             //所有DLL内的类型的真实C#类型都是ILTypeInstance
             types.Add(typeof(List<ILRuntime.Runtime.Intepreter.ILTypeInstance>));
@@ -165,11 +168,12 @@ namespace wxb
             types.Remove(typeof(UnityEngine.Debug));
             types.Remove(typeof(System.Activator));
             ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(
-                types.ToList(),
-                "Assets/XIL/Auto/CLR", null, null, ValueTypes);
+                types.ToList(), 
+                "Assets/XIL/Auto/CLR",
+                null, null, ValueTypes);
         }
 
-        static List<System.Type> ValueTypes = new List<System.Type> 
+        static List<System.Type> ValueTypes = new List<System.Type>
         {
             typeof(Vector2),
             typeof(Vector3),
@@ -190,7 +194,7 @@ namespace wxb
         {
             GenerateCrossBindingAdapterCode(new System.Type[]
             {
-                typeof(IComparer<int>)
+                typeof(IComparer<int>),
             },
             "Assets/XIL/Auto/CrossAdaptor");
         }
@@ -204,18 +208,51 @@ namespace wxb
                 System.IO.File.Delete(filepath);
         }
 
+        static void SaveFile(string file, string text)
+        {
+            if (System.IO.File.Exists(file))
+                System.IO.File.Delete(file);
+            else
+                System.IO.Directory.CreateDirectory(file.Substring(0, file.LastIndexOf('/')));
+
+            System.IO.File.WriteAllText(file, text, System.Text.Encoding.UTF8);
+        }
+
         static void GenerateCrossBindingAdapterCode(IList<System.Type> types, string root)
         {
+            List<string> clsNames = new List<string>();
             foreach (var type in types)
             {
-                string text = ILRuntime.Runtime.Enviorment.CrossBindingCodeGenerator.GenerateCrossBindingAdapterCode(type, "wxb", out var clsName);
-                string file = $"{root}/{clsName}Adapter.cs";
-                if (System.IO.File.Exists(file))
-                    System.IO.File.Delete(file);
-
-                System.IO.Directory.CreateDirectory(file.Substring(0, file.LastIndexOf('/')));
-                System.IO.File.WriteAllText(file, text, System.Text.Encoding.UTF8);
+                string text = ILRuntime.Runtime.Enviorment.CrossBindingCodeGenerator.GenerateCrossBindingAdapterCode(
+                    type, 
+                    "wxb", 
+                    out var clsName);
+                clsNames.Add(clsName);
+                SaveFile($"{root}/{clsName}Adapter.cs", text);
             }
+
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.AppendLine("#if USE_HOT");
+            sb.AppendLine("using ILRuntime.Runtime.Enviorment;");
+            sb.AppendLine("namespace wxb");
+            sb.AppendLine("{");
+            sb.AppendLine("    public static class AllAdapter");
+            sb.AppendLine("    {");
+            sb.AppendLine("        public static void Register(AppDomain appdomain)");
+            sb.AppendLine("        {");
+            foreach (var ator in clsNames)
+                sb.AppendLine($"            appdomain.RegisterCrossBindingAdaptor(new {ator}Adapter());");
+            sb.AppendLine("        }");
+            sb.AppendLine("        public static void Release()");
+            sb.AppendLine("        {");
+            foreach (var ator in clsNames)
+                sb.AppendLine($"            {ator}Adapter.Adapter.ReleaseStaticField();");
+            sb.AppendLine("        }");
+            sb.AppendLine("    }");
+            sb.AppendLine("}");
+            sb.AppendLine("#endif");
+
+            SaveFile($"{root}/AllAdapter.cs", sb.ToString());
         }
     }
 }

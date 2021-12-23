@@ -64,5 +64,22 @@ namespace wxb.IL.Editor
                 }
             }
         }
+
+        public static IEnumerator ForEachAsync(string debugText, IList<string> files, System.Action<string> func, System.Action onEnd)
+        {
+            int cnt = files.Count;
+            for (int i = 0; i < cnt; ++i)
+            {
+                string assetPath = files[i];
+                if (assetPath == null)
+                    continue;
+
+                func(assetPath);
+                Debug.Log($"assetPath:{assetPath} allfile:{i}/{cnt} {debugText}");
+                yield return 0;
+            }
+
+            onEnd?.Invoke();
+        }
     }
 }

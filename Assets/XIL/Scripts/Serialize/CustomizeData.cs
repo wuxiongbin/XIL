@@ -47,19 +47,11 @@
 
 #if !CloseNested
         [SerializeField]
-        uint bytesCrc32; // byte[]数据完整性交验
-
-        [SerializeField]
-        int bytesLength; // 长度
-
-        [SerializeField]
         Nested.Any0 anyValue;
 
         public void ResetNested()
         {
             anyValue = null;
-            bytesCrc32 = 0;
-            bytesLength = 0;
         }
 #endif
 
@@ -119,8 +111,6 @@
                     refType_ = null;
                     instance = null;
 #if !CloseNested
-                    bytesLength = 0;
-                    bytesCrc32 = 0;
                     anyValue = null;
 #endif
                 }
@@ -133,11 +123,9 @@
                     bytes = ms.GetBytes();
                     objs = ms.objs;
 #if !CloseNested
-                    bytesCrc32 = Crc32.To(bytes);
                     var ab = MonoSerialize.WriteToTS(instance);
                     Nested.Any0.Blend(ab, anyValue);
                     anyValue = (Nested.Any0)ab.clone();
-                    bytesLength = bytes.Length;
 #endif
                 }
                 else
@@ -149,18 +137,43 @@
         }
 
 #if !CloseNested
-        public void SaveToTS()
+#if UNITY_EDITOR
+        public static bool isUsedBytes = false;
+#endif
+        public void BytesToAnyValue()
         {
             if (string.IsNullOrEmpty(typeName))
                 return;
 
             var rt = new RefType(typeName);
             MonoSerialize.MergeFrom(rt.Instance, bytes, objs);
+
             anyValue = MonoSerialize.WriteToTS(rt.Instance);
-            bytesCrc32 = Crc32.To(bytes);
-            bytesLength = bytes.Length;
+        }
+
+        public void AnyValueToBytes()
+        {
+            if (string.IsNullOrEmpty(typeName))
+                return;
+
+            var rt = new RefType(typeName);
+            MonoSerialize.MergeFrom(rt.Instance, anyValue);
+
+            var ms = MonoSerialize.WriteTo(rt.Instance);
+            bytes = ms.GetBytes();
+            objs = ms.objs;
         }
 #endif
+#endif
+#if !CloseNested
+        bool IsUsedBytes()
+        {
+#if UNITY_EDITOR
+            if (isUsedBytes)
+                return true;
+#endif
+            return anyValue == null || string.IsNullOrEmpty(anyValue.dataKey);
+        }
 #endif
         public void OnAfterDeserialize(object self)
         {
@@ -176,8 +189,11 @@
             if (refType_ == null || refType_.Instance == null || refType_.FullName != typeName)
                 refType_ = new RefType(typeName);
 
+            if (refType_.Instance == null)
+                return;
+
 #if !CloseNested
-            if (anyValue != null && !string.IsNullOrEmpty(anyValue.dataKey))
+            if (!IsUsedBytes())
             {
                 // 数据因为预置体嵌套被修改了，不完整了,使用TypeSerialize数据来初始化
                 MonoSerialize.MergeFrom(refType_.Instance, anyValue);

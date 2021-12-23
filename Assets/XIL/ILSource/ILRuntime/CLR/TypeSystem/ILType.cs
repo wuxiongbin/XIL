@@ -566,7 +566,7 @@ namespace ILRuntime.CLR.TypeSystem
                             firstCLRInterface = adaptor;
                         }
                         else
-                            throw new TypeLoadException("Cannot find Adaptor for:" + interfaces[i].TypeForCLR.ToString());
+                            throw new TypeLoadException($"ILType:{interfaces[i].FullName} Cannot find Adaptor for:{interfaces[i].TypeForCLR.ToString()} FullName:{FullName}");
                     }
                 }
             }

@@ -166,6 +166,14 @@
             return st;
         }
 
+        public static void ForEachCacheType(System.Action<CacheType> func)
+        {
+            foreach (var ator in Caches)
+            {
+                func(ator.Value);
+            }
+        }
+
         public static FieldInfo GetField(System.Type type, string name)
         {
             if (type == null)
@@ -649,8 +657,11 @@
                 for (int i = 0; i < fields.Count; ++i)
                 {
                     var field = fields[i];
-                    var fieldType = field.FieldType;
                     if (field.IsStatic)
+                        continue;
+
+                    var fieldType = field.FieldType;
+                    if (fieldType.IsPointer || fieldType == typeof(System.IntPtr))
                         continue;
 #if USE_HOT
                     if (isILType && !allfields.Contains(field.Name))
@@ -658,6 +669,9 @@
 #endif
                     bool isPublic = field.IsPublic;
                     if (fieldType.BaseType == typeof(System.MulticastDelegate) || fieldType.BaseType == typeof(System.Delegate))
+                        continue;
+
+                    if (field.GetCustomAttributes(typeof(System.NonSerializedAttribute), false).Length != 0)
                         continue;
 #if USE_HOT
                     if (isPublic)
@@ -985,6 +999,20 @@
             while (bt != null)
             {
                 if (bt == baseType)
+                    return true;
+
+                bt = bt.BaseType;
+            }
+
+            return false;
+        }
+
+        public static bool isType(System.Type src, HashSet<System.Type> baseTypes)
+        {
+            var bt = src.BaseType;
+            while (bt != null)
+            {
+                if (baseTypes.Contains(bt))
                     return true;
 
                 bt = bt.BaseType;

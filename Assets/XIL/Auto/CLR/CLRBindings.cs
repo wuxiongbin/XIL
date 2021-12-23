@@ -11,6 +11,7 @@ namespace ILRuntime.Runtime.Generated
 
         internal static ILRuntime.Runtime.Enviorment.ValueTypeBinder<UnityEngine.Vector2> s_UnityEngine_Vector2_Binding_Binder = null;
         internal static ILRuntime.Runtime.Enviorment.ValueTypeBinder<UnityEngine.Vector3> s_UnityEngine_Vector3_Binding_Binder = null;
+        internal static ILRuntime.Runtime.Enviorment.ValueTypeBinder<UnityEngine.Quaternion> s_UnityEngine_Quaternion_Binding_Binder = null;
         internal static ILRuntime.Runtime.Enviorment.ValueTypeBinder<UnityEngine.Vector4> s_UnityEngine_Vector4_Binding_Binder = null;
         internal static ILRuntime.Runtime.Enviorment.ValueTypeBinder<UnityEngine.Vector2Int> s_UnityEngine_Vector2Int_Binding_Binder = null;
         internal static ILRuntime.Runtime.Enviorment.ValueTypeBinder<UnityEngine.Vector3Int> s_UnityEngine_Vector3Int_Binding_Binder = null;
@@ -19,7 +20,6 @@ namespace ILRuntime.Runtime.Generated
         internal static ILRuntime.Runtime.Enviorment.ValueTypeBinder<UnityEngine.Matrix4x4> s_UnityEngine_Matrix4x4_Binding_Binder = null;
         internal static ILRuntime.Runtime.Enviorment.ValueTypeBinder<UnityEngine.Color> s_UnityEngine_Color_Binding_Binder = null;
         internal static ILRuntime.Runtime.Enviorment.ValueTypeBinder<UnityEngine.Color32> s_UnityEngine_Color32_Binding_Binder = null;
-        internal static ILRuntime.Runtime.Enviorment.ValueTypeBinder<UnityEngine.Quaternion> s_UnityEngine_Quaternion_Binding_Binder = null;
 
         /// <summary>
         /// Initialize the CLR binding, please invoke this AFTER CLR Redirection registration
@@ -32,6 +32,14 @@ namespace ILRuntime.Runtime.Generated
             System_Object_Binding.Register(app);
             System_String_Binding.Register(app);
             System_Array_Binding.Register(app);
+            UnityEngine_Vector2_Binding.Register(app);
+            UnityEngine_Vector3_Binding.Register(app);
+            UnityEngine_Vector4_Binding.Register(app);
+            UnityEngine_Rect_Binding.Register(app);
+            UnityEngine_RectInt_Binding.Register(app);
+            UnityEngine_Vector2Int_Binding.Register(app);
+            UnityEngine_Vector3Int_Binding.Register(app);
+            UnityEngine_Quaternion_Binding.Register(app);
             UnityEngine_GameObject_Binding.Register(app);
             UnityEngine_Mathf_Binding.Register(app);
             UnityEngine_Ray_Binding.Register(app);
@@ -43,6 +51,7 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine_Texture2D_Binding.Register(app);
             UnityEngine_Shader_Binding.Register(app);
             UnityEngine_Renderer_Binding.Register(app);
+            UnityEngine_Graphics_Binding.Register(app);
             UnityEngine_RenderSettings_Binding.Register(app);
             UnityEngine_RenderTexture_Binding.Register(app);
             UnityEngine_MeshRenderer_Binding.Register(app);
@@ -62,6 +71,7 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine_MonoBehaviour_Binding.Register(app);
             UnityEngine_Component_Binding.Register(app);
             UnityEngine_Behaviour_Binding.Register(app);
+            UnityEngine_Color_Binding.Register(app);
             UnityEngine_Resources_Binding.Register(app);
             UnityEngine_AssetBundle_Binding.Register(app);
             UnityEngine_Camera_Binding.Register(app);
@@ -109,7 +119,6 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine_UI_Graphic_Binding.Register(app);
             UnityEngine_SceneManagement_SceneManager_Binding.Register(app);
             UnityEngine_EventSystems_UIBehaviour_Binding.Register(app);
-            UnityEngine_Color_Binding.Register(app);
             System_Collections_Generic_HashSet_1_Int64_Binding.Register(app);
             System_Collections_Generic_HashSet_1_Int32_Binding.Register(app);
             System_Collections_Generic_HashSet_1_String_Binding.Register(app);
@@ -120,30 +129,24 @@ namespace ILRuntime.Runtime.Generated
             System_Enum_Binding.Register(app);
             UnityEngine_Screen_Binding.Register(app);
             wxb_Hotfix_Binding.Register(app);
-            UnityEngine_Vector2_Binding.Register(app);
-            UnityEngine_Vector3_Binding.Register(app);
-            UnityEngine_Vector4_Binding.Register(app);
-            UnityEngine_Vector2Int_Binding.Register(app);
-            UnityEngine_Vector3Int_Binding.Register(app);
-            UnityEngine_Rect_Binding.Register(app);
-            UnityEngine_RectInt_Binding.Register(app);
             UnityEngine_Color32_Binding.Register(app);
-            UnityEngine_Quaternion_Binding.Register(app);
             System_Func_2_ILTypeInstance_Boolean_Binding.Register(app);
+            wxb_L_Binding.Register(app);
+            UnityEngine_Random_Binding.Register(app);
             TestInterface_Binding.Register(app);
             ITestInterface_Binding.Register(app);
             UnityEngine_GUILayout_Binding.Register(app);
             System_Collections_Generic_List_1_String_Binding_Enumerator_Binding.Register(app);
             System_IDisposable_Binding.Register(app);
             IL_RefOutParam_1_Int32_Binding.Register(app);
-            wxb_L_Binding.Register(app);
-            UnityEngine_Random_Binding.Register(app);
 
             ILRuntime.CLR.TypeSystem.CLRType __clrType = null;
             __clrType = (ILRuntime.CLR.TypeSystem.CLRType)app.GetType (typeof(UnityEngine.Vector2));
             s_UnityEngine_Vector2_Binding_Binder = __clrType.ValueTypeBinder as ILRuntime.Runtime.Enviorment.ValueTypeBinder<UnityEngine.Vector2>;
             __clrType = (ILRuntime.CLR.TypeSystem.CLRType)app.GetType (typeof(UnityEngine.Vector3));
             s_UnityEngine_Vector3_Binding_Binder = __clrType.ValueTypeBinder as ILRuntime.Runtime.Enviorment.ValueTypeBinder<UnityEngine.Vector3>;
+            __clrType = (ILRuntime.CLR.TypeSystem.CLRType)app.GetType (typeof(UnityEngine.Quaternion));
+            s_UnityEngine_Quaternion_Binding_Binder = __clrType.ValueTypeBinder as ILRuntime.Runtime.Enviorment.ValueTypeBinder<UnityEngine.Quaternion>;
             __clrType = (ILRuntime.CLR.TypeSystem.CLRType)app.GetType (typeof(UnityEngine.Vector4));
             s_UnityEngine_Vector4_Binding_Binder = __clrType.ValueTypeBinder as ILRuntime.Runtime.Enviorment.ValueTypeBinder<UnityEngine.Vector4>;
             __clrType = (ILRuntime.CLR.TypeSystem.CLRType)app.GetType (typeof(UnityEngine.Vector2Int));
@@ -160,8 +163,6 @@ namespace ILRuntime.Runtime.Generated
             s_UnityEngine_Color_Binding_Binder = __clrType.ValueTypeBinder as ILRuntime.Runtime.Enviorment.ValueTypeBinder<UnityEngine.Color>;
             __clrType = (ILRuntime.CLR.TypeSystem.CLRType)app.GetType (typeof(UnityEngine.Color32));
             s_UnityEngine_Color32_Binding_Binder = __clrType.ValueTypeBinder as ILRuntime.Runtime.Enviorment.ValueTypeBinder<UnityEngine.Color32>;
-            __clrType = (ILRuntime.CLR.TypeSystem.CLRType)app.GetType (typeof(UnityEngine.Quaternion));
-            s_UnityEngine_Quaternion_Binding_Binder = __clrType.ValueTypeBinder as ILRuntime.Runtime.Enviorment.ValueTypeBinder<UnityEngine.Quaternion>;
         }
 
         /// <summary>
@@ -171,6 +172,7 @@ namespace ILRuntime.Runtime.Generated
         {
             s_UnityEngine_Vector2_Binding_Binder = null;
             s_UnityEngine_Vector3_Binding_Binder = null;
+            s_UnityEngine_Quaternion_Binding_Binder = null;
             s_UnityEngine_Vector4_Binding_Binder = null;
             s_UnityEngine_Vector2Int_Binding_Binder = null;
             s_UnityEngine_Vector3Int_Binding_Binder = null;
@@ -179,7 +181,6 @@ namespace ILRuntime.Runtime.Generated
             s_UnityEngine_Matrix4x4_Binding_Binder = null;
             s_UnityEngine_Color_Binding_Binder = null;
             s_UnityEngine_Color32_Binding_Binder = null;
-            s_UnityEngine_Quaternion_Binding_Binder = null;
         }
     }
 }

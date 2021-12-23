@@ -81,62 +81,65 @@ namespace ILRuntime.Runtime.Generated
             method = type.GetMethod("get_isStreamedSceneAssetBundle", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, get_isStreamedSceneAssetBundle_18);
             args = new Type[]{typeof(System.String)};
+            method = type.GetMethod("SetAssetBundleDecryptKey", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, SetAssetBundleDecryptKey_19);
+            args = new Type[]{typeof(System.String)};
             method = type.GetMethod("Contains", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Contains_19);
+            app.RegisterCLRMethodRedirection(method, Contains_20);
             args = new Type[]{typeof(System.String)};
             method = methods.Where(t => t.Name.Equals("LoadAsset") && t.CheckMethodParams(args)).Single();
-            app.RegisterCLRMethodRedirection(method, LoadAsset_20);
+            app.RegisterCLRMethodRedirection(method, LoadAsset_21);
             args = new Type[]{typeof(System.String), typeof(System.Type)};
             method = type.GetMethod("LoadAsset", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LoadAsset_21);
+            app.RegisterCLRMethodRedirection(method, LoadAsset_22);
             args = new Type[]{typeof(System.String)};
             method = methods.Where(t => t.Name.Equals("LoadAssetAsync") && t.CheckMethodParams(args)).Single();
-            app.RegisterCLRMethodRedirection(method, LoadAssetAsync_22);
+            app.RegisterCLRMethodRedirection(method, LoadAssetAsync_23);
             args = new Type[]{typeof(System.String), typeof(System.Type)};
             method = type.GetMethod("LoadAssetAsync", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LoadAssetAsync_23);
+            app.RegisterCLRMethodRedirection(method, LoadAssetAsync_24);
             args = new Type[]{typeof(System.String)};
             method = methods.Where(t => t.Name.Equals("LoadAssetWithSubAssets") && t.CheckMethodParams(args)).Single();
-            app.RegisterCLRMethodRedirection(method, LoadAssetWithSubAssets_24);
+            app.RegisterCLRMethodRedirection(method, LoadAssetWithSubAssets_25);
             args = new Type[]{typeof(System.String), typeof(System.Type)};
             method = type.GetMethod("LoadAssetWithSubAssets", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LoadAssetWithSubAssets_25);
+            app.RegisterCLRMethodRedirection(method, LoadAssetWithSubAssets_26);
             args = new Type[]{typeof(System.String)};
             method = methods.Where(t => t.Name.Equals("LoadAssetWithSubAssetsAsync") && t.CheckMethodParams(args)).Single();
-            app.RegisterCLRMethodRedirection(method, LoadAssetWithSubAssetsAsync_26);
+            app.RegisterCLRMethodRedirection(method, LoadAssetWithSubAssetsAsync_27);
             args = new Type[]{typeof(System.String), typeof(System.Type)};
             method = type.GetMethod("LoadAssetWithSubAssetsAsync", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LoadAssetWithSubAssetsAsync_27);
+            app.RegisterCLRMethodRedirection(method, LoadAssetWithSubAssetsAsync_28);
             args = new Type[]{};
             method = methods.Where(t => t.Name.Equals("LoadAllAssets") && t.CheckMethodParams(args)).Single();
-            app.RegisterCLRMethodRedirection(method, LoadAllAssets_28);
+            app.RegisterCLRMethodRedirection(method, LoadAllAssets_29);
             args = new Type[]{typeof(System.Type)};
             method = type.GetMethod("LoadAllAssets", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LoadAllAssets_29);
+            app.RegisterCLRMethodRedirection(method, LoadAllAssets_30);
             args = new Type[]{};
             method = methods.Where(t => t.Name.Equals("LoadAllAssetsAsync") && t.CheckMethodParams(args)).Single();
-            app.RegisterCLRMethodRedirection(method, LoadAllAssetsAsync_30);
+            app.RegisterCLRMethodRedirection(method, LoadAllAssetsAsync_31);
             args = new Type[]{typeof(System.Type)};
             method = type.GetMethod("LoadAllAssetsAsync", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, LoadAllAssetsAsync_31);
+            app.RegisterCLRMethodRedirection(method, LoadAllAssetsAsync_32);
             args = new Type[]{typeof(System.Boolean)};
             method = type.GetMethod("Unload", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Unload_32);
+            app.RegisterCLRMethodRedirection(method, Unload_33);
             args = new Type[]{};
             method = type.GetMethod("GetAllAssetNames", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetAllAssetNames_33);
+            app.RegisterCLRMethodRedirection(method, GetAllAssetNames_34);
             args = new Type[]{};
             method = type.GetMethod("GetAllScenePaths", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetAllScenePaths_34);
+            app.RegisterCLRMethodRedirection(method, GetAllScenePaths_35);
             args = new Type[]{typeof(System.String), typeof(System.String), typeof(UnityEngine.BuildCompression), typeof(System.UInt32), typeof(UnityEngine.ThreadPriority)};
             method = type.GetMethod("RecompressAssetBundleAsync", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, RecompressAssetBundleAsync_35);
+            app.RegisterCLRMethodRedirection(method, RecompressAssetBundleAsync_36);
             args = new Type[]{};
             method = type.GetMethod("get_memoryBudgetKB", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_memoryBudgetKB_36);
+            app.RegisterCLRMethodRedirection(method, get_memoryBudgetKB_37);
             args = new Type[]{typeof(System.UInt32)};
             method = type.GetMethod("set_memoryBudgetKB", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_memoryBudgetKB_37);
+            app.RegisterCLRMethodRedirection(method, set_memoryBudgetKB_38);
 
 
 
@@ -572,7 +575,23 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* Contains_19(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* SetAssetBundleDecryptKey_19(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.String @password = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
+            __intp.Free(ptr_of_this_method);
+
+
+            UnityEngine.AssetBundle.SetAssetBundleDecryptKey(@password);
+
+            return __ret;
+        }
+
+        static StackObject* Contains_20(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -593,7 +612,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* LoadAsset_20(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* LoadAsset_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -617,7 +636,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* LoadAsset_21(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* LoadAsset_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -645,7 +664,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* LoadAssetAsync_22(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* LoadAssetAsync_23(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -669,7 +688,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* LoadAssetAsync_23(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* LoadAssetAsync_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -697,7 +716,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* LoadAssetWithSubAssets_24(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* LoadAssetWithSubAssets_25(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -716,7 +735,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* LoadAssetWithSubAssets_25(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* LoadAssetWithSubAssets_26(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -739,7 +758,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* LoadAssetWithSubAssetsAsync_26(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* LoadAssetWithSubAssetsAsync_27(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -763,7 +782,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* LoadAssetWithSubAssetsAsync_27(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* LoadAssetWithSubAssetsAsync_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -791,7 +810,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* LoadAllAssets_28(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* LoadAllAssets_29(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -806,7 +825,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* LoadAllAssets_29(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* LoadAllAssets_30(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -825,7 +844,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* LoadAllAssetsAsync_30(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* LoadAllAssetsAsync_31(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -845,7 +864,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* LoadAllAssetsAsync_31(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* LoadAllAssetsAsync_32(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -869,7 +888,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* Unload_32(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Unload_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -887,7 +906,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* GetAllAssetNames_33(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetAllAssetNames_34(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -902,7 +921,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* GetAllScenePaths_34(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetAllScenePaths_35(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -917,7 +936,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* RecompressAssetBundleAsync_35(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* RecompressAssetBundleAsync_36(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -953,7 +972,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_memoryBudgetKB_36(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_memoryBudgetKB_37(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -966,7 +985,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_memoryBudgetKB_37(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_memoryBudgetKB_38(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

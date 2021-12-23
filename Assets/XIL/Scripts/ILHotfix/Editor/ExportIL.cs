@@ -43,6 +43,7 @@ namespace wxb
 
         public static List<string> FixMarkIL()
         {
+            //return new List<string>(new string[] { "EditorExtensions.AutoEditorHorizontal" });
             var assembly = Assembly.Load("Assembly-CSharp");
             var types = assembly.GetTypes();
             List<string> classes = new List<string>();
@@ -88,9 +89,35 @@ namespace wxb
                         FullName.StartsWith("ILRuntime.") ||
                         FullName.StartsWith("wxb.") ||
                         FullName.StartsWith("Microsoft.") ||
+                        FullName.StartsWith("CsvCommon.") ||
+                        FullName.StartsWith("Network.") ||
+                        //FullName.StartsWith("Config.") ||
+                        FullName.StartsWith("DG.Tweening.") ||
+                        FullName.StartsWith("Common.") ||
+                        FullName.StartsWith("CommonBase.") ||
+                        FullName.StartsWith("UIWidgets.") ||
+                        FullName.StartsWith("EditorExtensions") ||
+                        FullName.StartsWith("XTools.") || 
+                        //FullName.StartsWith("Bale.") ||
+                        FullName.StartsWith("AutoIL.") ||
+                        FullName.StartsWith("LitJson.") ||
+                        FullName.StartsWith("Pool.") ||
                         FullName.StartsWith("<.") ||
+                        FullName.StartsWith("AStar.") ||
                         FullName.StartsWith("Mono."))
                         continue;
+                }
+
+                switch (t.FullName)
+                {
+                case "Log":
+                case "Logger":
+                case "Converter":
+                case "RALoad":
+                case "Layer":
+                    continue;
+                default:
+                    break;
                 }
 
                 classes.Add(t.FullName.Replace('+', '/'));

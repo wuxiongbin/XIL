@@ -179,83 +179,71 @@ namespace ILRuntime.Runtime.Generated
             method = type.GetMethod("SetMaximumPreMappedBufferCounts", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, SetMaximumPreMappedBufferCounts_51);
             args = new Type[]{};
-            method = type.GetMethod("AllocateAxisOfRotationAttribute", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, AllocateAxisOfRotationAttribute_52);
-            args = new Type[]{};
-            method = type.GetMethod("AllocateMeshIndexAttribute", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, AllocateMeshIndexAttribute_53);
-            args = new Type[]{typeof(UnityEngine.ParticleSystemCustomData)};
-            method = type.GetMethod("AllocateCustomDataAttribute", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, AllocateCustomDataAttribute_54);
-            args = new Type[]{};
             method = type.GetMethod("get_main", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_main_55);
+            app.RegisterCLRMethodRedirection(method, get_main_52);
             args = new Type[]{};
             method = type.GetMethod("get_emission", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_emission_56);
+            app.RegisterCLRMethodRedirection(method, get_emission_53);
             args = new Type[]{};
             method = type.GetMethod("get_shape", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_shape_57);
+            app.RegisterCLRMethodRedirection(method, get_shape_54);
             args = new Type[]{};
             method = type.GetMethod("get_velocityOverLifetime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_velocityOverLifetime_58);
+            app.RegisterCLRMethodRedirection(method, get_velocityOverLifetime_55);
             args = new Type[]{};
             method = type.GetMethod("get_limitVelocityOverLifetime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_limitVelocityOverLifetime_59);
+            app.RegisterCLRMethodRedirection(method, get_limitVelocityOverLifetime_56);
             args = new Type[]{};
             method = type.GetMethod("get_inheritVelocity", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_inheritVelocity_60);
-            args = new Type[]{};
-            method = type.GetMethod("get_lifetimeByEmitterSpeed", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_lifetimeByEmitterSpeed_61);
+            app.RegisterCLRMethodRedirection(method, get_inheritVelocity_57);
             args = new Type[]{};
             method = type.GetMethod("get_forceOverLifetime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_forceOverLifetime_62);
+            app.RegisterCLRMethodRedirection(method, get_forceOverLifetime_58);
             args = new Type[]{};
             method = type.GetMethod("get_colorOverLifetime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_colorOverLifetime_63);
+            app.RegisterCLRMethodRedirection(method, get_colorOverLifetime_59);
             args = new Type[]{};
             method = type.GetMethod("get_colorBySpeed", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_colorBySpeed_64);
+            app.RegisterCLRMethodRedirection(method, get_colorBySpeed_60);
             args = new Type[]{};
             method = type.GetMethod("get_sizeOverLifetime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_sizeOverLifetime_65);
+            app.RegisterCLRMethodRedirection(method, get_sizeOverLifetime_61);
             args = new Type[]{};
             method = type.GetMethod("get_sizeBySpeed", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_sizeBySpeed_66);
+            app.RegisterCLRMethodRedirection(method, get_sizeBySpeed_62);
             args = new Type[]{};
             method = type.GetMethod("get_rotationOverLifetime", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_rotationOverLifetime_67);
+            app.RegisterCLRMethodRedirection(method, get_rotationOverLifetime_63);
             args = new Type[]{};
             method = type.GetMethod("get_rotationBySpeed", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_rotationBySpeed_68);
+            app.RegisterCLRMethodRedirection(method, get_rotationBySpeed_64);
             args = new Type[]{};
             method = type.GetMethod("get_externalForces", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_externalForces_69);
+            app.RegisterCLRMethodRedirection(method, get_externalForces_65);
             args = new Type[]{};
             method = type.GetMethod("get_noise", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_noise_70);
+            app.RegisterCLRMethodRedirection(method, get_noise_66);
             args = new Type[]{};
             method = type.GetMethod("get_collision", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_collision_71);
+            app.RegisterCLRMethodRedirection(method, get_collision_67);
             args = new Type[]{};
             method = type.GetMethod("get_trigger", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_trigger_72);
+            app.RegisterCLRMethodRedirection(method, get_trigger_68);
             args = new Type[]{};
             method = type.GetMethod("get_subEmitters", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_subEmitters_73);
+            app.RegisterCLRMethodRedirection(method, get_subEmitters_69);
             args = new Type[]{};
             method = type.GetMethod("get_textureSheetAnimation", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_textureSheetAnimation_74);
+            app.RegisterCLRMethodRedirection(method, get_textureSheetAnimation_70);
             args = new Type[]{};
             method = type.GetMethod("get_lights", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_lights_75);
+            app.RegisterCLRMethodRedirection(method, get_lights_71);
             args = new Type[]{};
             method = type.GetMethod("get_trails", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_trails_76);
+            app.RegisterCLRMethodRedirection(method, get_trails_72);
             args = new Type[]{};
             method = type.GetMethod("get_customData", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_customData_77);
+            app.RegisterCLRMethodRedirection(method, get_customData_73);
 
 
 
@@ -1337,56 +1325,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* AllocateAxisOfRotationAttribute_52(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.ParticleSystem instance_of_this_method = (UnityEngine.ParticleSystem)typeof(UnityEngine.ParticleSystem).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.AllocateAxisOfRotationAttribute();
-
-            return __ret;
-        }
-
-        static StackObject* AllocateMeshIndexAttribute_53(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.ParticleSystem instance_of_this_method = (UnityEngine.ParticleSystem)typeof(UnityEngine.ParticleSystem).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.AllocateMeshIndexAttribute();
-
-            return __ret;
-        }
-
-        static StackObject* AllocateCustomDataAttribute_54(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.ParticleSystemCustomData @stream = (UnityEngine.ParticleSystemCustomData)typeof(UnityEngine.ParticleSystemCustomData).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)20);
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            UnityEngine.ParticleSystem instance_of_this_method = (UnityEngine.ParticleSystem)typeof(UnityEngine.ParticleSystem).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.AllocateCustomDataAttribute(@stream);
-
-            return __ret;
-        }
-
-        static StackObject* get_main_55(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_main_52(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1401,7 +1340,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_emission_56(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_emission_53(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1416,7 +1355,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_shape_57(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_shape_54(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1431,7 +1370,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_velocityOverLifetime_58(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_velocityOverLifetime_55(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1446,7 +1385,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_limitVelocityOverLifetime_59(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_limitVelocityOverLifetime_56(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1461,7 +1400,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_inheritVelocity_60(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_inheritVelocity_57(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1476,22 +1415,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_lifetimeByEmitterSpeed_61(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.ParticleSystem instance_of_this_method = (UnityEngine.ParticleSystem)typeof(UnityEngine.ParticleSystem).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            var result_of_this_method = instance_of_this_method.lifetimeByEmitterSpeed;
-
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
-        static StackObject* get_forceOverLifetime_62(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_forceOverLifetime_58(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1506,7 +1430,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_colorOverLifetime_63(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_colorOverLifetime_59(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1521,7 +1445,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_colorBySpeed_64(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_colorBySpeed_60(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1536,7 +1460,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_sizeOverLifetime_65(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_sizeOverLifetime_61(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1551,7 +1475,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_sizeBySpeed_66(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_sizeBySpeed_62(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1566,7 +1490,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_rotationOverLifetime_67(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_rotationOverLifetime_63(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1581,7 +1505,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_rotationBySpeed_68(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_rotationBySpeed_64(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1596,7 +1520,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_externalForces_69(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_externalForces_65(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1611,7 +1535,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_noise_70(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_noise_66(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1626,7 +1550,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_collision_71(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_collision_67(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1641,7 +1565,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_trigger_72(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_trigger_68(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1656,7 +1580,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_subEmitters_73(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_subEmitters_69(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1671,7 +1595,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_textureSheetAnimation_74(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_textureSheetAnimation_70(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1686,7 +1610,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_lights_75(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_lights_71(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1701,7 +1625,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_trails_76(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_trails_72(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -1716,7 +1640,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_customData_77(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_customData_73(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

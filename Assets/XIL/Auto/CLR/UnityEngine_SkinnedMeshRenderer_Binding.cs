@@ -73,15 +73,12 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(UnityEngine.Mesh)};
             method = type.GetMethod("BakeMesh", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, BakeMesh_16);
-            args = new Type[]{typeof(UnityEngine.Mesh), typeof(System.Boolean)};
-            method = type.GetMethod("BakeMesh", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, BakeMesh_17);
             args = new Type[]{};
             method = type.GetMethod("get_localBounds", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_localBounds_18);
+            app.RegisterCLRMethodRedirection(method, get_localBounds_17);
             args = new Type[]{typeof(UnityEngine.Bounds)};
             method = type.GetMethod("set_localBounds", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_localBounds_19);
+            app.RegisterCLRMethodRedirection(method, set_localBounds_18);
 
 
 
@@ -401,29 +398,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* BakeMesh_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 3);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Boolean @useScale = ptr_of_this_method->Value == 1;
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            UnityEngine.Mesh @mesh = (UnityEngine.Mesh)typeof(UnityEngine.Mesh).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            UnityEngine.SkinnedMeshRenderer instance_of_this_method = (UnityEngine.SkinnedMeshRenderer)typeof(UnityEngine.SkinnedMeshRenderer).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.BakeMesh(@mesh, @useScale);
-
-            return __ret;
-        }
-
-        static StackObject* get_localBounds_18(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_localBounds_17(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -438,7 +413,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* set_localBounds_19(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_localBounds_18(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

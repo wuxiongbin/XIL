@@ -32,44 +32,41 @@ namespace ILRuntime.Runtime.Generated
             method = type.GetMethod("get_attachedRigidbody", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, get_attachedRigidbody_2);
             args = new Type[]{};
-            method = type.GetMethod("get_attachedArticulationBody", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_attachedArticulationBody_3);
-            args = new Type[]{};
             method = type.GetMethod("get_isTrigger", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_isTrigger_4);
+            app.RegisterCLRMethodRedirection(method, get_isTrigger_3);
             args = new Type[]{typeof(System.Boolean)};
             method = type.GetMethod("set_isTrigger", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_isTrigger_5);
+            app.RegisterCLRMethodRedirection(method, set_isTrigger_4);
             args = new Type[]{};
             method = type.GetMethod("get_contactOffset", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_contactOffset_6);
+            app.RegisterCLRMethodRedirection(method, get_contactOffset_5);
             args = new Type[]{typeof(System.Single)};
             method = type.GetMethod("set_contactOffset", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_contactOffset_7);
+            app.RegisterCLRMethodRedirection(method, set_contactOffset_6);
             args = new Type[]{typeof(UnityEngine.Vector3)};
             method = type.GetMethod("ClosestPoint", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, ClosestPoint_8);
+            app.RegisterCLRMethodRedirection(method, ClosestPoint_7);
             args = new Type[]{};
             method = type.GetMethod("get_bounds", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_bounds_9);
+            app.RegisterCLRMethodRedirection(method, get_bounds_8);
             args = new Type[]{};
             method = type.GetMethod("get_sharedMaterial", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_sharedMaterial_10);
+            app.RegisterCLRMethodRedirection(method, get_sharedMaterial_9);
             args = new Type[]{typeof(UnityEngine.PhysicMaterial)};
             method = type.GetMethod("set_sharedMaterial", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_sharedMaterial_11);
+            app.RegisterCLRMethodRedirection(method, set_sharedMaterial_10);
             args = new Type[]{};
             method = type.GetMethod("get_material", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_material_12);
+            app.RegisterCLRMethodRedirection(method, get_material_11);
             args = new Type[]{typeof(UnityEngine.PhysicMaterial)};
             method = type.GetMethod("set_material", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, set_material_13);
+            app.RegisterCLRMethodRedirection(method, set_material_12);
             args = new Type[]{typeof(UnityEngine.Ray), typeof(UnityEngine.RaycastHit).MakeByRefType(), typeof(System.Single)};
             method = type.GetMethod("Raycast", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Raycast_14);
+            app.RegisterCLRMethodRedirection(method, Raycast_13);
             args = new Type[]{typeof(UnityEngine.Vector3)};
             method = type.GetMethod("ClosestPointOnBounds", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, ClosestPointOnBounds_15);
+            app.RegisterCLRMethodRedirection(method, ClosestPointOnBounds_14);
 
 
 
@@ -138,27 +135,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_attachedArticulationBody_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.Collider instance_of_this_method = (UnityEngine.Collider)typeof(UnityEngine.Collider).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
-            __intp.Free(ptr_of_this_method);
-
-            var result_of_this_method = instance_of_this_method.attachedArticulationBody;
-
-            object obj_result_of_this_method = result_of_this_method;
-            if(obj_result_of_this_method is CrossBindingAdaptorType)
-            {    
-                return ILIntepreter.PushObject(__ret, __mStack, ((CrossBindingAdaptorType)obj_result_of_this_method).ILInstance);
-            }
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
-        static StackObject* get_isTrigger_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_isTrigger_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -175,7 +152,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_isTrigger_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_isTrigger_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -193,7 +170,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_contactOffset_6(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_contactOffset_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -210,7 +187,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* set_contactOffset_7(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_contactOffset_6(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -228,7 +205,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* ClosestPoint_8(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* ClosestPoint_7(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -257,7 +234,7 @@ namespace ILRuntime.Runtime.Generated
             }
         }
 
-        static StackObject* get_bounds_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_bounds_8(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -272,7 +249,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* get_sharedMaterial_10(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_sharedMaterial_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -292,7 +269,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* set_sharedMaterial_11(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_sharedMaterial_10(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -311,7 +288,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* get_material_12(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_material_11(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -331,7 +308,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* set_material_13(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* set_material_12(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -350,7 +327,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* Raycast_14(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Raycast_13(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -437,7 +414,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* ClosestPointOnBounds_15(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* ClosestPointOnBounds_14(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

@@ -267,6 +267,7 @@ namespace ");
         static void GenerateCrossBindingMethodInfo(StringBuilder sb, List<MethodInfo> virtMethods)
         {
             int index = 0;
+            List<string> static_fields = new List<string>();
             foreach (var i in virtMethods)
             {
                 if (ShouldSkip(i))
@@ -291,8 +292,17 @@ namespace ");
                             sb.AppendLine(string.Format("            static CrossBindingMethodInfo m{0}_{1} = new CrossBindingMethodInfo(\"{0}\");", i.Name, index));
                     }
                 }
+
+                static_fields.Add($"m{i.Name}_{index}");
                 index++;
             }
+
+            sb.AppendLine("            public static void ReleaseStaticField()");
+            sb.AppendLine("            {");
+            int cnt = static_fields.Count;
+            for (int i = 0; i < cnt; ++i)
+                sb.AppendLine($"                {static_fields[i]} = null;");
+            sb.AppendLine("            }");
         }
 
         static bool ShouldSkip(MethodInfo info)

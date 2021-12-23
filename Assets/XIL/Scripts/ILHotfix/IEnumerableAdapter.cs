@@ -27,8 +27,10 @@ namespace wxb
                 return new Type[]
                 {
                     typeof(IEnumerable<object>),
+                    typeof(IEnumerable<ILTypeInstance>),
                     typeof(IEnumerable),
                     typeof(IEnumerator<object>),
+                    typeof(IEnumerator<ILTypeInstance>),
                     typeof(IEnumerator),
                     typeof(IDisposable)
                 };
@@ -50,8 +52,10 @@ namespace wxb
 
         public class Adapter : 
             IEnumerable<object>,
+            IEnumerable<ILTypeInstance>,
             IEnumerable,
             IEnumerator<object>,
+            IEnumerator<ILTypeInstance>,
             IEnumerator,
             IDisposable,
             CrossBindingAdaptorType
@@ -99,6 +103,14 @@ namespace wxb
                 }
             }
 
+            ILTypeInstance IEnumerator<ILTypeInstance>.Current
+            {
+                get
+                {
+                    return (ILTypeInstance)mCurrent_1.Invoke(instance);
+                }
+            }
+
             void IDisposable.Dispose()
             {
                 mDispose.Invoke(instance);
@@ -122,6 +134,11 @@ namespace wxb
             IEnumerator IEnumerable.GetEnumerator()
             {
                 return mGetEnumerator_1.Invoke(instance);
+            }
+
+            IEnumerator<ILTypeInstance> IEnumerable<ILTypeInstance>.GetEnumerator()
+            {
+                return (IEnumerator<ILTypeInstance>)mGetEnumerator_1.Invoke(instance);
             }
         }
     }

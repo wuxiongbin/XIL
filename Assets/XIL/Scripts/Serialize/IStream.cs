@@ -7,6 +7,10 @@ namespace wxb
         int WriteRemain { get; }
         int ReadSize { get; }
 
+        // Ð´Èë×Ö¶ÎÃû
+        void WriteFieldName(string value);
+        string ReadFieldName();
+
         void WriteVarInt32(int value);
         int ReadVarInt32();
 

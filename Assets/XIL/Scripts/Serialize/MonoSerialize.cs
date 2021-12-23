@@ -3,9 +3,7 @@ using System.Collections.Generic;
 
 namespace wxb
 {
-    using wxb.IL;
-
-    public class MonoStream : WRStream
+    public class MonoStream : WRStream, IStream
     {
         public MonoStream(int size, List<Object> objs) : base(size)
         {
@@ -38,7 +36,7 @@ namespace wxb
             return pos;
         }
 
-        public override void WriteUnityObject(UnityEngine.Object obj)
+        public void WriteUnityObject(Object obj)
         {
             if (obj == null)
             {
@@ -60,13 +58,23 @@ namespace wxb
             WriteVarInt32(pos);
         }
 
-        public override UnityEngine.Object ReadUnityObject()
+        public Object ReadUnityObject()
         {
             var pos = ReadVarInt32();
             if (pos == 0)
                 return null;
 
             return objs[pos - 1];
+        }
+
+        void IStream.WriteFieldName(string value)
+        {
+            WriteString(value);
+        }
+
+        string IStream.ReadFieldName()
+        {
+            return ReadString();
         }
     }
 

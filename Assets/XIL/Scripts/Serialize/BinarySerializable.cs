@@ -342,7 +342,7 @@ namespace wxb
         // 写入流
         public static IStream WriteTo(object obj)
         {
-            var stream = new WRStream(512);
+            var stream = new DefaultStream(512);
             GetByInstance(obj).WriteTo(obj, stream);
             return stream;
         }
@@ -461,7 +461,7 @@ namespace wxb
             var cnt = (int)(reader.BaseStream.Length - reader.BaseStream.Position);
             byte[] bytes = new byte[cnt];
             reader.Read(bytes, 0, cnt);
-            wxb.WRStream stream = new WRStream(bytes);
+            var stream = new DefaultStream(bytes);
             stream.WritePos = cnt;
             return stream;
         }

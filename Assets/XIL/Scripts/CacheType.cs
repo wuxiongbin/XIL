@@ -14,6 +14,8 @@
         Dictionary<string, MemberInfo> NameToMethodBase = new Dictionary<string, MemberInfo>();
         List<FieldInfo> serializes; // 序列化的字段
 
+        public IList<FieldInfo> Serializes { get { return serializes; } }
+
         static readonly BindingFlags Flags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
 
         struct Ctor

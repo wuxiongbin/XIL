@@ -129,7 +129,7 @@ namespace wxb
 #if !CloseNested
             public string ToBase64()
             {
-                WRStream stream = new WRStream(512);
+                DefaultStream stream = new DefaultStream(512);
                 Write(stream);
 
                 return System.Convert.ToBase64String(stream.GetBytes());
@@ -140,7 +140,7 @@ namespace wxb
                 TypeDesc td = new TypeDesc();
                 {
                     var bytes = System.Convert.FromBase64String(base64);
-                    WRStream stream = new WRStream(bytes);
+                    DefaultStream stream = new DefaultStream(bytes);
                     stream.WritePos = bytes.Length;
                     td.Reader(stream);
                 }

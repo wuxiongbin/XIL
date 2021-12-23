@@ -68,7 +68,7 @@ namespace wxb
                 ts = BinarySerializable.GetByFieldInfo(field);
 
                 stream.WriteByte(ts.typeFlag); // 类型标识
-                stream.WriteString(field.Name);
+                stream.WriteFieldName(field.Name);
 
                 using (new RLStream(stream))
                 {
@@ -97,7 +97,7 @@ namespace wxb
             do
             {
                 byte typeFlag = stream.ReadByte();
-                var fieldName = stream.ReadString();
+                var fieldName = stream.ReadFieldName();
                 var length = RLStream.ReadLength(stream);
 
                 int endPos = stream.WritePos;
