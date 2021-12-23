@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,10 +63,17 @@ namespace ILRuntime.Reflection
             get
             {
                 MethodAttributes ma = MethodAttributes.Public;
+                if (definition.IsPrivate)
+                    ma = MethodAttributes.Private;
+                else if (definition.IsFamily)
+                    ma = MethodAttributes.Family;
                 if (method.IsStatic)
                     ma |= MethodAttributes.Static;
+                if (method.IsVirtual)
+                    ma |= MethodAttributes.Virtual;
                 if (method.Definition.IsAbstract)
                     ma |= MethodAttributes.Abstract;
+            
                 return ma;
             }
         }
@@ -176,7 +183,10 @@ namespace ILRuntime.Reflection
         {
             get
             {
-                return method.ReturnType?.ReflectionType;
+                if (method.ReturnType != null)
+                    return method.ReturnType.ReflectionType;
+                else
+                    return null;
             }
         }
 

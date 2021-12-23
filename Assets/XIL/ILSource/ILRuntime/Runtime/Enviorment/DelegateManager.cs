@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -235,6 +235,37 @@ namespace ILRuntime.Runtime.Enviorment
                 sb.AppendLine("});");
                 throw new KeyNotFoundException(sb.ToString());
             }
+        }
+
+        internal IDelegateAdapter FindDelegateAdapter(CLRType type, ILTypeInstance ins, ILMethod ilMethod)
+        {
+            IDelegateAdapter dele;
+            if (ins != null)
+            {
+                dele = (ins).GetDelegateAdapter(ilMethod);
+                if (dele == null)
+                {
+                    var invokeMethod =
+                        type.GetMethod("Invoke",
+                            ilMethod.ParameterCount);
+                    if (invokeMethod == null && ilMethod.IsExtend)
+                    {
+                        invokeMethod = type.GetMethod("Invoke", ilMethod.ParameterCount - 1);
+                    }
+                    dele = appdomain.DelegateManager.FindDelegateAdapter(
+                        ins, ilMethod, invokeMethod);
+                }
+            }
+            else
+            {
+                if (ilMethod.DelegateAdapter == null)
+                {
+                    var invokeMethod = type.GetMethod("Invoke", ilMethod.ParameterCount);
+                    ilMethod.DelegateAdapter = appdomain.DelegateManager.FindDelegateAdapter(null, ilMethod, invokeMethod);
+                }
+                dele = ilMethod.DelegateAdapter;
+            }
+            return dele;
         }
 
         /// <summary>

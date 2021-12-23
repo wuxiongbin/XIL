@@ -184,6 +184,12 @@ namespace ILRuntime.Runtime.Enviorment
             RegisterCLRMethodRedirection(mi, CLRRedirections.GetTypeFromHandle);
             mi = typeof(object).GetMethod("GetType");
             RegisterCLRMethodRedirection(mi, CLRRedirections.ObjectGetType);
+            mi = typeof(Delegate).GetMethod("CreateDelegate", new Type[] { typeof(Type), typeof(MethodInfo) });
+            RegisterCLRMethodRedirection(mi, CLRRedirections.DelegateCreateDelegate);
+            mi = typeof(Delegate).GetMethod("CreateDelegate", new Type[] { typeof(Type), typeof(object), typeof(string) });
+            RegisterCLRMethodRedirection(mi, CLRRedirections.DelegateCreateDelegate2);
+            mi = typeof(Delegate).GetMethod("CreateDelegate", new Type[] { typeof(Type), typeof(object), typeof(MethodInfo) });
+            RegisterCLRMethodRedirection(mi, CLRRedirections.DelegateCreateDelegate3);
             dMgr = new DelegateManager(this);
             dMgr.RegisterDelegateConvertor<Action>((dele) =>
             {
@@ -586,8 +592,9 @@ namespace ILRuntime.Runtime.Enviorment
                     for (int i = 0; i < genericArguments.Length; i++)
                     {
                         string key = null;
-                        if (bt is ILType ilt)
+                        if (bt is ILType)
                         {
+                            ILType ilt = (ILType)bt;
                             key = ilt.TypeDefinition.GenericParameters[i].FullName;
                         }
                         else
@@ -713,10 +720,17 @@ namespace ILRuntime.Runtime.Enviorment
                         depth++;
                         if (depth == 1)
                         {
-                            baseType = sb.ToString();
-                            sb.Length = 0;
-                            genericParams = new List<string>();
-                            continue;
+                            if (isArray && sb.Length == 0)
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                baseType = sb.ToString();
+                                sb.Length = 0;
+                                genericParams = new List<string>();
+                                continue;
+                            }
                         }
                     }
                     if (i == ',' && depth == 1)
@@ -1151,7 +1165,7 @@ namespace ILRuntime.Runtime.Enviorment
             return null;
         }
 
-        ILIntepreter RequestILIntepreter()
+        internal ILIntepreter RequestILIntepreter()
         {
             ILIntepreter inteptreter = null;
             lock (freeIntepreters)
@@ -1304,7 +1318,7 @@ namespace ILRuntime.Runtime.Enviorment
                     genericArguments = new IType[gim.GenericArguments.Count];
                     for (int i = 0; i < genericArguments.Length; i++)
                     {
-                        if (gim.GenericArguments[i].IsGenericParameter)
+                        if (gim.GenericArguments[i].ContainsGenericParameter)
                             invalidToken = true;
                         var gt = GetType(gim.GenericArguments[i], contextType, contextMethod);
                         if (gt == null)

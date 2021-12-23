@@ -421,7 +421,7 @@ namespace wxb
             appdomain.RegisterCrossBindingAdaptor(new IComparer_1_ILTypeInstanceAdapter());
             appdomain.DelegateManager.RegisterMethodDelegate<wxb.IStream>();
 
-            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Color), new Color32Binder());
+            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Color), new ColorBinder());
             appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Color32), new Color32Binder());
             appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector2), new Vector2Binder());
             appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector3), new Vector3Binder());

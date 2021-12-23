@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -407,8 +407,9 @@ namespace ILRuntime.CLR.Method
                     case OpCodeEnum.Callvirt:
                         {
                             var m = appdomain.GetMethod(ins.TokenInteger);
-                            if (m is ILMethod ilm)
+                            if (m is ILMethod)
                             {
+                                ILMethod ilm = (ILMethod)m;
                                 //如果参数alreadyPrewarmed不为空，则不仅prewarm当前方法，还会递归prewarm所有子调用
                                 //如果参数alreadyPrewarmed为空，则只prewarm当前方法
                                 if (alreadyPrewarmed != null)
@@ -416,8 +417,9 @@ namespace ILRuntime.CLR.Method
                                     ilm.Prewarm(alreadyPrewarmed);
                                 }
                             }
-                            else if (m is CLRMethod clrm)
+                            else if (m is CLRMethod)
                             {
+                                CLRMethod clrm = (CLRMethod)m;
                                 ILRuntime.CLR.Utils.Extensions.GetTypeFlags(clrm.DeclearingType.TypeForCLR);
                             }
                         }
@@ -458,8 +460,9 @@ namespace ILRuntime.CLR.Method
                     case OpCodeREnum.Callvirt:
                         {
                             var m = appdomain.GetMethod(ins.Operand);
-                            if (m is ILMethod ilm)
+                            if (m is ILMethod)
                             {
+                                ILMethod ilm = (ILMethod)m;
                                 //如果参数alreadyPrewarmed不为空，则不仅prewarm当前方法，还会递归prewarm所有子调用
                                 //如果参数alreadyPrewarmed为空，则只prewarm当前方法
                                 if (alreadyPrewarmed != null)
@@ -467,8 +470,9 @@ namespace ILRuntime.CLR.Method
                                     ilm.Prewarm(alreadyPrewarmed);
                                 }
                             }
-                            else if (m is CLRMethod clrm)
+                            else if (m is CLRMethod)
                             {
+                                CLRMethod clrm = (CLRMethod)m;
                                 ILRuntime.CLR.Utils.Extensions.GetTypeFlags(clrm.DeclearingType.TypeForCLR);
                             }
                         }
@@ -512,8 +516,9 @@ namespace ILRuntime.CLR.Method
                 {
                     t = appdomain.GetType(v.VariableType, DeclearingType, this);
                 }
-                if (t is CLRType ct)
+                if (t is CLRType)
                 {
+                    CLRType ct = (CLRType)t;
                     var fields = ct.Fields;
                     ILRuntime.CLR.Utils.Extensions.GetTypeFlags(ct.TypeForCLR);
                 }
@@ -564,7 +569,7 @@ namespace ILRuntime.CLR.Method
                         var eh = def.Body.ExceptionHandlers[i];
                         ExceptionHandler e = new ExceptionHandler();
                         e.HandlerStart = addr[eh.HandlerStart];
-                        e.HandlerEnd = addr[eh.HandlerEnd] - 1;
+                        e.HandlerEnd = eh.HandlerEnd != null ? addr[eh.HandlerEnd] - 1 : def.Body.Instructions.Count - 1;
                         e.TryStart = addr[eh.TryStart];
                         e.TryEnd = addr[eh.TryEnd] - 1;
                         switch (eh.HandlerType)
@@ -948,7 +953,7 @@ namespace ILRuntime.CLR.Method
                         isFirst = false;
                     else
                         sb.Append(", ");
-                    sb.Append(parameters[i].Name);
+                    sb.Append(parameters[i].FullName);
                     sb.Append(' ');
                     sb.Append(def.Parameters[i].Name);
                 }
@@ -963,6 +968,20 @@ namespace ILRuntime.CLR.Method
             if (hashCode == -1)
                 hashCode = System.Threading.Interlocked.Add(ref instance_id, 1);
             return hashCode;
+        }
+
+
+        bool? isExtend;
+        public bool IsExtend
+        {
+            get
+            {
+                if (isExtend == null)
+                {
+                    isExtend = this.IsExtendMethod();
+                }
+                return isExtend.Value;
+            }
         }
     }
 }

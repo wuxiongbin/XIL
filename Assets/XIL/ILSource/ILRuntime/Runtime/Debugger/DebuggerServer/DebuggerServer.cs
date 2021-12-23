@@ -18,6 +18,7 @@ namespace ILRuntime.Runtime.Debugger
         TcpListener listener;
         //HashSet<Session<T>> clients = new HashSet<Session<T>>();
         bool isUp = false;
+        bool shutdown = false;
         int maxNewConnections = 1;
         int port;
         Thread mainLoop;
@@ -43,6 +44,7 @@ namespace ILRuntime.Runtime.Debugger
 
         public virtual bool Start()
         {
+            shutdown = false;
             mainLoop = new Thread(new ThreadStart(this.NetworkLoop));
             mainLoop.Start();
 
@@ -59,9 +61,9 @@ namespace ILRuntime.Runtime.Debugger
         public virtual void Stop()
         {
             isUp = false;
+            shutdown = true;
             if (this.listener != null)
                 this.listener.Stop();
-            mainLoop.Abort();
             mainLoop = null;
             if (clientSocket != null)
                 clientSocket.Close();
@@ -69,7 +71,7 @@ namespace ILRuntime.Runtime.Debugger
 
         void NetworkLoop()
         {
-            while (true)
+            while (!shutdown)
             {
                 try
                 {
