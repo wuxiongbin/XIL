@@ -252,7 +252,7 @@ namespace wxb
                 types.UnionWith(assembly.GetTypes());
             }
 
-            ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.CrawlAppdomain(wxb.DllInitByEditor.appdomain, types);
+            ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.CrawlAppdomain(wxb.DllInitByEditor.appdomain);
 #endif
             foreach (var assemblie in assemblies)
             {

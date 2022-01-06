@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -331,7 +331,341 @@ MonoBehaviour:
     - {fileID: 1922379585}
     - {fileID: 1203464346}
     - {fileID: 1360686447}
-    bytes: 011402676f0101140663616d657261010214056c6967687401030f0874657374456e756d0103c80576616c75651f0a54657374315365726961010a037878780400000000010576616c75650100640676616c7565734401c8022a0954657374536572696101010378787802de010d0676616c7565730403657765010576616c756502c302150953657269614261736501010576616c756502ba1100076e6f736d6172740a01010576616c7565010464086e6f736d61727473030100006407737472696e677303010d006408737472696e677373030164006404696e7473030101006405696e7473730301640064077374724c69737403010d0064087374724c69737473030164006407696e744c69737407010102010001006408696e744c697374731301640207010102010001000701010201000100
+    bytes: 016404676f7373030164006403676f73030114001402676f01016406676f4c69737403011400140663616d657261010214056c6967687401030f0874657374456e756d0103c80576616c75651f0a54657374315365726961010a037878780400000000010576616c75650100640676616c7565734401c8022a0954657374536572696101010378787802de010d0676616c7565730403657765010576616c756502c302150953657269614261736501010576616c756502ba1100076e6f736d6172740a01010576616c7565010464086e6f736d61727473030100006407737472696e677303010d006408737472696e677373030164006404696e7473030101006405696e7473730301640064077374724c69737403010d0064087374724c69737473030164006407696e744c69737407010102010001006408696e744c697374731301640207010102010001000701010201000100
+    anyValue:
+      dataKey: .root
+      typeName: 
+      valueType: 1
+      typeFlags: 0
+      baseValue: 
+      unityObj: {fileID: 0}
+      listCount: 0
+      elementTypeFlags: 0
+      fields:
+      - dataKey: goss
+        typeName: 
+        valueType: 1
+        typeFlags: 100
+        baseValue: 
+        unityObj: {fileID: 0}
+        listCount: 0
+        elementTypeFlags: 100
+        fields: []
+      - dataKey: gos
+        typeName: 
+        valueType: 1
+        typeFlags: 100
+        baseValue: 
+        unityObj: {fileID: 0}
+        listCount: 0
+        elementTypeFlags: 20
+        fields: []
+      - dataKey: go
+        typeName: 
+        valueType: 0
+        typeFlags: 20
+        baseValue: 
+        unityObj: {fileID: 1922379585}
+        listCount: 0
+        elementTypeFlags: 0
+        fields: []
+      - dataKey: goList
+        typeName: 
+        valueType: 1
+        typeFlags: 100
+        baseValue: 
+        unityObj: {fileID: 0}
+        listCount: 0
+        elementTypeFlags: 20
+        fields: []
+      - dataKey: camera
+        typeName: 
+        valueType: 0
+        typeFlags: 20
+        baseValue: 
+        unityObj: {fileID: 1203464346}
+        listCount: 0
+        elementTypeFlags: 0
+        fields: []
+      - dataKey: light
+        typeName: 
+        valueType: 0
+        typeFlags: 20
+        baseValue: 
+        unityObj: {fileID: 1360686447}
+        listCount: 0
+        elementTypeFlags: 0
+        fields: []
+      - dataKey: testEnum
+        typeName: 
+        valueType: 0
+        typeFlags: 15
+        baseValue: 3
+        unityObj: {fileID: 0}
+        listCount: 0
+        elementTypeFlags: 0
+        fields: []
+      - dataKey: value
+        typeName: Test1Seria
+        valueType: 1
+        typeFlags: 200
+        baseValue: 
+        unityObj: {fileID: 0}
+        listCount: 0
+        elementTypeFlags: 0
+        fields:
+        - dataKey: xxx
+          typeName: 
+          valueType: 0
+          typeFlags: 10
+          baseValue: 0
+          unityObj: {fileID: 0}
+          listCount: 0
+          elementTypeFlags: 0
+          fields: []
+        - dataKey: value
+          typeName: 
+          valueType: 0
+          typeFlags: 1
+          baseValue: 0
+          unityObj: {fileID: 0}
+          listCount: 0
+          elementTypeFlags: 0
+          fields: []
+      - dataKey: values
+        typeName: 
+        valueType: 1
+        typeFlags: 100
+        baseValue: 
+        unityObj: {fileID: 0}
+        listCount: 2
+        elementTypeFlags: 200
+        fields:
+        - dataKey: '[0]'
+          typeName: TestSeria
+          valueType: 1
+          typeFlags: 200
+          baseValue: 
+          unityObj: {fileID: 0}
+          listCount: 0
+          elementTypeFlags: 0
+          fields:
+          - dataKey: xxx
+            typeName: 
+            valueType: 0
+            typeFlags: 1
+            baseValue: 222
+            unityObj: {fileID: 0}
+            listCount: 0
+            elementTypeFlags: 0
+            fields: []
+          - dataKey: values
+            typeName: 
+            valueType: 0
+            typeFlags: 13
+            baseValue: ewe
+            unityObj: {fileID: 0}
+            listCount: 0
+            elementTypeFlags: 0
+            fields: []
+          - dataKey: value
+            typeName: 
+            valueType: 0
+            typeFlags: 1
+            baseValue: 323
+            unityObj: {fileID: 0}
+            listCount: 0
+            elementTypeFlags: 0
+            fields: []
+        - dataKey: '[1]'
+          typeName: SeriaBase
+          valueType: 1
+          typeFlags: 200
+          baseValue: 
+          unityObj: {fileID: 0}
+          listCount: 0
+          elementTypeFlags: 0
+          fields:
+          - dataKey: value
+            typeName: 
+            valueType: 0
+            typeFlags: 1
+            baseValue: 2234
+            unityObj: {fileID: 0}
+            listCount: 0
+            elementTypeFlags: 0
+            fields: []
+      - dataKey: nosmart
+        typeName: 
+        valueType: 1
+        typeFlags: 0
+        baseValue: 
+        unityObj: {fileID: 0}
+        listCount: 0
+        elementTypeFlags: 0
+        fields:
+        - dataKey: value
+          typeName: 
+          valueType: 0
+          typeFlags: 1
+          baseValue: 4
+          unityObj: {fileID: 0}
+          listCount: 0
+          elementTypeFlags: 0
+          fields: []
+      - dataKey: nosmarts
+        typeName: 
+        valueType: 1
+        typeFlags: 100
+        baseValue: 
+        unityObj: {fileID: 0}
+        listCount: 0
+        elementTypeFlags: 0
+        fields: []
+      - dataKey: strings
+        typeName: 
+        valueType: 1
+        typeFlags: 100
+        baseValue: 
+        unityObj: {fileID: 0}
+        listCount: 0
+        elementTypeFlags: 13
+        fields: []
+      - dataKey: stringss
+        typeName: 
+        valueType: 1
+        typeFlags: 100
+        baseValue: 
+        unityObj: {fileID: 0}
+        listCount: 0
+        elementTypeFlags: 100
+        fields: []
+      - dataKey: ints
+        typeName: 
+        valueType: 1
+        typeFlags: 100
+        baseValue: 
+        unityObj: {fileID: 0}
+        listCount: 0
+        elementTypeFlags: 1
+        fields: []
+      - dataKey: intss
+        typeName: 
+        valueType: 1
+        typeFlags: 100
+        baseValue: 
+        unityObj: {fileID: 0}
+        listCount: 0
+        elementTypeFlags: 100
+        fields: []
+      - dataKey: strList
+        typeName: 
+        valueType: 1
+        typeFlags: 100
+        baseValue: 
+        unityObj: {fileID: 0}
+        listCount: 0
+        elementTypeFlags: 13
+        fields: []
+      - dataKey: strLists
+        typeName: 
+        valueType: 1
+        typeFlags: 100
+        baseValue: 
+        unityObj: {fileID: 0}
+        listCount: 0
+        elementTypeFlags: 100
+        fields: []
+      - dataKey: intList
+        typeName: 
+        valueType: 1
+        typeFlags: 100
+        baseValue: 
+        unityObj: {fileID: 0}
+        listCount: 2
+        elementTypeFlags: 1
+        fields:
+        - dataKey: '[0]'
+          typeName: 
+          valueType: 0
+          typeFlags: 1
+          baseValue: 0
+          unityObj: {fileID: 0}
+          listCount: 0
+          elementTypeFlags: 0
+          fields: []
+        - dataKey: '[1]'
+          typeName: 
+          valueType: 0
+          typeFlags: 1
+          baseValue: 0
+          unityObj: {fileID: 0}
+          listCount: 0
+          elementTypeFlags: 0
+          fields: []
+      - dataKey: intLists
+        typeName: 
+        valueType: 1
+        typeFlags: 100
+        baseValue: 
+        unityObj: {fileID: 0}
+        listCount: 2
+        elementTypeFlags: 100
+        fields:
+        - dataKey: '[0]'
+          typeName: 
+          valueType: 1
+          typeFlags: 100
+          baseValue: 
+          unityObj: {fileID: 0}
+          listCount: 2
+          elementTypeFlags: 1
+          fields:
+          - dataKey: '[0]'
+            typeName: 
+            valueType: 0
+            typeFlags: 1
+            baseValue: 0
+            unityObj: {fileID: 0}
+            listCount: 0
+            elementTypeFlags: 0
+            fields: []
+          - dataKey: '[1]'
+            typeName: 
+            valueType: 0
+            typeFlags: 1
+            baseValue: 0
+            unityObj: {fileID: 0}
+            listCount: 0
+            elementTypeFlags: 0
+            fields: []
+        - dataKey: '[1]'
+          typeName: 
+          valueType: 1
+          typeFlags: 100
+          baseValue: 
+          unityObj: {fileID: 0}
+          listCount: 2
+          elementTypeFlags: 1
+          fields:
+          - dataKey: '[0]'
+            typeName: 
+            valueType: 0
+            typeFlags: 1
+            baseValue: 0
+            unityObj: {fileID: 0}
+            listCount: 0
+            elementTypeFlags: 0
+            fields: []
+          - dataKey: '[1]'
+            typeName: 
+            valueType: 0
+            typeFlags: 1
+            baseValue: 0
+            unityObj: {fileID: 0}
+            listCount: 0
+            elementTypeFlags: 0
+            fields: []
 --- !u!4 &1922379587
 Transform:
   m_ObjectHideFlags: 0

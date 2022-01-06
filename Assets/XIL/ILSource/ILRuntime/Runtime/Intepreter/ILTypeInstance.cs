@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -483,7 +483,7 @@ namespace ILRuntime.Runtime.Intepreter
                     if (obj is ILTypeInstance)
                     {
                         ILTypeInstance ili = (ILTypeInstance)obj;
-                        if (ili.type.IsValueType)
+                        if (ili.type != null && ili.type.IsValueType)
                         {
                             intp.AllocValueType(esp, ili.type);
                             var dst = ILIntepreter.ResolveReference(esp);

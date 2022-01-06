@@ -43,6 +43,30 @@ namespace hot
         [ReplaceFunction()]
         static void Start(HelloWorld world)
         {
+            //Vector2 a = new Vector2(1, 2);
+            //Vector2 b = new Vector2(3, 4);
+
+            //var c = a + b;
+
+            //Vector4 v = new Vector4(1, 2);
+            //Vector4 v1 = new Vector4(1, 2,3);
+            //Vector4 v2 = new Vector4(1, 2, 3, 4);
+            //UnityEngine.Debug.Log($"v:{v} v1:{v1}, v2:{v2}");
+            //Vector4 v4 = new Vector4(1,2,3,4);
+            //Vector2 v2 = v4;
+            //Vector3 v3 = v4;
+            //UnityEngine.Debug.Log($"v2:{v2}, v3:{v3} v4:{v4}");
+
+            Vector2Int a = new Vector2Int(1, 2);
+            UnityEngine.Debug.Log($"down :{Vector2Int.down}");
+            UnityEngine.Debug.Log($"up :{Vector2Int.up}");
+            UnityEngine.Debug.Log($"one :{Vector2Int.one}");
+            UnityEngine.Debug.Log($"zero :{Vector2Int.zero}");
+            UnityEngine.Debug.Log($"left :{Vector2Int.left}");
+            UnityEngine.Debug.Log($"right :{Vector2Int.right}");
+            UnityEngine.Debug.Log($"a[0] :{a[0]}");
+            UnityEngine.Debug.Log($"a[1] :{a[1]}");
+
             UnityEngine.Debug.LogFormat("Hot Start(HelloWorld world)");
             RefType refType = new RefType((object)world);
             refType.GetField<List<string>>("onTexts").Add("HotHelloWorld Start");
@@ -57,12 +81,26 @@ namespace hot
         [ReplaceFunction()]
         static void OnGUI(HelloWorld world)
         {
+            if (GUILayout.Button("测试结构体"))
+            {
+                TestStrcut();
+            }
             UnityEngine.GUILayout.Label("这里是补丁里的逻辑处理！！！");
 
             RefType refType = new RefType((object)world);
             var texts = refType.GetField<List<string>>("onTexts");
             foreach (var ator in texts)
                 UnityEngine.GUILayout.Label(ator);
+        }
+
+        static void TestStrcut()
+        {
+            for (int i = 0; i < 100000; ++i)
+            {
+                Vector2 a = new Vector2(1, 2);
+                Vector2 b = new Vector2(1, 2);
+                Vector2 c = a + b;
+            }
         }
 
         // AutoInitAndRelease属性

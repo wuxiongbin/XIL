@@ -164,7 +164,7 @@ namespace wxb
             types.UnionWith(ValueTypes);
 
             DllInitByEditor.LoadDLL();
-            ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.CrawlAppdomain(wxb.DllInitByEditor.appdomain, types);
+            ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.CrawlAppdomain(wxb.DllInitByEditor.appdomain);
             types.Remove(typeof(UnityEngine.Debug));
             types.Remove(typeof(System.Activator));
             ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(
