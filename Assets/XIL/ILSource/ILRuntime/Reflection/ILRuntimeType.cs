@@ -220,9 +220,9 @@ namespace ILRuntime.Reflection
                 InitializeCustomAttribute();
             if (inherit && BaseType != null)
             {
-                List<object> result = new List<object>();
+                List<Attribute> result = new List<Attribute>();
                 result.AddRange(customAttributes);
-                result.AddRange(BaseType.GetCustomAttributes(inherit));
+                result.AddRange(BaseType.GetCustomAttributes(inherit) as Attribute[]);
                 return result.ToArray();
             }
             return customAttributes;
@@ -232,7 +232,7 @@ namespace ILRuntime.Reflection
         {
             if (customAttributes == null)
                 InitializeCustomAttribute();
-            List<object> res = new List<object>();
+            List<Attribute> res = new List<Attribute>();
             for (int i = 0; i < customAttributes.Length; i++)
             {
                 if (attributeTypes[i].Equals((object)attributeType))
@@ -240,7 +240,7 @@ namespace ILRuntime.Reflection
             }
             if (inherit && BaseType != null)
             {
-                res.AddRange(BaseType.GetCustomAttributes(attributeType, inherit));
+                res.AddRange(BaseType.GetCustomAttributes(attributeType, inherit) as Attribute[]);
             }
             return res.ToArray();
         }

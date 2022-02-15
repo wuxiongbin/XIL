@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using ILRuntime.CLR.TypeSystem;
 using ILRuntime.CLR.Utils;
 using ILRuntime.Runtime.Enviorment;
@@ -22,7 +22,7 @@ namespace ILRuntime.CLR.Method
         IType[] genericArguments;
         Type[] genericArgumentsCLR;
         object[] invocationParam;
-        bool isDelegateInvoke;
+        bool isDelegateInvoke, isDelegateDynamicInvoke;
         int hashCode = -1;
         static int instance_id = 0x20000000;
 
@@ -77,6 +77,14 @@ namespace ILRuntime.CLR.Method
             get
             {
                 return isDelegateInvoke;
+            }
+        }
+
+        public bool IsDelegateDynamicInvoke
+        {
+            get
+            {
+                return isDelegateDynamicInvoke;
             }
         }
 
@@ -151,8 +159,16 @@ namespace ILRuntime.CLR.Method
                     ReturnType = domain.GetType(def.ReturnType.AssemblyQualifiedName);
                 }
             }
-            if (type.IsDelegate && def.Name == "Invoke")
-                isDelegateInvoke = true;
+            if (type.IsDelegate)
+            {
+                if (def.Name == "Invoke")
+                    isDelegateInvoke = true;
+				else if (def.Name == "DynamicInvoke")
+                {
+                    isDelegateInvoke = true;
+                    isDelegateDynamicInvoke = true;
+                }
+            }
             isConstructor = false;
         }
         internal CLRMethod(ConstructorInfo def, CLRType type, ILRuntime.Runtime.Enviorment.AppDomain domain)

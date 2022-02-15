@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -135,12 +135,11 @@ namespace ILRuntime.Reflection
         {
             if (customAttributes == null)
                 InitializeCustomAttribute();
-
             int cnt = customAttributes.Length;
-            List<object> res = new List<object>();
+            List<Attribute> res = new List<Attribute>();
             for (int i = 0; i < cnt; i++)
             {
-                if (ReferenceEquals(attributeTypes[i], attributeType))
+                if (attributeTypes[i].Equals(attributeType))
                     res.Add(customAttributes[i]);
             }
             return res.ToArray();

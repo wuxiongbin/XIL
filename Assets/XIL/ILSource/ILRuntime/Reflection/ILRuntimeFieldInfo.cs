@@ -156,7 +156,7 @@ namespace ILRuntime.Reflection
             if (customAttributes == null)
                 InitializeCustomAttribute();
 
-            List<object> res = new List<object>();
+            List<Attribute> res = new List<Attribute>();
             int cnt = customAttributes.Length;
             for (int i = 0; i < cnt; i++)
             {
