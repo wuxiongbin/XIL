@@ -10,6 +10,7 @@ using ILRuntime.CLR.Method;
 using ILRuntime.CLR.Utils;
 using ILRuntime.Runtime.Intepreter;
 using ILRuntime.Runtime.Enviorment;
+using ILRuntime.CLR.TypeSystem;
 
 namespace ILRuntime.Reflection
 {
@@ -189,9 +190,37 @@ namespace ILRuntime.Reflection
             }
         }
 
-        public override Delegate CreateDelegate(Type delegateType)
+        public override Delegate CreateDelegate(Type t)
         {
-            throw new NotSupportedException("please use CreateDelegate(Type delegateType, object target)");
+            if (t is ILRuntimeType)
+            {
+                ILType it = ((ILRuntimeType)t).ILType;
+                if (it.IsDelegate)
+                {
+                    var ilMethod = ILMethod;
+                    if (ilMethod.DelegateAdapter == null)
+                    {
+                        var m = it.GetMethod("Invoke") as ILMethod;
+                        ilMethod.DelegateAdapter = appdomain.DelegateManager.FindDelegateAdapter(null, ilMethod, m);
+                    }
+                    return ilMethod.DelegateAdapter.Delegate;
+                }
+                else
+                    throw new NotSupportedException(string.Format("{0} is not Delegate", t.FullName));
+            }
+            else if (t is ILRuntimeWrapperType)
+            {
+                ILRuntimeWrapperType iwt = (ILRuntimeWrapperType)t;
+                return appdomain.DelegateManager.FindDelegateAdapter(iwt.CLRType, null, ILMethod).Delegate;
+            }
+            else
+            {
+                CLRType clrType = appdomain.GetType(t) as CLRType;
+                if (clrType != null)
+                    return appdomain.DelegateManager.FindDelegateAdapter(clrType, null, ILMethod).Delegate;
+                else
+                    throw new NotSupportedException();
+            }
         }
 
         private IDelegateAdapter iDelegate;
@@ -208,7 +237,7 @@ namespace ILRuntime.Reflection
             }
             else
             {
-                return null;
+                return CreateDelegate(delegateType);
             }
 
             IDelegateAdapter del;
@@ -221,7 +250,7 @@ namespace ILRuntime.Reflection
             {
                 del = iDelegate.Instantiate(appdomain, ilTypeInstance, iDelegate.Method);
             }
-            return del.GetConvertor(delegateType);
+            return del.Delegate;
         }
     }
 }

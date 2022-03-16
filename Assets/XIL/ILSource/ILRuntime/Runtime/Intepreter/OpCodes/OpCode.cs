@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -139,6 +139,7 @@ namespace ILRuntime.Runtime.Intepreter.OpCodes
                 case OpCodeREnum.Unbox:
                 case OpCodeREnum.Unbox_Any:
                 case OpCodeREnum.Isinst:
+                case OpCodeREnum.Castclass:
                     if (domain == null)
                         param = string.Format("r{0}, r{1}, {2}", Register1, Register2, Operand);
                     else

@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +40,7 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
                     }
                     //if (isInline)
                     //    continue;
-                    if (X.Code == OpCodeREnum.Nop || X.Code == OpCodeREnum.Castclass || X.Code == OpCodeREnum.Readonly || X.Code == OpCodeREnum.Volatile)
+                    if (X.Code == OpCodeREnum.Nop || X.Code == OpCodeREnum.Readonly || X.Code == OpCodeREnum.Volatile)
                     {
                         canRemove.Add(i);
                         continue;

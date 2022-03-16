@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_HOT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -746,6 +746,7 @@ namespace ILRuntime.CLR.Method
                 case OpCodeEnum.Newarr:
                 case OpCodeEnum.Stobj:
                 case OpCodeEnum.Ldobj:
+                case OpCodeEnum.Castclass:
                     {
                         code.TokenInteger = GetTypeTokenHashCode(token);
                     }
