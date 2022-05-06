@@ -1,4 +1,4 @@
-﻿namespace wxb
+namespace wxb
 {
     using System.Reflection;
     using System.Collections.Generic;
@@ -174,7 +174,7 @@
             {
                 serializes = new List<FieldInfo>();
 
-#if USE_HOT
+#if USE_ILRT && USE_ILRT
                 List<System.Type> types = new List<System.Type>();
                 var type = this.type;
                 types.Add(type);

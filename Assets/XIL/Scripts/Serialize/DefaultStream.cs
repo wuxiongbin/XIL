@@ -21,5 +21,12 @@ namespace wxb
         {
             throw new System.Exception("ReadUnityObject");
         }
+
+        public static DefaultStream CreateReader(byte[] bytes)
+        {
+            var ds = new DefaultStream(bytes);
+            ds.WritePos = bytes.Length;
+            return ds;
+        }
     }
 }

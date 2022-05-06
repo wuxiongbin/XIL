@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_ILRT
 using UnityEngine;
 using System.Collections.Generic;
 using ILRuntime.Other;

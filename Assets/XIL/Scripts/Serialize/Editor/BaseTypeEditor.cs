@@ -1,10 +1,10 @@
-﻿using UnityEditor;
+using UnityEditor;
 using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using wxb.IL;
-#if USE_HOT
+#if USE_ILRT
 using ILRuntime.Mono.Cecil;
 using ILRuntime.Reflection;
 using ILRuntime.Runtime.Intepreter;
@@ -63,7 +63,7 @@ namespace wxb.Editor
         public EnumType(System.Type enumType)
         {
             this.enumType = enumType;
-#if USE_HOT
+#if USE_ILRT
             if (enumType is ILRuntimeType)
             {
                 enumStrings = new List<string>();
@@ -82,7 +82,7 @@ namespace wxb.Editor
         }
 
         System.Type enumType;
-#if USE_HOT
+#if USE_ILRT
         List<string> enumStrings;
         List<int> enumValues;
 #endif
@@ -111,7 +111,7 @@ namespace wxb.Editor
 
         public object OnGUI(string label, object value, System.Type type, out bool isDirty)
         {
-#if USE_HOT
+#if USE_ILRT
             if (type is ILRuntimeType)
             {
                 int index = 0;

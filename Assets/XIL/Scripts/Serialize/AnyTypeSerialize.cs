@@ -1,6 +1,6 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Collections.Generic;
-#if USE_HOT
+#if USE_ILRT
 using ILRuntime.Reflection;
 #endif
 
@@ -55,7 +55,7 @@ namespace wxb
             }
 
             var cnt = fieldInfos.Count;
-            stream.WriteByte(cnt == 0 ? (byte)2 : (byte)1);
+            stream.WriteByte(cnt == 0 ? (byte)1 : (byte)2);
             if (cnt == 0)
                 return;
 
@@ -91,7 +91,7 @@ namespace wxb
                 value = IL.Help.Create(type);
             }
 
-            if (flag == 2)
+            if (flag == 1)
                 return;
 
             do

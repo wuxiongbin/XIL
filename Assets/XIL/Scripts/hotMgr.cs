@@ -1,306 +1,24 @@
-﻿#if USE_HOT
+#if USE_ILRT && !USE_ILRT
 namespace wxb
 {
-    using System.Reflection;
-    using ILRuntime.CLR.Utils;
-    using ILRuntime.Runtime.Stack;
-    using ILRuntime.Runtime.Enviorment;
-    using ILRuntime.Runtime.Intepreter;
-    using System.Collections.Generic;
-    using ILRuntime.CLR.TypeSystem;
-    using ILRuntime.Mono.Cecil;
-    using ILRuntime.Mono.Collections.Generic;
-    using ILRuntime.CLR.Method;
     using global::IL;
-    using ILRuntime.Runtime.Generated;
+    using System.Reflection;
+    using System.Collections.Generic;
 
-    public class Hotfix
+    public static partial class hotMgr
     {
-        public FieldInfo field;
-        public MethodInfo method;
-        public DelegateBridge bridge;
-
-        public Hotfix(FieldInfo field, MethodInfo method, DelegateBridge bridge)
-        {
-            this.field = field;
-            this.method = method;
-            this.bridge = bridge;
-        }
-
-        public Hotfix(System.Type type, string name, System.Type hotfixType) : this(type, "__Hotfix_" + name, name, hotfixType, name)
-        {
-
-        }
-
-        public Hotfix(System.Type type, string fieldName, string funName, System.Type hotfixType, string hotfixFunName)
-        {
-            field = type.GetField(fieldName, wxb.hotMgr.bindingFlags);
-            if (field == null)
-            {
-                wxb.L.LogErrorFormat("type field:{0}.{1} not find!", type.Name, fieldName);
-                return;
-            }
-
-            method = IL.Help.GetMethod(type, funName);
-            if (method == null)
-            {
-                wxb.L.LogErrorFormat("type method {0}.{1} not find!", type.Name, funName);
-                return;
-            }
-
-            var hotMethod = hotfixType.GetMethod(hotfixFunName, wxb.hotMgr.bindingFlags);
-            if (hotMethod == null)
-            {
-                wxb.L.LogErrorFormat("{0}.{1} Replace {2}.{3}", type.Name, funName, hotfixType.Name, hotfixFunName);
-                return;
-            }
-
-            if (!hotMgr.IsStatic(hotMethod))
-            {
-                wxb.L.LogErrorFormat("Hotfix type:{0} funName:{1} methodInfo is not static!", hotfixType.Name, hotfixFunName);
-                return;
-            }
-
-            bridge = new DelegateBridge(hotMethod);
-            field.SetValue(null, bridge);
-            wxb.L.LogFormat("{0}.{1} Replace {2}.{3}", type.Name, funName, hotfixType.Name, hotfixFunName);
-        }
-
-        public void Run(System.Action action)
-        {
-            field.SetValue(null, null);
-            try
-            {
-                action();
-            }
-            catch (System.Exception ex)
-            {
-                wxb.L.LogException(ex);
-            }
-            field.SetValue(null, bridge);
-        }
-
-        public object Run(System.Func<object> fun)
-        {
-            object value = null;
-            field.SetValue(null, null);
-            try
-            {
-                value = fun();
-            }
-            catch (System.Exception ex)
-            {
-                wxb.L.LogException(ex);
-            }
-            field.SetValue(null, bridge);
-            return value;
-        }
-
-        // 执行自身,会把原先热更的字段设置为空，然后通过反射的方式执行自己，再设置回去热更的接口
-        public object Invoke(object obj, object[] parameters)
-        {
-            object r = null;
-            field.SetValue(null, null);
-            try
-            {
-                r = method.Invoke(obj, parameters);
-            }
-            catch (System.Exception ex)
-            {
-                wxb.L.LogException(ex);
-            }
-            field.SetValue(null, bridge);
-            return r;
-        }
-
-        public object Invoke(object obj)
-        {
-            using (var pObjs = new EmptyObjs())
-            {
-                return Invoke(obj, pObjs.objs);
-            }
-        }
-
-        public object Invoke(object obj, object p1)
-        {
-            using (var pObjs = new Objects(p1))
-            {
-                return Invoke(obj, pObjs.objs);
-            }
-        }
-
-        public object Invoke(object obj, object p1, object p2)
-        {
-            using (var pObjs = new Objects(p1, p2))
-            {
-                return Invoke(obj, pObjs.objs);
-            }
-        }
-
-        public object Invoke(object obj, object p1, object p2, object p3)
-        {
-            using (var pObjs = new Objects(p1, p2, p3))
-            {
-                return Invoke(obj, pObjs.objs);
-            }
-        }
-
-        public object Invoke(object obj, object p1, object p2, object p3, object p4)
-        {
-            using (var pObjs = new Objects(p1, p2, p3, p4))
-            {
-                return Invoke(obj, pObjs.objs);
-            }
-        }
-
-        public object Invoke(object obj, object p1, object p2, object p3, object p4, object p5)
-        {
-            using (var pObjs = new Objects(p1, p2, p3, p4, p5))
-            {
-                return Invoke(obj, pObjs.objs);
-            }
-        }
-
-        public object Invoke(object obj, object p1, object p2, object p3, object p4, object p5, object p6)
-        {
-            using (var pObjs = new Objects(p1, p2, p3, p4, p5, p6))
-            {
-                return Invoke(obj, pObjs.objs);
-            }
-        }
-
-        public object Invoke(object obj, object p1, object p2, object p3, object p4, object p5, object p6, object p7)
-        {
-            using (var pObjs = new Objects(p1, p2, p3, p4, p5, p6, p7))
-            {
-                return Invoke(obj, pObjs.objs);
-            }
-        }
-
-        public object Invoke(object obj, object p1, object p2, object p3, object p4, object p5, object p6, object p7, object p8)
-        {
-            using (var pObjs = new Objects(p1, p2, p3, p4, p5, p6, p7, p8))
-            {
-                return Invoke(obj, pObjs.objs);
-            }
-        }
-
-        public object Invoke(object obj, object p1, object p2, object p3, object p4, object p5, object p6, object p7, object p8, object p9)
-        {
-            using (var pObjs = new Objects(p1, p2, p3, p4, p5, p6, p7, p8, p9))
-            {
-                return Invoke(obj, pObjs.objs);
-            }
-        }
-
-        public object Invoke(object obj, object p1, object p2, object p3, object p4, object p5, object p6, object p7, object p8, object p9, object p10)
-        {
-            using (var pObjs = new Objects(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10))
-            {
-                return Invoke(obj, pObjs.objs);
-            }
-        }
-
-        public void Release()
-        {
-            if (field != null)
-                field.SetValue(null, null);
-        }
-    }
-
-    [System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Method)]
-    public class Platform : System.Attribute
-    {
-        public Platform(string platform)
-        {
-
-        }
-    }
-
-    [System.AttributeUsage(System.AttributeTargets.Class)]
-    public class ReplaceType : System.Attribute
-    {
-        // 替换某个类型的某个同名接口
-        public ReplaceType(System.Type type)
-        {
-
-        }
-
-        // 函数全名
-        public ReplaceType(string fullName)
-        {
-
-        }
-    }
-
-    [System.AttributeUsage(System.AttributeTargets.Method)]
-    public class ReplaceFunction : System.Attribute
-    {
-        // 替换某个类型的某个同名接口
-        public ReplaceFunction(System.Type type)
-        {
-
-        }
-
-        public ReplaceFunction()
-        {
-
-        }
-
-        // fieldNameOrTypeName有可能是类型名，也有可能是字段名
-        // 以__Hotfix_开始的为字段名，否则为类型名
-        public ReplaceFunction(string fieldNameOrTypeName)
-        {
-
-        }
-
-        // 替换某个类型的某个接口
-        public ReplaceFunction(System.Type type, string fieldName)
-        {
-
-        }
-
-        public ReplaceFunction(string typeName, string fieldName)
-        {
-
-        }
-
-        public ReplaceFunction(System.Type type, string fieldName, string hot_hotfix_fieldName)
-        {
-
-        }
-
-        public ReplaceFunction(string typeName, string fieldName, string hot_hotfix_fieldName)
-        {
-
-        }
-    }
-
-    // 自动调用初始化接口，定义在某个类的属性，只要此类下有静态的函数Init，会自动调用
-    [System.AttributeUsage(System.AttributeTargets.Class)]
-    public class AutoInitAndRelease : System.Attribute
-    {
-
-    }
-
-    public static class hotMgr
-    {
-        public static AppDomain appdomain { get; private set; }
-
         static RefType refType;
         public static RefType RefType { get { return refType; } }
 
-        // 所有的热更当中的类型
-        public static List<IType> AllTypes { get; private set; }
+        static Assembly assembly = null;
+
+        public static List<System.Type> AllTypes { get; set; }
 
         public static void Init(IResLoad resLoad = null)
         {
-            if (appdomain != null)
+            if (assembly != null)
                 return;
 
-#if UNITY_EDITOR
-            DllInitByEditor.Release();
-#endif
             if (resLoad == null)
             {
 #if UNITY_EDITOR
@@ -314,49 +32,8 @@ namespace wxb
 
             InitHotModule();
 
-#if HOT_DEBUG
-            if (UnityEngine.Application.isPlaying)
-            {
-                System.Type debugger_type;
-                if (IL.Help.TryGetTypeByFullName("hot.Debugger", out debugger_type))
-                {
-                    var debugger = new RefType(true, debugger_type);
-                    object port = debugger.TryGetField("port");
-                    if (port != null)
-                    {
-                        var ds = appdomain.DebugService;
-                        ds.StartDebugService((int)port);
-                        object vsWaitTimeoutTime = debugger.TryGetField("vsWaitTimeoutTime");
-                        if (vsWaitTimeoutTime != null)
-                        {
-                            int wt = (int)vsWaitTimeoutTime;
-                            if (wt > 0)
-                            {
-                                L.Log("vsWait begin!");
-                                int count = 0;
-                                while (!ds.IsDebuggerAttached)
-                                {
-                                    System.Threading.Thread.Sleep(1000);
-                                    ++count;
-                                    if (count >= wt)
-                                    {
-                                        L.Log("vsWait timeout!");
-                                        break;
-                                    }
-                                }
-                                L.Log("vsWait end!");
-                            }
-                        }
-                    }
-                }
-            }
-#endif
             refType = new RefType("hot.hotApp");
             refType.TryInvokeMethod("Init");
-
-            AllTypes = new List<IType>();
-            foreach (var ator in appdomain.LoadedTypes)
-                AllTypes.Add(ator.Value);
 
             AutoReplace(AllTypes);
             InitByProperty(typeof(AutoInitAndRelease), "Init", AllTypes);
@@ -364,11 +41,7 @@ namespace wxb
 
         public const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
 
-        static System.IO.Stream DllStream;
-#if USE_PDB || USE_MDB
-        static System.IO.Stream SymbolStream;
-#endif
-        public static System.IO.MemoryStream CopyStream(System.IO.Stream input)
+        public static byte[] GetBytes(System.IO.Stream input)
         {
             try
             {
@@ -378,7 +51,7 @@ namespace wxb
                 int length = (int)(input.Length - input.Position);
                 byte[] bytes = new byte[length];
                 input.Read(bytes, 0, length);
-                return new System.IO.MemoryStream(bytes);
+                return bytes;
             }
             catch (System.Exception ex)
             {
@@ -389,21 +62,13 @@ namespace wxb
 
         static public void InitHotModule()
         {
-            appdomain = new AppDomain();
             try
             {
-                DllStream = CopyStream(ResLoad.GetStream("Data/DyncDll.dll"));
-                if (DllStream != null)
+                var bytes = GetBytes(ResLoad.GetStream("Data/DyncDll.dll"));
+                if (bytes != null)
                 {
-#if USE_PDB
-                    SymbolStream = CopyStream(ResLoad.GetStream("Data/DyncDll.pdb"));
-                    appdomain.LoadAssembly(DllStream, SymbolStream, new ILRuntime.Mono.Cecil.Pdb.PdbReaderProvider());
-#elif USE_MDB
-                    SymbolStream = CopyStream(ResLoad.GetStream("Data/DyncDll.mdb"));
-                    appdomain.LoadAssembly(DllStream, SymbolStream, new ILRuntime.Mono.Cecil.Mdb.MdbReaderProvider());
-#else
-                    appdomain.LoadAssembly(DllStream);
-#endif
+                    assembly = System.Reflection.Assembly.Load(bytes);
+                    AllTypes = new List<System.Type>(assembly.GetTypes());
                 }
             }
             catch (System.Exception ex)
@@ -411,139 +76,20 @@ namespace wxb
                 wxb.L.LogException(ex);
             }
 
-            RegDelegate(appdomain);
             IL.Help.Init();
         }
 
-        public static void RegDelegate(AppDomain appdomain)
+        static bool GetReplaceFunction(List<System.Attribute> CustomAttributes, out System.Type type, out string fieldName, out string hot_fieldName)
         {
-            appdomain.RegisterCrossBindingAdaptor(new IEnumerableAdapter());
-            appdomain.RegisterCrossBindingAdaptor(new IComparer_1_ILTypeInstanceAdapter());
-            appdomain.DelegateManager.RegisterMethodDelegate<wxb.IStream>();
-
-            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Color), new ColorBinder());
-            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Color32), new Color32Binder());
-            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector2), new Vector2Binder());
-            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector3), new Vector3Binder());
-            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector4), new Vector4Binder());
-
-            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector2Int), new Vector2IntBinder());
-            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Vector3Int), new Vector3IntBinder());
-
-            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Quaternion), new QuaternionBinder());
-            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Matrix4x4), new Matrix4x4Binder());
-            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.Rect), new RectBinder());
-            appdomain.RegisterValueTypeBinder(typeof(UnityEngine.RectInt), new RectIntBinder());
-
-#if UNITY_EDITOR
-            CallStatic("ILRuntime.Runtime.Generated.CLRBindings", "Initialize", appdomain);
-            CallStatic("AutoIL.ILRegType", "RegisterFunctionDelegate", appdomain);
-            CallStatic("AutoIL.ILRegType", "RegisterDelegateConvertor", appdomain);
-            CallStatic("AutoIL.ILRegType", "RegisterMethodDelegate", appdomain);
-            CallStatic("wxb.AllAdapter", "Register", appdomain);
-#else
-            ILRuntime.Runtime.Generated.CLRBindings.Initialize(appdomain);
-            AutoIL.ILRegType.RegisterFunctionDelegate(appdomain);
-            AutoIL.ILRegType.RegisterDelegateConvertor(appdomain);
-            AutoIL.ILRegType.RegisterMethodDelegate(appdomain);
-            wxb.AllAdapter.Register(appdomain);
-#endif
-            ILRuntime.Runtime.Generated.UnityEngine_Debug_Binding.Register(appdomain);
-
-            // 热更代码当中使用List<T>类型,注册下
-            // List<T>
-            {
-                appdomain.DelegateManager.RegisterFunctionDelegate<System.Collections.Generic.KeyValuePair<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Double>, System.Double>();
-                appdomain.DelegateManager.RegisterFunctionDelegate<System.Collections.Generic.KeyValuePair<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Double>, ILRuntime.Runtime.Intepreter.ILTypeInstance>();
-                appdomain.DelegateManager.RegisterFunctionDelegate<KeyValuePair<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Double>, KeyValuePair<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Double>, System.Int32>();
-                appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<System.Collections.Generic.KeyValuePair<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Double>>>((act) =>
-                {
-                    return new System.Comparison<System.Collections.Generic.KeyValuePair<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Double>>((x, y) =>
-                    {
-                        return ((System.Func<System.Collections.Generic.KeyValuePair<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Double>, System.Collections.Generic.KeyValuePair<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Double>, System.Int32>)act)(x, y);
-                    });
-                });
-
-                appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance>();
-                appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance>();
-                appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Boolean>();
-                appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Int32>();
-                appdomain.DelegateManager.RegisterFunctionDelegate<System.Linq.IGrouping<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>, System.Linq.IGrouping<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>>();
-                appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<ILRuntime.Runtime.Intepreter.ILTypeInstance>>((act) =>
-                {
-                    return new System.Comparison<ILRuntime.Runtime.Intepreter.ILTypeInstance>((x, y) =>
-                    {
-                        return ((System.Func<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, int>)act)(x, y);
-                    });
-                });
-            }
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction>((act) =>
-            {
-                return new UnityEngine.Events.UnityAction(() =>
-                {
-                    ((System.Action)act)();
-                });
-            });
-
-            appdomain.DelegateManager.RegisterMethodDelegate<object>();
-            appdomain.DelegateManager.RegisterMethodDelegate<object[]>();
-            appdomain.DelegateManager.RegisterMethodDelegate<long>();
-            appdomain.DelegateManager.RegisterMethodDelegate<ulong>();
-            appdomain.DelegateManager.RegisterMethodDelegate<int>();
-            appdomain.DelegateManager.RegisterMethodDelegate<uint>();
-            appdomain.DelegateManager.RegisterMethodDelegate<short>();
-            appdomain.DelegateManager.RegisterMethodDelegate<ushort>();
-            appdomain.DelegateManager.RegisterMethodDelegate<char>();
-            appdomain.DelegateManager.RegisterMethodDelegate<string>();
-            appdomain.DelegateManager.RegisterMethodDelegate<object, object>();
-            appdomain.DelegateManager.RegisterMethodDelegate<int, object>();
-            appdomain.DelegateManager.RegisterMethodDelegate<long, object>();
-            appdomain.DelegateManager.RegisterMethodDelegate<string, object>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<bool>();
-
-            appdomain.DelegateManager.RegisterFunctionDelegate<System.IO.BinaryReader>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<System.IO.BinaryReader, object>();
-
-            appdomain.DelegateManager.RegisterFunctionDelegate<object, object>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<System.IO.BinaryReader, bool>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<System.IO.BinaryReader, int>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<System.IO.BinaryReader, string>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<System.IO.BinaryReader, long>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<System.IO.BinaryReader, uint>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<ILTypeInstance, ILTypeInstance, List<ILTypeInstance>>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<System.Action, System.String, System.Boolean>();
-        }
-
-        static System.Type GetType(CustomAttributeArgument caa)
-        {
-            var value = caa.Value;
-            if (value == null)
-                return null;
-
-            if (value is string)
-            {
-                var typeName = value as string;
-                if (!string.IsNullOrEmpty(typeName))
-                    return GetTypeByName(typeName);
-            }
-            else if (value is TypeReference)
-                return GetTypeByName(((TypeReference)value).FullName);
-
-            return null;
-        }
-
-        static bool GetReplaceFunction(Collection<CustomAttribute> CustomAttributes, out System.Type type, out string fieldName, out string hot_fieldName)
-        {
-            CustomAttribute custom;
+            System.Attribute custom;
             for (int i = 0; i < CustomAttributes.Count; ++i)
             {
                 custom = CustomAttributes[i];
-                if (custom.AttributeType.FullName != "wxb.ReplaceFunction")
+                if (!(custom is ReplaceFunction))
                     continue;
 
-                var ConstructorArguments = custom.ConstructorArguments;
-                switch (ConstructorArguments.Count)
+                var rf = custom as ReplaceFunction;
+                switch (rf.create_type)
                 {
                     case 0:
                         {
@@ -554,16 +100,14 @@ namespace wxb
                         return true;
                     case 1:
                         {
-                            var zeroValue = ConstructorArguments[0];
-                            var zv = zeroValue.Value;
-                            if (zv == null)
+                            if (rf.type != null)
                             {
-                                type = null;
+                                type = rf.type;
                                 fieldName = null;
                             }
-                            else if (zv is string)
+                            else
                             {
-                                string strValue = (string)zv;
+                                string strValue = rf.fieldNameOrTypeName;
                                 if (strValue.StartsWith("__Hotfix_"))
                                 {
                                     // 字段
@@ -576,34 +120,22 @@ namespace wxb
                                     fieldName = null;
                                 }
                             }
-                            else
-                            {
-                                // 类型
-                                type = GetTypeByName(((TypeReference)zeroValue.Value).FullName);
-                                fieldName = null;
-                            }
-                            
+
                             hot_fieldName = null;
                             return true;
                         }
                     case 2:
                         {
-                            var zeroValue = ConstructorArguments[0];
-                            var oneValue = ConstructorArguments[1];
-                            type = GetType(zeroValue);
-                            fieldName = (string)oneValue.Value;
+                            type = rf.type != null ? rf.type : GetTypeByName(rf.typeName);
+                            fieldName = rf.fieldName;
                             hot_fieldName = null;
                             return true;
                         }
                     case 3:
                         {
-                            var zeroValue = ConstructorArguments[0];
-                            var oneValue = ConstructorArguments[1];
-                            var twoValue = ConstructorArguments[2];
-
-                            type = GetType(zeroValue);
-                            fieldName = (string)oneValue.Value;
-                            hot_fieldName = (string)twoValue.Value;
+                            type =  rf.type != null ? rf.type : GetTypeByName(rf.typeName);
+                            fieldName = rf.fieldName;
+                            hot_fieldName = rf.hot_hotfix_fieldName;
                             return true;
                         }
                 }
@@ -615,17 +147,16 @@ namespace wxb
             return false;
         }
 
-        static void GetPlatform(Collection<CustomAttribute> CustomAttributes, System.Action<UnityEngine.RuntimePlatform> action)
+        static void GetPlatform(List<System.Attribute> CustomAttributes, System.Action<UnityEngine.RuntimePlatform> action)
         {
-            CustomAttribute custom;
+            System.Attribute custom;
             for (int i = 0; i < CustomAttributes.Count; ++i)
             {
                 custom = CustomAttributes[i];
-                if (custom.AttributeType.FullName != "wxb.Platform")
+                if (!(custom is wxb.Platform))
                     continue;
 
-                var param = custom.ConstructorArguments[0];
-                UnityEngine.RuntimePlatform platform = (UnityEngine.RuntimePlatform)System.Enum.Parse(typeof(UnityEngine.RuntimePlatform), (string)param.Value);
+                UnityEngine.RuntimePlatform platform = (UnityEngine.RuntimePlatform)System.Enum.Parse(typeof(UnityEngine.RuntimePlatform), (custom as Platform).platform);
                 action(platform);
             }
         }
@@ -637,28 +168,17 @@ namespace wxb
             return IL.Help.GetTypeByFullName(fullName);
         }
 
-        static System.Type GetReplaceType(Collection<CustomAttribute> CustomAttributes)
+        static System.Type GetReplaceType(IList<System.Attribute> CustomAttributes)
         {
-            CustomAttribute custom;
-            for (int i = 0; i < CustomAttributes.Count; ++i)
+            System.Attribute custom;
+            var cnt = CustomAttributes.Count;
+            for (int i = 0; i < cnt; ++i)
             {
                 custom = CustomAttributes[i];
-                if (custom.AttributeType.FullName != "wxb.ReplaceType")
+                if (!(custom is ReplaceType))
                     continue;
 
-                var param = custom.ConstructorArguments[0];
-                string fullName = null;
-                if (param.Value is TypeReference)
-                {
-                    TypeReference typeRef = param.Value as TypeReference;
-                    fullName = typeRef.FullName;
-                }
-                else
-                {
-                    fullName = (string)param.Value;
-                }
-
-                return GetTypeByName(fullName);
+                return (custom as ReplaceType).Type;
             }
 
             return null;
@@ -695,7 +215,7 @@ namespace wxb
 
         public static bool IsStatic(MethodInfo info)
         {
-            //#if USE_HOT
+            //#if USE_ILRT
             //            if (info is ILRuntime.Reflection.ILRuntimeMethodInfo)
             //            {
             //                var ilMI = info as ILRuntime.Reflection.ILRuntimeMethodInfo;
@@ -711,19 +231,9 @@ namespace wxb
             return ReplaceField(type, "__Hotfix_" + name, info);
         }
 
-        static FieldDefinition FindStaticField(ILType type, string name)
+        static System.Reflection.FieldInfo FindStaticField(System.Type type, string name)
         {
-            var StaticFieldDefinitions = type.StaticFieldDefinitions;
-            if (StaticFieldDefinitions == null)
-                return null;
-
-            foreach (var ator in StaticFieldDefinitions)
-            {
-                if (ator.Name == name)
-                    return ator;
-            }
-
-            return null;
+            return type.GetField(name, BindingFlags.Static | BindingFlags.NonPublic);
         }
 
         static string GetKey(MethodInfo method)
@@ -790,55 +300,55 @@ namespace wxb
         }
 
         // 自动注册
-        static void AutoReplace(List<IType> types)
+        static void AutoReplace(List<System.Type> types)
         {
             Dictionary<string, List<MethodInfo>> NameToSorted = new Dictionary<string, List<MethodInfo>>();
             List<UnityEngine.RuntimePlatform> platforms = new List<UnityEngine.RuntimePlatform>();
             UnityEngine.RuntimePlatform rp = GetCurrentPlatform();
+            List<System.Attribute> attributes = new List<System.Attribute>();
             foreach (var ator in types)
             {
-                ILType type = ator as ILType;
+                var type = ator;
                 if (type == null)
                     continue;
 
-                if (type.IsEnum || type.IsInterface || type.IsValueType || type.IsDelegate || type.IsArray)
+                if (type.IsEnum || type.IsInterface || type.IsValueType || type.IsArray)
                     continue;
 
                 NameToSorted.Clear();
-                var typeDefinition = type.TypeDefinition;
-                System.Type rt = GetReplaceType(typeDefinition.CustomAttributes);
+                attributes.Clear();
+                attributes.AddRange(type.GetCustomAttributes());
+                System.Type rt = GetReplaceType(attributes);
                 platforms.Clear();
-                GetPlatform(typeDefinition.CustomAttributes, (p) => { platforms.Add(p); });
+                GetPlatform(attributes, (p) => { platforms.Add(p); });
                 if (platforms.Count != 0 && !platforms.Contains(rp))
                 {
                     wxb.L.LogWarningFormat("platorms:{0} type:{1} not hotfix!", rp, type.Name);
                     continue; // 不属于此平台的
                 }
-                // 相同函数名排序问题
-                foreach (var il in type.GetMethods())
-                {
-                    var ilMethod = il as ILMethod;
-                    if (ilMethod == null)
-                        continue;
 
-                    var method = ilMethod.Definition;
+                // 相同函数名排序问题
+                foreach (var method in type.GetMethods())
+                {
                     System.Type methodType;
                     string methodFieldName;
                     string set_hot_field_name;
-                    if (!GetReplaceFunction(method.CustomAttributes, out methodType, out methodFieldName, out set_hot_field_name))
+                    attributes.Clear();
+                    attributes.AddRange(method.GetCustomAttributes());
+                    if (!GetReplaceFunction(attributes, out methodType, out methodFieldName, out set_hot_field_name))
                         continue;
 
-                    if (!ilMethod.IsStatic)
+                    if (!method.IsStatic)
                     {
                         wxb.L.LogErrorFormat("type:{0} method:{1} is not static fun!", type.Name, method.Name);
                         continue;
                     }
 
                     platforms.Clear();
-                    GetPlatform(method.CustomAttributes, (p) => { platforms.Add(p); });
+                    GetPlatform(attributes, (p) => { platforms.Add(p); });
                     if (platforms.Count != 0 && !platforms.Contains(rp))
                     {
-                        wxb.L.LogWarningFormat("platorms:{0} type:{1}.{2} not hotfix!", rp, type.Name, ilMethod.Name);
+                        wxb.L.LogWarningFormat("platorms:{0} type:{1}.{2} not hotfix!", rp, type.Name, method.Name);
                         continue; // 不属于此平台的
                     }
 
@@ -860,7 +370,7 @@ namespace wxb
                         continue;
                     }
 
-                    var bridge = new global::IL.DelegateBridge(ilMethod.ReflectionMethodInfo);
+                    var bridge = new global::IL.DelegateBridge(method);
                     field.SetValue(null, bridge);
                     Fields.Add(field);
                     wxb.L.LogFormat("type:{0} method:{1} Replace {2}.{3}!", type.Name, method.Name, srcType.Name, fieldName);
@@ -870,62 +380,36 @@ namespace wxb
             }
         }
 
-        public static void FindAttribute(System.Type attType, System.Action<System.Type> on)
+        static void InitByProperty(System.Type attType, string name, List<System.Type> types)
         {
             string autoAttName = attType.FullName;
-            List<IMethod> calls = new List<IMethod>();
-            foreach (var itor in AllTypes)
-            {
-                ILType ilType = itor as ILType;
-                if (ilType == null)
-                    continue;
-
-                TypeDefinition td = ilType.TypeDefinition;
-                foreach (var att in td.CustomAttributes)
-                {
-                    if (att.AttributeType.FullName == autoAttName)
-                    {
-                        on(ilType.ReflectionType);
-                    }
-                }
-            }
-        }
-
-        static void InitByProperty(System.Type attType, string name, List<IType> types)
-        {
-            string autoAttName = attType.FullName;
-            List<IMethod> calls = new List<IMethod>();
+            List<MethodInfo> calls = new List<MethodInfo>();
+            System.Type[] Emptys = new System.Type[0];
             foreach (var itor in types)
             {
-                ILType ilType = itor as ILType;
-                if (ilType == null)
+                if (itor.GetCustomAttribute(attType) == null)
                     continue;
 
-                TypeDefinition td = ilType.TypeDefinition;
-                foreach (var att in td.CustomAttributes)
+                var methods = itor.GetMethods(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
+                if (methods == null || methods.Length == 0)
+                    continue;
+
+                foreach (var method in methods)
                 {
-                    if (att.AttributeType.FullName == autoAttName)
+                    if (method.Name == name && method.GetParameters().Length == 0)
                     {
-                        var type = ilType.TypeForCLR;
-                        var method = ilType.GetMethod(name, 0);
-                        if (method == null)
-                            continue;
-                        if (!method.IsStatic)
-                        {
-                            wxb.L.LogErrorFormat("hot type:{0} method:{1} not static!", ilType.FullName, name);
-                            continue;
-                        }
                         calls.Add(method);
                         break;
                     }
                 }
             }
 
+            object[] EP = new object[0];
             for (int i = 0; i < calls.Count; ++i)
             {
                 try
                 {
-                    appdomain.Invoke(calls[i], null);
+                    calls[i].Invoke(null, EP);
                 }
                 catch (System.Exception ex)
                 {
@@ -934,9 +418,9 @@ namespace wxb
             }
         }
 
-        static void AutoSetFieldMethodValue(System.Type srcType, FieldInfo srcFieldInfo, ILType type, string fieldName, string set_hot_field_name, DelegateBridge bridge, Dictionary<string, List<MethodInfo>> NameToSorted)
+        static void AutoSetFieldMethodValue(System.Type srcType, FieldInfo srcFieldInfo, System.Type type, string fieldName, string set_hot_field_name, DelegateBridge bridge, Dictionary<string, List<MethodInfo>> NameToSorted)
         {
-            FieldDefinition auto_fieldInfo = null;
+            System.Reflection.FieldInfo auto_fieldInfo = null;
             if (string.IsNullOrEmpty(set_hot_field_name))
             {
                 auto_fieldInfo = FindStaticField(type, fieldName);
@@ -959,7 +443,7 @@ namespace wxb
                 return;
             }
 
-            var fieldInfo = type.ReflectionType.GetField(auto_fieldInfo.Name, bindingFlags);
+            var fieldInfo = type.GetField(auto_fieldInfo.Name, bindingFlags);
             if (fieldInfo == null)
             {
                 wxb.L.LogErrorFormat("type:{0} fieldInfo:{1} find but not find clrType fieldInfo!", type.Name, auto_fieldInfo.Name);
@@ -1017,53 +501,32 @@ namespace wxb
         {
             System.Type clrType = System.Type.GetType(typeName);
             if (clrType != null)
-                clrType.GetMethod(methodName).Invoke(null, param);
+            {
+                var method = clrType.GetMethod(methodName);
+                if (method != null)
+                    method.Invoke(null, param);
+            }
         }
 #endif
         // 释放所有热更模块
         public static void ReleaseAll()
         {
-            if (appdomain == null)
+            if (assembly == null)
                 return;
 
             ResLoad.Set(null);
             refType.TryInvokeMethod("ReleaseAll");
-            //var types = new Dictionary<string, IType>(appdomain.LoadedTypes);
             InitByProperty(typeof(AutoInitAndRelease), "Release", AllTypes);
 
             foreach (var ator in Fields)
                 ator.SetValue(null, null);
             Fields.Clear();
 
-            // 释放CLR绑定，类继承等全局变量
-            {
-#if UNITY_EDITOR
-                CallStatic("ILRuntime.Runtime.Generated.CLRBindings", "Shutdown", appdomain);
-                CallStatic("wxb.AllAdapter", "Shutdown", appdomain);
-#else
-                ILRuntime.Runtime.Generated.CLRBindings.Shutdown(appdomain);
-                AllAdapter.Release();
-#endif
-            }
-
             IL.Help.ReleaseAll();
             AllTypes.Clear();
             AllTypes = null;
             refType = null;
-            appdomain = null;
-            if (DllStream != null)
-            {
-                DllStream.Close();
-                DllStream = null;
-            }
-
-#if USE_PDB || USE_MDB
-            if (SymbolStream != null)
-            {
-                SymbolStream.Close();
-                SymbolStream = null;
-            }
-#endif
+            assembly = null;
             System.GC.Collect();
         }
     }

@@ -1,4 +1,4 @@
-#if USE_HOT
+#if USE_ILRT
 using ILRuntime.Mono.Cecil.Cil;
 using System;
 

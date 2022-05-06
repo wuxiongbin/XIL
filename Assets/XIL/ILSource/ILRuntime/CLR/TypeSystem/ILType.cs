@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+﻿#if USE_ILRT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ using ILRuntime.Runtime.Stack;
 
 namespace ILRuntime.CLR.TypeSystem
 {
-    public class ILType : IType
+    public sealed class ILType : IType
     {
         Dictionary<string, List<ILMethod>> methods;
         TypeReference typeRef;

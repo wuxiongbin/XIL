@@ -1,9 +1,8 @@
-#if UNITY_2021
+#if UNITY_2021_1_OR_NEWER
 using UnityEditor.SceneManagement;
 #else
 using UnityEditor.Experimental.SceneManagement;
 #endif
-using UnityEngine;
 
 namespace wxb
 {
@@ -42,7 +41,7 @@ namespace wxb
             return (bool)s_save.Invoke(cps, new object[] { });
         }
 
-        public static bool Modify(string file, System.Action<GameObject> func)
+        public static bool Modify(string file, System.Action<UnityEngine.GameObject> func)
         {
             var ps = OpenPrefab(file);
             func(ps.prefabContentsRoot);

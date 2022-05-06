@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-#if USE_HOT
+#if USE_ILRT
 using ILRuntime.Runtime.Intepreter;
 #endif
 
@@ -43,7 +43,7 @@ namespace wxb.IL.Editor
         public void Init(SerializedObject serializedObject, UnityEngine.MonoBehaviour behaviour)
         {
             this.serializedObject = serializedObject;
-#if USE_HOT
+#if USE_ILRT
             var appdomain = DllInitByEditor.appdomain;
 #endif
             this.behaviour = behaviour;

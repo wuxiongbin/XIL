@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -18,6 +18,26 @@ namespace PackTool
             {
                 macroDefine.Remove(marco);
             }
+
+            AssetDatabase.Refresh();
+            macroDefine.Save();
+        }
+
+        public static void RemoveMacro(params string[] marcos)
+        {
+            MacroDefine macroDefine = new MacroDefine();
+            foreach (var ator in marcos)
+                macroDefine.Remove(ator);
+
+            AssetDatabase.Refresh();
+            macroDefine.Save();
+        }
+
+        public static void AddMacro(params string[] marcos)
+        {
+            MacroDefine macroDefine = new MacroDefine();
+            foreach (var ator in marcos)
+                macroDefine.Add(ator);
 
             AssetDatabase.Refresh();
             macroDefine.Save();

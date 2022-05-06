@@ -1,9 +1,9 @@
-﻿using UnityEditor;
+using UnityEditor;
 using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-#if USE_HOT
+#if USE_ILRT
 using ILRuntime.Reflection;
 using ILRuntime.Runtime.Intepreter;
 #endif
@@ -64,7 +64,7 @@ namespace wxb.Editor
 
         static string GetTypeNameSpace(System.Type type)
         {
-#if USE_HOT
+#if USE_ILRT
             if (type is ILRuntime.Reflection.ILRuntimeType)
             {
                 var ilRT = ((ILRuntime.Reflection.ILRuntimeType)type);

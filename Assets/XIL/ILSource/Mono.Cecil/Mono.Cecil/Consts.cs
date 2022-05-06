@@ -1,4 +1,4 @@
-#if USE_HOT
+#if USE_ILRT
 static class Consts
 {
 	public const string AssemblyName = "ILRuntim.Mono.Cecil";

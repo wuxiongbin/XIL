@@ -1,4 +1,4 @@
-#if USE_HOT
+﻿#if USE_ILRT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,11 +31,17 @@ namespace ILRuntime.Runtime.Enviorment
             string realClsName;
             bool isByRef;
             baseType.GetClassName(out clsName, out realClsName, out isByRef, true);
-            sb.Append(@"#if USE_HOT
+            sb.Append(@"#if USE_ILRT
 using System;
 using ILRuntime.CLR.Method;
 using ILRuntime.Runtime.Enviorment;
 using ILRuntime.Runtime.Intepreter;
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
+using AutoList = System.Collections.Generic.List<object>;
+#else
+using AutoList = ILRuntime.Other.UncheckedList<object>;
+#endif
 
 namespace ");
             sb.AppendLine(nameSpace);
@@ -141,7 +147,7 @@ namespace ");
                         StringBuilder sBuilder = new StringBuilder();
                         var p = i.GetParameters()[0];
                         p.ParameterType.GetClassName(out clsName, out realClsName, out isByRef, true);
-                        pName = $"this [{realClsName + " " + p.Name}]";
+                        pName = string.Format("this [{0}]", realClsName + " " + p.Name);
 
                         isIndexFunc = true;
                     }
@@ -195,8 +201,8 @@ namespace ");
                     if (isProperty)
                     {
                         string baseMethodName = isIndexFunc
-                            ? $"base[{i.GetParameters()[0].Name}]"
-                            : $"base.{i.Name.Substring(4)}";
+                            ? string.Format("base[{0}]", i.GetParameters()[0].Name)
+                            : string.Format("base.{0}", i.Name.Substring(4));
                         if (isGetter)
                         {
                             sb.AppendLine(string.Format("                    return {0};", baseMethodName));
@@ -610,7 +616,7 @@ namespace ");
             {
                 if (p.IsOut)
                 {
-                    sb.AppendLine($"                    {p.Name} = default({p.ParameterType.GetElementType().FullName});");
+                    sb.AppendLine(string.Format("                    {0} = default({1});", p.Name, p.ParameterType.GetElementType().FullName));
                 }
             }
         }

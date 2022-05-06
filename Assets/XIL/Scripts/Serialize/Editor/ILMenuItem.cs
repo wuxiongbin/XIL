@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-#if USE_HOT
+#if USE_ILRT
 using ILRuntime.Runtime.Intepreter;
 #endif
 
@@ -83,11 +83,27 @@ namespace wxb.IL.Editor
             System.IO.File.WriteAllText("Assets/XIL/Scripts/RefMethodInfo.cs", sb.ToString());
         }
 
+        [UnityEditor.MenuItem("Assets/IL/测试依赖顺序")]
+        static void TestPrefabCollect()
+        {
+            var files = PrefabCollect.Collect(Selection.objects, isNeedCheck);
+        }
+
         [UnityEditor.MenuItem("Assets/IL/移除空组件")]
         static void RemoveEmptyPrefab()
         {
-            var files = PrefabCollect.Collect(Selection.objects, isNeedCheck);
-            SaveSelectPrefab(files, "移除空组件", (obj, customizeData) =>
+            var files = PrefabCollect.Collect(Selection.objects, (file) => 
+            {
+                return isNeedCheck(AssetDatabase.LoadAssetAtPath<GameObject>(file), (obj, cd) => 
+                {
+                    if (cd == null || string.IsNullOrEmpty(cd.TypeName) || IL.Help.GetType(cd.TypeName) == null)
+                        return true;
+
+                    return false;
+                });
+            });
+
+            SaveSelectPrefab(files, "移除空组件", (file, obj, customizeData) =>
             {
                 if (customizeData == null || string.IsNullOrEmpty(customizeData.TypeName) || IL.Help.GetType(customizeData.TypeName) == null)
                 {
@@ -98,11 +114,11 @@ namespace wxb.IL.Editor
             }, null);
         }
 
-        static bool isNeedCheck(GameObject go)
+        static bool isNeedCheck(GameObject go, System.Func<Object, CustomizeData, bool> check)
         {
             var serials = go.GetComponentsInChildren<ISerializationCallbackReceiver>(true);
             int cnt = serials.Length;
-            if (serials.Length == 0)
+            if (cnt == 0)
                 return false;
 
             for (int i = 0; i < cnt; ++i)
@@ -111,7 +127,14 @@ namespace wxb.IL.Editor
                 var type = obj.GetType();
                 var customizeDataField = IL.Help.GetField(type, "customizeData");
                 if (customizeDataField != null)
-                    return true;
+                {
+                    var customizeData = customizeDataField.GetValue(obj) as CustomizeData;
+                    if (customizeData != null)
+                    {
+                        if (check(obj, customizeData))
+                            return true;
+                    }
+                }
             }
 
             return false;
@@ -119,10 +142,10 @@ namespace wxb.IL.Editor
 
         static bool isNeedCheck(string file)
         {
-            return isNeedCheck(AssetDatabase.LoadAssetAtPath<GameObject>(file));
+            return isNeedCheck(AssetDatabase.LoadAssetAtPath<GameObject>(file), (obj, cd) => true);
         }
 
-        static void SaveSelectPrefab(IList<string> files, string debugText, System.Func<Object, CustomizeData, bool> onSet, System.Action onend)
+        static void SaveSelectPrefab(IList<string> files, string debugText, System.Func<string, Object, CustomizeData, bool> onSet, System.Action onend)
         {
             var start = System.DateTime.Now;
             Debug.Log($"开始执行:{debugText}");
@@ -146,7 +169,7 @@ namespace wxb.IL.Editor
                             var customizeData = customizeDataField.GetValue(obj) as CustomizeData;
                             if (customizeData != null)
                             {
-                                if (onSet(obj, customizeData))
+                                if (onSet(file, obj, customizeData))
                                     isDirty = true;
                             }
                         }
@@ -208,9 +231,26 @@ namespace wxb.IL.Editor
             SaveToAnyValue(files, "bytes->AnyObject", null);
         }
 
+        [UnityEditor.MenuItem("Assets/IL/慎重/智能检测")]
+        static void Smart()
+        {
+            var files = PrefabCollect.Collect(Selection.objects, isNeedCheck);
+            SaveSelectPrefab(files, "智能检测", (file, obj, cd) =>
+            {
+                if (cd.anyValue == null || string.IsNullOrEmpty(cd.anyValue.dataKey))
+                {
+                    // anyValue数据无效
+                    cd.BytesToAnyValue();
+                    Debug.LogWarning(file);
+                    return true;
+                }
+                return false;
+            }, null);
+        }
+
         static void SaveToBytes(IList<string> files, string debugText, System.Action onEnd)
         {
-            SaveSelectPrefab(files, debugText, (obj, cd) =>
+            SaveSelectPrefab(files, debugText, (file, obj, cd) =>
             {
                 cd.AnyValueToBytes();
                 return true;
@@ -219,20 +259,141 @@ namespace wxb.IL.Editor
 
         static void CleraAnyValue(IList<string> files, string debugText, System.Action onEnd)
         {
-            SaveSelectPrefab(files, debugText, (obj, cd) =>
+            SaveSelectPrefab(files, debugText, (file, obj, cd) =>
             {
-                cd.ResetNested();
+                if (PrefabUtility.IsPartOfPrefabAsset(obj) || PrefabUtility.IsPartOfPrefabInstance(obj))
+                {
+                    SerializedObject so = new SerializedObject(obj);
+                    var anyValue = so.FindProperty("customizeData").FindPropertyRelative("anyValue");
+                    PrefabUtility.RevertPropertyOverride(anyValue, InteractionMode.AutomatedAction);
+                    so.ApplyModifiedProperties();
+                    EditorUtility.SetDirty(obj);
+                    so.Dispose();
+                }
+                else
+                {
+                    cd.ResetNested();
+                }
                 return true;
             }, onEnd);
         }
 
         static void SaveToAnyValue(IList<string> files, string debugText, System.Action onEnd)
         {
-            SaveSelectPrefab(files, debugText, (obj, cd) =>
+            SaveSelectPrefab(files, debugText, (file, obj, cd) =>
             {
                 cd.BytesToAnyValue();
                 return true;
             }, onEnd);
+        }
+
+        [UnityEditor.MenuItem("Assets/IL/检查所有序列化的字符串")]
+        static void CheckString()
+        {
+            Help.Init();
+
+            HashSet<System.Type> baseTypes = new HashSet<System.Type>()
+            {
+#if !USE_ILRT
+
+#endif
+            };
+
+            Help.ForEach((type) =>
+            {
+                if ((type.FullName.StartsWith("NG.") && type.IsSerializable) || Help.isType(type, baseTypes))
+                    Help.GetSerializeField(type);
+            });
+
+            SortedSet<string> texts = new SortedSet<string>();
+            Dictionary<int, string> hashCodes = new Dictionary<int, string>();
+            void Add(string name)
+            {
+                if (texts.Add(name))
+                {
+                    hashCodes.Add(name.GetHashCode(), name);
+                }
+            }
+
+            Add("x");
+            Add("y");
+            Add("z");
+            Help.ForEachCacheType((ct) =>
+            {
+                var sl = ct.Serializes;
+                if (sl == null || sl.Count == 0)
+                    return;
+                foreach (var ator in sl)
+                {
+                    Add(ator.Name);
+                }
+            });
+
+            WriteAutoFieldNames(texts);
+            L.Log($"count:{texts.Count}");
+        }
+
+        // 生成自动写入字段
+        static void WriteAutoFieldNames(SortedSet<string> currents)
+        {
+            List<string> nows = new List<string>();
+            {
+                List<string> removes = new List<string>(); // 已经不用的
+                string[] olds = ConstString.AllFieldNames;
+                Dictionary<string, int> nameToIndexs = new Dictionary<string, int>();
+                for (int i = 0; i < olds.Length; ++i)
+                {
+                    nameToIndexs.Add(olds[i], i);
+                    if (!currents.Contains(olds[i]))
+                        removes.Add(olds[i]);
+                }
+
+                nows.AddRange(olds);
+                foreach (var ator in currents)
+                {
+                    if (nameToIndexs.ContainsKey(ator))
+                        continue; // 已经存在的
+                    nows.Add(ator); // 新的
+                }
+
+                L.Log($"已经不用的key值:{removes.Count} {string.Join("\n", removes)}");
+            }
+
+            // 重新保存
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.AppendLine("#if UNITY_EDITOR");
+            sb.AppendLine("namespace wxb");
+            sb.AppendLine("{");
+            sb.AppendLine("    public static partial class ConstString");
+            sb.AppendLine("    {");
+            sb.AppendLine("        static ConstString()");
+            sb.AppendLine("        {");
+            sb.AppendLine("            var fieldNames = new string[] ");
+            sb.AppendLine("            {");
+            int cnt = nows.Count;
+            for (int i = 0; i < cnt; ++i)
+                sb.AppendLine($"                \"{nows[i]}\", // {i}");
+            sb.AppendLine("            };");
+            sb.AppendLine("            Set(fieldNames);");
+            sb.AppendLine("        }");
+            sb.AppendLine("        public static string[] AllFieldNames { get { return FieldNames; } }");
+            sb.AppendLine("    }");
+            sb.AppendLine("}");
+            sb.AppendLine("#endif");
+            System.IO.File.WriteAllText("Assets/XIL/Scripts/Serialize/ConstStringAuto.cs", sb.ToString());
+
+            // 写入到序列文件当中，运行时使用
+            {
+                string file = "Data/FieldNames.bytes";
+                var ms = new MemoryStream(1024);
+                var writer = new BinaryWriter(ms);
+                writer.Write((short)nows.Count);
+                foreach (var ator in nows)
+                    writer.Write(ator);
+                File.WriteAllBytes(file, ms.ToArray());
+                ms.Close();
+                writer.Close();
+            }
         }
 #endif
     }

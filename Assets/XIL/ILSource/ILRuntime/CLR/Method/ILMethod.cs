@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+﻿#if USE_ILRT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,7 @@ using ILRuntime.CLR.TypeSystem;
 using ILRuntime.Reflection;
 namespace ILRuntime.CLR.Method
 {
-    public class ILMethod : IMethod
+    public sealed class ILMethod : IMethod
     {
         OpCode[] body;
         OpCodeR[] bodyRegister;
@@ -600,7 +600,10 @@ namespace ILRuntime.CLR.Method
 #endif
             }
             else
+            {
                 body = new OpCode[0];
+                bodyRegister = new OpCodeR[0];
+            }
         }
 
         void InitStackCodeBody(Dictionary<Mono.Cecil.Cil.Instruction, int> addr)

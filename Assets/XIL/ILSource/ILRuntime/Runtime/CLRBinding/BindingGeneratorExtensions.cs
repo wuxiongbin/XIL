@@ -1,4 +1,4 @@
-﻿#if USE_HOT && UNITY_EDITOR
+#if USE_ILRT && UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -359,6 +359,26 @@ namespace ILRuntime.Runtime.CLRBinding
                 case "get_imageContentsHash":
                 case "set_imageContentsHash":
                     return true;
+                }
+            }
+
+            if (type == typeof(UnityEngine.Material))
+            {
+                switch (i.Name)
+                {
+                    case "ApplyPropertyOverride":
+                    case "RevertPropertyOverride":
+                    case "SetPropertyLock":
+                    case "set_parent":
+                    case "get_parent":
+                    case "get_isVariant":
+                    case "set_isVariant":
+                    case "IsChildOf":
+                    case "RevertAllPropertyOverrides":
+                    case "IsPropertyLockedByAncestor":
+                    case "IsPropertyLocked":
+                    case "IsPropertyOverriden":
+                        return true;
                 }
             }
 

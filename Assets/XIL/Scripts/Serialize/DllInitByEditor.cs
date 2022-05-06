@@ -1,10 +1,12 @@
-﻿#if USE_HOT && UNITY_EDITOR
+#if USE_ILRT && UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEditor;
+#if USE_ILRT
 using ILRuntime.Runtime.Enviorment;
+#endif
 using wxb;
 
 namespace wxb
@@ -12,6 +14,16 @@ namespace wxb
     [EditorClass]
     public class DllInitByEditor
     {
+#if !USE_ILRT
+        static System.Reflection.Assembly assembly;
+        public static void Init()
+        {
+            if (assembly != null)
+                return;
+
+            assembly = System.Reflection.Assembly.Load(System.IO.File.ReadAllBytes("Data/DyncDll.dll"), System.IO.File.ReadAllBytes("Data/DyncDll.pdb"));
+        }
+#else
         static AppDomain appdomain_;
 
         public static void Release()
@@ -77,6 +89,7 @@ namespace wxb
 
             wxb.IL.Help.Init();
         }
+#endif
     }
 }
 #endif

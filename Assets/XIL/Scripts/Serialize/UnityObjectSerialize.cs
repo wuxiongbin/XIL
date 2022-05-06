@@ -2,7 +2,7 @@ namespace wxb
 {
     class UnityObjectSerialize : ITypeSerialize
     {
-        byte ITypeSerialize.typeFlag { get { return TypeFlags.unityObjectType; } } // ÀàĞÍ±êÊ¶
+        byte ITypeSerialize.typeFlag { get { return TypeFlags.unityObjectType; } } // ç±»å‹æ ‡è¯†
 
         void ITypeSerialize.WriteTo(object value, IStream stream)
         {
@@ -14,19 +14,19 @@ namespace wxb
             parent = stream.ReadUnityObject();
         }
 
-        // ÅĞ¶ÏÁ½¸öÖµÊÇ·ñÏàµÈ
+        // åˆ¤æ–­ä¸¤ä¸ªå€¼æ˜¯å¦ç›¸ç­‰
         bool ITypeSerialize.IsEquals(object x, object y)
         {
             return (UnityEngine.Object)x == (UnityEngine.Object)y;
         }
 
-        // ÀàĞÍ×ª»»
+        // ç±»å‹è½¬æ¢
         public static UnityEngine.Object To(UnityEngine.Object src, System.Type type)
         {
             if (ReferenceEquals(src, null))
                 return null;
 
-#if USE_HOT
+#if USE_ILRT
             if (type is ILRuntime.Reflection.ILRuntimeWrapperType)
                 type = ((ILRuntime.Reflection.ILRuntimeWrapperType)type).RealType;
 #endif
@@ -54,13 +54,13 @@ namespace wxb
         }
 
 #if !CloseNested
-        // °ÑÖµĞ´Èëµ½abµ±ÖĞ
+        // æŠŠå€¼å†™å…¥åˆ°abå½“ä¸­
         void ITypeSerialize.WriteTo(object value, Nested.AnyBase ab)
         {
             ab.unityObj = value as UnityEngine.Object;
         }
 
-        // Í¨¹ıabÀ´ÉèÖÃÖµ
+        // é€šè¿‡abæ¥è®¾ç½®å€¼
         void ITypeSerialize.MergeFrom(ref object value, Nested.AnyBase ab)
         {
             value = ab.unityObj;

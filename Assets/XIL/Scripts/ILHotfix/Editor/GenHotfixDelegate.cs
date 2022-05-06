@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_ILRT
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
@@ -423,7 +423,7 @@ namespace wxb
         }
 
 
-        const string file_format = @"#if USE_HOT && {0}
+        const string file_format = @"#if USE_ILRT && {0}
 namespace IL
 {{
     public partial class DelegateBridge
@@ -445,14 +445,18 @@ namespace IL
         public static void GenOne()
         {
             Gen();
+#if USE_ILRT
             AutoRegILType.Build();
+#endif
         }
 
         [MenuItem("XIL/一键清除")]
         public static void GenClear()
         {
             Clear();
+#if USE_ILRT
             AutoRegILType.Clear();
+#endif
         }
 
         [MenuItem("XIL/注册需要热更的类")]

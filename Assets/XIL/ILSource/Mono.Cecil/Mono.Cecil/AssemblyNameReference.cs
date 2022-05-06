@@ -1,4 +1,4 @@
-#if USE_HOT
+#if USE_ILRT
 //
 // Author:
 //   Jb Evain (jbevain@gmail.com)

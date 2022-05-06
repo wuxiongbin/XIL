@@ -1,4 +1,4 @@
-﻿namespace wxb
+namespace wxb
 {
     using System.Reflection;
     using System.Collections.Generic;
@@ -231,7 +231,7 @@
             sb.AppendLine("});");
         }
 
-        const string RegTextFile = @"#if USE_HOT && {0}
+        const string RegTextFile = @"#if USE_ILRT && {0}
 namespace AutoIL
 {{
     using ILRuntime.Runtime.Enviorment;
@@ -261,7 +261,7 @@ namespace AutoIL
 }}
 " + "#endif";
 
-#if USE_HOT
+#if USE_ILRT
         static void DelegateAdapter(DelegateKey key, SB SB, string suffix, System.Action<System.Text.StringBuilder> onfun)
         {
             System.Text.StringBuilder sb = null;

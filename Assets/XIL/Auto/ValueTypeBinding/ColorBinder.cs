@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_ILRT
 using System;
 using System.Linq;
 using UnityEngine;
@@ -9,7 +9,12 @@ using ILRuntime.Runtime.Intepreter;
 using ILRuntime.CLR.Method;
 using ILRuntime.CLR.TypeSystem;
 using ILRuntime.Runtime.Stack;
-
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
+using AutoList = System.Collections.Generic.List<object>;
+#else
+using AutoList = ILRuntime.Other.UncheckedList<object>;
+#endif
 namespace ILRuntime.Runtime.Generated
 {
     public unsafe class ColorBinder : ValueTypeBinder<Color>

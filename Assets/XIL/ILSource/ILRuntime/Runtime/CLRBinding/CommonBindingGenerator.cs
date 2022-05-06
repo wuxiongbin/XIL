@@ -1,4 +1,4 @@
-#if USE_HOT && UNITY_EDITOR
+﻿#if USE_ILRT && UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -60,7 +60,7 @@ namespace ILRuntime.Runtime.CLRBinding
             StringBuilder sb = new StringBuilder();
             if (type.IsPrimitive)
             {
-                sb.AppendLine(string.Format("        static {0} GetInstance(ILRuntime.Runtime.Enviorment.AppDomain __domain, StackObject* ptr_of_this_method, IList<object> __mStack)", typeClsName));
+                sb.AppendLine(string.Format("        static {0} GetInstance(ILRuntime.Runtime.Enviorment.AppDomain __domain, StackObject* ptr_of_this_method, AutoList __mStack)", typeClsName));
                 sb.AppendLine("        {");
                 if (type.IsPrimitive || type.IsValueType)
                     sb.AppendLine("            ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);");
@@ -129,7 +129,7 @@ namespace ILRuntime.Runtime.CLRBinding
             }
             if (!type.IsPrimitive && !type.IsAbstract)
             {
-                sb.AppendLine(string.Format("        static void WriteBackInstance(ILRuntime.Runtime.Enviorment.AppDomain __domain, StackObject* ptr_of_this_method, IList<object> __mStack, ref {0} instance_of_this_method)", typeClsName));
+                sb.AppendLine(string.Format("        static void WriteBackInstance(ILRuntime.Runtime.Enviorment.AppDomain __domain, StackObject* ptr_of_this_method, AutoList __mStack, ref {0} instance_of_this_method)", typeClsName));
                 sb.AppendLine("        {");
                 sb.AppendLine(@"            ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
             switch(ptr_of_this_method->ObjectType)

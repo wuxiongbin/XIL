@@ -11,14 +11,29 @@ namespace wxb.IL.Editor
         [MenuItem("Assets/IL/ILRuntime插件宏")]
         static void AddMonoMarco()
         {
-            var ilruntime = "USE_HOT";
-            var ilruntime_editor = "USE_HOT && UNITY_EDITOR";
-            var mono = "USE_HOT";
-            var mono_pdb = "USE_HOT && USE_PDB";
-            var mono_mdb = "USE_HOT && USE_MDB";
+            var ilruntime = "USE_ILRT";
+            var ilruntime_editor = "USE_ILRT && UNITY_EDITOR";
+            var mono = "USE_ILRT";
+            var mono_pdb = "USE_ILRT && USE_PDB";
+            var mono_mdb = "USE_ILRT && USE_MDB";
 
-            AddMarco("Assets/XIL/ILSource/", 
-                (file) => 
+            HelpEditor.ForEach("Assets/", (AssetImporter importer) =>
+            {
+                var text = System.IO.File.ReadAllText(importer.assetPath);
+                text = text.Replace(ilruntime, "USE_ILRT");
+                WriteBytes(importer.assetPath, System.Text.Encoding.UTF8.GetBytes(text));
+            },
+            (string file, string root) =>
+            {
+                if (file.StartsWith("Assets/Scripts/Logic/") || file.StartsWith("Assets/Arts/HotScripts/"))
+                    return false;
+                
+                return file.EndsWith(".cs", true, null);
+            });
+
+            return;
+            AddMarco("Assets/XIL/ILSource/",
+                (file) =>
                 {
                     if (file.StartsWith("Assets/XIL/ILSource/ILRuntime/"))
                     {
@@ -39,11 +54,22 @@ namespace wxb.IL.Editor
                 });
         }
 
-        //[MenuItem("Assets/IL/脚本宏")]
+        [MenuItem("Assets/IL/脚本宏")]
         static void AddILMarco()
         {
-            var ilruntime = "!USE_HOT";
+            var ilruntime = "!USE_ILRT";
             AddMarco("Assets/Scripts/Logic/", (file) => 
+            {
+                if (file.StartsWith("Assets/Scripts/Logic/Config/Sources/"))
+                    return null;
+
+                if (file.StartsWith("Assets/Scripts/Logic/NetProto/"))
+                    return null;
+
+                return ilruntime;
+            });
+
+            AddMarco("Assets/Arts/HotScripts/", (file) =>
             {
                 if (file.StartsWith("Assets/Scripts/Logic/Config/Sources/"))
                     return null;

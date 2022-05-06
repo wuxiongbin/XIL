@@ -1,4 +1,4 @@
-#if USE_HOT && UNITY_STANDALONE_WIN
+#if USE_ILRT && UNITY_STANDALONE_WIN
 namespace IL
 {
     public partial class DelegateBridge

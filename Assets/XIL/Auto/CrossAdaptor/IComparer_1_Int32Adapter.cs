@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_ILRT
 using System;
 using ILRuntime.CLR.Method;
 using ILRuntime.Runtime.Enviorment;

@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+﻿#if USE_ILRT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,12 @@ using ILRuntime.Runtime.Enviorment;
 using ILRuntime.Runtime.Intepreter;
 using ILRuntime.Runtime.Stack;
 
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
+using AutoList = System.Collections.Generic.List<object>;
+#else
+using AutoList = ILRuntime.Other.UncheckedList<object>;
+#endif
 namespace ILRuntime.Runtime.Enviorment
 {
     public unsafe abstract class ValueTypeBinder
@@ -124,7 +130,7 @@ namespace ILRuntime.Runtime.Enviorment
             }
             else
             {
-                value = (T)StackObject.ToObject(a, intp.AppDomain, mStack);
+                value = (T)StackObject.ToObject(a, intp.AppDomain, (AutoList)mStack);
                 if (shouldFree)
                     intp.Free(ptr_of_this_method);
             }

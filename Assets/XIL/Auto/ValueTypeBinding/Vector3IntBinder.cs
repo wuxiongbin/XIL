@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_ILRT
 using UnityEngine;
 using System.Collections.Generic;
 using ILRuntime.Other;
@@ -8,7 +8,12 @@ using ILRuntime.Runtime.Enviorment;
 using ILRuntime.Runtime.Intepreter;
 using ILRuntime.CLR.Method;
 using ILRuntime.Runtime.Stack;
-
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
+using AutoList = System.Collections.Generic.List<object>;
+#else
+using AutoList = ILRuntime.Other.UncheckedList<object>;
+#endif
 namespace ILRuntime.Runtime.Generated
 {
     public unsafe class Vector3IntBinder : ValueTypeBinder<Vector3Int>

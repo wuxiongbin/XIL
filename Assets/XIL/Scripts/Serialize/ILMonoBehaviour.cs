@@ -1,5 +1,6 @@
-﻿namespace wxb
+namespace wxb
 {
+    using System.Collections.Generic;
     using UnityEngine;
 
     public class HotBaseType : System.Attribute
@@ -41,9 +42,14 @@
         void ISerializationCallbackReceiver.OnAfterDeserialize()
         {
             customizeData.OnAfterDeserialize(this);
+#if UNITY_EDITOR
+            onGUI = refType == null ? null : refType.TryGetMethod("OnGUI");
+#endif
         }
 
 #if UNITY_EDITOR
+        static List<ILMonoBehaviour> Actives = new List<ILMonoBehaviour>();
+        System.Reflection.MethodInfo onGUI;
         [EditorField]
         void Reset()
         {
@@ -57,10 +63,48 @@
         }
 
         [EditorField]
-        private void OnGUI()
+        static void GUIOn()
         {
-            if (!isQuit && refType != null)
-                refType.TryInvokeMethod("OnGUI");
+            if (isQuit)
+                return;
+
+            int cnt = Actives.Count;
+            ILMonoBehaviour il;
+            for (int i = 0; i < cnt; ++i)
+            {
+                il = Actives[i];
+                if (il.onGUI != null)
+                    il.onGUI.InvokeMethod(il.refType.Instance);
+            }
+        }
+
+        class ONGUI : MonoBehaviour
+        {
+            public System.Action ongui;
+
+            private void OnGUI()
+            {
+                if (ongui == null)
+                    return;
+
+                ongui();
+            }
+        }
+
+        static ONGUI gui;
+        static void CreateGUI()
+        {
+            if (!Application.isPlaying)
+                return;
+
+            if (isQuit)
+                return;
+
+            if (gui != null)
+                return;
+
+            gui = new GameObject("ILMonoBehaviour.OnGUI").AddComponent<ONGUI>();
+            gui.ongui = GUIOn;
         }
 #endif
 
@@ -80,12 +124,19 @@
         {
             if (!isQuit && refType != null)
                 refType.TryInvokeMethod("OnEnable");
+#if UNITY_EDITOR
+            Actives.Add(this);
+            CreateGUI();
+#endif
         }
 
         void OnDisable()
         {
             if (!isQuit && refType != null)
                 refType.TryInvokeMethod("OnDisable");
+#if UNITY_EDITOR
+            Actives.Remove(this);
+#endif
         }
 
         void OnDestroy()

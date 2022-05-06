@@ -1,4 +1,4 @@
-#if USE_HOT
+#if USE_ILRT
 // System.Collections.Generic.Stack<T>
 using System;
 using System.Collections;

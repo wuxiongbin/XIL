@@ -1,4 +1,4 @@
-﻿#if USE_HOT && UNITY_EDITOR
+#if USE_ILRT && UNITY_EDITOR
 using System.Linq;
 using UnityEngine;
 using System.Collections;
@@ -55,6 +55,8 @@ namespace wxb
             types.Add(typeof(Material));
             types.Add(typeof(QualitySettings));
             types.Add(typeof(ParticleSystem));
+            types.Add(typeof(UnityEngine.Playables.PlayableDirector));
+
             //types.Add(typeof(ParticleSystem.LightsModule));
             //types.Add(typeof(ParticleSystem.TriggerModule));
             //types.Add(typeof(ParticleSystem.CollisionModule));
@@ -161,12 +163,21 @@ namespace wxb
             types.Add(typeof(Screen));
             types.Add(typeof(wxb.Hotfix));
 
+            types.Add(typeof(UnityEngine.Networking.UnityWebRequest));
+
+            types.Add(typeof(System.IO.BinaryReader));
+            types.Add(typeof(System.IO.BinaryWriter));
+            types.Add(typeof(System.IO.MemoryStream));
+            types.Add(typeof(System.IO.Stream));
+
             types.UnionWith(ValueTypes);
 
             DllInitByEditor.LoadDLL();
-            ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.CrawlAppdomain(wxb.DllInitByEditor.appdomain);
+            ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.CrawlAppdomain(wxb.DllInitByEditor.appdomain, types);
             types.Remove(typeof(UnityEngine.Debug));
             types.Remove(typeof(System.Activator));
+            types.RemoveWhere((v) => v.IsArray || v.FullName.StartsWith("System.Runtime.CompilerServices."));
+            //types.Remove(typeof(SingletonMonoBehaviour<BF.TimerMgrObj>));
             ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(
                 types.ToList(), 
                 "Assets/XIL/Auto/CLR",
@@ -232,7 +243,7 @@ namespace wxb
             }
 
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.AppendLine("#if USE_HOT");
+            sb.AppendLine("#if USE_ILRT");
             sb.AppendLine("using ILRuntime.Runtime.Enviorment;");
             sb.AppendLine("namespace wxb");
             sb.AppendLine("{");

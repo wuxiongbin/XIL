@@ -1,4 +1,4 @@
-#if USE_HOT
+#if USE_ILRT
 namespace ILRuntime.Mono.Cecil
 {
     internal enum TypeComparisonMode {

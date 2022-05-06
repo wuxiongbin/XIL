@@ -1,9 +1,9 @@
-﻿using UnityEditor;
+using UnityEditor;
 using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-#if USE_HOT
+#if USE_ILRT
 using ILRuntime.Mono.Cecil;
 using ILRuntime.Reflection;
 using ILRuntime.Runtime.Intepreter;

@@ -1,4 +1,4 @@
-#if USE_HOT && USE_MDB
+#if USE_ILRT && USE_MDB
 //
 // Mono.CSharp.Debugger/MonoSymbolWriter.cs
 //

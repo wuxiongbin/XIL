@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEditor;
 using UnityEngine;
 using System.IO;
@@ -8,41 +8,62 @@ namespace PackTool
 {
     public class OpenHotMacro : TemplatesMarco
     {
-        const string marco = "USE_HOT";
+        const string marco_HOT = "USE_ILRT";
+        const string marco_ILRT = "USE_ILRT";
+
         const string path = "";
 
-        const string MenuItemOpen = "XIL/插件/开启";
+        const string MenuItemOpen_ILRT = "XIL/插件/开启/ILRT";
+        const string MenuItemOpen_HuaTuo = "XIL/插件/开启/华陀";
         const string MenuItemClose = "XIL/插件/取消";
 
         [MenuItem(MenuItemClose, true)]
         public static bool BufCannelToggle()
         {
             MacroDefine macroDefine = new MacroDefine();
-            return macroDefine.has(marco);
-        }
-
-        [MenuItem(MenuItemOpen, true)]
-        public static bool BufOpenToggle()
-        {
-            MacroDefine macroDefine = new MacroDefine();
-            return !macroDefine.has(marco);
+            return macroDefine.has(marco_HOT);
         }
 
         [MenuItem(MenuItemClose, false, 1)]
         public static void BufCannel()
         {
-            SetEnable(false, marco, path);
+            RemoveMacro(marco_HOT, marco_ILRT);
+#if USE_ILRT
             OpenHotMDBMacro.BufCannel();
             OpenHotPDBMacro.BufCannel();
+            OpenHotDEBUGMacro.BufCannel();
+#endif
         }
 
-        [MenuItem(MenuItemOpen, false, 0)]
+        [MenuItem(MenuItemOpen_HuaTuo, true)]
+        public static bool HuaTuoCannelToggle()
+        {
+            MacroDefine macroDefine = new MacroDefine();
+            return !macroDefine.has(marco_HOT) || macroDefine.has(marco_ILRT);
+        }
+
+        [MenuItem(MenuItemOpen_HuaTuo, false, 1)]
+        public static void HuaTuofCannel()
+        {
+            BufCannel();
+            AddMacro(marco_HOT);
+        }
+
+        [MenuItem(MenuItemOpen_ILRT, true)]
+        public static bool BufOpenToggle()
+        {
+            MacroDefine macroDefine = new MacroDefine();
+            return !macroDefine.has(marco_ILRT);
+        }
+
+        [MenuItem(MenuItemOpen_ILRT, false, 0)]
         public static void BufOpen()
         {
-            SetEnable(true, marco, path);
+            AddMacro(marco_HOT, marco_ILRT);
         }
     }
 
+#if USE_ILRT
     public class OpenHotPDBMacro : TemplatesMarco
     {
         const string marco = "USE_PDB";
@@ -153,5 +174,5 @@ namespace PackTool
             SetEnable(true, marco, path);
         }
     }
-
+#endif
 }

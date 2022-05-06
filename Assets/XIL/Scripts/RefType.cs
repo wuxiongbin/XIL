@@ -1,4 +1,4 @@
-﻿namespace wxb
+namespace wxb
 {
     using UnityEngine;
     using System.Reflection;
@@ -49,7 +49,7 @@
         {
             this.instance = instance;
 
-#if USE_HOT
+#if USE_ILRT
             if (instance is ILRuntime.Runtime.Intepreter.ILTypeInstance)
             {
                 var realType = (ILRuntime.Runtime.Intepreter.ILTypeInstance)instance;
@@ -297,7 +297,7 @@
             }
         }
 
-#if UNITY_EDITOR && USE_HOT
+#if UNITY_EDITOR && USE_ILRT
         [EditorClass]
         //[UnityEditor.MenuItem("XIL/RefType优化")]
         static void RefTypeOpt()

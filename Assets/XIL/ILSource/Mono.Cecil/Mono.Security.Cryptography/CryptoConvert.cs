@@ -1,4 +1,4 @@
-#if USE_HOT
+#if USE_ILRT
 //
 // CryptoConvert.cs - Crypto Convertion Routines
 //

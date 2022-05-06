@@ -1,4 +1,4 @@
-#if USE_HOT
+#if USE_ILRT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +16,8 @@ namespace ILRuntime.Runtime.Debugger
         SCThreadStarted,
         SCThreadEnded,
         SCBreakpointHit,
+        CSSetBreakpointEnabled,
+        CSSetBreakpointCondition,
         CSDeleteBreakpoint,
         CSExecute,
         CSStep,

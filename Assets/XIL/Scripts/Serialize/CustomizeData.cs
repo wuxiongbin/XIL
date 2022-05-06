@@ -1,4 +1,4 @@
-﻿namespace wxb
+namespace wxb
 {
     using UnityEngine;
     using System.Reflection;
@@ -8,7 +8,7 @@
     public class CustomizeData
     {
         [SerializeField]
-        [HideInInspector]
+        //[HideInInspector]
         string typeName; // 对应的类型
 
         public string TypeName
@@ -17,11 +17,11 @@
         }
 
         [SerializeField]
-        [HideInInspector]
+        //[HideInInspector]
         List<Object> objs; // 对应的unity对象
 
         [SerializeField]
-        [HideInInspector]
+        //[HideInInspector]
         byte[] bytes; // 对应的序列化数据字段
 
         RefType refType_ = null;
@@ -47,7 +47,7 @@
 
 #if !CloseNested
         [SerializeField]
-        Nested.Any0 anyValue;
+        public Nested.Any0 anyValue;
 
         public void ResetNested()
         {
@@ -77,7 +77,7 @@
         object instance;
         bool isDllChange()
         {
-#if USE_HOT
+#if USE_ILRT
             if (instance is ILRuntime.Runtime.Intepreter.ILTypeInstance)
             {
                 var ti = instance as ILRuntime.Runtime.Intepreter.ILTypeInstance;

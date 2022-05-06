@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Reflection;
 using System.Collections.Generic;
-#if USE_HOT
+#if USE_ILRT
 using ILRuntime.Runtime.Intepreter;
 using ILRuntime.Reflection;
 #endif
@@ -158,7 +158,7 @@ namespace wxb.Editor
                 return new CSharpAgentType(type);
             }
 
-#if USE_HOT
+#if USE_ILRT
             ILRuntimeFieldInfo ilFieldInfo = fieldInfo as ILRuntimeFieldInfo;
             if (ilFieldInfo != null && (type.IsArray || IL.Help.isListType(type)))
             {
@@ -191,7 +191,7 @@ namespace wxb.Editor
             {
                 return new DictionaryTypeEditor(type, fieldInfo);
             }
-#if USE_HOT
+#if USE_ILRT
             if (type is ILRuntimeType)
             {
                 if ((type.Name.EndsWith("[]")))

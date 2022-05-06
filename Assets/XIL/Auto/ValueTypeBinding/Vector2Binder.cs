@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_ILRT
 using UnityEngine;
 using System.Collections.Generic;
 using ILRuntime.Other;
@@ -9,7 +9,12 @@ using ILRuntime.Runtime.Intepreter;
 using ILRuntime.CLR.Method;
 using ILRuntime.CLR.TypeSystem;
 using ILRuntime.Runtime.Stack;
-
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
+using AutoList = System.Collections.Generic.List<object>;
+#else
+using AutoList = ILRuntime.Other.UncheckedList<object>;
+#endif
 namespace ILRuntime.Runtime.Generated
 {
     public unsafe class Vector2Binder : ValueTypeBinder<Vector2>
@@ -440,7 +445,7 @@ namespace ILRuntime.Runtime.Generated
             }
             else
             {
-                vec = (Vector2)StackObject.ToObject(a, intp.AppDomain, mStack);
+                vec = (Vector2)StackObject.ToObject(a, intp.AppDomain, (AutoList)mStack);
                 intp.Free(ptr);
             }
         }
@@ -458,7 +463,7 @@ namespace ILRuntime.Runtime.Generated
             if (binder != null)
                 binder.PushVector3(ref vec, intp, ptr, mStack);
             else
-                ILIntepreter.PushObject(ptr, mStack, vec, true);
+                ILIntepreter.PushObject(ptr, (AutoList)mStack, vec, true);
         }
     }
 }

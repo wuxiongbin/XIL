@@ -1,4 +1,4 @@
-#if USE_HOT && UNITY_EDITOR
+#if USE_ILRT && UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -27,6 +27,7 @@ namespace ILRuntime.Runtime.CLRBinding
 
             List<string> clsNames = new List<string>();
 
+            types.Sort((x, y) => x.FullName.CompareTo(y.FullName));
             foreach (var i in types)
             {
                 string clsName, realClsName;
@@ -39,7 +40,7 @@ namespace ILRuntime.Runtime.CLRBinding
                 using (System.IO.StreamWriter sw = new System.IO.StreamWriter(outputPath + "/" + clsName + ".cs", false, new UTF8Encoding(false)))
                 {
                     StringBuilder sb = new StringBuilder();
-                    sb.Append(@"#if USE_HOT
+                    sb.Append(@"#if USE_ILRT
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -52,6 +53,12 @@ using ILRuntime.Runtime.Intepreter;
 using ILRuntime.Runtime.Stack;
 using ILRuntime.Reflection;
 using ILRuntime.CLR.Utils;
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
+using AutoList = System.Collections.Generic.List<object>;
+#else
+using AutoList = ILRuntime.Other.UncheckedList<object>;
+#endif
 
 namespace ILRuntime.Runtime.Generated
 {
@@ -253,7 +260,7 @@ namespace ILRuntime.Runtime.Generated
                 using (System.IO.StreamWriter sw = new System.IO.StreamWriter(oFileName, false, new UTF8Encoding(false)))
                 {
                     StringBuilder sb = new StringBuilder();
-                    sb.Append(@"#if USE_HOT
+                    sb.Append(@"#if USE_ILRT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -267,7 +274,12 @@ using ILRuntime.Runtime.Intepreter;
 using ILRuntime.Runtime.Stack;
 using ILRuntime.Reflection;
 using ILRuntime.CLR.Utils;
-
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
+using AutoList = System.Collections.Generic.List<object>;
+#else
+using AutoList = ILRuntime.Other.UncheckedList<object>;
+#endif
 namespace ILRuntime.Runtime.Generated
 {
     unsafe class ");
@@ -352,11 +364,16 @@ namespace ILRuntime.Runtime.Generated
             using (System.IO.StreamWriter sw = new System.IO.StreamWriter(outputPath + "/CLRBindings.cs", false, new UTF8Encoding(false)))
             {
                 StringBuilder sb = new StringBuilder();
-                sb.AppendLine(@"#if USE_HOT
+                sb.AppendLine(@"#if USE_ILRT
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
+using AutoList = System.Collections.Generic.List<object>;
+#else
+using AutoList = ILRuntime.Other.UncheckedList<object>;
+#endif
 namespace ILRuntime.Runtime.Generated
 {
     class CLRBindings
@@ -399,11 +416,12 @@ namespace ILRuntime.Runtime.Generated
                     if (type.HasGenericParameter)
                     {
                         CLR.TypeSystem.ILType iltype = (CLR.TypeSystem.ILType)type;
-                        if (iltype.GenericInstances != null)
+                        var genericInstances = iltype.GenericInstances;
+                        if (genericInstances != null)
                         {
-                            foreach(var i in iltype.GenericInstances)
+                            for (int i = 0; i < genericInstances.Count; ++i)
                             {
-                                PrewarmType(i);
+                                PrewarmType(genericInstances[i]);
                             }
                         }
                     }
@@ -413,10 +431,12 @@ namespace ILRuntime.Runtime.Generated
             }
         }
 
-        public static void CrawlAppdomain(ILRuntime.Runtime.Enviorment.AppDomain domain)
+        public static void CrawlAppdomain(ILRuntime.Runtime.Enviorment.AppDomain domain, HashSet<System.Type> types)
         {
             Dictionary<Type, CLRBindingGenerateInfo> infos = new Dictionary<Type, CLRBindingGenerateInfo>(new ByReferenceKeyComparer<Type>());
             CrawlAppdomain(domain, infos, 10);
+            foreach (var ator in infos)
+                types.Add(ator.Key);
         }
 
         static void PrewarmType(CLR.TypeSystem.ILType type)
@@ -657,7 +677,7 @@ namespace ILRuntime.Runtime.Generated
                 using (System.IO.StreamWriter sw = new System.IO.StreamWriter(outputPath + "/" + clsName + ".cs", false, new UTF8Encoding(false)))
                 {
                     StringBuilder sb = new StringBuilder();
-                    sb.Append(@"#if USE_HOT
+                    sb.Append(@"#if USE_ILRT
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -670,7 +690,12 @@ using ILRuntime.Runtime.Intepreter;
 using ILRuntime.Runtime.Stack;
 using ILRuntime.Reflection;
 using ILRuntime.CLR.Utils;
-
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
+using AutoList = System.Collections.Generic.List<object>;
+#else
+using AutoList = ILRuntime.Other.UncheckedList<object>;
+#endif
 namespace ILRuntime.Runtime.Generated
 {
     unsafe class ");
@@ -825,11 +850,16 @@ namespace ILRuntime.Runtime.Generated
             using (System.IO.StreamWriter sw = new System.IO.StreamWriter(outputPath + "/CLRBindings.cs", false, new UTF8Encoding(false)))
             {
                 StringBuilder sb = new StringBuilder();
-                sb.AppendLine(@"#if USE_HOT
+                sb.AppendLine(@"#if USE_ILRT
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
+using AutoList = System.Collections.Generic.List<object>;
+#else
+using AutoList = ILRuntime.Other.UncheckedList<object>;
+#endif
 namespace ILRuntime.Runtime.Generated
 {
     class CLRBindings

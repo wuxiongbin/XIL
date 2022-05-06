@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using wxb.IL;
-#if USE_HOT
+#if USE_ILRT
 using ILRuntime.Mono.Cecil;
 using ILRuntime.Reflection;
 using ILRuntime.Runtime.Intepreter;
@@ -57,7 +57,7 @@ namespace wxb
 
         static Dictionary<FieldInfo, ITypeSerialize> RefTypes = new Dictionary<FieldInfo, ITypeSerialize>();
 
-#if USE_HOT
+#if USE_ILRT
         static Dictionary<ILRuntimeFieldInfo, ITypeSerialize> FieldInfoTypes = new Dictionary<ILRuntimeFieldInfo, ITypeSerialize>();
 #endif
 
@@ -166,7 +166,7 @@ namespace wxb
         public static void Release()
         {
             unityObjectSerialize = null;
-#if USE_HOT
+#if USE_ILRT
             FieldInfoTypes.Clear();
 #endif
             RefTypes.Clear();
@@ -189,7 +189,7 @@ namespace wxb
             {
                 if (type.IsEnum)
                 {
-#if USE_HOT
+#if USE_ILRT
                     if (type is ILRuntimeType)
                     {
                         var atts = type.GetCustomAttributes(typeof(EnumString), false);
@@ -201,12 +201,12 @@ namespace wxb
                     else
                     {
 #endif
-                        var atts = type.GetCustomAttributes(typeof(EnumString), false);
+                    var atts = type.GetCustomAttributes(typeof(EnumString), false);
                         if (atts != null && atts.Length != 0)
                             ts = new EnumStringTypeSerialize(type);
                         else
                             ts = new EnumTypeSerialize(type);
-#if USE_HOT
+#if USE_ILRT
                     }
 #endif
                 }
@@ -250,7 +250,7 @@ namespace wxb
             return ts;
         }
 
-#if USE_HOT
+#if USE_ILRT
         public static System.Type GetType(string name)
         {
             if (name.EndsWith("[]"))
@@ -305,7 +305,7 @@ namespace wxb
 
         public static ITypeSerialize GetByFieldInfo(FieldInfo fieldInfo)
         {
-#if USE_HOT
+#if USE_ILRT
             if (fieldInfo is ILRuntimeFieldInfo)
             {
                 return GetByType(fieldInfo as ILRuntimeFieldInfo);
@@ -345,6 +345,14 @@ namespace wxb
             var stream = new DefaultStream(512);
             GetByInstance(obj).WriteTo(obj, stream);
             return stream;
+        }
+
+        // 写入流
+        public static byte[] WriteToBytes(System.Type type, object obj)
+        {
+            var stream = new DefaultStream(512);
+            GetByType(type).WriteTo(obj, stream);
+            return stream.GetBytes();
         }
 
         public static IStream WriteTo(object obj, IStream stream)
@@ -396,6 +404,23 @@ namespace wxb
             }
         }
 
+        public static object MergeFromBytes(System.Type type, byte[] bytes)
+        {
+            object value = null;
+            try
+            {
+                var ts = GetByType(type);
+                DefaultStream ds = new DefaultStream(bytes);
+                ds.WritePos = bytes.Length;
+                ts.MergeFrom(ref value, ds);
+            }
+            catch (System.Exception ex)
+            {
+                UnityEngine.Debug.LogException(ex);
+            }
+            return value;
+        }
+
 #if !CloseNested // 关闭预置体嵌套支持
         public static void MergeFrom(object obj, Nested.AnyBase ab)
         {
@@ -414,7 +439,7 @@ namespace wxb
         }
 #endif
 
-#if USE_HOT
+#if USE_ILRT
         public static void GetElementType(TypeReference type, ref int arrayCount, out string elementType)
         {
             if (type.IsArray)

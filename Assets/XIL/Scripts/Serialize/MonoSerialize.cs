@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
 namespace wxb
@@ -69,11 +69,20 @@ namespace wxb
 
         void IStream.WriteFieldName(string value)
         {
-            WriteString(value);
+            if (ConstString.TryGetIndex(value, out var index))
+                WriteShort(index);
+            else
+            {
+                WriteShort(-1);
+                WriteString(value);
+            }
         }
 
         string IStream.ReadFieldName()
         {
+            var index = ReadShort();
+            if (index != -1)
+                return ConstString.GetName(index);
             return ReadString();
         }
     }

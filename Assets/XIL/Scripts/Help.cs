@@ -1,7 +1,7 @@
-﻿namespace wxb.IL
+namespace wxb.IL
 {
     using System.Reflection;
-#if USE_HOT
+#if USE_ILRT
     using ILRuntime.Mono.Cecil;
     using ILRuntime.Reflection;
     using ILRuntime.CLR.TypeSystem;
@@ -11,7 +11,7 @@
 
     public static class Help
     {
-#if !USE_HOT
+#if !USE_ILRT
         static Help()
         {
             Init();
@@ -203,7 +203,7 @@
             var type = typeof(T);
             AllTypesByFullName[type.FullName] = type;
         }
-        
+
         static ConstructorInfo GetConstructor(System.Type instanceType, System.Type param)
         {
             return GetOrCreate(instanceType).GetCtor(param);
@@ -270,10 +270,9 @@
             return instance;
         }
 
-        public static void Init()
+#if USE_ILRT
+        static void InitByRT()
         {
-            ReleaseAll();
-#if USE_HOT
 #if UNITY_EDITOR
             foreach (var itor in DllInitByEditor.appdomain.LoadedTypes)
 #else
@@ -282,7 +281,6 @@
             {
                 string name = itor.Key;
                 AllTypesByFullName.Add(name, itor.Value.ReflectionType);
-#if USE_HOT
                 if (name.IndexOf('/') != -1)
                 {
                     try
@@ -294,7 +292,6 @@
                         UnityEngine.Debug.LogException(ex);
                     }
                 }
-#endif
             }
 
             Reg<int>();
@@ -309,6 +306,28 @@
             Reg<float>();
             Reg<double>();
             Reg<char>();
+        }
+#endif
+
+#if UNITY_EDITOR
+        static void CheckInit()
+        {
+            ReleaseAll();
+#if USE_ILRT && USE_ILRT
+            var appdomain = DllInitByEditor.appdomain;
+#endif
+        }
+#endif
+
+        public static void Init()
+        {
+            ReleaseAll();
+#if USE_ILRT && USE_ILRT
+            InitByRT();
+#endif
+
+#if (USE_ILRT && !USE_ILRT) && UNITY_EDITOR
+            DllInitByEditor.Init();
 #endif
             var assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
             foreach (var assembly in assemblies)
@@ -331,7 +350,7 @@
                         System.Type t = null;
                         if (AllTypesByFullName.TryGetValue(type.FullName, out t))
                         {
-//#if USE_HOT
+//#if USE_ILRT
 //                            if (t != type)
 //                            {
 //                                if ((t is ILRuntimeWrapperType) && ((ILRuntimeWrapperType)t).RealType == type)
@@ -436,18 +455,27 @@
                 fun(ator.Value);
         }
 
+        public static void ForEach(System.Func<System.Type, bool> fun)
+        {
+            foreach (var ator in AllTypesByFullName)
+            {
+                if (!fun(ator.Value))
+                    return;
+            }
+        }
+
         public static bool TryGetTypeByFullName(string name, out System.Type type)
         {
-#if USE_HOT && UNITY_EDITOR
+#if USE_ILRT && UNITY_EDITOR
             if (AllTypesByFullName.Count == 0)
             {
-                var app = DllInitByEditor.appdomain;
+                CheckInit();
             }
 #endif
             if (AllTypesByFullName.TryGetValue(name, out type))
                 return true;
 
-#if USE_HOT
+#if USE_ILRT
             ILRuntime.Runtime.Enviorment.AppDomain appDomain;
 #if UNITY_EDITOR
             appDomain = DllInitByEditor.appdomain;
@@ -468,7 +496,7 @@
 
         public static void RegType(System.Type type)
         {
-#if USE_HOT && UNITY_EDITOR
+#if USE_ILRT && UNITY_EDITOR
             if (AllTypesByFullName.Count == 0)
             {
                 var app = DllInitByEditor.appdomain;
@@ -479,7 +507,7 @@
 
         public static string GetTypeFullName(System.Type type)
         {
-#if USE_HOT
+#if USE_ILRT
             if (type.GetType() == typeof(ILRuntimeType))
             {
                 ILRuntimeType ilrt = type as ILRuntimeType;
@@ -522,7 +550,7 @@
 
             return types;
         }
-      
+
         // 得到继承type的类型
         public static List<System.Type> GetBaseType(string baseTypeFullName)
         {
@@ -553,7 +581,7 @@
         public static System.Type GetInstanceType(object instance)
         {
             var type = instance.GetType();
-#if USE_HOT
+#if USE_ILRT
             if (type == typeof(ILTypeInstance))
                 return ((ILTypeInstance)instance).Type.ReflectionType;
             else if (type == typeof(ILEnumTypeInstance))
@@ -568,7 +596,7 @@
                 return false;
 
             bool has = type.GetCustomAttributes(customAtt, true).Length == 0 ? false : true;
-#if USE_HOT
+#if USE_ILRT
             if (has)
                 return true;
 
@@ -606,13 +634,13 @@
             foreach (var ator in fields)
             {
                 //if (!fieldInfos.Contains(ator))
-                    fieldInfos.Add(ator);
+                fieldInfos.Add(ator);
             }
         }
 
         public static void GetDictionaryKVType(System.Type type, FieldInfo fieldInfo, out System.Type keyElement, out System.Type valueElement)
         {
-#if USE_HOT
+#if USE_ILRT
             if (fieldInfo is ILRuntimeFieldInfo)
             {
                 var ilFieldInfo = (ILRuntimeFieldInfo)fieldInfo;
@@ -632,7 +660,7 @@
             if (type.IsArray || type.GetInterface("System.Collections.Generic.IList") != null)
                 return;
 
-#if USE_HOT
+#if USE_ILRT
             bool isILType = false;
             HashSet<string> noPubs = new HashSet<string>();
             HashSet<string> allfields = new HashSet<string>();
@@ -663,7 +691,7 @@
                     var fieldType = field.FieldType;
                     if (fieldType.IsPointer || fieldType == typeof(System.IntPtr))
                         continue;
-#if USE_HOT
+#if USE_ILRT
                     if (isILType && !allfields.Contains(field.Name))
                         continue;
 #endif
@@ -673,7 +701,7 @@
 
                     if (field.GetCustomAttributes(typeof(System.NonSerializedAttribute), false).Length != 0)
                         continue;
-#if USE_HOT
+#if USE_ILRT
                     if (isPublic)
                     {
                         if (isILType && noPubs.Contains(field.Name))
@@ -710,7 +738,7 @@
 
         static bool IsSerializableType(FieldInfo fieldInfo)
         {
-#if USE_HOT
+#if USE_ILRT
             if (fieldInfo is ILRuntimeFieldInfo)
             {
                 return IsSerializableType(fieldInfo.FieldType, fieldInfo);
@@ -721,7 +749,7 @@
 
         public static System.Type GetRealType(System.Type type)
         {
-#if USE_HOT
+#if USE_ILRT
             if (type is ILRuntimeWrapperType)
             {
                 type = ((ILRuntimeWrapperType)type).RealType;
@@ -737,7 +765,7 @@
 
         static bool IsILType(System.Type type)
         {
-#if USE_HOT
+#if USE_ILRT
             type = GetRealType(type);
             if (type is ILRuntimeType || type == typeof(ILTypeInstance))
                 return true;
@@ -755,7 +783,7 @@
             return type.IsArray || (type.GetInterface("System.Collections.IList") != null);
         }
 
-#if USE_HOT
+#if USE_ILRT
         static bool IsSerializableType(TypeReference typeReference)
         {
             try
@@ -789,7 +817,7 @@
         }
 #endif
 
-        public static HashSet<System.Type> DefaultSerializableType = new HashSet<System.Type>() 
+        public static HashSet<System.Type> DefaultSerializableType = new HashSet<System.Type>()
         {
             typeof(UnityEngine.Vector2),
             typeof(UnityEngine.Vector3),
@@ -841,7 +869,7 @@
                 var element = GetRealType(type).GetElementType();
                 if (IsSerializableType(element, null))
                     return true;
-#if USE_HOT
+#if USE_ILRT
                 if (fieldInfo is ILRuntimeFieldInfo)
                     return IsSerializableType(((ILRuntimeFieldInfo)fieldInfo).Definition.FieldType);
 #endif
@@ -852,7 +880,7 @@
                 var element = type.GetGenericArguments()[0];
                 if (IsSerializableType(element, null))
                     return true;
-#if USE_HOT
+#if USE_ILRT
                 if (fieldInfo is ILRuntimeFieldInfo)
                     return IsSerializableType(((ILRuntimeFieldInfo)fieldInfo).Definition.FieldType);
 #endif
@@ -883,7 +911,7 @@
         {
             if (!isListType(fieldInfo.FieldType))
                 return false;
-#if USE_HOT
+#if USE_ILRT
             ILRuntimeFieldInfo ilFieldInfo = fieldInfo as ILRuntimeFieldInfo;
             if (ilFieldInfo != null)
             {
@@ -905,7 +933,7 @@
             var ft = fieldInfo.FieldType;
             if (!ft.IsArray)
                 return false;
-#if USE_HOT
+#if USE_ILRT
             ILRuntimeFieldInfo ilFieldInfo = fieldInfo as ILRuntimeFieldInfo;
             if (ilFieldInfo != null)
             {
@@ -916,7 +944,11 @@
                 return false;
             }
 #endif
-            if (fieldInfo.FieldType.GetGenericArguments()[0] == elementType)
+            var Arguments = fieldInfo.FieldType.GetGenericArguments();
+            if (Arguments == null || Arguments.Length == 0)
+                return false;
+
+            if (Arguments[0] == elementType)
                 return true;
 
             return false;
@@ -933,7 +965,7 @@
         {
             var type = fieldInfo.FieldType;
             System.Type element;
-#if USE_HOT
+#if USE_ILRT
             if (type is ILRuntimeWrapperType)
             {
                 element = ((ILRuntimeWrapperType)type).RealType.GetGenericArguments()[0];
@@ -962,7 +994,7 @@
         public static System.Type GetElementByList(System.Type type)
         {
             System.Type element;
-#if USE_HOT
+#if USE_ILRT
             if (type is ILRuntimeWrapperType)
             {
                 element = ((ILRuntimeWrapperType)type).RealType.GetGenericArguments()[0];
@@ -983,7 +1015,7 @@
 
         static public List<FieldInfo> GetSerializeField(object obj)
         {
-#if USE_HOT
+#if USE_ILRT
             if (obj is ILTypeInstance)
             {
                 ILTypeInstance ili = (ILTypeInstance)obj;
@@ -1038,7 +1070,7 @@
             {
                 return 0;
             }
-#if USE_HOT
+#if USE_ILRT
             else if (type is ILRuntimeType)
             {
                 var constructor = GetOrCreate(type).GetCtor();
@@ -1066,7 +1098,7 @@
             }
         }
 
-#if USE_HOT
+#if USE_ILRT
         static System.Collections.IList CreateIList(int arrayCount, int count)
         {
             System.Collections.IList list = null;

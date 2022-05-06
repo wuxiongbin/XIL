@@ -1,4 +1,3 @@
-﻿#if USE_HOT
 //#define DEBUG_INPUT
 namespace wxb
 {
@@ -7,6 +6,30 @@ namespace wxb
 
     static partial class AutoRegILType
     {
+        public static void GetPlatform(out string marc, out string suffix)
+        {
+#if UNITY_IOS
+            marc = "UNITY_IOS";
+            suffix = "ios";
+#elif UNITY_ANDROID
+            marc = "UNITY_ANDROID";
+            suffix = "ad";
+#elif UNITY_WEBGL
+            marc = "UNITY_WEBGL";
+            suffix = "webgl";
+#elif UNITY_STANDALONE_OSX
+            marc = "UNITY_STANDALONE_OSX";
+            suffix = "mac";
+#elif UNITY_STANDALONE_LINUX
+            marc = "UNITY_STANDALONE_LINUX";
+            suffix = "linux";
+#else
+            marc = "UNITY_STANDALONE_WIN";
+            suffix = "pc";
+#endif
+        }
+
+#if USE_ILRT
         [UnityEditor.InitializeOnLoadMethod]
         static void Init()
         {
@@ -239,12 +262,12 @@ namespace wxb
             return false;
         }
 
+#if USE_ILRT
         [UnityEditor.MenuItem("XIL/委托自动生成")]
         public static void Build()
         {
             HashSet<System.Type> types = new HashSet<System.Type>(); 
             var assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
-#if USE_HOT
             string dll = ResourcesPath.dataPath + "/../Data/DyncDll.dll";
             if (System.IO.File.Exists(dll))
             {
@@ -252,8 +275,7 @@ namespace wxb
                 types.UnionWith(assembly.GetTypes());
             }
 
-            ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.CrawlAppdomain(wxb.DllInitByEditor.appdomain);
-#endif
+            ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.CrawlAppdomain(wxb.DllInitByEditor.appdomain, types);
             foreach (var assemblie in assemblies)
             {
                 if (!IsAssemblie(assemblie))
@@ -270,6 +292,7 @@ namespace wxb
         {
             BuildDelegate(new Dictionary<System.Type, UseTypeInfo>(), new Dictionary<System.Type, UseTypeInfo>());
         }
+#endif
 
         static void Export(HashSet<System.Type> types)
         {
@@ -538,7 +561,7 @@ namespace wxb
             }
             else
             {
-                if (!IsPublic(type) || !type.IsClass)
+                if (!IsPublic(type) || type.IsValueType)
                     return;
                 CheckMethods(type, hotTypes, csharpDelegate, Checks);
             }
@@ -821,29 +844,6 @@ namespace wxb
             public System.Text.StringBuilder RegisterMethodDelegate = new System.Text.StringBuilder();
         }
 
-        public static void GetPlatform(out string marc, out string suffix)
-        {
-#if UNITY_IOS
-            marc = "UNITY_IOS";
-            suffix = "ios";
-#elif UNITY_ANDROID
-            marc = "UNITY_ANDROID";
-            suffix = "ad";
-#elif UNITY_WEBGL
-            marc = "UNITY_WEBGL";
-            suffix = "webgl";
-#elif UNITY_STANDALONE_OSX
-            marc = "UNITY_STANDALONE_OSX";
-            suffix = "mac";
-#elif UNITY_STANDALONE_LINUX
-            marc = "UNITY_STANDALONE_LINUX";
-            suffix = "linux";
-#else
-            marc = "UNITY_STANDALONE_WIN";
-            suffix = "pc";
-#endif
-        }
-
 #if DEBUG_INPUT
         static void DebugInfo(string suffix, System.Type type, Dictionary<System.Type, UseTypeInfo> infos, System.Text.StringBuilder sb)
         {
@@ -995,6 +995,6 @@ namespace wxb
                 sb.AppendLine();
             }
         }
+#endif
     }
 }
-#endif

@@ -158,6 +158,11 @@ namespace wxb
             }
         }
 
+        public System.Reflection.MethodInfo TryGetMethod(string name)
+        {
+            return IL.Help.GetMethod(type, name);
+        }
+
         public void TryInvokeMethod(string name)
         {
             using (var obj = new global::IL.EmptyObjs())

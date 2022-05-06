@@ -1,5 +1,6 @@
-﻿#if USE_HOT
+﻿#if USE_ILRT
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,15 @@ using ILRuntime.Reflection;
 using ILRuntime.Runtime.Enviorment;
 using ILRuntime.Runtime.Stack;
 
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
+using AutoList = System.Collections.Generic.List<object>;
+#else
+using AutoList = ILRuntime.Other.UncheckedList<object>;
+#endif
 namespace ILRuntime.CLR.TypeSystem
 {
-    public unsafe class CLRType : IType
+    public sealed unsafe class CLRType : IType
     {
         Type clrType;
         bool isPrimitive, isValueType, isEnum;
@@ -404,7 +411,7 @@ namespace ILRuntime.CLR.TypeSystem
             return null;
         }
 
-        public bool CopyFieldToStack(int hash, object target, Runtime.Intepreter.ILIntepreter intp, ref StackObject* esp, IList<object> mStack)
+        public bool CopyFieldToStack(int hash, object target, Runtime.Intepreter.ILIntepreter intp, ref StackObject* esp, AutoList mStack)
         {
             if (fieldMapping == null)
                 InitializeFields();
@@ -420,7 +427,7 @@ namespace ILRuntime.CLR.TypeSystem
                 return false;
         }
 
-        public bool AssignFieldFromStack(int hash, ref object target, Runtime.Intepreter.ILIntepreter intp, StackObject* esp, IList<object> mStack)
+        public bool AssignFieldFromStack(int hash, ref object target, Runtime.Intepreter.ILIntepreter intp, StackObject* esp, AutoList mStack)
         {
             if (fieldMapping == null)
                 InitializeFields();
@@ -578,7 +585,7 @@ namespace ILRuntime.CLR.TypeSystem
             fieldMapping = new Dictionary<string, int>();
             fieldInfoCache = new Dictionary<int, FieldInfo>();
 
-            var fields = clrType.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static);
+            var fields = clrType.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static).ToList();
             int idx = 0;
             bool hasValueTypeBinder = ValueTypeBinder != null;
             if (hasValueTypeBinder)
@@ -587,8 +594,13 @@ namespace ILRuntime.CLR.TypeSystem
             }
             if (hasValueTypeBinder || isEnum)
             {
-                orderedFieldTypes = new IType[fields.Length];
+                orderedFieldTypes = new IType[fields.Count];
             }
+
+            fields.Sort((a, b) =>
+            {
+                return a.MetadataToken - b.MetadataToken;
+            });
             foreach (var i in fields)
             {
                 int hashCode = i.GetHashCode();

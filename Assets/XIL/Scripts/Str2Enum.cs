@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_ILRT
 using ILRuntime.CLR.TypeSystem;
 using ILRuntime.Mono.Cecil;
 using ILRuntime.Runtime.Intepreter;
@@ -10,7 +10,7 @@ namespace wxb
 {
     public static class Str2Enum
     {
-#if USE_HOT
+#if USE_ILRT
         class EnumValue
         {
             public EnumValue(EnumInfo info)
@@ -159,14 +159,14 @@ namespace wxb
             {
                 if ((str[0] >= '0' && str[0] <= '9') || str[0] == '-')
                 {
-#if USE_HOT
+#if USE_ILRT
                     if (type is ILRuntime.Reflection.ILRuntimeType)
                         return int.Parse(str);
 #endif
                     return Enum.ToObject(type, int.Parse(str)); // 数字
                 }
 
-#if USE_HOT
+#if USE_ILRT
                 if (type is ILRuntime.Reflection.ILRuntimeType)
                 {
                     if (TryGet(type, str, out var value))
@@ -186,7 +186,7 @@ namespace wxb
             return 0;
         }
 
-#if USE_HOT
+#if USE_ILRT
         public static string GetEnumStr(object value, System.Type type)
         {
             int intValue = (int)value;
@@ -209,7 +209,7 @@ namespace wxb
             if ((value[0] >= '0' && value[0] <= '9') || value[0] == '-')
             {
                 // 数字
-#if USE_HOT
+#if USE_ILRT
                 if (type is ILRuntime.Reflection.ILRuntimeType)
                 {
                     t = int.Parse(value);
@@ -220,7 +220,7 @@ namespace wxb
                 return true;
             }
 
-#if USE_HOT
+#if USE_ILRT
             if (type is ILRuntime.Reflection.ILRuntimeType)
             {
                 if (TryGet(type, value, out t))
@@ -250,7 +250,7 @@ namespace wxb
 
         public static Array GetEnumValues(System.Type type)
         {
-#if USE_HOT
+#if USE_ILRT
             if (type is ILRuntime.Reflection.ILRuntimeType)
             {
                 return Get(type).allValues;
@@ -261,7 +261,7 @@ namespace wxb
 
         public static int GetMaxEnumValue(System.Type type)
         {
-#if USE_HOT
+#if USE_ILRT
             if (type is ILRuntime.Reflection.ILRuntimeType)
                 return Get(type).GetMaxValue();
 #endif
@@ -278,7 +278,7 @@ namespace wxb
 
         public static void Release()
         {
-#if USE_HOT
+#if USE_ILRT
             enumValues.Clear();
 #endif
         }

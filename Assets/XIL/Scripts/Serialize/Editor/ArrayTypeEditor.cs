@@ -1,8 +1,8 @@
-﻿using UnityEditor;
+using UnityEditor;
 using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
-#if USE_HOT
+#if USE_ILRT
 using ILRuntime.Reflection;
 using ILRuntime.Runtime.Intepreter;
 #endif

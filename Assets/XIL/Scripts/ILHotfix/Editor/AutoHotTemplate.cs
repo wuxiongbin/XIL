@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_ILRT
 namespace wxb
 {
     using System.Reflection;

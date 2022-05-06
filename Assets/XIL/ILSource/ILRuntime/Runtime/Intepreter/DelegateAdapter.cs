@@ -1,4 +1,4 @@
-#if USE_HOT
+#if USE_ILRT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,12 @@ using ILRuntime.Runtime;
 using ILRuntime.Runtime.Stack;
 using ILRuntime.Other;
 using ILRuntime.Runtime.Enviorment;
-
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
+using AutoList = System.Collections.Generic.List<object>;
+#else
+using AutoList = ILRuntime.Other.UncheckedList<object>;
+#endif
 namespace ILRuntime.Runtime.Intepreter
 {
     #region Functions
@@ -1088,14 +1093,14 @@ namespace ILRuntime.Runtime.Intepreter
             return ctx;
         }
 
-        public unsafe StackObject* ILInvoke(ILIntepreter intp, StackObject* esp, IList<object> mStack)
+        public unsafe StackObject* ILInvoke(ILIntepreter intp, StackObject* esp, AutoList mStack)
         {
             var ebp = esp;
             esp = ILInvokeSub(intp, esp, mStack);
             return ClearStack(intp, esp, ebp, mStack);
         }
 
-        unsafe StackObject* ILInvokeSub(ILIntepreter intp, StackObject* esp, IList<object> mStack)
+        unsafe StackObject* ILInvokeSub(ILIntepreter intp, StackObject* esp, AutoList mStack)
         {
             var ebp = esp;
             bool unhandled;
@@ -1133,7 +1138,7 @@ namespace ILRuntime.Runtime.Intepreter
             return ret;
         }
 
-        unsafe StackObject* ClearStack(ILIntepreter intp, StackObject* esp, StackObject* ebp, IList<object> mStack)
+        unsafe StackObject* ClearStack(ILIntepreter intp, StackObject* esp, StackObject* ebp, AutoList mStack)
         {
             int paramCnt = method.ParameterCount;
             if (method.IsExtend && instance != null)//如果是拓展方法，退一位
@@ -1271,24 +1276,13 @@ namespace ILRuntime.Runtime.Intepreter
                 {
                     if (im.ParameterCount == method_count && ret_type == method.ReturnType)
                     {
-                            
-                            for (int i = 0; i < im.ParameterCount; i++)
-                            {
-                                var index = method.IsExtend ? i + 1 : i;
-                                if (type.IsGenericInstance)
-                                {
-                                    if (method.Parameters[index] != type.GenericArguments[i].Value)
-                                    {
-                                        return false;
-                                    }
-                                }
-                                else
-                                {
-                                    if (im.Parameters[i] != method.Parameters[index])
-                                        return false;
-                                }
-                              
-                            }
+
+                        for (int i = 0; i < im.ParameterCount; i++)
+                        {
+                            var index = method.IsExtend ? i + 1 : i;
+                            if (im.Parameters[i] != method.Parameters[index] && (!(im is CLRMethod) || (im.Parameters[i].TypeForCLR != method.Parameters[index].TypeForCLR)))
+                                return false;
+                        }
 
                         return true;
                     }
@@ -1386,7 +1380,7 @@ namespace ILRuntime.Runtime.Intepreter
         IDelegateAdapter Next { get; }
         ILTypeInstance Instance { get; }
         ILMethod Method { get; }
-        StackObject* ILInvoke(ILIntepreter intp, StackObject* esp, IList<object> mStack);
+        StackObject* ILInvoke(ILIntepreter intp, StackObject* esp, AutoList mStack);
         IDelegateAdapter Instantiate(Enviorment.AppDomain appdomain, ILTypeInstance instance, ILMethod method);
         bool IsClone { get; }
         IDelegateAdapter Clone();

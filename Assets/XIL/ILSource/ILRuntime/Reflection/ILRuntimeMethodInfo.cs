@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+﻿#if USE_ILRT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +32,7 @@ namespace ILRuntime.Reflection
             for (int i = 0; i < m.ParameterCount; i++)
             {
                 var pd = m.Definition.Parameters[i];
-                parameters[i] = new ILRuntimeParameterInfo(pd, m.Parameters[i], this);
+                parameters[i] = new ILRuntimeParameterInfo(pd, m.Parameters[i], this, appdomain);
             }
         }
 
@@ -156,6 +156,32 @@ namespace ILRuntime.Reflection
             return parameters;
         }
 
+        public override bool IsGenericMethod
+        {
+            get
+            {
+                return method.IsGenericInstance || method.GenericParameterCount > 0;
+            }
+        }
+
+        public override bool IsGenericMethodDefinition
+        {
+            get
+            {
+                return method.GenericParameterCount > 0;
+            }
+        }
+
+        public override MethodInfo MakeGenericMethod(params Type[] typeArguments)
+        {
+            IType[] arg = new IType[typeArguments.Length];
+            for (int i = 0; i < arg.Length; i++)
+            {
+                arg[i] = appdomain.GetType(typeArguments[i]);
+            }
+            return ((ILMethod)method.MakeGenericMethod(arg)).ReflectionMethodInfo;
+        }
+
         public override object Invoke(object obj, BindingFlags invokeAttr, Binder binder, object[] parameters, CultureInfo culture)
         {
             if (method.HasThis)
@@ -251,6 +277,11 @@ namespace ILRuntime.Reflection
                 del = iDelegate.Instantiate(appdomain, ilTypeInstance, iDelegate.Method);
             }
             return del.Delegate;
+        }
+
+        public override string ToString()
+        {
+            return definition == null ? base.ToString() : definition.ToString();
         }
     }
 }

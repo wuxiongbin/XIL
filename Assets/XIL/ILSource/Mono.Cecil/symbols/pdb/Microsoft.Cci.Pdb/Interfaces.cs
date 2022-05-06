@@ -1,4 +1,4 @@
-#if USE_HOT && USE_PDB
+#if USE_ILRT && USE_PDB
 using System;
 using System.Collections.Generic;
 

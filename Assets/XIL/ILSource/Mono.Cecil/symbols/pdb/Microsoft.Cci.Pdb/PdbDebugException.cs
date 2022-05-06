@@ -1,4 +1,4 @@
-#if USE_HOT && USE_PDB
+#if USE_ILRT && USE_PDB
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 

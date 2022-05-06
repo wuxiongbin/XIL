@@ -1,4 +1,4 @@
-#if USE_HOT
+#if USE_ILRT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +14,8 @@ namespace ILRuntime.Runtime.Debugger
         public int StartColumn { get; set; }
         public int EndLine { get; set; }
         public int EndColumn { get; set; }
+
+        public int ArgumentCount { get; set; }
         public VariableInfo[] LocalVariables { get; set; }
     }
 }

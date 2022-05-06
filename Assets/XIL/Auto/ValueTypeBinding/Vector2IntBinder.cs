@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_ILRT
 using UnityEngine;
 using System.Collections.Generic;
 using ILRuntime.Other;
@@ -10,7 +10,12 @@ using ILRuntime.CLR.Method;
 using ILRuntime.CLR.TypeSystem;
 using ILRuntime.Runtime.Stack;
 using System.Numerics;
-
+//#if DEBUG && !DISABLE_ILRUNTIME_DEBUG
+#if HOT_DEBUG
+using AutoList = System.Collections.Generic.List<object>;
+#else
+using AutoList = ILRuntime.Other.UncheckedList<object>;
+#endif
 namespace ILRuntime.Runtime.Generated
 {
     public unsafe class Vector2IntBinder : ValueTypeBinder<Vector2Int>

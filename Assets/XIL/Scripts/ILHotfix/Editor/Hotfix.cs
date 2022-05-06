@@ -1,4 +1,4 @@
-﻿#if USE_HOT
+#if USE_ILRT
 using System.Collections.Generic;
 using System;
 using System.Reflection;
@@ -226,6 +226,18 @@ namespace wxb.Editor
             return false;
         }
 
+        static bool IsHasName(List<MethodDefinition> methods, string name)
+        {
+            int count = methods.Count;
+            for (int i = 0; i < count; ++i)
+            {
+                if (methods[i].Name == name)
+                    return true;
+            }
+
+            return false;
+        }
+
         static bool injectType(AssemblyDefinition assembly, TypeReference hotfixAttributeType, TypeDefinition type, HashSet<string> exports)
         {
             foreach(var nestedTypes in type.NestedTypes)
@@ -245,6 +257,7 @@ namespace wxb.Editor
                 return true;
 
             bool isUnityObject = IsUnityObjectType(type);
+            bool isConfigObject = IsConfigType(type);
             List<MethodDefinition> methods = new List<MethodDefinition>(type.Methods);
             foreach (var method in methods)
             {
@@ -257,6 +270,13 @@ namespace wxb.Editor
                 bool isEditorCall = false;
                 if (method.IsSpecialName && (method.Name.StartsWith("get_") || method.Name.StartsWith("set_")))
                 {
+                    if (isConfigObject)
+                    {
+                        string mn = method.Name.Substring(4);
+                        if (IsHasName(methods, "get_" + mn) && IsHasName(methods, "set_" + mn))
+                            continue;
+                    }
+
                     string propertyName = method.Name.Substring(4);
                     foreach (var ator in type.Properties)
                     {
@@ -291,8 +311,27 @@ namespace wxb.Editor
 
                 if (method.Name != ".cctor" && !method.IsAbstract && !method.IsPInvokeImpl && method.Body != null && !method.Name.Contains("<"))
                 {
-                    if (isUnityObject && method.IsConstructor)
+                    if ((isUnityObject || isConfigObject) && method.IsConstructor)
                         continue;
+
+                    if (isConfigObject)
+                    {
+                        switch (method.Name)
+                        {
+                        case "GetAll":
+                        case "LangTo":
+                        case "LangToAll":
+                        case "GetLang":
+                        case "Get":
+                        case "Find":
+                        case "TryGetValue":
+                        case "Has":
+                        case "InitBytes":
+                        case "OnAllLoadEnd":
+                        case "OnReload":
+                            continue;
+                        }
+                    }
 
                     if ((method.HasGenericParameters || genericInOut(assembly, method)))
                     {
@@ -325,6 +364,17 @@ namespace wxb.Editor
                 return false;
 
             return IsUnityObjectType(type.Resolve().BaseType);
+        }
+
+        static bool IsConfigType(TypeReference type)
+        {
+            if (type.FullName == "IConfig")
+                return true;
+
+            if (type.Resolve().BaseType == null)
+                return false;
+
+            return IsConfigType(type.Resolve().BaseType);
         }
 
         public static void HotfixInject(string inject_assembly_path, Func<HashSet<string>> fun)

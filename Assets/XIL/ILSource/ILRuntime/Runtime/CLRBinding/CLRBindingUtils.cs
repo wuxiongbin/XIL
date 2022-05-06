@@ -1,4 +1,4 @@
-#if USE_HOT && UNITY_EDITOR
+#if USE_ILRT && UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.Linq;
