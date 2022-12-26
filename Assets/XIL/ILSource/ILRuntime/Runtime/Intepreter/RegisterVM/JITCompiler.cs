@@ -1,4 +1,4 @@
-#if USE_ILRT
+﻿#if USE_ILRT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -1024,7 +1024,7 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
                     bool noJIT = (ilm.JITFlags & ILRuntimeJITFlags.NoJIT) != ILRuntimeJITFlags.None;
                     bool forceInline = (ilm.JITFlags & ILRuntimeJITFlags.ForceInline) != ILRuntimeJITFlags.None;
                     bool hasExceptionHandler = ilm.Definition.HasBody && ilm.Definition.Body.HasExceptionHandlers;
-                    if (!ilm.IsDelegateInvoke && !ilm.IsVirtual && !noJIT && !hasExceptionHandler && !ilm.Compiling)
+                    if (!ilm.IsDelegateInvoke && !ilm.IsVirtual && !noJIT && !hasExceptionHandler && !ilm.Compiling && !ilm.IsEventAdd && !ilm.IsEventRemove)
                     {
                         var def = ilm.Definition;
                         if (!def.HasBody || forceInline)

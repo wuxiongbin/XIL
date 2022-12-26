@@ -416,12 +416,11 @@ namespace ILRuntime.Runtime.Generated
                     if (type.HasGenericParameter)
                     {
                         CLR.TypeSystem.ILType iltype = (CLR.TypeSystem.ILType)type;
-                        var genericInstances = iltype.GenericInstances;
-                        if (genericInstances != null)
+                        if (iltype.GenericInstances != null)
                         {
-                            for (int i = 0; i < genericInstances.Count; ++i)
+                            foreach(var i in iltype.GenericInstances)
                             {
-                                PrewarmType(genericInstances[i]);
+                                PrewarmType(i);
                             }
                         }
                     }
@@ -667,8 +666,8 @@ namespace ILRuntime.Runtime.Generated
             {
                 var mi = i.GetMethod("Invoke");
                 var miParameters = mi.GetParameters();
-                if (mi.ReturnType == typeof(void) && miParameters.Length == 0)
-                    continue;
+                //if (mi.ReturnType == typeof(void) && miParameters.Length == 0)
+                //    continue;
 
                 string clsName, realClsName, paramClsName, paramRealClsName;
                 bool isByRef, paramIsByRef;
@@ -725,8 +724,9 @@ namespace ILRuntime.Runtime.Generated
                         mi.ReturnType.GetClassName(out paramClsName, out paramRealClsName, out paramIsByRef);
                         sb.Append(paramRealClsName);
                         sb.AppendLine("> ();");
+                        sb.AppendLine();
                     }
-                    else
+                    else if (miParameters.Length != 0)
                     {
                         sb.Append("            app.DelegateManager.RegisterMethodDelegate<");
                         first = true;
@@ -742,8 +742,8 @@ namespace ILRuntime.Runtime.Generated
                             sb.Append(paramRealClsName);
                         }
                         sb.AppendLine("> ();");
+                        sb.AppendLine();
                     }
-                    sb.AppendLine();
 
                     sb.Append("            app.DelegateManager.RegisterDelegateConvertor<");
                     sb.Append(realClsName);
@@ -784,10 +784,14 @@ namespace ILRuntime.Runtime.Generated
                             sb.Append(", ");
                         mi.ReturnType.GetClassName(out paramClsName, out paramRealClsName, out paramIsByRef);
                         sb.Append(paramRealClsName);
+                        sb.Append(">)act)(");
                     }
                     else
                     {
-                        sb.Append("                    ((Action<");
+                        if (miParameters.Length != 0)
+                            sb.Append("                    ((Action<");
+                        else
+                            sb.Append("                    ((Action");
                         first = true;
                         foreach (var j in miParameters)
                         {
@@ -800,8 +804,11 @@ namespace ILRuntime.Runtime.Generated
                             j.ParameterType.GetClassName(out paramClsName, out paramRealClsName, out paramIsByRef);
                             sb.Append(paramRealClsName);
                         }
+                        if (miParameters.Length != 0)
+                            sb.Append(">)act)(");
+                        else
+                            sb.Append(")act)(");
                     }
-                    sb.Append(">)act)(");
                     first = true;
                     foreach (var j in miParameters)
                     {

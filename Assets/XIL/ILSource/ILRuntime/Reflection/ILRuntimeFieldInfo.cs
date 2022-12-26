@@ -1,4 +1,4 @@
-#if USE_ILRT
+﻿#if USE_ILRT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -157,8 +157,7 @@ namespace ILRuntime.Reflection
                 InitializeCustomAttribute();
 
             List<Attribute> res = new List<Attribute>();
-            int cnt = customAttributes.Length;
-            for (int i = 0; i < cnt; i++)
+            for (int i = 0; i < customAttributes.Length; i++)
             {
                 if (attributeTypes[i].Equals(attributeType) || attributeTypes[i].IsSubclassOf(attributeType))
                 {
@@ -168,6 +167,11 @@ namespace ILRuntime.Reflection
             return res.ToArray();
         }
 
+        public override object GetRawConstantValue()
+        {
+            return definition.Constant;
+        }
+
         public override object GetValue(object obj)
         {
             unsafe
@@ -175,6 +179,8 @@ namespace ILRuntime.Reflection
                 ILTypeInstance ins;
                 if (isStatic)
                 {
+                    if (definition.HasConstant)
+                        return definition.Constant;
                     ins = ilType.StaticInstance;
                 }
                 else
@@ -193,8 +199,8 @@ namespace ILRuntime.Reflection
             if (customAttributes == null)
                 InitializeCustomAttribute();
 
-            int cnt = customAttributes.Length;
-            for (int i = 0; i < cnt; i++)
+
+            for (int i = 0; i < customAttributes.Length; i++)
             {
                 if (attributeTypes[i].Equals(attributeType))
                 {

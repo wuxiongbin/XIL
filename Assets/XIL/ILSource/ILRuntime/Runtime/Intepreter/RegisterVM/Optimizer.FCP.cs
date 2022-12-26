@@ -1,4 +1,4 @@
-#if USE_ILRT
+﻿#if USE_ILRT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,8 +87,16 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
                                         ended = true;
                                         break;
                                     }
-                                    ReplaceOpcodeSource(ref Y, 0, xSrc);
-                                    replaced = true;
+                                    if (CanReplaceOpcodeSource(ref Y, 0))
+                                    {
+                                        ReplaceOpcodeSource(ref Y, 0, xSrc);
+                                        replaced = true;
+                                    }
+                                    else
+                                    {
+                                        ended = true;
+                                        break;
+                                    }
                                 }
                                 if (ySrc2 >= 0 && ySrc2 == xDst)
                                 {
@@ -103,8 +111,16 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
                                         ended = true;
                                         break;
                                     }
-                                    ReplaceOpcodeSource(ref Y, 1, xSrc);
-                                    replaced = true;
+                                    if (CanReplaceOpcodeSource(ref Y, 1))
+                                    {
+                                        ReplaceOpcodeSource(ref Y, 1, xSrc);
+                                        replaced = true;
+                                    }
+                                    else
+                                    {
+                                        ended = true;
+                                        break;
+                                    }
                                 }
                                 if (ySrc3 >= 0 && ySrc3 == xDst)
                                 {
@@ -119,8 +135,16 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
                                         ended = true;
                                         break;
                                     }
-                                    ReplaceOpcodeSource(ref Y, 2, xSrc);
-                                    replaced = true;
+                                    if (CanReplaceOpcodeSource(ref Y, 2))
+                                    {
+                                        ReplaceOpcodeSource(ref Y, 2, xSrc);
+                                        replaced = true;
+                                    }
+                                    else
+                                    {
+                                        ended = true;
+                                        break;
+                                    }
                                 }
 
                                 if (replaced)
@@ -216,8 +240,16 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
                                             cannotRemove = true;
                                             break;
                                         }
-                                        replaced = true;
-                                        ReplaceOpcodeSource(ref Y, 0, xSrc);
+                                        if (CanReplaceOpcodeSource(ref Y, 0))
+                                        {
+                                            replaced = true;
+                                            ReplaceOpcodeSource(ref Y, 0, xSrc);
+                                        }
+                                        else
+                                        {
+                                            cannotRemove = true;
+                                            break;
+                                        }
                                     }
                                     if (ySrc2 == xDst)
                                     {
@@ -226,8 +258,16 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
                                             cannotRemove = true;
                                             break;
                                         }
-                                        replaced = true;
-                                        ReplaceOpcodeSource(ref Y, 1, xSrc);
+                                        if (CanReplaceOpcodeSource(ref Y, 1))
+                                        {
+                                            replaced = true;
+                                            ReplaceOpcodeSource(ref Y, 1, xSrc);
+                                        }
+                                        else
+                                        {
+                                            cannotRemove = true;
+                                            break;
+                                        }
                                     }
                                     if (ySrc3 == xDst)
                                     {
@@ -236,8 +276,16 @@ namespace ILRuntime.Runtime.Intepreter.RegisterVM
                                             cannotRemove = true;
                                             break;
                                         }
-                                        replaced = true;
-                                        ReplaceOpcodeSource(ref Y, 2, xSrc);
+                                        if (CanReplaceOpcodeSource(ref Y, 2))
+                                        {
+                                            replaced = true;
+                                            ReplaceOpcodeSource(ref Y, 2, xSrc);
+                                        }
+                                        else
+                                        {
+                                            cannotRemove = true;
+                                            break;
+                                        }
                                     }
 
                                     if (replaced)

@@ -14,7 +14,6 @@ namespace PackTool
         const string path = "";
 
         const string MenuItemOpen_ILRT = "XIL/插件/开启/ILRT";
-        const string MenuItemOpen_HuaTuo = "XIL/插件/开启/华陀";
         const string MenuItemClose = "XIL/插件/取消";
 
         [MenuItem(MenuItemClose, true)]
@@ -33,20 +32,6 @@ namespace PackTool
             OpenHotPDBMacro.BufCannel();
             OpenHotDEBUGMacro.BufCannel();
 #endif
-        }
-
-        [MenuItem(MenuItemOpen_HuaTuo, true)]
-        public static bool HuaTuoCannelToggle()
-        {
-            MacroDefine macroDefine = new MacroDefine();
-            return !macroDefine.has(marco_HOT) || macroDefine.has(marco_ILRT);
-        }
-
-        [MenuItem(MenuItemOpen_HuaTuo, false, 1)]
-        public static void HuaTuofCannel()
-        {
-            BufCannel();
-            AddMacro(marco_HOT);
         }
 
         [MenuItem(MenuItemOpen_ILRT, true)]

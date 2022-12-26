@@ -574,7 +574,7 @@ namespace ILRuntime.CLR.TypeSystem
                             firstCLRInterface = adaptor;
                         }
                         else
-                            throw new TypeLoadException($"ILType:{interfaces[i].FullName} Cannot find Adaptor for:{interfaces[i].TypeForCLR.ToString()} FullName:{FullName}");
+                            throw new TypeLoadException("Cannot find Adaptor for:" + interfaces[i].TypeForCLR.ToString());
                     }
                 }
             }
@@ -662,7 +662,7 @@ namespace ILRuntime.CLR.TypeSystem
                                 baseType = adaptor;
                             }
                             else
-                                throw new TypeLoadException($"Cannot find Adaptor for:{baseType.TypeForCLR.ToString()} type:{definition.FullName}");
+                                throw new TypeLoadException("Cannot find Adaptor for:" + baseType.TypeForCLR.ToString());
                             //继承了其他系统类型
                             //env.logger.Log_Error("ScriptType:" + Name + " Based On a SystemType:" + BaseType.Name);
                             //HasSysBase = true;
@@ -754,6 +754,24 @@ namespace ILRuntime.CLR.TypeSystem
                     }
                     var m = new ILMethod(i, this, appdomain, jitFlags);
                     lst.Add(m);
+                }
+            }
+
+            foreach (var i in definition.Events)
+            {
+                int fieldIdx = -1;
+                InitializeFields();
+                if (i.AddMethod.IsStatic)
+                    staticFieldMapping.TryGetValue(i.Name, out fieldIdx);
+                else
+                    fieldMapping.TryGetValue(i.Name, out fieldIdx);
+                if (methods.TryGetValue(i.AddMethod.Name, out var lst))
+                {
+                    lst[0].SetEventAddOrRemove(true, false, fieldIdx);
+                }
+                if (methods.TryGetValue(i.RemoveMethod.Name, out lst))
+                {
+                    lst[0].SetEventAddOrRemove(false, true, fieldIdx);
                 }
             }
 

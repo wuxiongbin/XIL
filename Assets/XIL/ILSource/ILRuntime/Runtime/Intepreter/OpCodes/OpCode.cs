@@ -1,4 +1,4 @@
-#if USE_ILRT
+﻿#if USE_ILRT
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -151,10 +151,12 @@ namespace ILRuntime.Runtime.Intepreter.OpCodes
 
                 case OpCodeREnum.Stfld:
                 case OpCodeREnum.Ldfld:
+                case OpCodeREnum.Ldflda:
                     param = string.Format("r{0}, r{1}, 0x{2:X8}", Register1, Register2, OperandLong);
                     break;
                 case OpCodeREnum.Stsfld:
                 case OpCodeREnum.Ldsfld:
+                case OpCodeREnum.Ldsflda:
                     param = string.Format("r{0}, 0x{1:X8}", Register1, OperandLong);
                     break;
 
